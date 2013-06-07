@@ -9,18 +9,18 @@ CREATE TABLE nucleo (
 	id BIGSERIAL   NOT NULL ,
 	nome VARCHAR(255)   NOT NULL ,
 	origem VARCHAR(20)   NOT NULL ,
-	ocupacao VARCHAR(255)    ,
+	ocupacao VARCHAR(255)   NOT NULL ,
 	area_total DOUBLE PRECISION    ,
 	area_ocupada DOUBLE PRECISION    ,
-	num_domicilios INTEGER    ,
-	populacao_estimada INTEGER    ,
+	num_domicilios INTEGER   NOT NULL ,
+	populacao_estimada INTEGER   NOT NULL ,
 	pop_fonte_dados VARCHAR(45)   NOT NULL ,
 	pop_outra_fonte_dados VARCHAR(255)    ,
 	renda_populacao VARCHAR(45)   NOT NULL ,
 	inicio_ocupacao VARCHAR(45)    ,
-	setor_cadastral VARCHAR(20)    ,
+	setor_cadastral VARCHAR(20)   NOT NULL ,
 	zona VARCHAR(20)   NOT NULL ,
-	controle_ocupacao CHAR(3)    ,
+	controle_ocupacao CHAR(3)   NOT NULL ,
 	obs_controle_ocupacao TEXT    ,
 	padrao_construtivo VARCHAR(80)   NOT NULL ,
 	transporte_coletivo CHAR(3)   NOT NULL ,
@@ -64,7 +64,7 @@ CREATE TABLE situacao_fundiaria (
 	destinacao_areas DOUBLE PRECISION    ,
 	desc_destinacao_areas TEXT    ,
 	desc_zonas_solo TEXT    ,
-	desc_ecologico_economico TEXT    ,
+	desc_ecologico_economico TEXT   NOT NULL ,
 	processos_judiciais CHAR(3)   NOT NULL ,
 	num_processo VARCHAR(45)    ,
 	num_ordem VARCHAR(45)    ,
@@ -119,7 +119,6 @@ CREATE TABLE aspectos_ambientais (
 	id_nucleo BIGINT   NOT NULL ,
 	area_risco CHAR(3)   NOT NULL ,
 	app CHAR(3)   NOT NULL ,
-	app_qual TEXT    ,
 	area_verde CHAR(3)   NOT NULL ,
 	area_agricola CHAR(3)   NOT NULL ,
 	outros CHAR(3)   NOT NULL   ,
@@ -136,6 +135,27 @@ CREATE INDEX aspectos_ambientais_FK1 ON aspectos_ambientais (id_nucleo);
 CREATE INDEX IFK_nucleo_aspectos_ambientais ON aspectos_ambientais (id_nucleo);
 
 
+CREATE TABLE apps (
+  id BIGSERIAL   NOT NULL ,
+  id_aspecto_ambiental BIGINT   NOT NULL ,
+  corpo_dagua CHAR(3)   NOT NULL ,
+  brejo_charco CHAR(3)   NOT NULL ,
+  topo_morro CHAR(3)   NOT NULL ,
+  enconsta CHAR(3)   NOT NULL ,
+  restinga CHAR(3)   NOT NULL ,
+  outros CHAR(3)   NOT NULL ,
+  especifique_outros TEXT      ,
+PRIMARY KEY(id)  ,
+	FOREIGN KEY(id_aspecto_ambiental)
+		REFERENCES aspectos_ambientais(id));
+
+
+CREATE INDEX apps_FK1 ON apps (id_aspecto_ambiental);
+
+
+CREATE INDEX IFK_aspectos_ambientais_apps ON apps (id_aspecto_ambiental);
+
+
 CREATE TABLE area_risco (
 	id BIGSERIAL   NOT NULL ,
 	cd_setor VARCHAR(45)    ,
@@ -143,7 +163,7 @@ CREATE TABLE area_risco (
 	vegetacao VARCHAR(45)    ,
 	processo_instabilizacao VARCHAR(45)    ,
 	condicoes_solo VARCHAR(60)    ,
-	existe_pavimentacao VARCHAR(20)    ,
+	existe_pavimentacao VARCHAR(20)    NOT NULL ,
 	obs_pavimentacao VARCHAR(255)     ,
 	latitude DOUBLE PRECISION    ,
 	longitude DOUBLE PRECISION   ,
@@ -337,15 +357,15 @@ CREATE INDEX IFK_nucleo_anexo_transporte ON anexo_transporte (id_nucleo);
 CREATE TABLE imovel (
 	id BIGSERIAL   NOT NULL ,
 	id_nucleo BIGINT   NOT NULL ,
-	tipo_imovel VARCHAR(60)    ,
-	situacao_imovel VARCHAR(45)    ,
+	tipo_imovel VARCHAR(60)    NOT NULL ,
+	situacao_imovel VARCHAR(45)    NOT NULL ,
 	valor_aluguel DECIMAL(10,2)    ,
 	tipo_propriedade VARCHAR(45)    ,
 	doc_propriedade VARCHAR(60)    ,
 	num_doc_propriedade VARCHAR(45)    ,
 	construcao VARCHAR(20)    ,
 	localidade VARCHAR(255)    ,
-	paga_iptu CHAR(3)    ,
+	paga_iptu CHAR(3)    NOT NULL ,
 	ic VARCHAR(20)      ,
 	selagem VARCHAR(20)     ,
 PRIMARY KEY(id)  ,
@@ -362,21 +382,21 @@ CREATE INDEX IFK_nucleo_imovel ON imovel (id_nucleo);
 CREATE TABLE composicao_imovel (
 	id BIGSERIAL   NOT NULL ,
 	id_imovel BIGINT   NOT NULL ,
-	material_parede VARCHAR(100)    ,
+	material_parede VARCHAR(100)    NOT NULL ,
 	especifique_parede TEXT    ,
-	material_piso VARCHAR(100)    ,
+	material_piso VARCHAR(100)    NOT NULL ,
 	especifique_piso TEXT    ,
-	material_cobertura VARCHAR(100)    ,
+	material_cobertura VARCHAR(100)    NOT NULL ,
 	especifique_cobertura TEXT    ,
-	num_comodos INTEGER    ,
-	num_salas INTEGER    ,
-	num_cozinhas INTEGER    ,
-	num_quartos INTEGER    ,
-	num_banheiros INTEGER    ,
-	num_areas_servicos INTEGER    ,
-	num_anexos INTEGER    ,
-	num_outros_comodos INTEGER    ,
-	num_servem_dormitorio INTEGER      ,
+	num_comodos INTEGER    NOT NULL  DEFAULT 0 ,
+	num_salas INTEGER    NOT NULL  DEFAULT 0 ,
+	num_cozinhas INTEGER    NOT NULL  DEFAULT 0 ,
+	num_quartos INTEGER    NOT NULL  DEFAULT 0 ,
+	num_banheiros INTEGER    NOT NULL  DEFAULT 0 ,
+	num_areas_servicos INTEGER    NOT NULL  DEFAULT 0 ,
+	num_anexos INTEGER    NOT NULL  DEFAULT 0 ,
+	num_outros_comodos INTEGER    NOT NULL  DEFAULT 0 ,
+	num_servem_dormitorio INTEGER      NOT NULL  DEFAULT 0 ,
 PRIMARY KEY(id, id_imovel)  ,
 	FOREIGN KEY(id_imovel)
 		REFERENCES imovel(id));
@@ -391,15 +411,15 @@ CREATE INDEX IFK_composicao_imovel ON composicao_imovel (id_imovel);
 CREATE TABLE endereco_imovel (
 	id BIGSERIAL   NOT NULL ,
 	id_imovel BIGINT   NOT NULL ,
-	tipo_logradouro VARCHAR(50)    ,
-	logradouro VARCHAR(255)    ,
-	numero VARCHAR(20)    ,
+	tipo_logradouro VARCHAR(50)    NOT NULL ,
+	logradouro VARCHAR(255)    NOT NULL ,
+	numero VARCHAR(20)    NOT NULL ,
 	complemento VARCHAR(255)    ,
 	cep CHAR(10)    ,
-	bairro VARCHAR(80)    ,
-	municipio VARCHAR(80)    ,
-	uf CHAR(2)    ,
-	tipo_area VARCHAR(20)      ,
+	bairro VARCHAR(80)    NOT NULL ,
+	municipio VARCHAR(80)    NOT NULL ,
+	uf CHAR(2)    NOT NULL ,
+	tipo_area VARCHAR(20)      NOT NULL ,
 	latitude DOUBLE PRECISION    ,
 	longitude DOUBLE PRECISION   ,
 PRIMARY KEY(id, id_imovel)  ,
@@ -416,14 +436,14 @@ CREATE INDEX IFK_endereco_imovel ON endereco_imovel (id_imovel);
 CREATE TABLE servicos_imovel (
 	id BIGSERIAL   NOT NULL ,
 	id_imovel BIGINT   NOT NULL ,
-	existe_pavimentacao VARCHAR(45)    ,
-	iluminacao_utilizada VARCHAR(45)    ,
-	abastecimento_agua VARCHAR(45)    ,
-	tratamento_agua VARCHAR(45)    ,
-	agua_encanada VARCHAR(45)    ,
-	existe_banheiro CHAR(3)    ,
-	escoamento_sanitario VARCHAR(45)    ,
-	tratamento_lixo VARCHAR(45)    ,
+	existe_pavimentacao VARCHAR(45)    NOT NULL ,
+	iluminacao_utilizada VARCHAR(45)    NOT NULL ,
+	abastecimento_agua VARCHAR(45)    NOT NULL ,
+	tratamento_agua VARCHAR(45)    NOT NULL ,
+	agua_encanada VARCHAR(45)    NOT NULL ,
+	existe_banheiro CHAR(3)    NOT NULL ,
+	escoamento_sanitario VARCHAR(45)    NOT NULL ,
+	tratamento_lixo VARCHAR(45)    NOT NULL ,
 	presenca_animais VARCHAR(45)      ,
 PRIMARY KEY(id, id_imovel)  ,
 	FOREIGN KEY(id_imovel)
@@ -498,17 +518,18 @@ PRIMARY KEY(id));
 CREATE TABLE individuo (
 	id BIGSERIAL   NOT NULL ,
 	id_familia BIGINT   NOT NULL ,
-	nome VARCHAR(255)    ,
+	responsavel_familia CHAR(3)   NOT NULL  ,
+	nome VARCHAR(255)    NOT NULL  ,
 	apelido VARCHAR(80)    ,
 	idade VARCHAR(20)    ,
-	sexo CHAR(2)    ,
-	etnia VARCHAR(45)    ,
-	estado_civil VARCHAR(45)    ,
+	sexo CHAR(2)    NOT NULL  ,
+	etnia VARCHAR(45)    NOT NULL  ,
+	estado_civil VARCHAR(45)    NOT NULL  ,
 	nome_mae VARCHAR(255)    ,
 	nome_pai VARCHAR(255)    ,
-	responsavel VARCHAR(255)    ,
-	grau_parentesco VARCHAR(100)    ,
-	prestou_informacao VARCHAR(255)      ,
+	responsavel VARCHAR(255)    NOT NULL  ,
+	grau_parentesco VARCHAR(100)    NOT NULL  ,
+	prestou_informacao VARCHAR(255)      NOT NULL  ,
 PRIMARY KEY(id)  ,
 	FOREIGN KEY(id_familia)
 		REFERENCES familias(id));
@@ -524,9 +545,9 @@ CREATE TABLE nascimento_individuo (
 	id BIGSERIAL   NOT NULL ,
 	id_individuo BIGINT   NOT NULL ,
 	dt_nascimento DATE    ,
-	onde_nasceu VARCHAR(255)    ,
+	onde_nasceu VARCHAR(255)    NOT NULL  ,
 	naturalidade VARCHAR(100)    ,
-	nasc_registrado CHAR(3)    ,
+	nasc_registrado CHAR(3)    NOT NULL  ,
 	cd_cartorio VARCHAR(20)    ,
 	nm_cartorio VARCHAR(255)    ,
 	tipo_certidao VARCHAR(45)    ,
@@ -585,7 +606,7 @@ CREATE INDEX IFK_documentos_individuo ON documentos_individuo (id_individuo);
 CREATE TABLE escolaridade_individuo (
 	id BIGSERIAL   NOT NULL ,
 	id_individuo BIGINT   NOT NULL ,
-	grau_escolaridade VARCHAR(80)    ,
+	grau_escolaridade VARCHAR(80)    NOT NULL  ,
 	unidade_educacional VARCHAR(255)      ,
 PRIMARY KEY(id, id_individuo)  ,
 	FOREIGN KEY(id_individuo)
@@ -601,20 +622,20 @@ CREATE INDEX IFK_escolaridade_individuo ON escolaridade_individuo (id_individuo)
 CREATE TABLE profissional_individuo (
 	id BIGSERIAL   NOT NULL ,
 	id_individuo BIGINT   NOT NULL ,
-	situacao_trabalhista VARCHAR(80)    ,
+	situacao_trabalhista VARCHAR(80)    NOT NULL ,
 	obs_situacao_trabalhista TEXT    ,
 	tipo_trabalho VARCHAR(80)    ,
 	obs_tipo_trabalho TEXT    ,
 	nm_trabalho VARCHAR(255)    ,
 	possui_renda VARCHAR(45)    ,
-	renda DECIMAL(10,2)    ,
-	outras_rendas DECIMAL(10,2)    ,
+	renda DECIMAL(10,2)    NOT NULL  DEFAULT 0.00  ,
+	outras_rendas DECIMAL(10,2)    NOT NULL  DEFAULT 0.00  ,
 	tipo_beneficio VARCHAR(45)    ,
-	doacao_regular DECIMAL(10,2)    ,
-	aposentadoria_pensao DECIMAL(10,2)    ,
-	seg_desemprego DECIMAL(10,2)    ,
-	pensao_alimentar DECIMAL(10,2)    ,
-	outros_beneficios DECIMAL(10,2)    ,
+	doacao_regular DECIMAL(10,2)    NOT NULL  DEFAULT 0.00  ,
+	aposentadoria_pensao DECIMAL(10,2)    NOT NULL  DEFAULT 0.00  ,
+	seg_desemprego DECIMAL(10,2)    NOT NULL  DEFAULT 0.00  ,
+	pensao_alimentar DECIMAL(10,2)    NOT NULL  DEFAULT 0.00  ,
+	outros_beneficios DECIMAL(10,2)    NOT NULL  DEFAULT 0.00  ,
 	num_bpcloas VARCHAR(20)      ,
 PRIMARY KEY(id, id_individuo)  ,
 	FOREIGN KEY(id_individuo)
@@ -667,8 +688,8 @@ CREATE INDEX IFK_anexo_individuo ON anexo_individuo (id_individuo);
 
 CREATE TABLE empresa (
 	id BIGSERIAL   NOT NULL ,
-	razao_social VARCHAR(255)    ,
-	nm_fantasia VARCHAR(255)    ,
+	razao_social VARCHAR(255)    NOT NULL ,
+	nm_fantasia VARCHAR(255)    NOT NULL ,
 	fundador VARCHAR(255)    ,
 	dt_fundacao DATE    ,
 	local_origem VARCHAR(255)      ,
@@ -678,7 +699,7 @@ PRIMARY KEY(id));
 CREATE TABLE documentos_empresa (
 	id BIGSERIAL   NOT NULL ,
 	id_empresa BIGINT   NOT NULL ,
-	cnpj CHAR(18)    ,
+	cnpj CHAR(18)    NOT NULL ,
 	dt_emissao_cnpj DATE    ,
 	inscricao_estadual VARCHAR(20)    ,
 	dt_emissao_insc_estadual DATE    ,
@@ -821,12 +842,16 @@ PRIMARY KEY(id));
 CREATE TABLE grupos_permissoes (
 	id_grupo INTEGER   NOT NULL ,
 	id_permissao INTEGER   NOT NULL   ,
-	permitido CHAR(1)   NOT NULL   ,
+	permitido CHAR(1)   NOT NULL   DEFAULT 'N'   ,
 PRIMARY KEY(id_grupo, id_permissao)    ,
 	FOREIGN KEY(id_permissao)
-		REFERENCES permissoes(id),
+		REFERENCES permissoes(id)
+			ON DELETE CASCADE 
+			ON UPDATE CASCADE,
 	FOREIGN KEY(id_grupo)
-		REFERENCES grupos(id));
+		REFERENCES grupos(id))
+			ON DELETE CASCADE 
+			ON UPDATE CASCADE;
 
 
 CREATE INDEX grupos_permissoes_FK1 ON grupos_permissoes (id_permissao);
@@ -842,7 +867,7 @@ CREATE TABLE usuarios (
 	id_grupo INTEGER   NOT NULL ,
 	id_secretaria INTEGER   NOT NULL ,
 	matricula VARCHAR(20)   NOT NULL ,
-	senha VARCHAR(20)   NOT NULL ,
+	senha VARCHAR(32)   NOT NULL ,
 	foto TEXT    ,
 	nome VARCHAR(255)   NOT NULL ,
 	email VARCHAR(255)    ,

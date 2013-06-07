@@ -103,14 +103,14 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_inserir_individuo
-(BIGINT, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHAR(2), CHARACTER VARYING, CHARACTER VARYING, 
+(BIGINT, CHAR(3), CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHAR(2), CHARACTER VARYING, CHARACTER VARYING, 
 CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		INSERT INTO individuo (id_familia, nome, apelido, idade, sexo, etnia, estado_civil, nome_mae, nome_pai, responsavel, grau_parentesco, prestou_informacao) 
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);
+		INSERT INTO individuo (id_familia, responsavel_familia, nome, apelido, idade, sexo, etnia, estado_civil, nome_mae, nome_pai, responsavel, grau_parentesco, prestou_informacao) 
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -123,7 +123,7 @@ DECLARE
 	REF refcursor;
 BEGIN
 	OPEN REF FOR
-		SELECT id, id_familia, nome, apelido, idade, sexo, etnia, estado_civil, nome_mae, nome_pai, responsavel, grau_parentesco, prestou_informacao 
+		SELECT id, id_familia, responsavel_familia, nome, apelido, idade, sexo, etnia, estado_civil, nome_mae, nome_pai, responsavel, grau_parentesco, prestou_informacao 
 		FROM individuo WHERE id = $1;
 	RETURN REF;
 END;
@@ -136,7 +136,7 @@ DECLARE
 	REF refcursor;
 BEGIN
 	OPEN REF FOR
-		SELECT i.id, i.id_familia, i.nome, i.apelido, i.idade, i.sexo, i.etnia, i.estado_civil, i.nome_mae, i.nome_pai, i.responsavel, i.grau_parentesco, i.prestou_informacao 
+		SELECT i.id, i.id_familia, i.responsavel_familia, i.nome, i.apelido, i.idade, i.sexo, i.etnia, i.estado_civil, i.nome_mae, i.nome_pai, i.responsavel, i.grau_parentesco, i.prestou_informacao 
 		FROM individuo AS i INNER JOIN documentos_individuo AS di ON i.id = di.id_individuo WHERE di.num_cpf LIKE $1;
 	RETURN REF;
 END;
@@ -149,7 +149,7 @@ DECLARE
 	REF refcursor;
 BEGIN
 	OPEN REF FOR
-		SELECT id, id_familia, nome, apelido, idade, sexo, etnia, estado_civil, nome_mae, nome_pai, responsavel, grau_parentesco, prestou_informacao 
+		SELECT id, id_familia, responsavel_familia, nome, apelido, idade, sexo, etnia, estado_civil, nome_mae, nome_pai, responsavel, grau_parentesco, prestou_informacao 
 		FROM individuo;
 	RETURN REF;
 END;
@@ -157,14 +157,14 @@ $$ LANGUAGE PLPGSQL VOLATILE;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_individuo
-(BIGINT, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHAR(2), CHARACTER VARYING, CHARACTER VARYING, 
+(BIGINT, CHAR(3), CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHAR(2), CHARACTER VARYING, CHARACTER VARYING, 
 CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, BIGINT)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		UPDATE individuo SET id_familia = $1, nome = $2, apelido = $3, idade = $4, sexo = $5, etnia = $6, estado_civil = $7, nome_mae = $8, nome_pai = $9, 
-		responsavel = $10, grau_parentesco = $11, prestou_informacao = $12 WHERE id = $13;
+		UPDATE individuo SET id_familia = $1, responsavel_familia = $2, nome = $3, apelido = $4, idade = $5, sexo = $6, etnia = $7, estado_civil = $8, nome_mae = $9, nome_pai = $10, 
+		responsavel = $11, grau_parentesco = $12, prestou_informacao = $13 WHERE id = $14;
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -2412,13 +2412,13 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_inserir_aspecto_ambiental
-(BIGINT, CHAR(3), CHAR(3), TEXT, CHAR(3), CHAR(3), CHAR(3), DOUBLE PRECISION, DOUBLE PRECISION)
+(BIGINT, CHAR(3), CHAR(3), CHAR(3), CHAR(3), CHAR(3), DOUBLE PRECISION, DOUBLE PRECISION)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		INSERT INTO aspectos_ambientais (id_nucleo, area_risco, app, app_qual, area_verde, area_agricola, outros, latitude, longitude) 
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);
+		INSERT INTO aspectos_ambientais (id_nucleo, area_risco, app, area_verde, area_agricola, outros, latitude, longitude) 
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -2431,7 +2431,7 @@ DECLARE
 	REF refcursor;
 BEGIN
 	OPEN REF FOR
-		SELECT id, id_nucleo, area_risco, app, app_qual, area_verde, area_agricola, outros, latitude, longitude 
+		SELECT id, id_nucleo, area_risco, app, area_verde, area_agricola, outros, latitude, longitude 
 		FROM aspectos_ambientais WHERE id = $1;
 	RETURN REF;
 END;
@@ -2444,7 +2444,7 @@ DECLARE
 	REF refcursor;
 BEGIN
 	OPEN REF FOR
-		SELECT id, id_nucleo, area_risco, app, app_qual, area_verde, area_agricola, outros, latitude, longitude 
+		SELECT id, id_nucleo, area_risco, app, area_verde, area_agricola, outros, latitude, longitude 
 		FROM aspectos_ambientais WHERE id_nucleo = $1;
 	RETURN REF;
 END;
@@ -2452,13 +2452,13 @@ $$ LANGUAGE PLPGSQL VOLATILE;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_aspecto_ambiental
-(BIGINT, CHAR(3), CHAR(3), TEXT, CHAR(3), CHAR(3), CHAR(3), DOUBLE PRECISION, DOUBLE PRECISION, BIGINT)
+(BIGINT, CHAR(3), CHAR(3), CHAR(3), CHAR(3), CHAR(3), DOUBLE PRECISION, DOUBLE PRECISION, BIGINT)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		UPDATE aspectos_ambientais SET id_nucleo = $1, area_risco = $2, app = $3, app_qual = $4, area_verde = $5, area_agricola = $6, 
-		outros = $7, latitude = $8, longitude = $9 WHERE id = $10; 
+		UPDATE aspectos_ambientais SET id_nucleo = $1, area_risco = $2, app = $3, area_verde = $4, area_agricola = $5, 
+		outros = $6, latitude = $7, longitude = $8 WHERE id = $9; 
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -2471,6 +2471,75 @@ RETURNS INTEGER AS $$
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
 		DELETE FROM aspectos_ambientais WHERE id = $1;
+		GET DIAGNOSTICS affected_rows := ROW_COUNT;
+		RETURN affected_rows;
+	END;
+$$ LANGUAGE PLPGSQL;
+
+
+------------------------------ APPS -----------------------------
+
+
+CREATE OR REPLACE FUNCTION fn_inserir_app
+(BIGINT, CHAR(3), CHAR(3), CHAR(3), CHAR(3), CHAR(3), CHAR(3), TEXT)
+RETURNS INTEGER AS $$
+	DECLARE 
+		affected_rows INTEGER DEFAULT 0;
+	BEGIN
+		INSERT INTO apps (id_aspecto_ambiental, corpo_dagua, brejo_charco, topo_morro, enconsta, restinga, outros, especifique_outros) 
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
+		GET DIAGNOSTICS affected_rows := ROW_COUNT;
+		RETURN affected_rows;
+	END;
+$$ LANGUAGE PLPGSQL;
+
+
+CREATE OR REPLACE FUNCTION fn_selecionar_app_por_id(BIGINT)
+RETURNS refcursor AS $$
+DECLARE 
+	REF refcursor;
+BEGIN
+	OPEN REF FOR
+		SELECT id, id_aspecto_ambiental, corpo_dagua, brejo_charco, topo_morro, enconsta, restinga, outros, especifique_outros 
+		FROM apps WHERE id = $1;
+	RETURN REF;
+END;
+$$ LANGUAGE PLPGSQL VOLATILE;
+
+
+CREATE OR REPLACE FUNCTION fn_selecionar_app_por_id_aspecto_ambiental(BIGINT)
+RETURNS refcursor AS $$
+DECLARE 
+	REF refcursor;
+BEGIN
+	OPEN REF FOR
+		SELECT id, id_aspecto_ambiental, corpo_dagua, brejo_charco, topo_morro, enconsta, restinga, outros, especifique_outros 
+		FROM apps WHERE id_aspecto_ambiental = $1;
+	RETURN REF;
+END;
+$$ LANGUAGE PLPGSQL VOLATILE;
+
+
+CREATE OR REPLACE FUNCTION fn_alterar_app
+(BIGINT, CHAR(3), CHAR(3), CHAR(3), CHAR(3), CHAR(3), CHAR(3), TEXT, BIGINT)
+RETURNS INTEGER AS $$
+	DECLARE 
+		affected_rows INTEGER DEFAULT 0;
+	BEGIN
+		UPDATE apps SET id_aspecto_ambiental = $1, corpo_dagua = $2, brejo_charco = $3, topo_morro = $4, enconsta = $5, restinga = $6, 
+		outros = $7, especifique_outros = $8 WHERE id = $9;
+		GET DIAGNOSTICS affected_rows := ROW_COUNT;
+		RETURN affected_rows;
+	END;
+$$ LANGUAGE PLPGSQL;
+
+
+CREATE OR REPLACE FUNCTION fn_excluir_app(BIGINT)
+RETURNS INTEGER AS $$
+	DECLARE 
+		affected_rows INTEGER DEFAULT 0;
+	BEGIN
+		DELETE FROM apps WHERE id = $1;
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -3197,7 +3266,7 @@ RETURNS INTEGER AS $$
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
 		INSERT INTO usuarios (id_grupo, id_secretaria, matricula, senha, foto, nome, email, ativo) 
-		VALUES ($1, $2);
+		VALUES ($1, $2, $3, MD5($4), $5, $6, $7, $8);
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -3206,28 +3275,37 @@ $$ LANGUAGE PLPGSQL;
 
 CREATE OR REPLACE FUNCTION fn_selecionar_usuario_por_id(INTEGER)
 RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
-BEGIN
-	OPEN REF FOR
-		SELECT id, id_grupo, id_secretaria, matricula, senha, foto, nome, email, ativo 
-		FROM usuarios WHERE id = $1;
-	RETURN REF;
-END;
+	DECLARE 
+		REF refcursor;
+	BEGIN
+		OPEN REF FOR
+			SELECT id, id_grupo, id_secretaria, matricula, senha, foto, nome, email, ativo 
+			FROM usuarios WHERE id = $1;
+		RETURN REF;
+	END;
 $$ LANGUAGE PLPGSQL VOLATILE;
 
 
 CREATE OR REPLACE FUNCTION fn_listar_usuarios()
 RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
-BEGIN
-	OPEN REF FOR
-		SELECT id, id_grupo, id_secretaria, matricula, senha, foto, nome, email, ativo 
-		FROM usuarios;
-	RETURN REF;
-END;
+	DECLARE 
+		REF refcursor;
+	BEGIN
+		OPEN REF FOR
+			SELECT id, id_grupo, id_secretaria, matricula, senha, foto, nome, email, ativo 
+			FROM usuarios;
+		RETURN REF;
+	END;
 $$ LANGUAGE PLPGSQL VOLATILE;
+
+
+CREATE OR REPLACE FUNCTION fn_logon_usuario
+(CHARACTER VARYING, CHARACTER VARYING)
+RETURNS INTEGER AS $$
+	BEGIN
+		SELECT id FROM usuarios WHERE matricula = $1 AND senha = MD5($2) AND ativo = 'SIM';
+	END;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_usuario
@@ -3236,7 +3314,7 @@ RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		UPDATE usuarios SET id_grupo = $1, id_secretaria = $2, matricula = $3, senha = $4, foto = $5, nome = $6, email = $7, ativo = $8 
+		UPDATE usuarios SET id_grupo = $1, id_secretaria = $2, matricula = $3, senha = MD5($4), foto = $5, nome = $6, email = $7, ativo = $8 
 		WHERE id = $9;
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
