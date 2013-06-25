@@ -27,51 +27,42 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_familia_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_familia AS $$
+DECLARE
+    linha tp_familia;
 BEGIN
-	OPEN REF FOR
-		SELECT id, remocao_familia, situacao_remocao, especifique_remocao FROM familias WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, remocao_familia, situacao_remocao, especifique_remocao FROM familias WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_familia_por_remocao_familia(CHAR(3))
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_familia AS $$
+DECLARE
+    linha tp_familia;
 BEGIN
-	OPEN REF FOR
-		SELECT id, remocao_familia, situacao_remocao, especifique_remocao FROM familias WHERE remocao_familia = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, remocao_familia, situacao_remocao, especifique_remocao FROM familias WHERE remocao_familia = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_familia_por_situacao_remocao(CHARACTER VARYING)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_familia AS $$
+DECLARE
+    linha tp_familia;
 BEGIN
-	OPEN REF FOR
-		SELECT id, remocao_familia, situacao_remocao, especifique_remocao FROM familias WHERE situacao_remocao LIKE $1;
-	RETURN REF;
+    FOR linha IN SELECT id, remocao_familia, situacao_remocao, especifique_remocao FROM familias WHERE situacao_remocao LIKE $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
-
-
-CREATE OR REPLACE FUNCTION fn_listar_familias()
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
-BEGIN
-	OPEN REF FOR
-		SELECT id, remocao_familia, situacao_remocao, especifique_remocao FROM familias;
-	RETURN REF;
-END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_familia
@@ -118,42 +109,32 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_individuo_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_individuo AS $$
+DECLARE
+    linha tp_individuo;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_familia, responsavel_familia, nome, apelido, idade, sexo, etnia, estado_civil, nome_mae, nome_pai, responsavel, grau_parentesco, prestou_informacao 
-		FROM individuo WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_familia, responsavel_familia, nome, apelido, idade, sexo, etnia, estado_civil, nome_mae, nome_pai, responsavel, grau_parentesco, prestou_informacao 
+	FROM individuo WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_individuo_por_cpf(CHARACTER VARYING)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_individuo AS $$
+DECLARE
+    linha tp_individuo;
 BEGIN
-	OPEN REF FOR
-		SELECT i.id, i.id_familia, i.responsavel_familia, i.nome, i.apelido, i.idade, i.sexo, i.etnia, i.estado_civil, i.nome_mae, i.nome_pai, i.responsavel, i.grau_parentesco, i.prestou_informacao 
-		FROM individuo AS i INNER JOIN documentos_individuo AS di ON i.id = di.id_individuo WHERE di.num_cpf LIKE $1;
-	RETURN REF;
+    FOR linha IN SELECT i.id, i.id_familia, i.responsavel_familia, i.nome, i.apelido, i.idade, i.sexo, i.etnia, i.estado_civil, i.nome_mae, 
+	i.nome_pai, i.responsavel, i.grau_parentesco, i.prestou_informacao FROM individuo AS i INNER JOIN documentos_individuo AS di 
+	ON i.id = di.id_individuo WHERE di.num_cpf LIKE $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
-
-
-CREATE OR REPLACE FUNCTION fn_listar_individuos()
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
-BEGIN
-	OPEN REF FOR
-		SELECT id, id_familia, responsavel_familia, nome, apelido, idade, sexo, etnia, estado_civil, nome_mae, nome_pai, responsavel, grau_parentesco, prestou_informacao 
-		FROM individuo;
-	RETURN REF;
-END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_individuo
@@ -183,17 +164,17 @@ RETURNS INTEGER AS $$
 $$ LANGUAGE PLPGSQL;
 
 
--------------------- NASCIMENTO INDIVÍDUO -----------------
+-------------------- CERTIDÃO INDIVÍDUO -----------------
 
 
-CREATE OR REPLACE FUNCTION fn_inserir_nascimento_individuo
+CREATE OR REPLACE FUNCTION fn_inserir_certidao_individuo
 (BIGINT, DATE, CHARACTER VARYING, CHARACTER VARYING, CHAR(3), CHARACTER VARYING, CHARACTER VARYING, 
 CHARACTER VARYING, DATE, CHARACTER VARYING, CHAR(2), CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		INSERT INTO nascimento_individuo (id_individuo, dt_nascimento, onde_nasceu, naturalidade, nasc_registrado, cd_cartorio, nm_cartorio, tipo_certidao, 
+		INSERT INTO certidao_individuo (id_individuo, dt_nascimento, onde_nasceu, naturalidade, nasc_registrado, cd_cartorio, nm_cartorio, tipo_certidao, 
 		dt_reg_certidao, municipio_certidao, uf_certidao, num_termo, num_livro, num_folha) 
 		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14);
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
@@ -202,42 +183,44 @@ RETURNS INTEGER AS $$
 $$ LANGUAGE PLPGSQL;
 
 
-CREATE OR REPLACE FUNCTION fn_selecionar_nascimento_individuo_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+CREATE OR REPLACE FUNCTION fn_selecionar_certidao_individuo_por_id(BIGINT) 
+RETURNS SETOF tp_certidao_individuo AS $$
+DECLARE
+    linha tp_certidao_individuo;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_individuo, dt_nascimento, onde_nasceu, naturalidade, nasc_registrado, cd_cartorio, nm_cartorio, tipo_certidao, dt_reg_certidao, 
-		municipio_certidao, uf_certidao, num_termo, num_livro, num_folha 
-		FROM nascimento_individuo WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_individuo, dt_nascimento, onde_nasceu, naturalidade, nasc_registrado, cd_cartorio, nm_cartorio, tipo_certidao, dt_reg_certidao, 
+	municipio_certidao, uf_certidao, num_termo, num_livro, num_folha 
+	FROM certidao_individuo WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
-CREATE OR REPLACE FUNCTION fn_selecionar_nascimento_individuo_por_id_individuo(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+CREATE OR REPLACE FUNCTION fn_selecionar_certidao_individuo_por_id_individuo(BIGINT) 
+RETURNS SETOF tp_certidao_individuo AS $$
+DECLARE
+    linha tp_certidao_individuo;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_individuo, dt_nascimento, onde_nasceu, naturalidade, nasc_registrado, cd_cartorio, nm_cartorio, tipo_certidao, dt_reg_certidao, 
-		municipio_certidao, uf_certidao, num_termo, num_livro, num_folha 
-		FROM nascimento_individuo WHERE id_individuo = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_individuo, dt_nascimento, onde_nasceu, naturalidade, nasc_registrado, cd_cartorio, nm_cartorio, tipo_certidao, dt_reg_certidao, 
+	municipio_certidao, uf_certidao, num_termo, num_livro, num_folha 
+	FROM certidao_individuo WHERE id_individuo = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
-CREATE OR REPLACE FUNCTION fn_alterar_nascimento_individuo
+CREATE OR REPLACE FUNCTION fn_alterar_certidao_individuo
 (BIGINT, DATE, CHARACTER VARYING, CHARACTER VARYING, CHAR(3), CHARACTER VARYING, CHARACTER VARYING, 
 CHARACTER VARYING, DATE, CHARACTER VARYING, CHAR(2), CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, BIGINT)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		UPDATE nascimento_individuo SET id_individuo = $1, dt_nascimento = $2, onde_nasceu = $3, naturalidade = $4, nasc_registrado = $5, cd_cartorio = $6, 
+		UPDATE certidao_individuo SET id_individuo = $1, dt_nascimento = $2, onde_nasceu = $3, naturalidade = $4, nasc_registrado = $5, cd_cartorio = $6, 
 		nm_cartorio = $7, tipo_certidao = $8, dt_reg_certidao = $9, municipio_certidao = $10, uf_certidao = $11, num_termo = $12, num_livro = $13, 
 		num_folha = $14 WHERE id = $15;
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
@@ -246,12 +229,12 @@ RETURNS INTEGER AS $$
 $$ LANGUAGE PLPGSQL;
 
 
-CREATE OR REPLACE FUNCTION fn_excluir_nascimento_individuo(BIGINT)
+CREATE OR REPLACE FUNCTION fn_excluir_certidao_individuo(BIGINT)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		DELETE FROM nascimento_individuo WHERE id = $1;
+		DELETE FROM certidao_individuo WHERE id = $1;
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -262,17 +245,15 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_inserir_documentos_individuo
-(BIGINT, CHARACTER VARYING, CHARACTER VARYING, CHAR(3), DATE, CHAR(14), CHARACTER VARYING, CHARACTER VARYING, 
-CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, DATE, CHAR(3), CHARACTER VARYING, 
-CHARACTER VARYING, CHARACTER VARYING, DATE, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING)
+(BIGINT, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, DATE, CHAR(2), CHARACTER VARYING, 
+CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		INSERT INTO documentos_individuo (id_individuo, num_rg, complemento_rg, orgao_emissor_rg, dt_emissao_rg, num_cpf, sts_cpf, num_eleitor, zona_eleitor, 
-		secao_eleitor, num_cart_trab, serie_cart_trab, dt_emissao_cart_trab, orgao_emissor_cart_trab, tipo_cart_moto, num_cart_moto, serie_cart_moto, 
-		dt_emissao_cart_moto, num_nis, num_pis, num_pasep, inscricao_mcmv) 
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22);
+		INSERT INTO documentos_individuo (id_individuo, tipo, numero, serie, data_emissao, uf_emissao, cidade, 
+		orgao_emissor, zona, secao, categoria, validade, sts_documento) 
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -280,47 +261,45 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_documentos_individuo_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_documento_individuo AS $$
+DECLARE
+    linha tp_documento_individuo;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_individuo, num_rg, complemento_rg, orgao_emissor_rg, dt_emissao_rg, num_cpf, sts_cpf, num_eleitor, zona_eleitor, 
-		secao_eleitor, num_cart_trab, serie_cart_trab, dt_emissao_cart_trab, orgao_emissor_cart_trab, tipo_cart_moto, num_cart_moto, serie_cart_moto, 
-		dt_emissao_cart_moto, num_nis, num_pis, num_pasep, inscricao_mcmv 
-		FROM documentos_individuo WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_individuo, tipo, numero, serie, data_emissao, uf_emissao, cidade, 
+		orgao_emissor, zona, secao, categoria, validade, sts_documento 
+	FROM documentos_individuo WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_documentos_individuo_por_id_individuo(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_documento_individuo AS $$
+DECLARE
+    linha tp_documento_individuo;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_individuo, num_rg, complemento_rg, orgao_emissor_rg, dt_emissao_rg, num_cpf, sts_cpf, num_eleitor, zona_eleitor, 
-		secao_eleitor, num_cart_trab, serie_cart_trab, dt_emissao_cart_trab, orgao_emissor_cart_trab, tipo_cart_moto, num_cart_moto, serie_cart_moto, 
-		dt_emissao_cart_moto, num_nis, num_pis, num_pasep, inscricao_mcmv 
-		FROM documentos_individuo WHERE id_individuo = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_individuo, tipo, numero, serie, data_emissao, uf_emissao, cidade, 
+		orgao_emissor, zona, secao, categoria, validade, sts_documento 
+	FROM documentos_individuo WHERE id_individuo = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_documentos_individuo
-(BIGINT, CHARACTER VARYING, CHARACTER VARYING, CHAR(3), DATE, CHAR(14), CHARACTER VARYING, CHARACTER VARYING, 
-CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, DATE, CHAR(3), CHARACTER VARYING, 
-CHARACTER VARYING, CHARACTER VARYING, DATE, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, BIGINT)
+(BIGINT, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, DATE, CHAR(2), CHARACTER VARYING, CHARACTER VARYING, 
+CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, BIGINT)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		UPDATE documentos_individuo SET id_individuo = $1, num_rg = $2, complemento_rg = $3, orgao_emissor_rg = $4, dt_emissao_rg = $5, num_cpf = $6, 
-		sts_cpf = $7, num_eleitor = $8, zona_eleitor = $9, secao_eleitor = $10, num_cart_trab = $11, serie_cart_trab = $12, dt_emissao_cart_trab = $13, 
-		orgao_emissor_cart_trab = $14, tipo_cart_moto = $15, num_cart_moto = $16, serie_cart_moto = $17, dt_emissao_cart_moto = $18, num_nis = $19, 
-		num_pis = $20, num_pasep = $21, inscricao_mcmv = $22 WHERE id = $23; 
+		UPDATE documentos_individuo SET id_individuo = $1, tipo = $2, numero = $3, serie = $4, data_emissao = $5, uf_emissao = $6, 
+		cidade = $7, orgao_emissor = $8, zona = $9, secao = $10, categoria = $11, validade = $12, sts_documento = $13 
+		WHERE id = $14; 
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -343,13 +322,13 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_inserir_escolaridade_individuo
-(BIGINT, CHARACTER VARYING, CHARACTER VARYING)
+(BIGINT, CHAR(3), CHARACTER VARYING, CHARACTER VARYING)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		INSERT INTO escolaridade_individuo (id_individuo, grau_escolaridade, unidade_educacional) 
-		VALUES ($1, $2, $3);
+		INSERT INTO escolaridade_individuo (id_individuo, le_escreve, grau_escolaridade, unidade_educacional) 
+		VALUES ($1, $2, $3, $4);
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -357,39 +336,39 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_escolaridade_individuo_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_escolaridade_individuo AS $$
+DECLARE
+    linha tp_escolaridade_individuo;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_individuo, grau_escolaridade, unidade_educacional 
-		FROM escolaridade_individuo WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_individuo, le_escreve, grau_escolaridade, unidade_educacional FROM escolaridade_individuo WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_escolaridade_individuo_por_id_individuo(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_escolaridade_individuo AS $$
+DECLARE
+    linha tp_escolaridade_individuo;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_individuo, grau_escolaridade, unidade_educacional  
-		FROM escolaridade_individuo WHERE id_individuo = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_individuo, le_escreve, grau_escolaridade, unidade_educacional FROM escolaridade_individuo WHERE id_individuo = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_escolaridade_individuo
-(BIGINT, CHARACTER VARYING, CHARACTER VARYING, BIGINT)
+(BIGINT, CHAR(3), CHARACTER VARYING, CHARACTER VARYING, BIGINT)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		UPDATE escolaridade_individuo SET id_individuo = $1, grau_escolaridade = $2, unidade_educacional = $3  
-		WHERE id = $4;
+		UPDATE escolaridade_individuo SET id_individuo = $1, le_escreve = $2, grau_escolaridade = $3, unidade_educacional = $4  
+		WHERE id = $5;
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -428,31 +407,33 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_profissional_individuo_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_profissional_individuo AS $$
+DECLARE
+    linha tp_profissional_individuo;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_individuo, situacao_trabalhista, obs_situacao_trabalhista, tipo_trabalho, obs_tipo_trabalho, nm_trabalho, possui_renda, 
-		renda, outras_rendas, tipo_beneficio, doacao_regular, aposentadoria_pensao, seg_desemprego, pensao_alimentar, outros_beneficios, num_bpcloas
-		FROM profissional_individuo WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_individuo, situacao_trabalhista, obs_situacao_trabalhista, tipo_trabalho, obs_tipo_trabalho, nm_trabalho, possui_renda, 
+	renda, outras_rendas, tipo_beneficio, doacao_regular, aposentadoria_pensao, seg_desemprego, pensao_alimentar, outros_beneficios, num_bpcloas
+	FROM profissional_individuo WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_profissional_individuo_por_id_individuo(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_profissional_individuo AS $$
+DECLARE
+    linha tp_profissional_individuo;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_individuo, situacao_trabalhista, obs_situacao_trabalhista, tipo_trabalho, obs_tipo_trabalho, nm_trabalho, possui_renda, 
-		renda, outras_rendas, tipo_beneficio, doacao_regular, aposentadoria_pensao, seg_desemprego, pensao_alimentar, outros_beneficios, num_bpcloas
-		FROM profissional_individuo WHERE id_individuo = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_individuo, situacao_trabalhista, obs_situacao_trabalhista, tipo_trabalho, obs_tipo_trabalho, nm_trabalho, possui_renda, 
+	renda, outras_rendas, tipo_beneficio, doacao_regular, aposentadoria_pensao, seg_desemprego, pensao_alimentar, outros_beneficios, num_bpcloas
+	FROM profissional_individuo WHERE id_individuo = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_profissional_individuo
@@ -502,29 +483,31 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_deficiente_individuo_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_deficiente_individuo AS $$
+DECLARE
+    linha tp_deficiente_individuo;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_individuo, deficiente, tipo_deficiencia, obs_tipo_deficiencia, causa_deficiencia, obs_causa_deficiencia, 
-		quando_adquiriu, depende_cuidados, cadastro_sepedi FROM deficiente_individuo WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_individuo, deficiente, tipo_deficiencia, obs_tipo_deficiencia, causa_deficiencia, obs_causa_deficiencia, 
+	quando_adquiriu, depende_cuidados, cadastro_sepedi FROM deficiente_individuo WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_deficiente_individuo_por_id_individuo(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_deficiente_individuo AS $$
+DECLARE
+    linha tp_deficiente_individuo;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_individuo, deficiente, tipo_deficiencia, obs_tipo_deficiencia, causa_deficiencia, obs_causa_deficiencia, 
-		quando_adquiriu, depende_cuidados, cadastro_sepedi FROM deficiente_individuo WHERE id_individuo = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_individuo, deficiente, tipo_deficiencia, obs_tipo_deficiencia, causa_deficiencia, obs_causa_deficiencia, 
+	quando_adquiriu, depende_cuidados, cadastro_sepedi FROM deficiente_individuo WHERE id_individuo = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_deficiente_individuo
@@ -570,39 +553,42 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_anexo_individuo_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_anexo_individuo AS $$
+DECLARE
+    linha tp_anexo_individuo;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_individuo, caminho, tipo FROM anexo_individuo WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_individuo, caminho, tipo FROM anexo_individuo WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_anexo_individuo_por_id_individuo(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_anexo_individuo AS $$
+DECLARE
+    linha tp_anexo_individuo;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_individuo, caminho, tipo FROM anexo_individuo WHERE id_individuo = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_individuo, caminho, tipo FROM anexo_individuo WHERE id_individuo = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_anexo_individuo_por_tipo(BIGINT, CHAR(1))
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_anexo_individuo AS $$
+DECLARE
+    linha tp_anexo_individuo;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_individuo, caminho, tipo FROM anexo_individuo WHERE id_individuo = $1 AND tipo = $2;
-	RETURN REF;
+    FOR linha IN SELECT id, id_individuo, caminho, tipo FROM anexo_individuo WHERE id_individuo = $1 AND tipo = $2 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_anexo_individuo
@@ -659,51 +645,42 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_empresa_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_empresa AS $$
+DECLARE
+    linha tp_empresa;
 BEGIN
-	OPEN REF FOR
-		SELECT id, razao_social, nm_fantasia, fundador, dt_fundacao, local_origem FROM empresa WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, razao_social, nm_fantasia, fundador, dt_fundacao, local_origem FROM empresa WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_empresa_por_razao_social(CHARACTER VARYING)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_empresa AS $$
+DECLARE
+    linha tp_empresa;
 BEGIN
-	OPEN REF FOR
-		SELECT id, razao_social, nm_fantasia, fundador, dt_fundacao, local_origem FROM empresa WHERE razao_social LIKE $1;
-	RETURN REF;
+    FOR linha IN SELECT id, razao_social, nm_fantasia, fundador, dt_fundacao, local_origem FROM empresa WHERE razao_social LIKE $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_empresa_por_fantasia(CHARACTER VARYING)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_empresa AS $$
+DECLARE
+    linha tp_empresa;
 BEGIN
-	OPEN REF FOR
-		SELECT id, razao_social, nm_fantasia, fundador, dt_fundacao, local_origem FROM empresa WHERE nm_fantasia LIKE $1;
-	RETURN REF;
+    FOR linha IN SELECT id, razao_social, nm_fantasia, fundador, dt_fundacao, local_origem FROM empresa WHERE nm_fantasia LIKE $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
-
-
-CREATE OR REPLACE FUNCTION fn_listar_empresas()
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
-BEGIN
-	OPEN REF FOR
-		SELECT id, razao_social, nm_fantasia, fundador, dt_fundacao, local_origem FROM empresa;
-	RETURN REF;
-END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_empresa
@@ -749,29 +726,31 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_documentos_empresa_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_documento_empresa AS $$
+DECLARE
+    linha tp_documento_empresa;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_empresa, cnpj, dt_emissao_cnpj, inscricao_estadual, dt_emissao_insc_estadual, alvara, 
-		dt_emissao_alvara, dt_validade_alvara FROM documentos_empresa WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_empresa, cnpj, dt_emissao_cnpj, inscricao_estadual, dt_emissao_insc_estadual, alvara, 
+	dt_emissao_alvara, dt_validade_alvara FROM documentos_empresa WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_documentos_empresa_por_id_empresa(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_documento_empresa AS $$
+DECLARE
+    linha tp_documento_empresa;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_empresa, cnpj, dt_emissao_cnpj, inscricao_estadual, dt_emissao_insc_estadual, alvara, 
-		dt_emissao_alvara, dt_validade_alvara FROM documentos_empresa WHERE id_empresa = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_empresa, cnpj, dt_emissao_cnpj, inscricao_estadual, dt_emissao_insc_estadual, alvara, 
+	dt_emissao_alvara, dt_validade_alvara FROM documentos_empresa WHERE id_empresa = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_documentos_empresa
@@ -801,19 +780,6 @@ $$ LANGUAGE PLPGSQL;
 
 
 ------------------------ TELEFONES ---------------------
-
-
-CREATE OR REPLACE FUNCTION fn_selecionar_telefone_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
-BEGIN
-	OPEN REF FOR
-		SELECT id, id_individuo, id_empresa, tipo_telefone, num_telefone 
-		FROM telefones WHERE id = $1;
-	RETURN REF;
-END;
-$$ LANGUAGE PLPGSQL VOLATILE;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_telefone
@@ -859,17 +825,30 @@ RETURNS INTEGER AS $$
 $$ LANGUAGE PLPGSQL;
 
 
-CREATE OR REPLACE FUNCTION fn_procurar_telefone_por_id_individuo(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+CREATE OR REPLACE FUNCTION fn_selecionar_telefone_individuo_por_id(BIGINT)
+RETURNS SETOF tp_telefone AS $$
+DECLARE
+    linha tp_telefone;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_individuo, tipo_telefone, num_telefone 
-		FROM telefones WHERE id_individuo = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_individuo, tipo_telefone, num_telefone FROM telefones WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
+
+
+CREATE OR REPLACE FUNCTION fn_procurar_telefone_por_id_individuo(BIGINT)
+RETURNS SETOF tp_telefone AS $$
+DECLARE
+    linha tp_telefone;
+BEGIN
+    FOR linha IN SELECT id, id_individuo, id_empresa, tipo_telefone, num_telefone FROM telefones WHERE id_individuo = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
+END;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_excluir_telefone_por_id_individuo(BIGINT)
@@ -901,17 +880,30 @@ RETURNS INTEGER AS $$
 $$ LANGUAGE PLPGSQL;
 
 
-CREATE OR REPLACE FUNCTION fn_procurar_telefone_por_id_empresa(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+CREATE OR REPLACE FUNCTION fn_selecionar_telefone_empresa_por_id(BIGINT)
+RETURNS SETOF tp_telefone AS $$
+DECLARE
+    linha tp_telefone;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_empresa, tipo_telefone, num_telefone 
-		FROM telefones WHERE id_empresa = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_empresa, tipo_telefone, num_telefone FROM telefones WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
+
+
+CREATE OR REPLACE FUNCTION fn_procurar_telefone_por_id_empresa(BIGINT)
+RETURNS SETOF tp_telefone AS $$
+DECLARE
+    linha tp_telefone;
+BEGIN
+    FOR linha IN SELECT id, id_individuo, id_empresa, tipo_telefone, num_telefone FROM telefones WHERE id_empresa = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
+END;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_excluir_telefone_por_id_empresa(BIGINT)
@@ -945,120 +937,118 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_imovel_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_imovel AS $$
+DECLARE
+    linha tp_imovel;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_nucleo, tipo_imovel, situacao_imovel, valor_aluguel, tipo_propriedade, doc_propriedade, num_doc_propriedade, construcao, localidade, paga_iptu, ic, selagem  
-		FROM imovel WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_nucleo, tipo_imovel, situacao_imovel, valor_aluguel, tipo_propriedade, doc_propriedade, num_doc_propriedade, construcao, 
+	localidade, paga_iptu, ic, selagem FROM imovel WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_imovel_por_tipo(CHARACTER VARYING)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_imovel AS $$
+DECLARE
+    linha tp_imovel;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_nucleo, tipo_imovel, situacao_imovel, valor_aluguel, tipo_propriedade, doc_propriedade, num_doc_propriedade, construcao, localidade, paga_iptu, ic, selagem 
-		FROM imovel WHERE tipo_imovel LIKE $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_nucleo, tipo_imovel, situacao_imovel, valor_aluguel, tipo_propriedade, doc_propriedade, num_doc_propriedade, construcao, 
+	localidade, paga_iptu, ic, selagem FROM imovel WHERE tipo_imovel LIKE $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_imovel_por_situacao(CHARACTER VARYING)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_imovel AS $$
+DECLARE
+    linha tp_imovel;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_nucleo, tipo_imovel, situacao_imovel, valor_aluguel, tipo_propriedade, doc_propriedade, num_doc_propriedade, construcao, localidade, paga_iptu, ic, selagem 
-		FROM imovel WHERE situacao_imovel LIKE $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_nucleo, tipo_imovel, situacao_imovel, valor_aluguel, tipo_propriedade, doc_propriedade, num_doc_propriedade, construcao, 
+	localidade, paga_iptu, ic, selagem FROM imovel WHERE situacao_imovel LIKE $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_imovel_por_num_documento(CHARACTER VARYING)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_imovel AS $$
+DECLARE
+    linha tp_imovel;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_nucleo, tipo_imovel, situacao_imovel, valor_aluguel, tipo_propriedade, doc_propriedade, num_doc_propriedade, construcao, localidade, paga_iptu, ic, selagem 
-		FROM imovel WHERE num_doc_propriedade LIKE $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_nucleo, tipo_imovel, situacao_imovel, valor_aluguel, tipo_propriedade, doc_propriedade, num_doc_propriedade, construcao, 
+	localidade, paga_iptu, ic, selagem FROM imovel WHERE num_doc_propriedade LIKE $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_imovel_por_localidade(CHARACTER VARYING)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_imovel AS $$
+DECLARE
+    linha tp_imovel;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_nucleo, tipo_imovel, situacao_imovel, valor_aluguel, tipo_propriedade, doc_propriedade, num_doc_propriedade, construcao, localidade, paga_iptu, ic, selagem  
-		FROM imovel WHERE localidade LIKE $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_nucleo, tipo_imovel, situacao_imovel, valor_aluguel, tipo_propriedade, doc_propriedade, num_doc_propriedade, construcao, 
+	localidade, paga_iptu, ic, selagem FROM imovel WHERE localidade LIKE $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
-CREATE OR REPLACE FUNCTION fn_procurar_imovel_por_endereco(CHARACTER VARYING)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+CREATE OR REPLACE FUNCTION fn_procurar_imovel_por_logradouro(CHARACTER VARYING)
+RETURNS SETOF tp_imovel AS $$
+DECLARE
+    linha tp_imovel;
 BEGIN
-	OPEN REF FOR
-		SELECT i.id, i.id_nucleo, i.tipo_imovel, i.situacao_imovel, i.valor_aluguel, i.tipo_propriedade, i.doc_propriedade, i.num_doc_propriedade, i.construcao, i.localidade, i.paga_iptu, i.ic, i.selagem 
-		FROM imovel AS i INNER JOIN endereco_imovel AS ei ON i.id = ei.id_imovel WHERE ei.logradouro LIKE $1;
-	RETURN REF;
+    FOR linha IN SELECT i.id, i.id_nucleo, i.tipo_imovel, i.situacao_imovel, i.valor_aluguel, i.tipo_propriedade, i.doc_propriedade, i.num_doc_propriedade, 
+	i.construcao, i.localidade, i.paga_iptu, i.ic, i.selagem FROM imovel AS i INNER JOIN endereco_imovel AS ei ON i.id = ei.id_imovel 
+	WHERE ei.logradouro LIKE $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_imovel_por_cep(CHARACTER VARYING)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_imovel AS $$
+DECLARE
+    linha tp_imovel;
 BEGIN
-	OPEN REF FOR
-		SELECT i.id, i.id_nucleo, i.tipo_imovel, i.situacao_imovel, i.valor_aluguel, i.tipo_propriedade, i.doc_propriedade, i.num_doc_propriedade, i.construcao, i.localidade, i.paga_iptu, i.ic, i.selagem 
-		FROM imovel AS i INNER JOIN endereco_imovel AS ei ON i.id = ei.id_imovel WHERE ei.cep LIKE $1;
-	RETURN REF;
+    FOR linha IN SELECT i.id, i.id_nucleo, i.tipo_imovel, i.situacao_imovel, i.valor_aluguel, i.tipo_propriedade, i.doc_propriedade, i.num_doc_propriedade, 
+	i.construcao, i.localidade, i.paga_iptu, i.ic, i.selagem FROM imovel AS i INNER JOIN endereco_imovel AS ei ON i.id = ei.id_imovel 
+	WHERE ei.cep LIKE $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_imovel_por_bairro(CHARACTER VARYING)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_imovel AS $$
+DECLARE
+    linha tp_imovel;
 BEGIN
-	OPEN REF FOR
-		SELECT i.id, i.id_nucleo, i.tipo_imovel, i.situacao_imovel, i.valor_aluguel, i.tipo_propriedade, i.doc_propriedade, i.num_doc_propriedade, i.construcao, i.localidade, i.paga_iptu, i.ic, i.selagem 
-		FROM imovel AS i INNER JOIN endereco_imovel AS ei ON i.id = ei.id_imovel WHERE ei.bairro LIKE $1;
-	RETURN REF;
+    FOR linha IN SELECT i.id, i.id_nucleo, i.tipo_imovel, i.situacao_imovel, i.valor_aluguel, i.tipo_propriedade, i.doc_propriedade, i.num_doc_propriedade, 
+	i.construcao, i.localidade, i.paga_iptu, i.ic, i.selagem FROM imovel AS i INNER JOIN endereco_imovel AS ei ON i.id = ei.id_imovel 
+	WHERE ei.bairro LIKE $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
-
-
-CREATE OR REPLACE FUNCTION fn_listar_imoveis()
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
-BEGIN
-	OPEN REF FOR
-		SELECT id, id_nucleo, tipo_imovel, situacao_imovel, valor_aluguel, tipo_propriedade, doc_propriedade, num_doc_propriedade, construcao, localidade, paga_iptu, ic, selagem 
-		FROM imovel;
-	RETURN REF;
-END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_imovel
@@ -1108,31 +1098,33 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_composicao_imovel_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_composicao_imovel AS $$
+DECLARE
+    linha tp_composicao_imovel;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_imovel, material_parede, especifique_parede, material_piso, especifique_piso, material_cobertura, especifique_cobertura, num_comodos, 
-		num_salas, num_cozinhas, num_quartos, num_banheiros, num_areas_servicos, num_anexos, num_outros_comodos, num_servem_dormitorio 
-		FROM composicao_imovel WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_imovel, material_parede, especifique_parede, material_piso, especifique_piso, material_cobertura, especifique_cobertura, num_comodos, 
+	num_salas, num_cozinhas, num_quartos, num_banheiros, num_areas_servicos, num_anexos, num_outros_comodos, num_servem_dormitorio 
+	FROM composicao_imovel WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_composicao_imovel_por_id_imovel(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_composicao_imovel AS $$
+DECLARE
+    linha tp_composicao_imovel;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_imovel, material_parede, especifique_parede, material_piso, especifique_piso, material_cobertura, especifique_cobertura, num_comodos, 
-		num_salas, num_cozinhas, num_quartos, num_banheiros, num_areas_servicos, num_anexos, num_outros_comodos, num_servem_dormitorio 
-		FROM composicao_imovel WHERE id_imovel = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_imovel, material_parede, especifique_parede, material_piso, especifique_piso, material_cobertura, especifique_cobertura, num_comodos, 
+	num_salas, num_cozinhas, num_quartos, num_banheiros, num_areas_servicos, num_anexos, num_outros_comodos, num_servem_dormitorio 
+	FROM composicao_imovel WHERE id_imovel = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_composicao_imovel
@@ -1182,29 +1174,31 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_endereco_imovel_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_endereco_imovel AS $$
+DECLARE
+    linha tp_endereco_imovel;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_imovel, tipo_logradouro, logradouro, numero, complemento, cep, bairro, municipio, uf, tipo_area, latitude, longitude  
-		FROM endereco_imovel WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_imovel, tipo_logradouro, logradouro, numero, complemento, cep, bairro, municipio, uf, tipo_area, latitude, longitude  
+	FROM endereco_imovel WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_endereco_imovel_por_id_imovel(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_endereco_imovel AS $$
+DECLARE
+    linha tp_endereco_imovel;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_imovel, tipo_logradouro, logradouro, numero, complemento, cep, bairro, municipio, uf, tipo_area, latitude, longitude  
-		FROM endereco_imovel WHERE id_imovel = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_imovel, tipo_logradouro, logradouro, numero, complemento, cep, bairro, municipio, uf, tipo_area, latitude, longitude  
+	FROM endereco_imovel WHERE id_imovel = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_endereco_imovel
@@ -1254,31 +1248,33 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_servicos_imovel_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_servico_imovel AS $$
+DECLARE
+    linha tp_servico_imovel;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_imovel, existe_pavimentacao, iluminacao_utilizada, abastecimento_agua, tratamento_agua, 
-		agua_encanada, existe_banheiro, escoamento_sanitario, tratamento_lixo, presenca_animais 
-		FROM servicos_imovel WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_imovel, existe_pavimentacao, iluminacao_utilizada, abastecimento_agua, tratamento_agua, 
+	agua_encanada, existe_banheiro, escoamento_sanitario, tratamento_lixo, presenca_animais 
+	FROM servicos_imovel WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_servicos_imovel_por_id_imovel(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_servico_imovel AS $$
+DECLARE
+    linha tp_servico_imovel;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_imovel, existe_pavimentacao, iluminacao_utilizada, abastecimento_agua, tratamento_agua, 
-		agua_encanada, existe_banheiro, escoamento_sanitario, tratamento_lixo, presenca_animais 
-		FROM servicos_imovel WHERE id_imovel = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_imovel, existe_pavimentacao, iluminacao_utilizada, abastecimento_agua, tratamento_agua, 
+	agua_encanada, existe_banheiro, escoamento_sanitario, tratamento_lixo, presenca_animais 
+	FROM servicos_imovel WHERE id_imovel = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_servicos_imovel
@@ -1325,39 +1321,42 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_anexo_imovel_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_anexo_imovel AS $$
+DECLARE
+    linha tp_anexo_imovel;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_imovel, caminho, tipo FROM anexo_imovel WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_imovel, caminho, tipo FROM anexo_imovel WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_anexo_imovel_por_id_imovel(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_anexo_imovel AS $$
+DECLARE
+    linha tp_anexo_imovel;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_imovel, caminho, tipo FROM anexo_imovel WHERE id_imovel = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_imovel, caminho, tipo FROM anexo_imovel WHERE id_imovel = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_anexo_imovel_por_tipo(BIGINT, CHAR(1))
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_anexo_imovel AS $$
+DECLARE
+    linha tp_anexo_imovel;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_imovel, caminho, tipo FROM anexo_imovel WHERE id_imovel = $1 AND tipo = $2;
-	RETURN REF;
+    FOR linha IN SELECT id, id_imovel, caminho, tipo FROM anexo_imovel WHERE id_imovel = $1 AND tipo = $2 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_anexo_imovel
@@ -1415,29 +1414,29 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_demolicao_imovel_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_demolicao_imovel AS $$
+DECLARE
+    linha tp_demolicao_imovel;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_imovel, dt_demolicao, horario_demolicao, num_processo, motivo, executada_por 
-		FROM anexo_imovel WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_imovel, dt_demolicao, horario_demolicao, num_processo, motivo, executada_por FROM anexo_imovel WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_demolicao_imovel_por_id_imovel(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_demolicao_imovel AS $$
+DECLARE
+    linha tp_demolicao_imovel;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_imovel, dt_demolicao, horario_demolicao, num_processo, motivo, executada_por 
-		FROM anexo_imovel WHERE id_imovel = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_imovel, dt_demolicao, horario_demolicao, num_processo, motivo, executada_por FROM anexo_imovel WHERE id_imovel = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_demolicao_imovel
@@ -1483,39 +1482,42 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_anexo_demolicao_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_anexo_demolicao AS $$
+DECLARE
+    linha tp_anexo_demolicao;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_demolicao, caminho, tipo FROM anexo_demolicao WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_demolicao, caminho, tipo FROM anexo_demolicao WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_anexo_demolicao_por_id_demolicao(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_anexo_demolicao AS $$
+DECLARE
+    linha tp_anexo_demolicao;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_demolicao, caminho, tipo FROM anexo_demolicao WHERE id_demolicao = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_demolicao, caminho, tipo FROM anexo_demolicao WHERE id_demolicao = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_anexo_demolicao_por_tipo(BIGINT, CHAR(1))
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_anexo_demolicao AS $$
+DECLARE
+    linha tp_anexo_demolicao;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_demolicao, caminho, tipo FROM anexo_demolicao WHERE id_demolicao = $1 AND tipo = $2;
-	RETURN REF;
+    FOR linha IN SELECT id, id_demolicao, caminho, tipo FROM anexo_demolicao WHERE id_demolicao = $1 AND tipo = $2 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_anexo_demolicao
@@ -1637,63 +1639,48 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_nucleo_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_nucleo AS $$
+DECLARE
+    linha tp_nucleo;
 BEGIN
-	OPEN REF FOR
-		SELECT id, nome, origem, ocupacao, area_total, area_ocupada, num_domicilios, populacao_estimada, pop_fonte_dados, pop_outra_fonte_dados, 
-		renda_populacao, inicio_ocupacao, setor_cadastral, zona, controle_ocupacao, obs_controle_ocupacao, padrao_construtivo, transporte_coletivo, 
-		adensamento, adens_fonte_dados, obs_adensamento, uso_incompativel 
-		FROM nucleo WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, nome, origem, ocupacao, area_total, area_ocupada, num_domicilios, populacao_estimada, pop_fonte_dados, pop_outra_fonte_dados, 
+	renda_populacao, inicio_ocupacao, setor_cadastral, zona, controle_ocupacao, obs_controle_ocupacao, padrao_construtivo, transporte_coletivo, 
+	adensamento, adens_fonte_dados, obs_adensamento, uso_incompativel FROM nucleo WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_nucleo_por_nome(CHARACTER VARYING)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_nucleo AS $$
+DECLARE
+    linha tp_nucleo;
 BEGIN
-	OPEN REF FOR
-		SELECT id, nome, origem, ocupacao, area_total, area_ocupada, num_domicilios, populacao_estimada, pop_fonte_dados, pop_outra_fonte_dados, 
-		renda_populacao, inicio_ocupacao, setor_cadastral, zona, controle_ocupacao, obs_controle_ocupacao, padrao_construtivo, transporte_coletivo, 
-		adensamento, adens_fonte_dados, obs_adensamento, uso_incompativel 
-		FROM nucleo WHERE nome LIKE $1;
-	RETURN REF;
+    FOR linha IN SELECT id, nome, origem, ocupacao, area_total, area_ocupada, num_domicilios, populacao_estimada, pop_fonte_dados, pop_outra_fonte_dados, 
+	renda_populacao, inicio_ocupacao, setor_cadastral, zona, controle_ocupacao, obs_controle_ocupacao, padrao_construtivo, transporte_coletivo, 
+	adensamento, adens_fonte_dados, obs_adensamento, uso_incompativel FROM nucleo WHERE nome LIKE $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_nucleo_por_setor(CHARACTER VARYING)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_nucleo AS $$
+DECLARE
+    linha tp_nucleo;
 BEGIN
-	OPEN REF FOR
-		SELECT id, nome, origem, ocupacao, area_total, area_ocupada, num_domicilios, populacao_estimada, pop_fonte_dados, pop_outra_fonte_dados, 
-		renda_populacao, inicio_ocupacao, setor_cadastral, zona, controle_ocupacao, obs_controle_ocupacao, padrao_construtivo, transporte_coletivo, 
-		adensamento, adens_fonte_dados, obs_adensamento, uso_incompativel 
-		FROM nucleo WHERE setor_cadastral LIKE $1;
-	RETURN REF;
+    FOR linha IN SELECT id, nome, origem, ocupacao, area_total, area_ocupada, num_domicilios, populacao_estimada, pop_fonte_dados, pop_outra_fonte_dados, 
+	renda_populacao, inicio_ocupacao, setor_cadastral, zona, controle_ocupacao, obs_controle_ocupacao, padrao_construtivo, transporte_coletivo, 
+	adensamento, adens_fonte_dados, obs_adensamento, uso_incompativel FROM nucleo WHERE setor_cadastral LIKE $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
-
-
-CREATE OR REPLACE FUNCTION fn_listar_nucleos()
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
-BEGIN
-	OPEN REF FOR
-		SELECT id, nome, origem, ocupacao, area_total, area_ocupada, num_domicilios, populacao_estimada, pop_fonte_dados, pop_outra_fonte_dados, 
-		renda_populacao, inicio_ocupacao, setor_cadastral, zona, controle_ocupacao, obs_controle_ocupacao, padrao_construtivo, transporte_coletivo, 
-		adensamento, adens_fonte_dados, obs_adensamento, uso_incompativel 
-		FROM nucleo;
-	RETURN REF;
-END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_nucleo
@@ -1743,39 +1730,42 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_anexo_transporte_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_anexo_transporte AS $$
+DECLARE
+    linha tp_anexo_transporte;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_nucleo, caminho, tipo FROM anexo_transporte WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_nucleo, caminho, tipo FROM anexo_transporte WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_anexo_transporte_por_id_nucleo(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_anexo_transporte AS $$
+DECLARE
+    linha tp_anexo_transporte;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_nucleo, caminho, tipo FROM anexo_transporte WHERE id_nucleo = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_nucleo, caminho, tipo FROM anexo_transporte WHERE id_nucleo = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_anexo_transporte_por_tipo(BIGINT, CHAR(1))
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_anexo_transporte AS $$
+DECLARE
+    linha tp_anexo_transporte;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_nucleo, caminho, tipo FROM anexo_transporte WHERE id_nucleo = $1 AND tipo = $2;
-	RETURN REF;
+    FOR linha IN SELECT id, id_nucleo, caminho, tipo FROM anexo_transporte WHERE id_nucleo = $1 AND tipo = $2 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_anexo_transporte
@@ -1833,29 +1823,31 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_infraestrutura_urbana_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_infraestrutura_urbana AS $$
+DECLARE
+    linha tp_infraestrutura_urbana;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_nucleo, abastecimento_agua, coleta_esgoto, servicos_limpeza, aguas_pluviais_superficial, aguas_pluviais_rede, energia_eletrica, iluminacao_publica 
-		FROM infraestrutura_urbana WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_nucleo, abastecimento_agua, coleta_esgoto, servicos_limpeza, aguas_pluviais_superficial, aguas_pluviais_rede, 
+	energia_eletrica, iluminacao_publica FROM infraestrutura_urbana WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_infraestrutura_urbana_por_id_nucleo(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_infraestrutura_urbana AS $$
+DECLARE
+    linha tp_infraestrutura_urbana;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_nucleo, abastecimento_agua, coleta_esgoto, servicos_limpeza, aguas_pluviais_superficial, aguas_pluviais_rede, energia_eletrica, iluminacao_publica 
-		FROM infraestrutura_urbana WHERE id_nucleo = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_nucleo, abastecimento_agua, coleta_esgoto, servicos_limpeza, aguas_pluviais_superficial, aguas_pluviais_rede, 
+	energia_eletrica, iluminacao_publica FROM infraestrutura_urbana WHERE id_nucleo = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_infraestrutura_urbana
@@ -1904,31 +1896,33 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_situacao_fundiaria_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_situacao_fundiaria AS $$
+DECLARE
+    linha tp_situacao_fundiaria;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_nucleo, propriedade, proprietario, obs_propriedade, decreto_aprovacao, registrado, num_matricula, destinacao_areas, desc_destinacao_areas, 
+    FOR linha IN SELECT id, id_nucleo, propriedade, proprietario, obs_propriedade, decreto_aprovacao, registrado, num_matricula, destinacao_areas, desc_destinacao_areas, 
 		desc_zonas_solo, desc_ecologico_economico, processos_judiciais, num_processo, num_ordem, vara, existencia_embargos, obs_judiciais 
-		FROM situacao_fundiaria WHERE id = $1;
-	RETURN REF;
+		FROM situacao_fundiaria WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_situacao_fundiaria_por_id_nucleo(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_situacao_fundiaria AS $$
+DECLARE
+    linha tp_situacao_fundiaria;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_nucleo, propriedade, proprietario, obs_propriedade, decreto_aprovacao, registrado, num_matricula, destinacao_areas, desc_destinacao_areas, 
+    FOR linha IN SELECT id, id_nucleo, propriedade, proprietario, obs_propriedade, decreto_aprovacao, registrado, num_matricula, destinacao_areas, desc_destinacao_areas, 
 		desc_zonas_solo, desc_ecologico_economico, processos_judiciais, num_processo, num_ordem, vara, existencia_embargos, obs_judiciais 
-		FROM situacao_fundiaria WHERE id_nucleo = $1;
-	RETURN REF;
+		FROM situacao_fundiaria WHERE id_nucleo = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_situacao_fundiaria
@@ -1976,39 +1970,42 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_anexo_zoneamento_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_anexo_zoneamento AS $$
+DECLARE
+    linha tp_anexo_zoneamento;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_fundiaria, caminho, tipo FROM anexo_zoneamento WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_fundiaria, caminho, tipo FROM anexo_zoneamento WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_anexo_zoneamento_por_id_fundiaria(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_anexo_zoneamento AS $$
+DECLARE
+    linha tp_anexo_zoneamento;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_fundiaria, caminho, tipo FROM anexo_zoneamento WHERE id_fundiaria = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_fundiaria, caminho, tipo FROM anexo_zoneamento WHERE id_fundiaria = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_anexo_zoneamento_por_tipo(BIGINT, CHAR(1))
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_anexo_zoneamento AS $$
+DECLARE
+    linha tp_anexo_zoneamento;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_fundiaria, caminho, tipo FROM anexo_zoneamento WHERE id_fundiaria = $1 AND tipo = $2;
-	RETURN REF;
+    FOR linha IN SELECT id, id_fundiaria, caminho, tipo FROM anexo_zoneamento WHERE id_fundiaria = $1 AND tipo = $2 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_anexo_zoneamento
@@ -2065,39 +2062,42 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_anexo_judicial_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_anexo_judicial AS $$
+DECLARE
+    linha tp_anexo_judicial;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_fundiaria, caminho, tipo FROM anexo_judicial WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_fundiaria, caminho, tipo FROM anexo_judicial WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_anexo_judicial_por_id_fundiaria(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_anexo_judicial AS $$
+DECLARE
+    linha tp_anexo_judicial;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_fundiaria, caminho, tipo FROM anexo_judicial WHERE id_fundiaria = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_fundiaria, caminho, tipo FROM anexo_judicial WHERE id_fundiaria = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_anexo_judicial_por_tipo(BIGINT, CHAR(1))
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_anexo_judicial AS $$
+DECLARE
+    linha tp_anexo_judicial;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_fundiaria, caminho, tipo FROM anexo_judicial WHERE id_fundiaria = $1 AND tipo = $2;
-	RETURN REF;
+    FOR linha IN SELECT id, id_fundiaria, caminho, tipo FROM anexo_judicial WHERE id_fundiaria = $1 AND tipo = $2 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_anexo_judicial
@@ -2156,29 +2156,31 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_acoes_nucleo_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_acao_nucleo AS $$
+DECLARE
+    linha tp_acao_nucleo;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_nucleo, remanejamento, reassentamento, desconstrucao, melhoria_habitacional, fonte_melhoria, 
-		recuperacao_ambiental, prad, adequacao_infraestrutura, fonte_adequacao, outros, desc_outros FROM acoes_nucleo WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_nucleo, remanejamento, reassentamento, desconstrucao, melhoria_habitacional, fonte_melhoria, 
+	recuperacao_ambiental, prad, adequacao_infraestrutura, fonte_adequacao, outros, desc_outros FROM acoes_nucleo WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_acoes_nucleo_por_id_nucleo(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_acao_nucleo AS $$
+DECLARE
+    linha tp_acao_nucleo;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_nucleo, remanejamento, reassentamento, desconstrucao, melhoria_habitacional, fonte_melhoria, 
-		recuperacao_ambiental, prad, adequacao_infraestrutura, fonte_adequacao, outros, desc_outros FROM acoes_nucleo WHERE id_nucleo = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_nucleo, remanejamento, reassentamento, desconstrucao, melhoria_habitacional, fonte_melhoria, 
+	recuperacao_ambiental, prad, adequacao_infraestrutura, fonte_adequacao, outros, desc_outros FROM acoes_nucleo WHERE id_nucleo = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_acoes_nucleo
@@ -2226,27 +2228,29 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_remanejamento_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_remanejamento AS $$
+DECLARE
+    linha tp_remanejamento;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_acao, estimativa_relocacao, num_remocao_definitiva, num_remocao_provisoria FROM remanejamentos WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_acao, estimativa_relocacao, num_remocao_definitiva, num_remocao_provisoria FROM remanejamentos WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_remanejamento_por_id_acao(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_remanejamento AS $$
+DECLARE
+    linha tp_remanejamento;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_acao, estimativa_relocacao, num_remocao_definitiva, num_remocao_provisoria FROM remanejamentos WHERE id_acao = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_acao, estimativa_relocacao, num_remocao_definitiva, num_remocao_provisoria FROM remanejamentos WHERE id_acao = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_remanejamento
@@ -2293,27 +2297,29 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_reassentamento_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_reassentamento AS $$
+DECLARE
+    linha tp_reassentamento;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_acao, estimativa_remocao, num_a_construir, num_provisorias, local_definitivo FROM reassentamentos WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_acao, estimativa_remocao, num_a_construir, num_provisorias, local_definitivo FROM reassentamentos WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_reassentamento_por_id_acao(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_reassentamento AS $$
+DECLARE
+    linha tp_reassentamento;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_acao, estimativa_remocao, num_a_construir, num_provisorias, local_definitivo FROM reassentamentos WHERE id_acao = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_acao, estimativa_remocao, num_a_construir, num_provisorias, local_definitivo FROM reassentamentos WHERE id_acao = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_reassentamento
@@ -2360,27 +2366,29 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_desconstrucao_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_desconstrucao AS $$
+DECLARE
+    linha tp_desconstrucao;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_acao, num_a_demolir, motivo, processos FROM desconstrucoes WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_acao, num_a_demolir, motivo, processos FROM desconstrucoes WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_desconstrucao_por_id_acao(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_desconstrucao AS $$
+DECLARE
+    linha tp_desconstrucao;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_acao, num_a_demolir, motivo, processos FROM desconstrucoes WHERE id_acao = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_acao, num_a_demolir, motivo, processos FROM desconstrucoes WHERE id_acao = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_desconstrucao
@@ -2426,29 +2434,31 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_aspecto_ambiental_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_aspecto_ambiental AS $$
+DECLARE
+    linha tp_aspecto_ambiental;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_nucleo, area_risco, app, area_verde, area_agricola, outros, latitude, longitude 
-		FROM aspectos_ambientais WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_nucleo, area_risco, app, area_verde, area_agricola, outros, latitude, longitude 
+	FROM aspectos_ambientais WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_aspecto_ambiental_por_id_nucleo(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_aspecto_ambiental AS $$
+DECLARE
+    linha tp_aspecto_ambiental;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_nucleo, area_risco, app, area_verde, area_agricola, outros, latitude, longitude 
-		FROM aspectos_ambientais WHERE id_nucleo = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_nucleo, area_risco, app, area_verde, area_agricola, outros, latitude, longitude 
+	FROM aspectos_ambientais WHERE id_nucleo = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_aspecto_ambiental
@@ -2495,29 +2505,31 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_app_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_app AS $$
+DECLARE
+    linha tp_app;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_aspecto_ambiental, corpo_dagua, brejo_charco, topo_morro, enconsta, restinga, outros, especifique_outros 
-		FROM apps WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_aspecto_ambiental, corpo_dagua, brejo_charco, topo_morro, enconsta, restinga, outros, especifique_outros 
+	FROM apps WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_app_por_id_aspecto_ambiental(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_app AS $$
+DECLARE
+    linha tp_app;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_aspecto_ambiental, corpo_dagua, brejo_charco, topo_morro, enconsta, restinga, outros, especifique_outros 
-		FROM apps WHERE id_aspecto_ambiental = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_aspecto_ambiental, corpo_dagua, brejo_charco, topo_morro, enconsta, restinga, outros, especifique_outros 
+	FROM apps WHERE id_aspecto_ambiental = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_app
@@ -2566,16 +2578,17 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_area_risco_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_area_risco AS $$
+DECLARE
+    linha tp_area_risco;
 BEGIN
-	OPEN REF FOR
-		SELECT id, cd_setor, grau_risco, vegetacao, processo_instabilizacao, condicoes_solo, existe_pavimentacao, obs_pavimentacao, latitude, longitude 
-		FROM area_risco WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, cd_setor, grau_risco, vegetacao, processo_instabilizacao, condicoes_solo, existe_pavimentacao, obs_pavimentacao, 
+	latitude, longitude FROM area_risco WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_area_risco
@@ -2655,31 +2668,31 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_programa_habitacional_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_programa_habitacional AS $$
+DECLARE
+    linha tp_programa_habitacional;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_nucleo, material_construcao, producao_moradias, assistencia_tecnica, 
-		urb_assentamentos_precarios, complementacao_infraestrutura, regularizacao_fundiaria, cdhu, pmcmv  
-		FROM programas_habitacionais WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_nucleo, material_construcao, producao_moradias, assistencia_tecnica, urb_assentamentos_precarios, 
+	complementacao_infraestrutura, regularizacao_fundiaria, cdhu, pmcmv FROM programas_habitacionais WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_programa_habitacional_por_id_nucleo(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_programa_habitacional AS $$
+DECLARE
+    linha tp_programa_habitacional;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_nucleo, material_construcao, producao_moradias, assistencia_tecnica, 
-		urb_assentamentos_precarios, complementacao_infraestrutura, regularizacao_fundiaria, cdhu, pmcmv  
-		FROM programas_habitacionais WHERE id_nucleo = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_nucleo, material_construcao, producao_moradias, assistencia_tecnica, urb_assentamentos_precarios, 
+	complementacao_infraestrutura, regularizacao_fundiaria, cdhu, pmcmv FROM programas_habitacionais WHERE id_nucleo = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_programa_habitacional
@@ -2727,42 +2740,42 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_via_publica_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_via_publica AS $$
+DECLARE
+    linha tp_via_publica;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_recurso, id_nucleo, descricao   
-		FROM vias_publicas WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_recurso, id_nucleo, descricao FROM vias_publicas WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_via_publica_por_id_recurso(INTEGER)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_via_publica AS $$
+DECLARE
+    linha tp_via_publica;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_recurso, id_nucleo, descricao   
-		FROM vias_publicas WHERE id_recurso = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_recurso, id_nucleo, descricao FROM vias_publicas WHERE id_recurso = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_via_publica_por_id_nucleo(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_via_publica AS $$
+DECLARE
+    linha tp_via_publica;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_recurso, id_nucleo, descricao   
-		FROM vias_publicas WHERE id_nucleo = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_recurso, id_nucleo, descricao FROM vias_publicas WHERE id_nucleo = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_via_publica
@@ -2808,29 +2821,16 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_recurso_mobilidade_por_id(INTEGER)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_recurso_mobilidade AS $$
+DECLARE
+    linha tp_recurso_mobilidade;
 BEGIN
-	OPEN REF FOR
-		SELECT id, nome 
-		FROM recurso_mobilidade WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, nome FROM recurso_mobilidade WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
-
-
-CREATE OR REPLACE FUNCTION fn_listar_recurso_mobilidades()
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
-BEGIN
-	OPEN REF FOR
-		SELECT id, nome 
-		FROM recurso_mobilidade;
-	RETURN REF;
-END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_recurso_mobilidade
@@ -2876,42 +2876,42 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_institucional_social_por_id(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_institucional_social AS $$
+DECLARE
+    linha tp_institucional_social;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_recurso, id_nucleo, descricao 
-		FROM institucional_social WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_recurso, id_nucleo, descricao FROM institucional_social WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_institucional_social_por_id_recurso(INTEGER)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_institucional_social AS $$
+DECLARE
+    linha tp_institucional_social;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_recurso, id_nucleo, descricao 
-		FROM institucional_social WHERE id_recurso = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_recurso, id_nucleo, descricao FROM institucional_social WHERE id_recurso = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_institucional_social_por_id_nucleo(BIGINT)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_institucional_social AS $$
+DECLARE
+    linha tp_institucional_social;
 BEGIN
-	OPEN REF FOR
-		SELECT id, id_recurso, id_nucleo, descricao 
-		FROM institucional_social WHERE id_nucleo = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, id_recurso, id_nucleo, descricao FROM institucional_social WHERE id_nucleo = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_institucional_social
@@ -2957,29 +2957,16 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_recurso_social_por_id(INTEGER)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_recurso_social AS $$
+DECLARE
+    linha tp_recurso_social;
 BEGIN
-	OPEN REF FOR
-		SELECT id, nome 
-		FROM recurso_social WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, nome FROM recurso_social WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
-
-
-CREATE OR REPLACE FUNCTION fn_listar_recurso_sociais()
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
-BEGIN
-	OPEN REF FOR
-		SELECT id, nome 
-		FROM recurso_social;
-	RETURN REF;
-END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_recurso_social
@@ -3025,29 +3012,16 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_secretaria_por_id(INTEGER)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_secretaria AS $$
+DECLARE
+    linha tp_secretaria;
 BEGIN
-	OPEN REF FOR
-		SELECT id, nome, descricao, ativo 
-		FROM secretarias WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, nome, descricao, ativo FROM secretarias WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
-
-
-CREATE OR REPLACE FUNCTION fn_listar_secretarias()
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
-BEGIN
-	OPEN REF FOR
-		SELECT id, nome, descricao, ativo 
-		FROM secretarias;
-	RETURN REF;
-END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_secretaria
@@ -3094,29 +3068,16 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_grupo_por_id(INTEGER)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_grupo AS $$
+DECLARE
+    linha tp_grupo;
 BEGIN
-	OPEN REF FOR
-		SELECT id, nome, descricao, ativo 
-		FROM grupos WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, nome, descricao, ativo FROM grupos WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
-
-
-CREATE OR REPLACE FUNCTION fn_listar_grupos()
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
-BEGIN
-	OPEN REF FOR
-		SELECT id, nome, descricao, ativo 
-		FROM grupos;
-	RETURN REF;
-END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_grupo
@@ -3163,29 +3124,16 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_permissao_por_id(INTEGER)
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
+RETURNS SETOF tp_permissao AS $$
+DECLARE
+    linha tp_permissao;
 BEGIN
-	OPEN REF FOR
-		SELECT id, nome, descricao 
-		FROM permissoes WHERE id = $1;
-	RETURN REF;
+    FOR linha IN SELECT id, nome, descricao FROM permissoes WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE;
-
-
-CREATE OR REPLACE FUNCTION fn_listar_permissoes()
-RETURNS refcursor AS $$
-DECLARE 
-	REF refcursor;
-BEGIN
-	OPEN REF FOR
-		SELECT id, nome, descricao 
-		FROM permissoes;
-	RETURN REF;
-END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_permissao
@@ -3274,29 +3222,16 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_selecionar_usuario_por_id(INTEGER)
-RETURNS refcursor AS $$
-	DECLARE 
-		REF refcursor;
-	BEGIN
-		OPEN REF FOR
-			SELECT id, id_grupo, id_secretaria, matricula, senha, foto, nome, email, ativo 
-			FROM usuarios WHERE id = $1;
-		RETURN REF;
-	END;
-$$ LANGUAGE PLPGSQL VOLATILE;
-
-
-CREATE OR REPLACE FUNCTION fn_listar_usuarios()
-RETURNS refcursor AS $$
-	DECLARE 
-		REF refcursor;
-	BEGIN
-		OPEN REF FOR
-			SELECT id, id_grupo, id_secretaria, matricula, senha, foto, nome, email, ativo 
-			FROM usuarios;
-		RETURN REF;
-	END;
-$$ LANGUAGE PLPGSQL VOLATILE;
+RETURNS SETOF tp_usuario AS $$
+DECLARE
+    linha tp_usuario;
+BEGIN
+    FOR linha IN SELECT id, id_grupo, id_secretaria, matricula, senha, foto, nome, email, ativo FROM usuarios WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
+END;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_logon_usuario

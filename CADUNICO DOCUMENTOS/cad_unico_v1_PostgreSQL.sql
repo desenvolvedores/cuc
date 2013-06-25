@@ -136,15 +136,15 @@ CREATE INDEX IFK_nucleo_aspectos_ambientais ON aspectos_ambientais (id_nucleo);
 
 
 CREATE TABLE apps (
-  id BIGSERIAL   NOT NULL ,
-  id_aspecto_ambiental BIGINT   NOT NULL ,
-  corpo_dagua CHAR(3)   NOT NULL ,
-  brejo_charco CHAR(3)   NOT NULL ,
-  topo_morro CHAR(3)   NOT NULL ,
-  enconsta CHAR(3)   NOT NULL ,
-  restinga CHAR(3)   NOT NULL ,
-  outros CHAR(3)   NOT NULL ,
-  especifique_outros TEXT      ,
+	id BIGSERIAL   NOT NULL ,
+	id_aspecto_ambiental BIGINT   NOT NULL ,
+	corpo_dagua CHAR(3)   NOT NULL ,
+	brejo_charco CHAR(3)   NOT NULL ,
+	topo_morro CHAR(3)   NOT NULL ,
+	enconsta CHAR(3)   NOT NULL ,
+	restinga CHAR(3)   NOT NULL ,
+	outros CHAR(3)   NOT NULL ,
+	especifique_outros TEXT      ,
 PRIMARY KEY(id)  ,
 	FOREIGN KEY(id_aspecto_ambiental)
 		REFERENCES aspectos_ambientais(id));
@@ -541,7 +541,7 @@ CREATE INDEX individuo_FK1 ON individuo (id_familia);
 CREATE INDEX IFK_familias_individuo ON individuo (id_familia);
 
 
-CREATE TABLE nascimento_individuo (
+CREATE TABLE certidao_individuo (
 	id BIGSERIAL   NOT NULL ,
 	id_individuo BIGINT   NOT NULL ,
 	dt_nascimento DATE    ,
@@ -562,36 +562,27 @@ PRIMARY KEY(id, id_individuo)  ,
 		REFERENCES individuo(id));
 
 
-CREATE INDEX nascimento_individuo_FK1 ON nascimento_individuo (id_individuo);
+CREATE INDEX certidao_individuo_FK1 ON certidao_individuo (id_individuo);
 
 
-CREATE INDEX IFK_nascimento_individuo ON nascimento_individuo (id_individuo);
+CREATE INDEX IFK_certidao_individuo ON certidao_individuo (id_individuo);
 
 
 CREATE TABLE documentos_individuo (
 	id BIGSERIAL   NOT NULL ,
 	id_individuo BIGINT   NOT NULL ,
-	num_rg VARCHAR(20)    ,
-	complemento_rg VARCHAR(255)    ,
-	orgao_emissor_rg CHAR(3)    ,
-	dt_emissao_rg DATE    ,
-	num_cpf CHAR(14)    ,
-	sts_cpf VARCHAR(20)    ,
-	num_eleitor VARCHAR(20)    ,
-	zona_eleitor VARCHAR(5)    ,
-	secao_eleitor VARCHAR(5)    ,
-	num_cart_trab VARCHAR(20)    ,
-	serie_cart_trab VARCHAR(5)    ,
-	dt_emissao_cart_trab DATE    ,
-	orgao_emissor_cart_trab CHAR(3)    ,
-	tipo_cart_moto VARCHAR(5)    ,
-	num_cart_moto VARCHAR(20)    ,
-	serie_cart_moto VARCHAR(5)    ,
-	dt_emissao_cart_moto DATE    ,
-	num_nis VARCHAR(20)    ,
-	num_pis VARCHAR(20)    ,
-	num_pasep VARCHAR(20)    ,
-	inscricao_mcmv VARCHAR(20)      ,
+	tipo VARCHAR(50)  NOT NULL   ,
+	numero VARCHAR(20)   ,
+	serie VARCHAR(30)   ,
+	data_emissao DATE   ,
+	uf_emissao CHAR(2)   ,
+	cidade VARCHAR(100)   ,
+	orgao_emissor VARCHAR(100)   ,
+	zona VARCHAR(50)   ,
+	secao VARCHAR(50)   ,
+	categoria VARCHAR(10)   ,
+	validade VARCHAR(30)   ,
+	sts_documento VARCHAR(20)   ,
 PRIMARY KEY(id, id_individuo)  ,
 	FOREIGN KEY(id_individuo)
 		REFERENCES individuo(id));
