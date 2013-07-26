@@ -23,35 +23,11 @@ public class ViaPublicaDAO {
         java.lang.String sql = "{ ? = CALL fn_inserir_via_publica(?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, via.getMobilidade().getId());
-        stmt.setLong(3, via.getNucleo().getId());
+        stmt.setLong(2, via.getNucleo().getId());
+        stmt.setLong(3, via.getMobilidade().getId());
         stmt.setString(4, txtMgr.addSlashes(via.getDescricao()));
         stmt.execute();
         return stmt.getInt(1);
-        
-    }
-    
-    public com.sys.urbano.ViaPublica selecionarViaPublicaPorID(long id) 
-            throws java.lang.ClassNotFoundException, java.sql.SQLException {
-        
-        java.lang.String sql = "SELECT * FROM fn_selecionar_via_publica_por_id(?)";
-        java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
-        stmt.setLong(1, id);
-        java.sql.ResultSet rs = stmt.executeQuery();
-        
-        return selecionar(rs);
-        
-    }
-    
-    public java.util.List<com.sys.urbano.ViaPublica> procurarViaPublicaPorIDRecurso(com.sys.urbano.RecursoMobilidade recurso) 
-            throws java.lang.ClassNotFoundException, java.sql.SQLException {
-        
-        java.lang.String sql = "SELECT * FROM fn_procurar_via_publica_por_id_recurso(?)";
-        java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
-        stmt.setLong(1, recurso.getId());
-        java.sql.ResultSet rs = stmt.executeQuery();
-        
-        return listar(rs);
         
     }
     
@@ -67,30 +43,42 @@ public class ViaPublicaDAO {
         
     }
     
+    public java.util.List<com.sys.urbano.ViaPublica> procurarViaPublicaPorIDRecurso(com.sys.urbano.RecursoMobilidade recurso) 
+            throws java.lang.ClassNotFoundException, java.sql.SQLException {
+        
+        java.lang.String sql = "SELECT * FROM fn_procurar_via_publica_por_id_recurso(?)";
+        java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
+        stmt.setLong(1, recurso.getId());
+        java.sql.ResultSet rs = stmt.executeQuery();
+        
+        return listar(rs);
+        
+    }
+    
     public int alterarViaPublica(com.sys.urbano.ViaPublica via) 
             throws java.lang.ClassNotFoundException, java.sql.SQLException {
         
         com.data.TextManager txtMgr = new com.data.TextManager();
         
-        java.lang.String sql = "{ ? = CALL fn_alterar_via_publica(?, ?, ?, ?) }";
+        java.lang.String sql = "{ ? = CALL fn_alterar_via_publica(?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, via.getMobilidade().getId());
-        stmt.setLong(3, via.getNucleo().getId());
+        stmt.setLong(2, via.getNucleo().getId());
+        stmt.setLong(3, via.getMobilidade().getId());
         stmt.setString(4, txtMgr.addSlashes(via.getDescricao()));
-        stmt.setLong(5, via.getId());
         stmt.execute();
         return stmt.getInt(1);
         
     }
     
-    public int excluirViaPublicaPorID(long id) 
+    public int excluirViaPublica(com.sys.urbano.ViaPublica via) 
             throws java.lang.ClassNotFoundException, java.sql.SQLException {
         
-        java.lang.String sql = "{ ? = CALL fn_excluir_via_publica(?) }";
+        java.lang.String sql = "{ ? = CALL fn_excluir_via_publica(?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, id);
+        stmt.setLong(2, via.getNucleo().getId());
+        stmt.setLong(3, via.getMobilidade().getId());
         stmt.execute();
         return stmt.getInt(1);
         
@@ -107,7 +95,8 @@ public class ViaPublicaDAO {
             recurso.setId(rs.getInt("id_recurso"));
             
             com.sys.urbano.ViaPublica via = new com.sys.urbano.ViaPublica(nucleo, recurso);
-            via.setId(rs.getLong("id"));
+            via.setNucleo(nucleo);
+            via.setMobilidade(recurso);
             via.setDescricao(rs.getString("descricao"));
             return via;
         } else {
@@ -128,7 +117,8 @@ public class ViaPublicaDAO {
             recurso.setId(rs.getInt("id_recurso"));
             
             com.sys.urbano.ViaPublica via = new com.sys.urbano.ViaPublica(nucleo, recurso);
-            via.setId(rs.getLong("id"));
+            via.setNucleo(nucleo);
+            via.setMobilidade(recurso);
             via.setDescricao(rs.getString("descricao"));
             vias.add(via);
         }

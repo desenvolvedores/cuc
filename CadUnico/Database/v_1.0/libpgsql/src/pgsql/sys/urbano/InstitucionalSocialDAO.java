@@ -23,35 +23,11 @@ public class InstitucionalSocialDAO {
         java.lang.String sql = "{ ? = CALL fn_inserir_institucional_social(?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, institucional.getSocial().getId());
-        stmt.setLong(3, institucional.getNucleo().getId());
+        stmt.setLong(2, institucional.getNucleo().getId());
+        stmt.setLong(3, institucional.getSocial().getId());
         stmt.setString(4, txtMgr.addSlashes(institucional.getNome()));
         stmt.execute();
         return stmt.getInt(1);
-        
-    }
-    
-    public com.sys.urbano.InstitucionalSocial selecionarInstitucionalSocialPorID(long id) 
-            throws java.lang.ClassNotFoundException, java.sql.SQLException {
-        
-        java.lang.String sql = "SELECT * FROM fn_selecionar_institucional_social_por_id(?)";
-        java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
-        stmt.setLong(1, id);
-        java.sql.ResultSet rs = stmt.executeQuery();
-        
-        return selecionar(rs);
-        
-    }
-    
-    public java.util.List<com.sys.urbano.InstitucionalSocial> procurarInstitucionalSocialPorIDRecurso(com.sys.urbano.RecursoSocial recurso) 
-            throws java.lang.ClassNotFoundException, java.sql.SQLException {
-        
-        java.lang.String sql = "SELECT * FROM fn_procurar_institucional_social_por_id_recurso(?)";
-        java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
-        stmt.setLong(1, recurso.getId());
-        java.sql.ResultSet rs = stmt.executeQuery();
-        
-        return listar(rs);
         
     }
     
@@ -67,30 +43,42 @@ public class InstitucionalSocialDAO {
         
     }
     
+    public java.util.List<com.sys.urbano.InstitucionalSocial> procurarInstitucionalSocialPorIDRecurso(com.sys.urbano.RecursoSocial recurso) 
+            throws java.lang.ClassNotFoundException, java.sql.SQLException {
+        
+        java.lang.String sql = "SELECT * FROM fn_procurar_institucional_social_por_id_recurso(?)";
+        java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
+        stmt.setLong(1, recurso.getId());
+        java.sql.ResultSet rs = stmt.executeQuery();
+        
+        return listar(rs);
+        
+    }
+    
     public int alterarInstitucionalSocial(com.sys.urbano.InstitucionalSocial institucional) 
             throws java.lang.ClassNotFoundException, java.sql.SQLException {
         
         com.data.TextManager txtMgr = new com.data.TextManager();
         
-        java.lang.String sql = "{ ? = CALL fn_alterar_institucional_social(?, ?, ?, ?) }";
+        java.lang.String sql = "{ ? = CALL fn_alterar_institucional_social(?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, institucional.getSocial().getId());
-        stmt.setLong(3, institucional.getNucleo().getId());
+        stmt.setLong(2, institucional.getNucleo().getId());
+        stmt.setLong(3, institucional.getSocial().getId());
         stmt.setString(4, txtMgr.addSlashes(institucional.getNome()));
-        stmt.setLong(5, institucional.getId());
         stmt.execute();
         return stmt.getInt(1);
         
     }
     
-    public int excluirInstitucionalSocialPorID(long id) 
+    public int excluirInstitucionalSocial(com.sys.urbano.InstitucionalSocial institucional) 
             throws java.lang.ClassNotFoundException, java.sql.SQLException {
         
-        java.lang.String sql = "{ ? = CALL fn_excluir_institucional_social(?) }";
+        java.lang.String sql = "{ ? = CALL fn_excluir_institucional_social(?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, id);
+        stmt.setLong(2, institucional.getNucleo().getId());
+        stmt.setLong(3, institucional.getSocial().getId());
         stmt.execute();
         return stmt.getInt(1);
         
@@ -107,7 +95,8 @@ public class InstitucionalSocialDAO {
             recurso.setId(rs.getInt("id_recurso"));
             
             com.sys.urbano.InstitucionalSocial institucional = new com.sys.urbano.InstitucionalSocial(nucleo, recurso);
-            institucional.setId(rs.getLong("id"));
+            institucional.setNucleo(nucleo);
+            institucional.setSocial(recurso);
             institucional.setNome(rs.getString("nome"));
             return institucional;
         } else {
@@ -128,7 +117,8 @@ public class InstitucionalSocialDAO {
             recurso.setId(rs.getInt("id_recurso"));
             
             com.sys.urbano.InstitucionalSocial institucional = new com.sys.urbano.InstitucionalSocial(nucleo, recurso);
-            institucional.setId(rs.getLong("id"));
+            institucional.setNucleo(nucleo);
+            institucional.setSocial(recurso);
             institucional.setNome(rs.getString("nome"));
             institucionais.add(institucional);
         }

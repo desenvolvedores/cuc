@@ -39,7 +39,9 @@ public class JsonAtualizarInfraestruturaUrbana extends javax.servlet.http.HttpSe
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
                 com.sys.urbano.InfraestruturaUrbana infraestrutura = jsonMgr.parseInfraestruturaUrbana(json);
 
-                if (! infraestrutura.getAbastecimentoAgua().isEmpty() && infraestrutura.getNucleo().getId() > 0 && infraestrutura.getId() > 0) {
+                if (! infraestrutura.getAbastecimentoAgua().isEmpty() && ! infraestrutura.getColetaEsgoto().isEmpty() && ! infraestrutura.getServicosLimpeza().isEmpty() 
+                        && ! infraestrutura.getEnergiaEletrica().isEmpty() && ! infraestrutura.getIluminacaoPublica().isEmpty() && ! infraestrutura.getAguasPluviaisSuperficial().isEmpty() 
+                        && ! infraestrutura.getAguasPluviaisRede().isEmpty() && infraestrutura.getNucleo().getId() > 0 && infraestrutura.getId() > 0) {
 
                     pgsql.sys.urbano.InfraestruturaUrbanaDAO infraDAO = new pgsql.sys.urbano.InfraestruturaUrbanaDAO();
 

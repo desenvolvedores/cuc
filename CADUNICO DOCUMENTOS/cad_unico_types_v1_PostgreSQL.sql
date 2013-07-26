@@ -5,7 +5,11 @@ CREATE TYPE tp_familia AS (
     id BIGINT,
 	remocao_familia CHAR(3),
 	situacao_remocao VARCHAR(45),
-	especifique_remocao VARCHAR(255)
+	especifique_remocao VARCHAR(255),
+	atendente VARCHAR(255),
+	dt_atendimento DATE,
+	atendente_atualizacao VARCHAR(255),
+	dt_atualizacao DATE
 );
 
 
@@ -23,7 +27,9 @@ CREATE TYPE tp_individuo AS (
 	nome_pai VARCHAR(255),
 	responsavel VARCHAR(255),
 	grau_parentesco VARCHAR(100),
-	prestou_informacao VARCHAR(255)
+	observacoes TEXT,
+	prestou_informacao VARCHAR(255),
+	cpf_informante CHAR(15)
 );
 
 
@@ -97,13 +103,24 @@ CREATE TYPE tp_deficiente_individuo AS (
     id BIGINT,
 	id_individuo BIGINT,
 	deficiente CHAR(3),
-	tipo_deficiencia TEXT,
+	deficiencia_fisica CHAR(3),
+	deficiencia_mental CHAR(3),
+	transtorno_mental CHAR(3),
+	sindrome_down CHAR(3),
+	cegueira CHAR(3),
+	baixa_visao CHAR(3),
+	surdez_severa CHAR(3),
+	surdez_moderada CHAR(3),
 	obs_tipo_deficiencia TEXT,
 	causa_deficiencia VARCHAR(100),
 	obs_causa_deficiencia TEXT,
 	quando_adquiriu VARCHAR(20),
-	depende_cuidados VARCHAR(80),
-	cadastro_sepedi CHAR(3)
+	cuidados_familia CHAR(3),
+	cuidados_especializado CHAR(3),
+	cuidados_vizinho CHAR(3),
+	cuidados_instituicao CHAR(3),
+	cuidados_outros CHAR(3),
+	cadastro_sepedi VARCHAR(20)
 );
 
 
@@ -128,13 +145,18 @@ CREATE TYPE tp_empresa AS (
 CREATE TYPE tp_documento_empresa AS (
     id BIGINT,
 	id_empresa BIGINT,
-	cnpj CHAR(18),
-	dt_emissao_cnpj DATE,
-	inscricao_estadual VARCHAR(20),
-	dt_emissao_insc_estadual DATE,
-	alvara VARCHAR(20),
-	dt_emissao_alvara DATE,
-	dt_validade_alvara DATE
+	tipo VARCHAR(50),
+	numero VARCHAR(20),
+	serie VARCHAR(30),
+	data_emissao DATE,
+	uf_emissao CHAR(2),
+	cidade VARCHAR(100),
+	orgao_emissor VARCHAR(100),
+	zona VARCHAR(50),
+	secao VARCHAR(50),
+	categoria VARCHAR(10),
+	validade VARCHAR(30),
+	sts_documento VARCHAR(20)
 );
 
 
@@ -160,7 +182,10 @@ CREATE TYPE tp_imovel AS (
 	localidade VARCHAR(255),
 	paga_iptu CHAR(3),
 	ic VARCHAR(20),
-	selagem VARCHAR(20)
+	selagem VARCHAR(20),
+	atendente VARCHAR(100),
+	atendente_atualizacao VARCHAR(100),
+	dt_atualizacao DATE
 );
 
 
@@ -206,7 +231,9 @@ CREATE TYPE tp_servico_imovel AS (
     id BIGINT,
 	id_imovel BIGINT,
 	existe_pavimentacao VARCHAR(45),
+	qual_pavimentacao VARCHAR(45),
 	iluminacao_utilizada VARCHAR(45),
+	especifique_iluminacao VARCHAR(255),
 	abastecimento_agua VARCHAR(45),
 	tratamento_agua VARCHAR(45),
 	agua_encanada VARCHAR(45),
@@ -255,7 +282,7 @@ CREATE TYPE tp_nucleo AS (
 	populacao_estimada INTEGER,
 	pop_fonte_dados VARCHAR(45),
 	pop_outra_fonte_dados VARCHAR(255),
-	renda_populacao VARCHAR(45),
+	renda_populacao VARCHAR(100),
 	inicio_ocupacao VARCHAR(45),
 	setor_cadastral VARCHAR(20),
 	zona VARCHAR(20),
@@ -266,7 +293,7 @@ CREATE TYPE tp_nucleo AS (
 	adensamento CHAR(3),
 	adens_fonte_dados VARCHAR(255),
 	obs_adensamento TEXT,
-	uso_incompativel CHAR(3)
+	uso_incompativel VARCHAR(500)
 );
 
 
@@ -370,10 +397,10 @@ CREATE TYPE tp_aspecto_ambiental AS (
     id BIGINT,
 	id_nucleo BIGINT,
 	area_risco CHAR(3),
-	app CHAR(3),
 	area_verde CHAR(3),
 	area_agricola CHAR(3),
 	outros CHAR(3),
+	outros_especifique TEXT,
 	latitude DOUBLE PRECISION,
 	longitude DOUBLE PRECISION
 );
@@ -381,7 +408,7 @@ CREATE TYPE tp_aspecto_ambiental AS (
 
 CREATE TYPE tp_app AS (
     id BIGINT,
-	id_aspecto_ambiental BIGINT,
+	id_ambiental BIGINT,
 	corpo_dagua CHAR(3),
 	brejo_charco CHAR(3),
 	topo_morro CHAR(3),
@@ -421,9 +448,8 @@ CREATE TYPE tp_programa_habitacional AS (
 
 
 CREATE TYPE tp_via_publica AS (
-    id BIGINT,
-	id_recurso INTEGER,
 	id_nucleo BIGINT,
+	id_recurso INTEGER,
 	descricao VARCHAR(255)
 );
 
@@ -435,10 +461,9 @@ CREATE TYPE tp_recurso_mobilidade AS (
 
 
 CREATE TYPE tp_institucional_social AS (
-    id BIGINT,
-	id_recurso INTEGER,
 	id_nucleo BIGINT,
-	descricao VARCHAR(255)
+	id_recurso INTEGER,
+	nome VARCHAR(255)
 );
 
 
@@ -456,8 +481,9 @@ CREATE TYPE tp_anexo_transporte AS (
 );
 
 
-CREATE TYPE tp_secretaria AS (
+CREATE TYPE tp_departamento AS (
     id INTEGER,
+	sigla VARCHAR(10),
 	nome VARCHAR(255),
 	descricao TEXT,
 	ativo CHAR(3)
@@ -482,8 +508,8 @@ CREATE TYPE tp_permissao AS (
 CREATE TYPE tp_usuario AS (
     id INTEGER,
 	id_grupo INTEGER,
-	id_secretaria INTEGER,
-	matricula VARCHAR(20),
+	id_departamento INTEGER,
+	usuario VARCHAR(20),
 	senha VARCHAR(32),
 	foto TEXT,
 	nome VARCHAR(255),

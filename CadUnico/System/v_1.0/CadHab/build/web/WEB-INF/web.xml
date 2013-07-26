@@ -689,10 +689,6 @@
         <servlet-class>com.control.json.urbano.JsonSelecionarInfraestruturaUrbana</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>jSelecionarInstitucionalSocial</servlet-name>
-        <servlet-class>com.control.json.urbano.JsonSelecionarInstitucionalSocial</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>jSelecionarNucleo</servlet-name>
         <servlet-class>com.control.json.urbano.JsonSelecionarNucleo</servlet-class>
     </servlet>
@@ -719,10 +715,6 @@
     <servlet>
         <servlet-name>jSelecionarSituacaoFundiaria</servlet-name>
         <servlet-class>com.control.json.urbano.JsonSelecionarSituacaoFundiaria</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>jSelecionarViaPublica</servlet-name>
-        <servlet-class>com.control.json.urbano.JsonSelecionarViaPublica</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>jSelecionarAcaoNucleoPorNucleo</servlet-name>
@@ -1007,6 +999,10 @@
     <servlet>
         <servlet-name>oAtualizarFotoUsuario</servlet-name>
         <servlet-class>com.control.object.access.ObjectAtualizarFotoUsuario</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jInserirNucleoCompleto</servlet-name>
+        <servlet-class>com.control.json.urbano.JsonInserirNucleoCompleto</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>jInserirPermissao</servlet-name>
@@ -1697,10 +1693,6 @@
         <url-pattern>/infraestrutura_urbana/id</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>jSelecionarInstitucionalSocial</servlet-name>
-        <url-pattern>/institucional_social/id</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>jSelecionarNucleo</servlet-name>
         <url-pattern>/nucleo/id</url-pattern>
     </servlet-mapping>
@@ -1727,10 +1719,6 @@
     <servlet-mapping>
         <servlet-name>jSelecionarSituacaoFundiaria</servlet-name>
         <url-pattern>/situacao_fundiaria/id</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>jSelecionarViaPublica</servlet-name>
-        <url-pattern>/via_publica/id</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>jSelecionarAcaoNucleoPorNucleo</servlet-name>
@@ -2015,6 +2003,10 @@
     <servlet-mapping>
         <servlet-name>oAtualizarFotoUsuario</servlet-name>
         <url-pattern>/usuario/foto/atualizar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jInserirNucleoCompleto</servlet-name>
+        <url-pattern>/nucleo/completo/salvar</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

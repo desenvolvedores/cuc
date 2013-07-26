@@ -39,11 +39,11 @@ public class JsonExcluirInstitucionalSocial extends javax.servlet.http.HttpServl
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
                 com.sys.urbano.InstitucionalSocial institucional = jsonMgr.parseInstitucionalSocial(json);
 
-                if (institucional.getId() > 0) {
+                if (institucional.getNucleo().getId() > 0 && institucional.getSocial().getId() > 0) {
 
                     pgsql.sys.urbano.InstitucionalSocialDAO institucionalDAO = new pgsql.sys.urbano.InstitucionalSocialDAO();
 
-                    if (institucionalDAO.excluirInstitucionalSocialPorID(institucional.getId()) > 0) {
+                    if (institucionalDAO.excluirInstitucionalSocial(institucional) > 0) {
 
                         com.db.DBConnection.getInstance().getConnection().commit();
                         com.sys.Message message = new com.sys.Message();

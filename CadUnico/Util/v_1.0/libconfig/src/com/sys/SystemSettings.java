@@ -15,8 +15,8 @@ public class SystemSettings {
     public static java.lang.String systemName = "";
     public static java.lang.String url = "";
     public static java.lang.String theme = "";
-    public static final java.awt.Color EMPTY_REQUIRED_TEXTBOX = new java.awt.Color(255, 200, 200);
-    public static final java.awt.Color EMPTY_REQUIRED_COMBOBOX = new java.awt.Color(255, 0, 0);
+    public static final java.awt.Color EMPTY_REQUIRED_TEXTBOX = new java.awt.Color(156, 193, 243);
+    public static final java.awt.Color EMPTY_REQUIRED_COMBOBOX = new java.awt.Color(0, 0, 255);
     public static final java.awt.Color FILLED_UP_REQUIRED_TEXTBOX = new java.awt.Color(255, 255, 255);
     public static final java.awt.Color FILLED_UP_REQUIRED_COMBOBOX = new java.awt.Color(0, 0, 0);
     

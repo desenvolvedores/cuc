@@ -30,6 +30,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             
         }
         
+        liberarTodosCamposObrigatorios();
+        desabilitarTodosCampos();
+        desabilitarBotoes();
+        jbtnNovo.setEnabled(true);
+        
     }
 
     /**
@@ -61,14 +66,14 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtxtSetorCadastral = new javax.swing.JTextField();
         jlblZona = new javax.swing.JLabel();
         jcbbZona = new javax.swing.JComboBox();
-        jlblOrigem = new javax.swing.JLabel();
-        jtxtOrigem = new javax.swing.JTextField();
         jlblAreaTotal = new javax.swing.JLabel();
-        jtxtAreaTotal = new javax.swing.JTextField();
+        jtxtAreaTotal = new com.data.NumberField();
         jlblAreaOcupada = new javax.swing.JLabel();
-        jtxtAreaOcupada = new javax.swing.JTextField();
+        jtxtAreaOcupada = new com.data.NumberField();
+        jlblOrigem = new javax.swing.JLabel();
+        jcbbOrigem = new javax.swing.JComboBox();
         jlblOcupacao = new javax.swing.JLabel();
-        jtxtOcupacao = new javax.swing.JTextField();
+        jcbbOcupacao = new javax.swing.JComboBox();
         jlblInicioOcupacao = new javax.swing.JLabel();
         jtxtInicioOcupacao = new javax.swing.JTextField();
         jlblControleOcupacao = new javax.swing.JLabel();
@@ -80,9 +85,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblPadraoConstrutivo = new javax.swing.JLabel();
         jcbbPadraoConstrutivo = new javax.swing.JComboBox();
         jlblNumeroDomicilios = new javax.swing.JLabel();
-        jtxtNumeroDomicilios = new javax.swing.JTextField();
+        jtxtNumeroDomicilios = new com.data.NumberField();
         jlblPopulacaoEstimada = new javax.swing.JLabel();
-        jtxtPopulacaoEstimada = new javax.swing.JTextField();
+        jtxtPopulacaoEstimada = new com.data.NumberField();
         jlblPopulacaoFonteDados = new javax.swing.JLabel();
         jcbbPopulacaoFonteDados = new javax.swing.JComboBox();
         jlblPopulacaoOutrasFontesDados = new javax.swing.JLabel();
@@ -102,8 +107,8 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblTransporteColetivo = new javax.swing.JLabel();
         jcbbTransporteColetivo = new javax.swing.JComboBox();
         jlblAnexoTransporteColetivo = new javax.swing.JLabel();
-        jtxtAnexoTransporteColetivo = new javax.swing.JTextField();
-        jbtnAnexoTransporteColetivo = new javax.swing.JButton();
+        jtxtAnexosTransporteColetivo = new javax.swing.JTextField();
+        jbtnAnexosTransporteColetivo = new javax.swing.JButton();
         jpnlInfraestruturaProgramas = new javax.swing.JPanel();
         jpnlInfraestruturaProgramasWrapper = new javax.swing.JPanel();
         jpnlInfraestruturaUrbana = new javax.swing.JPanel();
@@ -141,7 +146,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jpnlSituacaoFundiaria = new javax.swing.JPanel();
         jpnlSituacaoFundiariaWrapper = new javax.swing.JPanel();
         jlblPropriedade = new javax.swing.JLabel();
-        jtxtPropriedade = new javax.swing.JTextField();
+        jcbbPropriedade = new javax.swing.JComboBox();
         jlblProprietario = new javax.swing.JLabel();
         jtxtProprietario = new javax.swing.JTextField();
         jlblObsPropriedade = new javax.swing.JLabel();
@@ -150,8 +155,6 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtxtaObsPropriedade = new javax.swing.JTextArea();
         jlblDecretoAprovacao = new javax.swing.JLabel();
         jtxtDecretoAprovacao = new javax.swing.JTextField();
-        jlblDecretoRegistrado = new javax.swing.JLabel();
-        jcbbDecretoRegistrado = new javax.swing.JComboBox();
         jlblNumeroMatricula = new javax.swing.JLabel();
         jtxtNumeroMatricula = new javax.swing.JTextField();
         jlblDestinacaoAreas = new javax.swing.JLabel();
@@ -188,6 +191,8 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblAnexosJudiciais = new javax.swing.JLabel();
         jtxtAnexosJudiciais = new javax.swing.JTextField();
         jbtnAnexosJudiciais = new javax.swing.JButton();
+        jcbbDecretoRegistrado = new javax.swing.JComboBox();
+        jlblDecretoRegistrado = new javax.swing.JLabel();
         jpnlViasPublicas = new javax.swing.JPanel();
         jpnlViasPublicasWrapper = new javax.swing.JPanel();
         jpnlTabelaViasPublicas = new javax.swing.JPanel();
@@ -219,17 +224,17 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblEstimativaRelocacao = new javax.swing.JLabel();
         jcbbEstimativaRelocacao = new javax.swing.JComboBox();
         jlblNumeroRemocaoDefinitiva = new javax.swing.JLabel();
-        jtxtNumeroRemocaoDefinitiva = new javax.swing.JTextField();
+        jtxtNumeroRemocaoDefinitiva = new com.data.NumberField();
         jlblNumeroRemocaoProvisoria = new javax.swing.JLabel();
-        jtxtNumeroRemocaoProvisoria = new javax.swing.JTextField();
+        jtxtNumeroRemocaoProvisoria = new com.data.NumberField();
         jlblReassentamento = new javax.swing.JLabel();
         jcbbReassentamento = new javax.swing.JComboBox();
         jlblEstimativaRemocao = new javax.swing.JLabel();
         jcbbEstimativaRemocao = new javax.swing.JComboBox();
         jlblNumeroMoradiasConstruir = new javax.swing.JLabel();
-        jtxtNumeroMoradiasConstruir = new javax.swing.JTextField();
+        jtxtNumeroMoradiasConstruir = new com.data.NumberField();
         jlblNumeroMoradiasProvisorias = new javax.swing.JLabel();
-        jtxtNumeroMoradiasProvisorias = new javax.swing.JTextField();
+        jtxtNumeroMoradiasProvisorias = new com.data.NumberField();
         jlblLocalDefinitivo = new javax.swing.JLabel();
         jtxtLocalDefinitivo = new javax.swing.JTextField();
         jlblMelhoriaHabitacional = new javax.swing.JLabel();
@@ -243,7 +248,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblDesconstrucao = new javax.swing.JLabel();
         jcbbDesconstrucao = new javax.swing.JComboBox();
         jlblNumeroMoradiasDemolir = new javax.swing.JLabel();
-        jtxtNumeroMoradiasDemolir = new javax.swing.JTextField();
+        jtxtNumeroMoradiasDemolir = new com.data.NumberField();
         jlblMotivoDemolicao = new javax.swing.JLabel();
         jpnlTextAreaMotivoDemolicao = new javax.swing.JPanel();
         jscpTextAreaMotivoDemolicao = new javax.swing.JScrollPane();
@@ -263,9 +268,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jpnlAspectosAmbientais = new javax.swing.JPanel();
         jpnlAspectosAmbientaisWrapper = new javax.swing.JPanel();
         jlblAspAmbLatitude = new javax.swing.JLabel();
-        jtxtAspAmbLatitude = new javax.swing.JTextField();
+        jtxtAspAmbLatitude = new com.data.NumberField();
         jlblAspAmbLongitude = new javax.swing.JLabel();
-        jtxtAspAmbLongitude = new javax.swing.JTextField();
+        jtxtAspAmbLongitude = new com.data.NumberField();
         jlblAreaVerde = new javax.swing.JLabel();
         jcbbAreaVerde = new javax.swing.JComboBox();
         jlblAreaAgricola = new javax.swing.JLabel();
@@ -277,8 +282,8 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jpnlApp = new javax.swing.JPanel();
         jlblApp = new javax.swing.JLabel();
         jcbbApp = new javax.swing.JComboBox();
-        jlblCorpoAgua = new javax.swing.JLabel();
-        jcbbCorpoAgua = new javax.swing.JComboBox();
+        jlblCorpoDagua = new javax.swing.JLabel();
+        jcbbCorpoDagua = new javax.swing.JComboBox();
         jlblBrejoCharco = new javax.swing.JLabel();
         jcbbBrejoCharco = new javax.swing.JComboBox();
         jlblTopoMorro = new javax.swing.JLabel();
@@ -314,6 +319,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtbpPrincipal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jpnlPesquisa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jpnlPesquisa.setNextFocusableComponent(jtxtPesquisa);
 
         jtblPesquisa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -335,6 +341,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             }
         });
         jtblPesquisa.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jtblPesquisa.setNextFocusableComponent(jpnlFormulario);
         jscpTabelaPesquisa.setViewportView(jtblPesquisa);
 
         jpnlPesquisar.setLayout(null);
@@ -345,6 +352,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblPesquisa.setBounds(0, 10, 70, 25);
 
         jtxtPesquisa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtPesquisa.setNextFocusableComponent(jcbbFiltro);
         jpnlPesquisar.add(jtxtPesquisa);
         jtxtPesquisa.setBounds(70, 10, 480, 25);
 
@@ -354,13 +362,15 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblFiltro.setBounds(570, 10, 70, 25);
 
         jcbbFiltro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jcbbFiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sem filtro" }));
+        jcbbFiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sem filtro", "Nome", "Setor cadastral", "Zona", "Origem" }));
+        jcbbFiltro.setNextFocusableComponent(jbtnPesquisar);
         jpnlPesquisar.add(jcbbFiltro);
         jcbbFiltro.setBounds(640, 10, 200, 25);
 
         jbtnPesquisar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jbtnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/search.png"))); // NOI18N
         jbtnPesquisar.setText("Pesquisar");
+        jbtnPesquisar.setNextFocusableComponent(jtblPesquisa);
         jpnlPesquisar.add(jbtnPesquisar);
         jbtnPesquisar.setBounds(850, 10, 120, 30);
 
@@ -390,6 +400,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtbpPrincipal.addTab("Pesquisa", null, jpnlPesquisa, "Pesquisa de Núcleos");
 
         jpnlFormulario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jpnlFormulario.setNextFocusableComponent(jpnlDadosAssentamento);
         jpnlFormulario.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 jpnlFormularioComponentResized(evt);
@@ -399,6 +410,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtbpFormulario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jpnlDadosAssentamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jpnlDadosAssentamento.setNextFocusableComponent(jtxtNome);
         jpnlDadosAssentamento.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 jpnlDadosAssentamentoComponentResized(evt);
@@ -411,63 +423,108 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblNome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblNome.setText("Nome:");
+        jlblNome.setToolTipText("Nome do loteamento/núcleo");
         jpnlDadosAssentamentoWrapper.add(jlblNome);
         jlblNome.setBounds(10, 10, 120, 25);
 
         jtxtNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtNome.setNextFocusableComponent(jtxtSetorCadastral);
+        jtxtNome.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtNomeFocusLost(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jtxtNome);
         jtxtNome.setBounds(140, 10, 830, 25);
 
         jlblSetorCadastral.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblSetorCadastral.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblSetorCadastral.setText("Setor Cadastral:");
+        jlblSetorCadastral.setToolTipText("Setor cadastral do núcleo");
         jpnlDadosAssentamentoWrapper.add(jlblSetorCadastral);
         jlblSetorCadastral.setBounds(10, 40, 120, 25);
 
         jtxtSetorCadastral.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtSetorCadastral.setNextFocusableComponent(jcbbZona);
+        jtxtSetorCadastral.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtSetorCadastralFocusLost(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jtxtSetorCadastral);
         jtxtSetorCadastral.setBounds(140, 40, 340, 25);
 
         jlblZona.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblZona.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblZona.setText("Zona:");
+        jlblZona.setToolTipText("Zona de localização do núcleo");
         jpnlDadosAssentamentoWrapper.add(jlblZona);
         jlblZona.setBounds(10, 70, 120, 25);
 
         jcbbZona.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbZona.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma zona", "Norte", "Central", "Sul" }));
+        jcbbZona.setNextFocusableComponent(jtxtAreaTotal);
+        jcbbZona.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbZonaFocusLost(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jcbbZona);
         jcbbZona.setBounds(140, 70, 340, 25);
-
-        jlblOrigem.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jlblOrigem.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jlblOrigem.setText("Origem:");
-        jpnlDadosAssentamentoWrapper.add(jlblOrigem);
-        jlblOrigem.setBounds(10, 100, 120, 25);
-
-        jtxtOrigem.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jpnlDadosAssentamentoWrapper.add(jtxtOrigem);
-        jtxtOrigem.setBounds(140, 100, 340, 25);
 
         jlblAreaTotal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAreaTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAreaTotal.setText("Área Total:");
+        jlblAreaTotal.setToolTipText("Extensão total do núcleo em m²");
         jpnlDadosAssentamentoWrapper.add(jlblAreaTotal);
-        jlblAreaTotal.setBounds(10, 130, 120, 25);
+        jlblAreaTotal.setBounds(10, 100, 120, 25);
 
         jtxtAreaTotal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtAreaTotal.setText("0,000");
+        jtxtAreaTotal.setNextFocusableComponent(jtxtAreaOcupada);
+        jtxtAreaTotal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtAreaTotalKeyReleased(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jtxtAreaTotal);
-        jtxtAreaTotal.setBounds(140, 130, 340, 25);
+        jtxtAreaTotal.setBounds(140, 100, 340, 25);
 
         jlblAreaOcupada.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAreaOcupada.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAreaOcupada.setText("Área Ocupada:");
+        jlblAreaOcupada.setToolTipText("Extensão ocupada do núcleo em m²");
         jpnlDadosAssentamentoWrapper.add(jlblAreaOcupada);
-        jlblAreaOcupada.setBounds(10, 160, 120, 25);
+        jlblAreaOcupada.setBounds(10, 130, 120, 25);
 
         jtxtAreaOcupada.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtAreaOcupada.setText("0,000");
+        jtxtAreaOcupada.setNextFocusableComponent(jcbbOrigem);
+        jtxtAreaOcupada.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtAreaOcupadaKeyReleased(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jtxtAreaOcupada);
-        jtxtAreaOcupada.setBounds(140, 160, 340, 25);
+        jtxtAreaOcupada.setBounds(140, 130, 340, 25);
+
+        jlblOrigem.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlblOrigem.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jlblOrigem.setText("Origem:");
+        jlblOrigem.setToolTipText("Origem do núcleo");
+        jpnlDadosAssentamentoWrapper.add(jlblOrigem);
+        jlblOrigem.setBounds(10, 160, 120, 25);
+
+        jcbbOrigem.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcbbOrigem.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma origem", "Loteamento", "Gleba" }));
+        jcbbOrigem.setNextFocusableComponent(jcbbOcupacao);
+        jcbbOrigem.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbOrigemFocusLost(evt);
+            }
+        });
+        jpnlDadosAssentamentoWrapper.add(jcbbOrigem);
+        jcbbOrigem.setBounds(140, 160, 340, 25);
 
         jlblOcupacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblOcupacao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -475,40 +532,58 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jpnlDadosAssentamentoWrapper.add(jlblOcupacao);
         jlblOcupacao.setBounds(10, 190, 120, 25);
 
-        jtxtOcupacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jpnlDadosAssentamentoWrapper.add(jtxtOcupacao);
-        jtxtOcupacao.setBounds(140, 190, 340, 25);
+        jcbbOcupacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcbbOcupacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma ocupação", "Regular", "Irregular", "Invasão/Clandestino" }));
+        jcbbOcupacao.setNextFocusableComponent(jtxtInicioOcupacao);
+        jcbbOcupacao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbOcupacaoFocusLost(evt);
+            }
+        });
+        jpnlDadosAssentamentoWrapper.add(jcbbOcupacao);
+        jcbbOcupacao.setBounds(140, 190, 340, 25);
 
         jlblInicioOcupacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblInicioOcupacao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblInicioOcupacao.setText("Início Ocupação:");
+        jlblInicioOcupacao.setToolTipText("Período estimado do início da ocupação");
         jpnlDadosAssentamentoWrapper.add(jlblInicioOcupacao);
         jlblInicioOcupacao.setBounds(10, 220, 120, 25);
 
         jtxtInicioOcupacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtInicioOcupacao.setNextFocusableComponent(jcbbControleOcupacao);
         jpnlDadosAssentamentoWrapper.add(jtxtInicioOcupacao);
         jtxtInicioOcupacao.setBounds(140, 220, 340, 25);
 
         jlblControleOcupacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblControleOcupacao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblControleOcupacao.setText("Controle Ocupação:");
+        jlblControleOcupacao.setToolTipText("Necessidade de controle da ocupação");
         jpnlDadosAssentamentoWrapper.add(jlblControleOcupacao);
         jlblControleOcupacao.setBounds(10, 250, 120, 25);
 
         jcbbControleOcupacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbControleOcupacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbControleOcupacao.setNextFocusableComponent(jtxtaObsControleOcupacao);
+        jcbbControleOcupacao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbControleOcupacaoFocusLost(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jcbbControleOcupacao);
         jcbbControleOcupacao.setBounds(140, 250, 340, 25);
 
         jlblObsControleOcupacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblObsControleOcupacao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblObsControleOcupacao.setText("Obs. Controle Ocup.:");
+        jlblObsControleOcupacao.setToolTipText("Observações sobre a necessidade de controle da ocupação");
         jpnlDadosAssentamentoWrapper.add(jlblObsControleOcupacao);
         jlblObsControleOcupacao.setBounds(10, 280, 120, 25);
 
         jtxtaObsControleOcupacao.setColumns(20);
         jtxtaObsControleOcupacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtaObsControleOcupacao.setRows(5);
+        jtxtaObsControleOcupacao.setNextFocusableComponent(jcbbTransporteColetivo);
         jscpTextAreaObsControleOcupacao.setViewportView(jtxtaObsControleOcupacao);
 
         javax.swing.GroupLayout jpnlTextAreaObsControleOcupacaoLayout = new javax.swing.GroupLayout(jpnlTextAreaObsControleOcupacao);
@@ -528,106 +603,178 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblPadraoConstrutivo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblPadraoConstrutivo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblPadraoConstrutivo.setText("Padrão Construtivo:");
+        jlblPadraoConstrutivo.setToolTipText("Padrão construtivo das habitações");
         jpnlDadosAssentamentoWrapper.add(jlblPadraoConstrutivo);
         jlblPadraoConstrutivo.setBounds(490, 40, 120, 25);
 
         jcbbPadraoConstrutivo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbPadraoConstrutivo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Predomina improvisada ou precária", "Predomina alvenaria, com padrão baixo, sem acabamento", "Predomina alvenaria, com padrão baixo, com acabamento", "Predomina alvenaria com padrão médio", "Padrão médio-baixo", "Padrão médio-alto", "Padrão alto" }));
+        jcbbPadraoConstrutivo.setNextFocusableComponent(jtxtNumeroDomicilios);
+        jcbbPadraoConstrutivo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbPadraoConstrutivoFocusLost(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jcbbPadraoConstrutivo);
         jcbbPadraoConstrutivo.setBounds(620, 40, 350, 25);
 
         jlblNumeroDomicilios.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblNumeroDomicilios.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblNumeroDomicilios.setText("Número Domicílios:");
+        jlblNumeroDomicilios.setToolTipText("Número de domicílios existentes no núcleo");
         jpnlDadosAssentamentoWrapper.add(jlblNumeroDomicilios);
         jlblNumeroDomicilios.setBounds(490, 70, 120, 25);
 
         jtxtNumeroDomicilios.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtNumeroDomicilios.setText("0");
+        jtxtNumeroDomicilios.setNextFocusableComponent(jtxtPopulacaoEstimada);
+        jtxtNumeroDomicilios.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtNumeroDomiciliosFocusLost(evt);
+            }
+        });
+        jtxtNumeroDomicilios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtNumeroDomiciliosKeyReleased(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jtxtNumeroDomicilios);
         jtxtNumeroDomicilios.setBounds(620, 70, 350, 25);
 
         jlblPopulacaoEstimada.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblPopulacaoEstimada.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblPopulacaoEstimada.setText("População Estimada:");
+        jlblPopulacaoEstimada.setToolTipText("Estimativa de número de indivíduos residentes no núcleo");
         jpnlDadosAssentamentoWrapper.add(jlblPopulacaoEstimada);
         jlblPopulacaoEstimada.setBounds(490, 100, 120, 25);
 
         jtxtPopulacaoEstimada.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtPopulacaoEstimada.setText("0");
+        jtxtPopulacaoEstimada.setNextFocusableComponent(jcbbPopulacaoFonteDados);
+        jtxtPopulacaoEstimada.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtPopulacaoEstimadaFocusLost(evt);
+            }
+        });
+        jtxtPopulacaoEstimada.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtPopulacaoEstimadaKeyReleased(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jtxtPopulacaoEstimada);
         jtxtPopulacaoEstimada.setBounds(620, 100, 350, 25);
 
         jlblPopulacaoFonteDados.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblPopulacaoFonteDados.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblPopulacaoFonteDados.setText("Pop. Fonte de Dados:");
+        jlblPopulacaoFonteDados.setToolTipText("Fonte dos dados coletados à respeito da população estimada");
         jpnlDadosAssentamentoWrapper.add(jlblPopulacaoFonteDados);
         jlblPopulacaoFonteDados.setBounds(490, 130, 120, 25);
 
         jcbbPopulacaoFonteDados.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jcbbPopulacaoFonteDados.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Estimativa por foto aérea", "Cadastro da prefeitura", "Setor censitário", "Outra fonte" }));
+        jcbbPopulacaoFonteDados.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma fonte de dados", "Estimativa por foto aérea", "Cadastro da prefeitura", "Setor censitário", "Outra fonte" }));
+        jcbbPopulacaoFonteDados.setNextFocusableComponent(jtxtPopulacaoOutrasFontesDados);
+        jcbbPopulacaoFonteDados.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbbPopulacaoFonteDadosItemStateChanged(evt);
+            }
+        });
+        jcbbPopulacaoFonteDados.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbPopulacaoFonteDadosFocusLost(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jcbbPopulacaoFonteDados);
         jcbbPopulacaoFonteDados.setBounds(620, 130, 350, 25);
 
         jlblPopulacaoOutrasFontesDados.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblPopulacaoOutrasFontesDados.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblPopulacaoOutrasFontesDados.setText("Pop. Outras F. Dados:");
+        jlblPopulacaoOutrasFontesDados.setToolTipText("Descrição ou nome das outras fontes de dados da população estimada");
         jpnlDadosAssentamentoWrapper.add(jlblPopulacaoOutrasFontesDados);
         jlblPopulacaoOutrasFontesDados.setBounds(490, 160, 120, 25);
 
         jtxtPopulacaoOutrasFontesDados.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtPopulacaoOutrasFontesDados.setNextFocusableComponent(jcbbRendaPopulacao);
+        jtxtPopulacaoOutrasFontesDados.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtPopulacaoOutrasFontesDadosFocusLost(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jtxtPopulacaoOutrasFontesDados);
         jtxtPopulacaoOutrasFontesDados.setBounds(620, 160, 350, 25);
 
         jlblRendaPopulacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblRendaPopulacao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblRendaPopulacao.setText("Renda da População:");
+        jlblRendaPopulacao.setToolTipText("Perfil da renda da população residente no núcleo");
         jpnlDadosAssentamentoWrapper.add(jlblRendaPopulacao);
         jlblRendaPopulacao.setBounds(490, 190, 120, 25);
 
         jcbbRendaPopulacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jcbbRendaPopulacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Predomina baixa renda", "Predomina média renda", "Baixa e média renda", "Média e alta renda", "Predomina alta renda" }));
+        jcbbRendaPopulacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma renda", "Predomina baixa renda", "Predomina média renda", "Baixa e média renda", "Média e alta renda", "Predomina alta renda" }));
+        jcbbRendaPopulacao.setNextFocusableComponent(jtxtUsoIncompativel);
+        jcbbRendaPopulacao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbRendaPopulacaoFocusLost(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jcbbRendaPopulacao);
         jcbbRendaPopulacao.setBounds(620, 190, 350, 25);
 
         jlblUsoIncompativel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblUsoIncompativel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblUsoIncompativel.setText("Uso Incompatível:");
+        jlblUsoIncompativel.setToolTipText("O núcleo possui uso incompatível ao residentcial ? Se sim, por quê?");
         jpnlDadosAssentamentoWrapper.add(jlblUsoIncompativel);
         jlblUsoIncompativel.setBounds(490, 220, 120, 25);
 
         jtxtUsoIncompativel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtUsoIncompativel.setNextFocusableComponent(jcbbAdensamento);
         jpnlDadosAssentamentoWrapper.add(jtxtUsoIncompativel);
         jtxtUsoIncompativel.setBounds(620, 220, 350, 25);
 
         jlblAdensamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAdensamento.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAdensamento.setText("Adensamento:");
+        jlblAdensamento.setToolTipText("Densidade demográfica para área consolidada (referência: 200m²/habitante)");
         jpnlDadosAssentamentoWrapper.add(jlblAdensamento);
         jlblAdensamento.setBounds(490, 250, 120, 25);
 
         jcbbAdensamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbAdensamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbAdensamento.setNextFocusableComponent(jtxtAdensamentoFonteDados);
+        jcbbAdensamento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbAdensamentoFocusLost(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jcbbAdensamento);
         jcbbAdensamento.setBounds(620, 250, 350, 25);
 
         jlblAdensamentoFonteDados.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAdensamentoFonteDados.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAdensamentoFonteDados.setText("Adens. Fonte Dados:");
+        jlblAdensamentoFonteDados.setToolTipText("Fonte de dados das informações do adensamento populacional");
         jpnlDadosAssentamentoWrapper.add(jlblAdensamentoFonteDados);
         jlblAdensamentoFonteDados.setBounds(490, 280, 120, 25);
 
         jtxtAdensamentoFonteDados.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtAdensamentoFonteDados.setNextFocusableComponent(jtxtaObsAdensamento);
         jpnlDadosAssentamentoWrapper.add(jtxtAdensamentoFonteDados);
         jtxtAdensamentoFonteDados.setBounds(620, 280, 350, 25);
 
         jlblObsAdensamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblObsAdensamento.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblObsAdensamento.setText("Obs. Adensamento:");
+        jlblObsAdensamento.setToolTipText("Observações sobre a fonte de dados do adensamento populacional");
         jpnlDadosAssentamentoWrapper.add(jlblObsAdensamento);
         jlblObsAdensamento.setBounds(490, 310, 120, 25);
 
         jtxtaObsAdensamento.setColumns(20);
         jtxtaObsAdensamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtaObsAdensamento.setRows(5);
+        jtxtaObsAdensamento.setNextFocusableComponent(jbtnAnexosTransporteColetivo);
         jscpTextAreaObsAdensamento.setViewportView(jtxtaObsAdensamento);
 
         javax.swing.GroupLayout jpnlTextAreaObsAdensamentoLayout = new javax.swing.GroupLayout(jpnlTextAreaObsAdensamento);
@@ -647,36 +794,50 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblTransporteColetivo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblTransporteColetivo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblTransporteColetivo.setText("Transporte Coletivo:");
+        jlblTransporteColetivo.setToolTipText("O núcleo possui transporte coletivo?");
         jpnlDadosAssentamentoWrapper.add(jlblTransporteColetivo);
         jlblTransporteColetivo.setBounds(10, 435, 120, 25);
 
         jcbbTransporteColetivo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbTransporteColetivo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbTransporteColetivo.setNextFocusableComponent(jcbbPadraoConstrutivo);
+        jcbbTransporteColetivo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbTransporteColetivoFocusLost(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jcbbTransporteColetivo);
         jcbbTransporteColetivo.setBounds(140, 435, 340, 25);
 
         jlblAnexoTransporteColetivo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAnexoTransporteColetivo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAnexoTransporteColetivo.setText("Anexos Transporte:");
+        jlblAnexoTransporteColetivo.setToolTipText("Documentos anexos referentes ao transporte coletivo existente no núcleo");
         jpnlDadosAssentamentoWrapper.add(jlblAnexoTransporteColetivo);
         jlblAnexoTransporteColetivo.setBounds(10, 465, 120, 25);
 
-        jtxtAnexoTransporteColetivo.setEditable(false);
-        jtxtAnexoTransporteColetivo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jpnlDadosAssentamentoWrapper.add(jtxtAnexoTransporteColetivo);
-        jtxtAnexoTransporteColetivo.setBounds(140, 465, 700, 25);
-
-        jbtnAnexoTransporteColetivo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jbtnAnexoTransporteColetivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/attach.png"))); // NOI18N
-        jbtnAnexoTransporteColetivo.setText("Anexos");
-        jbtnAnexoTransporteColetivo.setIconTextGap(10);
-        jbtnAnexoTransporteColetivo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnAnexoTransporteColetivoActionPerformed(evt);
+        jtxtAnexosTransporteColetivo.setEditable(false);
+        jtxtAnexosTransporteColetivo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtAnexosTransporteColetivo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtxtAnexosTransporteColetivoMouseClicked(evt);
             }
         });
-        jpnlDadosAssentamentoWrapper.add(jbtnAnexoTransporteColetivo);
-        jbtnAnexoTransporteColetivo.setBounds(850, 465, 120, 30);
+        jpnlDadosAssentamentoWrapper.add(jtxtAnexosTransporteColetivo);
+        jtxtAnexosTransporteColetivo.setBounds(140, 465, 700, 25);
+
+        jbtnAnexosTransporteColetivo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jbtnAnexosTransporteColetivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/attach.png"))); // NOI18N
+        jbtnAnexosTransporteColetivo.setText("Anexos");
+        jbtnAnexosTransporteColetivo.setIconTextGap(10);
+        jbtnAnexosTransporteColetivo.setNextFocusableComponent(jpnlInfraestruturaProgramas);
+        jbtnAnexosTransporteColetivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnAnexosTransporteColetivoActionPerformed(evt);
+            }
+        });
+        jpnlDadosAssentamentoWrapper.add(jbtnAnexosTransporteColetivo);
+        jbtnAnexosTransporteColetivo.setBounds(850, 465, 120, 30);
 
         jpnlDadosAssentamento.add(jpnlDadosAssentamentoWrapper);
         jpnlDadosAssentamentoWrapper.setBounds(0, 0, 980, 510);
@@ -684,6 +845,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtbpFormulario.addTab("Dados do Assentamento", null, jpnlDadosAssentamento, "Dados comuns sobre o núcleo");
 
         jpnlInfraestruturaProgramas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jpnlInfraestruturaProgramas.setNextFocusableComponent(jcbbAbastecimentoAgua);
         jpnlInfraestruturaProgramas.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 jpnlInfraestruturaProgramasComponentResized(evt);
@@ -700,77 +862,126 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblAbastecimentoAgua.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAbastecimentoAgua.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAbastecimentoAgua.setText("Abastec. Água:");
+        jlblAbastecimentoAgua.setToolTipText("O núcleo possui rede de abastecimento de água?");
         jpnlInfraestruturaUrbana.add(jlblAbastecimentoAgua);
         jlblAbastecimentoAgua.setBounds(10, 20, 120, 25);
 
         jcbbAbastecimentoAgua.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbAbastecimentoAgua.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbAbastecimentoAgua.setNextFocusableComponent(jcbbColetaEsgoto);
+        jcbbAbastecimentoAgua.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbAbastecimentoAguaFocusLost(evt);
+            }
+        });
         jpnlInfraestruturaUrbana.add(jcbbAbastecimentoAgua);
         jcbbAbastecimentoAgua.setBounds(140, 20, 330, 25);
 
         jlblColetaEsgoto.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblColetaEsgoto.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblColetaEsgoto.setText("Coleta Esgoto:");
+        jlblColetaEsgoto.setToolTipText("O núcleo possui rede de coleta de esgoto?");
         jpnlInfraestruturaUrbana.add(jlblColetaEsgoto);
         jlblColetaEsgoto.setBounds(10, 50, 120, 25);
 
         jcbbColetaEsgoto.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbColetaEsgoto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbColetaEsgoto.setNextFocusableComponent(jcbbEnergiaEletrica);
+        jcbbColetaEsgoto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbColetaEsgotoFocusLost(evt);
+            }
+        });
         jpnlInfraestruturaUrbana.add(jcbbColetaEsgoto);
         jcbbColetaEsgoto.setBounds(140, 50, 330, 25);
 
         jlblEnergiaEletrica.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblEnergiaEletrica.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblEnergiaEletrica.setText("Energia Elétrica:");
+        jlblEnergiaEletrica.setToolTipText("O núcleo possui rede de distribuição de energia elétrica?");
         jpnlInfraestruturaUrbana.add(jlblEnergiaEletrica);
         jlblEnergiaEletrica.setBounds(10, 80, 120, 25);
 
         jcbbEnergiaEletrica.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbEnergiaEletrica.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbEnergiaEletrica.setNextFocusableComponent(jcbbIluminacaoPublica);
+        jcbbEnergiaEletrica.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbEnergiaEletricaFocusLost(evt);
+            }
+        });
         jpnlInfraestruturaUrbana.add(jcbbEnergiaEletrica);
         jcbbEnergiaEletrica.setBounds(140, 80, 330, 25);
 
         jlblIluminacaoPublica.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblIluminacaoPublica.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblIluminacaoPublica.setText("Iluminação Pública:");
+        jlblIluminacaoPublica.setToolTipText("O núcleo possui iluminação pública?");
         jpnlInfraestruturaUrbana.add(jlblIluminacaoPublica);
         jlblIluminacaoPublica.setBounds(10, 110, 120, 25);
 
         jcbbIluminacaoPublica.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbIluminacaoPublica.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbIluminacaoPublica.setNextFocusableComponent(jcbbServicosLimpeza);
+        jcbbIluminacaoPublica.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbIluminacaoPublicaFocusLost(evt);
+            }
+        });
         jpnlInfraestruturaUrbana.add(jcbbIluminacaoPublica);
         jcbbIluminacaoPublica.setBounds(140, 110, 330, 25);
 
         jlblServicosLimpeza.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblServicosLimpeza.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblServicosLimpeza.setText("Serviços Limpeza:");
+        jlblServicosLimpeza.setToolTipText("O núcleo possui serviços de limpeza urbana, coleta e manejo de resíduos sólidos?");
         jpnlInfraestruturaUrbana.add(jlblServicosLimpeza);
         jlblServicosLimpeza.setBounds(480, 20, 130, 25);
 
         jcbbServicosLimpeza.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbServicosLimpeza.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbServicosLimpeza.setNextFocusableComponent(jcbbAguasPluviaisSuperficial);
+        jcbbServicosLimpeza.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbServicosLimpezaFocusLost(evt);
+            }
+        });
         jpnlInfraestruturaUrbana.add(jcbbServicosLimpeza);
         jcbbServicosLimpeza.setBounds(620, 20, 330, 25);
 
         jlblAguasPluviaisSuperficial.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAguasPluviaisSuperficial.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAguasPluviaisSuperficial.setText("Águas Pluviais Sup.:");
+        jlblAguasPluviaisSuperficial.setToolTipText("O núcleo possui sistema de drenagem superficial de águas pluviais?");
         jpnlInfraestruturaUrbana.add(jlblAguasPluviaisSuperficial);
         jlblAguasPluviaisSuperficial.setBounds(480, 50, 130, 25);
 
         jcbbAguasPluviaisSuperficial.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbAguasPluviaisSuperficial.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbAguasPluviaisSuperficial.setNextFocusableComponent(jcbbAguasPluviaisRede);
+        jcbbAguasPluviaisSuperficial.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbAguasPluviaisSuperficialFocusLost(evt);
+            }
+        });
         jpnlInfraestruturaUrbana.add(jcbbAguasPluviaisSuperficial);
         jcbbAguasPluviaisSuperficial.setBounds(620, 50, 330, 25);
 
         jlblAguasPluviaisRede.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAguasPluviaisRede.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAguasPluviaisRede.setText("Águas Pluviais Rede:");
+        jlblAguasPluviaisRede.setToolTipText("O núcleo possui sistema de rede de drenagem de águas pluviais?");
         jpnlInfraestruturaUrbana.add(jlblAguasPluviaisRede);
         jlblAguasPluviaisRede.setBounds(480, 80, 130, 25);
 
         jcbbAguasPluviaisRede.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbAguasPluviaisRede.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbAguasPluviaisRede.setNextFocusableComponent(jcbbMaterialConstrucao);
+        jcbbAguasPluviaisRede.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbAguasPluviaisRedeFocusLost(evt);
+            }
+        });
         jpnlInfraestruturaUrbana.add(jcbbAguasPluviaisRede);
         jcbbAguasPluviaisRede.setBounds(620, 80, 330, 25);
 
@@ -784,88 +995,144 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblMaterialConstrucao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblMaterialConstrucao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblMaterialConstrucao.setText("Material Construção:");
+        jlblMaterialConstrucao.setToolTipText("Material de construção");
         jpnlProgramasHabitacionais.add(jlblMaterialConstrucao);
         jlblMaterialConstrucao.setBounds(10, 20, 120, 25);
 
         jcbbMaterialConstrucao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbMaterialConstrucao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbMaterialConstrucao.setNextFocusableComponent(jcbbProducaoMoradias);
+        jcbbMaterialConstrucao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbMaterialConstrucaoFocusLost(evt);
+            }
+        });
         jpnlProgramasHabitacionais.add(jcbbMaterialConstrucao);
         jcbbMaterialConstrucao.setBounds(140, 20, 330, 25);
 
         jlblProducaoMoradias.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblProducaoMoradias.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblProducaoMoradias.setText("Produção Moradias:");
+        jlblProducaoMoradias.setToolTipText("Produção de moradias");
         jpnlProgramasHabitacionais.add(jlblProducaoMoradias);
         jlblProducaoMoradias.setBounds(10, 50, 120, 25);
 
         jcbbProducaoMoradias.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbProducaoMoradias.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbProducaoMoradias.setNextFocusableComponent(jcbbAssistenciaTecnica);
+        jcbbProducaoMoradias.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbProducaoMoradiasFocusLost(evt);
+            }
+        });
         jpnlProgramasHabitacionais.add(jcbbProducaoMoradias);
         jcbbProducaoMoradias.setBounds(140, 50, 330, 25);
 
         jlblAssistenciaTecnica.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAssistenciaTecnica.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAssistenciaTecnica.setText("Assistência Técnica:");
+        jlblAssistenciaTecnica.setToolTipText("Assistência técnica");
         jpnlProgramasHabitacionais.add(jlblAssistenciaTecnica);
         jlblAssistenciaTecnica.setBounds(10, 80, 120, 25);
 
         jcbbAssistenciaTecnica.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbAssistenciaTecnica.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbAssistenciaTecnica.setNextFocusableComponent(jcbbUrbAssentamentosPrecarios);
+        jcbbAssistenciaTecnica.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbAssistenciaTecnicaFocusLost(evt);
+            }
+        });
         jpnlProgramasHabitacionais.add(jcbbAssistenciaTecnica);
         jcbbAssistenciaTecnica.setBounds(140, 80, 330, 25);
 
         jlblUrbAssentamentosPrecarios.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblUrbAssentamentosPrecarios.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblUrbAssentamentosPrecarios.setText("Assen. Precários:");
+        jlblUrbAssentamentosPrecarios.setToolTipText("Urbanização de assentamentos precários");
         jpnlProgramasHabitacionais.add(jlblUrbAssentamentosPrecarios);
         jlblUrbAssentamentosPrecarios.setBounds(10, 110, 120, 25);
 
         jcbbUrbAssentamentosPrecarios.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbUrbAssentamentosPrecarios.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbUrbAssentamentosPrecarios.setNextFocusableComponent(jcbbComplementacaoInfraestrutura);
+        jcbbUrbAssentamentosPrecarios.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbUrbAssentamentosPrecariosFocusLost(evt);
+            }
+        });
         jpnlProgramasHabitacionais.add(jcbbUrbAssentamentosPrecarios);
         jcbbUrbAssentamentosPrecarios.setBounds(140, 110, 330, 25);
 
         jlblComplementacaoInfraestrutura.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblComplementacaoInfraestrutura.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblComplementacaoInfraestrutura.setText("Complement. Infra.:");
+        jlblComplementacaoInfraestrutura.setToolTipText("Complementação de infraestrutura");
         jpnlProgramasHabitacionais.add(jlblComplementacaoInfraestrutura);
         jlblComplementacaoInfraestrutura.setBounds(480, 20, 130, 25);
 
         jcbbComplementacaoInfraestrutura.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbComplementacaoInfraestrutura.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbComplementacaoInfraestrutura.setNextFocusableComponent(jcbbRegularizacaoFundiaria);
+        jcbbComplementacaoInfraestrutura.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbComplementacaoInfraestruturaFocusLost(evt);
+            }
+        });
         jpnlProgramasHabitacionais.add(jcbbComplementacaoInfraestrutura);
         jcbbComplementacaoInfraestrutura.setBounds(620, 20, 330, 25);
 
         jlblRegularizacaoFundiaria.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblRegularizacaoFundiaria.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblRegularizacaoFundiaria.setText("Regulariz. Fundiária:");
+        jlblRegularizacaoFundiaria.setToolTipText("Regularização fundiária");
         jpnlProgramasHabitacionais.add(jlblRegularizacaoFundiaria);
         jlblRegularizacaoFundiaria.setBounds(480, 50, 130, 25);
 
         jcbbRegularizacaoFundiaria.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbRegularizacaoFundiaria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbRegularizacaoFundiaria.setNextFocusableComponent(jcbbCdhu);
+        jcbbRegularizacaoFundiaria.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbRegularizacaoFundiariaFocusLost(evt);
+            }
+        });
         jpnlProgramasHabitacionais.add(jcbbRegularizacaoFundiaria);
         jcbbRegularizacaoFundiaria.setBounds(620, 50, 330, 25);
 
         jlblCdhu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblCdhu.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblCdhu.setText("CDHU:");
+        jlblCdhu.setToolTipText("Empreendimentos da Companhia de Desenvolvimento Habitacional e Urbano");
         jpnlProgramasHabitacionais.add(jlblCdhu);
         jlblCdhu.setBounds(480, 80, 130, 25);
 
         jcbbCdhu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbCdhu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbCdhu.setNextFocusableComponent(jcbbPmcmv);
+        jcbbCdhu.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbCdhuFocusLost(evt);
+            }
+        });
         jpnlProgramasHabitacionais.add(jcbbCdhu);
         jcbbCdhu.setBounds(620, 80, 330, 25);
 
         jlblPmcmv.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblPmcmv.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblPmcmv.setText("PMCMV:");
+        jlblPmcmv.setToolTipText("Empreendimentos do Programa \"Minha Casa, Minha Vida\"");
         jpnlProgramasHabitacionais.add(jlblPmcmv);
         jlblPmcmv.setBounds(480, 110, 130, 25);
 
         jcbbPmcmv.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbPmcmv.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbPmcmv.setNextFocusableComponent(jpnlSituacaoFundiaria);
+        jcbbPmcmv.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbPmcmvFocusLost(evt);
+            }
+        });
         jpnlProgramasHabitacionais.add(jcbbPmcmv);
         jcbbPmcmv.setBounds(620, 110, 330, 25);
 
@@ -878,6 +1145,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtbpFormulario.addTab("Infraestrutura Urbana/Programas Habitacionais", null, jpnlInfraestruturaProgramas, "Dados da infraestrutura urbana e programas habitacionais existentes no núcleo");
 
         jpnlSituacaoFundiaria.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jpnlSituacaoFundiaria.setNextFocusableComponent(jcbbPropriedade);
         jpnlSituacaoFundiaria.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 jpnlSituacaoFundiariaComponentResized(evt);
@@ -890,39 +1158,56 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblPropriedade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblPropriedade.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblPropriedade.setText("Propriedade:");
+        jlblPropriedade.setToolTipText("Tipo de propriedade do núcleo");
         jpnlSituacaoFundiariaWrapper.add(jlblPropriedade);
         jlblPropriedade.setBounds(10, 10, 120, 25);
 
-        jtxtPropriedade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jpnlSituacaoFundiariaWrapper.add(jtxtPropriedade);
-        jtxtPropriedade.setBounds(140, 10, 340, 25);
+        jcbbPropriedade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcbbPropriedade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Pública", "Privada", "Pública e Privada" }));
+        jcbbPropriedade.setNextFocusableComponent(jtxtProprietario);
+        jcbbPropriedade.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbbPropriedadeItemStateChanged(evt);
+            }
+        });
+        jcbbPropriedade.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbPropriedadeFocusLost(evt);
+            }
+        });
+        jpnlSituacaoFundiariaWrapper.add(jcbbPropriedade);
+        jcbbPropriedade.setBounds(140, 10, 340, 25);
 
         jlblProprietario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblProprietario.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblProprietario.setText("Proprietário:");
+        jlblProprietario.setToolTipText("Proprietário do núcleo (no caso de propriedade privada)");
         jpnlSituacaoFundiariaWrapper.add(jlblProprietario);
         jlblProprietario.setBounds(10, 40, 120, 25);
 
         jtxtProprietario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtProprietario.setNextFocusableComponent(jtxtaObsPropriedade);
         jpnlSituacaoFundiariaWrapper.add(jtxtProprietario);
         jtxtProprietario.setBounds(140, 40, 340, 25);
 
         jlblObsPropriedade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblObsPropriedade.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblObsPropriedade.setText("Obs. Propriedade:");
+        jlblObsPropriedade.setToolTipText("Observações relevantes sobre a propriedade do núcleo (no caso desta ser pública e privada)");
         jpnlSituacaoFundiariaWrapper.add(jlblObsPropriedade);
         jlblObsPropriedade.setBounds(10, 70, 120, 25);
 
         jtxtaObsPropriedade.setColumns(20);
         jtxtaObsPropriedade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtaObsPropriedade.setRows(5);
+        jtxtaObsPropriedade.setNextFocusableComponent(jcbbDecretoRegistrado);
         jscpTextAreaObsPropriedade.setViewportView(jtxtaObsPropriedade);
 
         javax.swing.GroupLayout jpnlTextAreaObsPropriedadeLayout = new javax.swing.GroupLayout(jpnlTextAreaObsPropriedade);
         jpnlTextAreaObsPropriedade.setLayout(jpnlTextAreaObsPropriedadeLayout);
         jpnlTextAreaObsPropriedadeLayout.setHorizontalGroup(
             jpnlTextAreaObsPropriedadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jscpTextAreaObsPropriedade, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+            .addComponent(jscpTextAreaObsPropriedade, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
         );
         jpnlTextAreaObsPropriedadeLayout.setVerticalGroup(
             jpnlTextAreaObsPropriedadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -935,53 +1220,55 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblDecretoAprovacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblDecretoAprovacao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblDecretoAprovacao.setText("Decreto Aprovação:");
+        jlblDecretoAprovacao.setToolTipText("Decreto de aprovação");
         jpnlSituacaoFundiariaWrapper.add(jlblDecretoAprovacao);
-        jlblDecretoAprovacao.setBounds(10, 175, 120, 25);
+        jlblDecretoAprovacao.setBounds(10, 205, 120, 25);
 
         jtxtDecretoAprovacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtDecretoAprovacao.setNextFocusableComponent(jtxtNumeroMatricula);
+        jtxtDecretoAprovacao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtDecretoAprovacaoFocusLost(evt);
+            }
+        });
         jpnlSituacaoFundiariaWrapper.add(jtxtDecretoAprovacao);
-        jtxtDecretoAprovacao.setBounds(140, 175, 340, 25);
-
-        jlblDecretoRegistrado.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jlblDecretoRegistrado.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jlblDecretoRegistrado.setText("Decreto Registrado:");
-        jpnlSituacaoFundiariaWrapper.add(jlblDecretoRegistrado);
-        jlblDecretoRegistrado.setBounds(10, 205, 120, 25);
-
-        jcbbDecretoRegistrado.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jcbbDecretoRegistrado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
-        jpnlSituacaoFundiariaWrapper.add(jcbbDecretoRegistrado);
-        jcbbDecretoRegistrado.setBounds(140, 205, 340, 25);
+        jtxtDecretoAprovacao.setBounds(140, 205, 340, 25);
 
         jlblNumeroMatricula.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblNumeroMatricula.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jlblNumeroMatricula.setText("Número Matrícula:");
+        jlblNumeroMatricula.setText("Nº Matrícula Mãe:");
+        jlblNumeroMatricula.setToolTipText("Número de matrícula referente ao decreto");
         jpnlSituacaoFundiariaWrapper.add(jlblNumeroMatricula);
         jlblNumeroMatricula.setBounds(10, 235, 120, 25);
 
         jtxtNumeroMatricula.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtNumeroMatricula.setNextFocusableComponent(jtxtDestinacaoAreas);
         jpnlSituacaoFundiariaWrapper.add(jtxtNumeroMatricula);
         jtxtNumeroMatricula.setBounds(140, 235, 340, 25);
 
         jlblDestinacaoAreas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblDestinacaoAreas.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblDestinacaoAreas.setText("Destinação Áreas:");
+        jlblDestinacaoAreas.setToolTipText("Destinação das áreas (descrição)");
         jpnlSituacaoFundiariaWrapper.add(jlblDestinacaoAreas);
         jlblDestinacaoAreas.setBounds(10, 265, 120, 25);
 
         jtxtDestinacaoAreas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtDestinacaoAreas.setNextFocusableComponent(jtxtaDescDestinacaoAreas);
         jpnlSituacaoFundiariaWrapper.add(jtxtDestinacaoAreas);
         jtxtDestinacaoAreas.setBounds(140, 265, 340, 25);
 
         jlblDescDestinacaoAreas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblDescDestinacaoAreas.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblDescDestinacaoAreas.setText("Desc. Destin. Áreas:");
+        jlblDescDestinacaoAreas.setToolTipText("Descrição da destinação das áreas");
         jpnlSituacaoFundiariaWrapper.add(jlblDescDestinacaoAreas);
         jlblDescDestinacaoAreas.setBounds(10, 295, 120, 25);
 
         jtxtaDescDestinacaoAreas.setColumns(20);
         jtxtaDescDestinacaoAreas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtaDescDestinacaoAreas.setRows(5);
+        jtxtaDescDestinacaoAreas.setNextFocusableComponent(jtxtaDescEcologicoEconomico);
         jscpTextAreaDescDestinacaoAreas.setViewportView(jtxtaDescDestinacaoAreas);
 
         javax.swing.GroupLayout jpnlTextAreaDescDestinacaoAreasLayout = new javax.swing.GroupLayout(jpnlTextAreaDescDestinacaoAreas);
@@ -1001,12 +1288,19 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblDescEcologicoEconomico.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblDescEcologicoEconomico.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblDescEcologicoEconomico.setText("Desc. Ecol. Econ.:");
+        jlblDescEcologicoEconomico.setToolTipText("Descrição do Zoneamento Ecológico Econômico do Litoral Norte (ZEE/LN)");
         jpnlSituacaoFundiariaWrapper.add(jlblDescEcologicoEconomico);
         jlblDescEcologicoEconomico.setBounds(0, 400, 130, 25);
 
         jtxtaDescEcologicoEconomico.setColumns(20);
         jtxtaDescEcologicoEconomico.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtaDescEcologicoEconomico.setRows(5);
+        jtxtaDescEcologicoEconomico.setNextFocusableComponent(jtxtaDescZonasSolo);
+        jtxtaDescEcologicoEconomico.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtaDescEcologicoEconomicoFocusLost(evt);
+            }
+        });
         jscpTextAreaDescEcologicoEconomico.setViewportView(jtxtaDescEcologicoEconomico);
 
         javax.swing.GroupLayout jpnlTextAreaDescEcologicoEconomicoLayout = new javax.swing.GroupLayout(jpnlTextAreaDescEcologicoEconomico);
@@ -1026,12 +1320,14 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblDescZonasSolo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblDescZonasSolo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblDescZonasSolo.setText("Descrição Zonas Solo:");
+        jlblDescZonasSolo.setToolTipText("Descrição de uso e ocupação de zonas do solo");
         jpnlSituacaoFundiariaWrapper.add(jlblDescZonasSolo);
         jlblDescZonasSolo.setBounds(490, 10, 130, 25);
 
         jtxtaDescZonasSolo.setColumns(20);
         jtxtaDescZonasSolo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtaDescZonasSolo.setRows(5);
+        jtxtaDescZonasSolo.setNextFocusableComponent(jbtnAnexosZoneamento);
         jscpTextAreaDescZonasSolo.setViewportView(jtxtaDescZonasSolo);
 
         javax.swing.GroupLayout jpnlTextAreaDescZonasSoloLayout = new javax.swing.GroupLayout(jpnlTextAreaDescZonasSolo);
@@ -1051,11 +1347,17 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblAnexosZoneamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAnexosZoneamento.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAnexosZoneamento.setText("Anexos Zoneamento:");
+        jlblAnexosZoneamento.setToolTipText("Imagens e documentos do Zoneamento do Plano Diretor");
         jpnlSituacaoFundiariaWrapper.add(jlblAnexosZoneamento);
         jlblAnexosZoneamento.setBounds(490, 115, 130, 25);
 
         jtxtAnexosZoneamento.setEditable(false);
         jtxtAnexosZoneamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtAnexosZoneamento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtxtAnexosZoneamentoMouseClicked(evt);
+            }
+        });
         jpnlSituacaoFundiariaWrapper.add(jtxtAnexosZoneamento);
         jtxtAnexosZoneamento.setBounds(630, 115, 340, 25);
 
@@ -1063,6 +1365,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jbtnAnexosZoneamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/attach.png"))); // NOI18N
         jbtnAnexosZoneamento.setText("Anexos");
         jbtnAnexosZoneamento.setIconTextGap(10);
+        jbtnAnexosZoneamento.setNextFocusableComponent(jcbbProcessosJudiciais);
         jbtnAnexosZoneamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnAnexosZoneamentoActionPerformed(evt);
@@ -1074,64 +1377,86 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblProcessosJudiciais.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblProcessosJudiciais.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblProcessosJudiciais.setText("Processos Judiciais:");
+        jlblProcessosJudiciais.setToolTipText("O núcleo possui processos judiciais?");
         jpnlSituacaoFundiariaWrapper.add(jlblProcessosJudiciais);
         jlblProcessosJudiciais.setBounds(490, 180, 130, 25);
 
         jcbbProcessosJudiciais.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbProcessosJudiciais.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbProcessosJudiciais.setNextFocusableComponent(jtxtNumeroProcesso);
+        jcbbProcessosJudiciais.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbProcessosJudiciaisFocusLost(evt);
+            }
+        });
         jpnlSituacaoFundiariaWrapper.add(jcbbProcessosJudiciais);
         jcbbProcessosJudiciais.setBounds(630, 180, 340, 25);
 
         jlblNumeroProcesso.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblNumeroProcesso.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblNumeroProcesso.setText("Número Processo:");
+        jlblNumeroProcesso.setToolTipText("Número do processo judicial");
         jpnlSituacaoFundiariaWrapper.add(jlblNumeroProcesso);
         jlblNumeroProcesso.setBounds(490, 210, 130, 25);
 
         jtxtNumeroProcesso.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtNumeroProcesso.setNextFocusableComponent(jtxtNumeroOrdem);
         jpnlSituacaoFundiariaWrapper.add(jtxtNumeroProcesso);
         jtxtNumeroProcesso.setBounds(630, 210, 340, 25);
 
         jlblNumeroOrdem.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblNumeroOrdem.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblNumeroOrdem.setText("Número Ordem:");
+        jlblNumeroOrdem.setToolTipText("Número da ordem judicial");
         jpnlSituacaoFundiariaWrapper.add(jlblNumeroOrdem);
         jlblNumeroOrdem.setBounds(490, 240, 130, 25);
 
         jtxtNumeroOrdem.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtNumeroOrdem.setNextFocusableComponent(jtxtVara);
         jpnlSituacaoFundiariaWrapper.add(jtxtNumeroOrdem);
         jtxtNumeroOrdem.setBounds(630, 240, 340, 25);
 
         jlblVara.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblVara.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblVara.setText("Vara:");
+        jlblVara.setToolTipText("Vara judicial");
         jpnlSituacaoFundiariaWrapper.add(jlblVara);
         jlblVara.setBounds(490, 270, 130, 25);
 
         jtxtVara.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtVara.setNextFocusableComponent(jcbbExistenciaEmbargos);
         jpnlSituacaoFundiariaWrapper.add(jtxtVara);
         jtxtVara.setBounds(630, 270, 340, 25);
 
         jlblExistenciaEmbargos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblExistenciaEmbargos.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblExistenciaEmbargos.setText("Existência Embargos:");
+        jlblExistenciaEmbargos.setToolTipText("Existência de embargos no núcleo?");
         jpnlSituacaoFundiariaWrapper.add(jlblExistenciaEmbargos);
         jlblExistenciaEmbargos.setBounds(490, 300, 130, 25);
 
         jcbbExistenciaEmbargos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbExistenciaEmbargos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbExistenciaEmbargos.setNextFocusableComponent(jtxtaObsJudiciais);
+        jcbbExistenciaEmbargos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbExistenciaEmbargosFocusLost(evt);
+            }
+        });
         jpnlSituacaoFundiariaWrapper.add(jcbbExistenciaEmbargos);
         jcbbExistenciaEmbargos.setBounds(630, 300, 340, 25);
 
         jlblObsJudiciais.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblObsJudiciais.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblObsJudiciais.setText("Observações Judiciais:");
+        jlblObsJudiciais.setToolTipText("Observações sobre assuntos judicias do núcleo");
         jpnlSituacaoFundiariaWrapper.add(jlblObsJudiciais);
         jlblObsJudiciais.setBounds(490, 330, 130, 25);
 
         jtxtaObsJudiciais.setColumns(20);
         jtxtaObsJudiciais.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtaObsJudiciais.setRows(5);
+        jtxtaObsJudiciais.setNextFocusableComponent(jbtnAnexosJudiciais);
         jscpTextAreaObsJudiciais.setViewportView(jtxtaObsJudiciais);
 
         javax.swing.GroupLayout jpnlTextAreaObsJudiciaisLayout = new javax.swing.GroupLayout(jpnlTextAreaObsJudiciais);
@@ -1151,11 +1476,17 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblAnexosJudiciais.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAnexosJudiciais.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAnexosJudiciais.setText("Anexos Judiciais:");
+        jlblAnexosJudiciais.setToolTipText("Imagens e documentos referentes à processos judiciais existentes no núcleo");
         jpnlSituacaoFundiariaWrapper.add(jlblAnexosJudiciais);
         jlblAnexosJudiciais.setBounds(490, 435, 130, 25);
 
         jtxtAnexosJudiciais.setEditable(false);
         jtxtAnexosJudiciais.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtAnexosJudiciais.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtxtAnexosJudiciaisMouseClicked(evt);
+            }
+        });
         jpnlSituacaoFundiariaWrapper.add(jtxtAnexosJudiciais);
         jtxtAnexosJudiciais.setBounds(630, 435, 340, 25);
 
@@ -1163,6 +1494,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jbtnAnexosJudiciais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/attach.png"))); // NOI18N
         jbtnAnexosJudiciais.setText("Anexos");
         jbtnAnexosJudiciais.setIconTextGap(10);
+        jbtnAnexosJudiciais.setNextFocusableComponent(jpnlViasPublicas);
         jbtnAnexosJudiciais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnAnexosJudiciaisActionPerformed(evt);
@@ -1171,12 +1503,36 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jpnlSituacaoFundiariaWrapper.add(jbtnAnexosJudiciais);
         jbtnAnexosJudiciais.setBounds(850, 465, 120, 30);
 
+        jcbbDecretoRegistrado.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcbbDecretoRegistrado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbDecretoRegistrado.setNextFocusableComponent(jtxtDecretoAprovacao);
+        jcbbDecretoRegistrado.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbbDecretoRegistradoItemStateChanged(evt);
+            }
+        });
+        jcbbDecretoRegistrado.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbDecretoRegistradoFocusLost(evt);
+            }
+        });
+        jpnlSituacaoFundiariaWrapper.add(jcbbDecretoRegistrado);
+        jcbbDecretoRegistrado.setBounds(140, 175, 340, 25);
+
+        jlblDecretoRegistrado.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlblDecretoRegistrado.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jlblDecretoRegistrado.setText("Decreto Registrado:");
+        jlblDecretoRegistrado.setToolTipText("Decreto de aprovação registrado?");
+        jpnlSituacaoFundiariaWrapper.add(jlblDecretoRegistrado);
+        jlblDecretoRegistrado.setBounds(10, 175, 120, 25);
+
         jpnlSituacaoFundiaria.add(jpnlSituacaoFundiariaWrapper);
         jpnlSituacaoFundiariaWrapper.setBounds(0, 0, 980, 510);
 
         jtbpFormulario.addTab("Situação Fundiária", null, jpnlSituacaoFundiaria, "Dados da situação fundiária do núcleo");
 
         jpnlViasPublicas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jpnlViasPublicas.setNextFocusableComponent(jtblViasPublicas);
         jpnlViasPublicas.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 jpnlViasPublicasComponentResized(evt);
@@ -1199,6 +1555,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jtblViasPublicas.setNextFocusableComponent(jcbbRecursoMobilidadeNome);
         jscpTabelaViasPublicas.setViewportView(jtblViasPublicas);
 
         javax.swing.GroupLayout jpnlTabelaViasPublicasLayout = new javax.swing.GroupLayout(jpnlTabelaViasPublicas);
@@ -1218,16 +1575,20 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblRecursoMobilidadeNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblRecursoMobilidadeNome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblRecursoMobilidadeNome.setText("Recurso de Acesso:");
+        jlblRecursoMobilidadeNome.setToolTipText("Tipo de recurso de acesso");
         jpnlViasPublicasWrapper.add(jlblRecursoMobilidadeNome);
         jlblRecursoMobilidadeNome.setBounds(10, 370, 120, 25);
 
         jcbbRecursoMobilidadeNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbRecursoMobilidadeNome.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbbRecursoMobilidadeNome.setNextFocusableComponent(jbtnGerenciarRecursoMobilidade);
         jpnlViasPublicasWrapper.add(jcbbRecursoMobilidadeNome);
         jcbbRecursoMobilidadeNome.setBounds(140, 370, 800, 25);
 
         jbtnGerenciarRecursoMobilidade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jbtnGerenciarRecursoMobilidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/manage.png"))); // NOI18N
+        jbtnGerenciarRecursoMobilidade.setToolTipText("Gerenciar recursos de acesso");
+        jbtnGerenciarRecursoMobilidade.setNextFocusableComponent(jtxtaDescRecursoMobilidade);
         jbtnGerenciarRecursoMobilidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnGerenciarRecursoMobilidadeActionPerformed(evt);
@@ -1239,12 +1600,14 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblDescRecursoMobilidade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblDescRecursoMobilidade.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblDescRecursoMobilidade.setText("Descrição:");
+        jlblDescRecursoMobilidade.setToolTipText("Descrição do recurso de acesso");
         jpnlViasPublicasWrapper.add(jlblDescRecursoMobilidade);
         jlblDescRecursoMobilidade.setBounds(10, 400, 120, 25);
 
         jtxtaDescRecursoMobilidade.setColumns(20);
         jtxtaDescRecursoMobilidade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtaDescRecursoMobilidade.setRows(5);
+        jtxtaDescRecursoMobilidade.setNextFocusableComponent(jpnlInstitucionalSocial);
         jscpTextAreaDescRecursoMobilidade.setViewportView(jtxtaDescRecursoMobilidade);
 
         javax.swing.GroupLayout jpnlTextAreaDescRecursoMobilidadeLayout = new javax.swing.GroupLayout(jpnlTextAreaDescRecursoMobilidade);
@@ -1267,6 +1630,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtbpFormulario.addTab("Vias Públicas", null, jpnlViasPublicas, "Dados de vias públicas existentes no núcleo");
 
         jpnlInstitucionalSocial.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jpnlInstitucionalSocial.setNextFocusableComponent(jtblInstitucionalSocial);
         jpnlInstitucionalSocial.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 jpnlInstitucionalSocialComponentResized(evt);
@@ -1288,6 +1652,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jtblInstitucionalSocial.setNextFocusableComponent(jcbbRecursoSocialNome);
         jscpTabelaInstitucionalSocial.setViewportView(jtblInstitucionalSocial);
 
         javax.swing.GroupLayout jpnlTabelaInstitucionalSocialLayout = new javax.swing.GroupLayout(jpnlTabelaInstitucionalSocial);
@@ -1307,16 +1672,20 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblRecursoSocialNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblRecursoSocialNome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblRecursoSocialNome.setText("Recurso Social:");
+        jlblRecursoSocialNome.setToolTipText("Tipo de recurso social");
         jpnlInstitucionalSocialWrapper.add(jlblRecursoSocialNome);
         jlblRecursoSocialNome.setBounds(10, 370, 120, 25);
 
         jcbbRecursoSocialNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbRecursoSocialNome.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbbRecursoSocialNome.setNextFocusableComponent(jbtnGerenciarRecursoSocial);
         jpnlInstitucionalSocialWrapper.add(jcbbRecursoSocialNome);
         jcbbRecursoSocialNome.setBounds(140, 370, 800, 25);
 
         jbtnGerenciarRecursoSocial.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jbtnGerenciarRecursoSocial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/manage.png"))); // NOI18N
+        jbtnGerenciarRecursoSocial.setToolTipText("Gerenciar recursos sociais");
+        jbtnGerenciarRecursoSocial.setNextFocusableComponent(jtxtaDescRecursoSocial);
         jbtnGerenciarRecursoSocial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnGerenciarRecursoSocialActionPerformed(evt);
@@ -1328,12 +1697,14 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblDescRecursoSocial.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblDescRecursoSocial.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblDescRecursoSocial.setText("Descrição:");
+        jlblDescRecursoSocial.setToolTipText("Descrição do recurso social");
         jpnlInstitucionalSocialWrapper.add(jlblDescRecursoSocial);
         jlblDescRecursoSocial.setBounds(10, 400, 120, 25);
 
         jtxtaDescRecursoSocial.setColumns(20);
         jtxtaDescRecursoSocial.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtaDescRecursoSocial.setRows(5);
+        jtxtaDescRecursoSocial.setNextFocusableComponent(jpnlAcoesNucleo);
         jscpTextAreaDescRecursoSocial.setViewportView(jtxtaDescRecursoSocial);
 
         javax.swing.GroupLayout jpnlTextAreaDescRecursoSocialLayout = new javax.swing.GroupLayout(jpnlTextAreaDescRecursoSocial);
@@ -1356,6 +1727,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtbpFormulario.addTab("Institucional/Social", null, jpnlInstitucionalSocial, "Dados de recursos institucionais e sociais existentes no núcleo");
 
         jpnlAcoesNucleo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jpnlAcoesNucleo.setNextFocusableComponent(jcbbRemanejamento);
         jpnlAcoesNucleo.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 jpnlAcoesNucleoComponentResized(evt);
@@ -1368,169 +1740,316 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblRemanejamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblRemanejamento.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblRemanejamento.setText("Remanejamento:");
+        jlblRemanejamento.setToolTipText("Necessário remanejamento no núcleo?");
         jpnlAcoesNucleoWrapper.add(jlblRemanejamento);
         jlblRemanejamento.setBounds(10, 10, 120, 25);
 
         jcbbRemanejamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbRemanejamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbRemanejamento.setNextFocusableComponent(jcbbEstimativaRelocacao);
+        jcbbRemanejamento.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbbRemanejamentoItemStateChanged(evt);
+            }
+        });
+        jcbbRemanejamento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbRemanejamentoFocusLost(evt);
+            }
+        });
         jpnlAcoesNucleoWrapper.add(jcbbRemanejamento);
         jcbbRemanejamento.setBounds(140, 10, 340, 25);
 
         jlblEstimativaRelocacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblEstimativaRelocacao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblEstimativaRelocacao.setText("Estimativa Relocação:");
+        jlblEstimativaRelocacao.setToolTipText("Estimativa de relocação de moradias?");
         jpnlAcoesNucleoWrapper.add(jlblEstimativaRelocacao);
         jlblEstimativaRelocacao.setBounds(10, 40, 120, 25);
 
         jcbbEstimativaRelocacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbEstimativaRelocacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbEstimativaRelocacao.setNextFocusableComponent(jtxtNumeroRemocaoDefinitiva);
+        jcbbEstimativaRelocacao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbEstimativaRelocacaoFocusLost(evt);
+            }
+        });
         jpnlAcoesNucleoWrapper.add(jcbbEstimativaRelocacao);
         jcbbEstimativaRelocacao.setBounds(140, 40, 340, 25);
 
         jlblNumeroRemocaoDefinitiva.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblNumeroRemocaoDefinitiva.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblNumeroRemocaoDefinitiva.setText("Núm. Rem. Defin.:");
+        jlblNumeroRemocaoDefinitiva.setToolTipText("Número de moradias destinadas à remoção definitiva");
         jpnlAcoesNucleoWrapper.add(jlblNumeroRemocaoDefinitiva);
         jlblNumeroRemocaoDefinitiva.setBounds(10, 70, 120, 25);
 
         jtxtNumeroRemocaoDefinitiva.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtNumeroRemocaoDefinitiva.setText("0");
+        jtxtNumeroRemocaoDefinitiva.setNextFocusableComponent(jtxtNumeroRemocaoProvisoria);
+        jtxtNumeroRemocaoDefinitiva.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtNumeroRemocaoDefinitivaFocusLost(evt);
+            }
+        });
+        jtxtNumeroRemocaoDefinitiva.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtNumeroRemocaoDefinitivaKeyReleased(evt);
+            }
+        });
         jpnlAcoesNucleoWrapper.add(jtxtNumeroRemocaoDefinitiva);
         jtxtNumeroRemocaoDefinitiva.setBounds(140, 70, 340, 25);
 
         jlblNumeroRemocaoProvisoria.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblNumeroRemocaoProvisoria.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblNumeroRemocaoProvisoria.setText("Núm. Rem. Provis.:");
+        jlblNumeroRemocaoProvisoria.setToolTipText("Número de moradias destinadas à remoção provisória");
         jpnlAcoesNucleoWrapper.add(jlblNumeroRemocaoProvisoria);
         jlblNumeroRemocaoProvisoria.setBounds(10, 100, 120, 25);
 
         jtxtNumeroRemocaoProvisoria.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtNumeroRemocaoProvisoria.setText("0");
+        jtxtNumeroRemocaoProvisoria.setNextFocusableComponent(jcbbReassentamento);
+        jtxtNumeroRemocaoProvisoria.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtNumeroRemocaoProvisoriaFocusLost(evt);
+            }
+        });
+        jtxtNumeroRemocaoProvisoria.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtNumeroRemocaoProvisoriaKeyReleased(evt);
+            }
+        });
         jpnlAcoesNucleoWrapper.add(jtxtNumeroRemocaoProvisoria);
         jtxtNumeroRemocaoProvisoria.setBounds(140, 100, 340, 25);
 
         jlblReassentamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblReassentamento.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblReassentamento.setText("Reassentamento:");
+        jlblReassentamento.setToolTipText("Necessário reassentamento no núcleo?");
         jpnlAcoesNucleoWrapper.add(jlblReassentamento);
         jlblReassentamento.setBounds(10, 130, 120, 25);
 
         jcbbReassentamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbReassentamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbReassentamento.setNextFocusableComponent(jcbbEstimativaRemocao);
+        jcbbReassentamento.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbbReassentamentoItemStateChanged(evt);
+            }
+        });
+        jcbbReassentamento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbReassentamentoFocusLost(evt);
+            }
+        });
         jpnlAcoesNucleoWrapper.add(jcbbReassentamento);
         jcbbReassentamento.setBounds(140, 130, 340, 25);
 
         jlblEstimativaRemocao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblEstimativaRemocao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblEstimativaRemocao.setText("Estimativa Remoção:");
+        jlblEstimativaRemocao.setToolTipText("Estimativa de remoção de moradias");
         jpnlAcoesNucleoWrapper.add(jlblEstimativaRemocao);
         jlblEstimativaRemocao.setBounds(10, 160, 120, 25);
 
         jcbbEstimativaRemocao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbEstimativaRemocao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbEstimativaRemocao.setNextFocusableComponent(jtxtNumeroMoradiasConstruir);
+        jcbbEstimativaRemocao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbEstimativaRemocaoFocusLost(evt);
+            }
+        });
         jpnlAcoesNucleoWrapper.add(jcbbEstimativaRemocao);
         jcbbEstimativaRemocao.setBounds(140, 160, 340, 25);
 
         jlblNumeroMoradiasConstruir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblNumeroMoradiasConstruir.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblNumeroMoradiasConstruir.setText("Moradias à Construir:");
+        jlblNumeroMoradiasConstruir.setToolTipText("Número de moradias à construir");
         jpnlAcoesNucleoWrapper.add(jlblNumeroMoradiasConstruir);
         jlblNumeroMoradiasConstruir.setBounds(10, 190, 120, 25);
 
         jtxtNumeroMoradiasConstruir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtNumeroMoradiasConstruir.setText("0");
+        jtxtNumeroMoradiasConstruir.setNextFocusableComponent(jtxtNumeroMoradiasProvisorias);
+        jtxtNumeroMoradiasConstruir.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtNumeroMoradiasConstruirFocusLost(evt);
+            }
+        });
+        jtxtNumeroMoradiasConstruir.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtNumeroMoradiasConstruirKeyReleased(evt);
+            }
+        });
         jpnlAcoesNucleoWrapper.add(jtxtNumeroMoradiasConstruir);
         jtxtNumeroMoradiasConstruir.setBounds(140, 190, 340, 25);
 
         jlblNumeroMoradiasProvisorias.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblNumeroMoradiasProvisorias.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblNumeroMoradiasProvisorias.setText("Moradias Provisórias:");
+        jlblNumeroMoradiasProvisorias.setToolTipText("Número de moradias provisórias até a remoção");
         jpnlAcoesNucleoWrapper.add(jlblNumeroMoradiasProvisorias);
         jlblNumeroMoradiasProvisorias.setBounds(10, 220, 120, 25);
 
         jtxtNumeroMoradiasProvisorias.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtNumeroMoradiasProvisorias.setText("0");
+        jtxtNumeroMoradiasProvisorias.setNextFocusableComponent(jtxtLocalDefinitivo);
+        jtxtNumeroMoradiasProvisorias.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtNumeroMoradiasProvisoriasFocusLost(evt);
+            }
+        });
+        jtxtNumeroMoradiasProvisorias.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtNumeroMoradiasProvisoriasKeyReleased(evt);
+            }
+        });
         jpnlAcoesNucleoWrapper.add(jtxtNumeroMoradiasProvisorias);
         jtxtNumeroMoradiasProvisorias.setBounds(140, 220, 340, 25);
 
         jlblLocalDefinitivo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblLocalDefinitivo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblLocalDefinitivo.setText("Local Definitivo:");
+        jlblLocalDefinitivo.setToolTipText("Local definitivo para remoção");
         jpnlAcoesNucleoWrapper.add(jlblLocalDefinitivo);
         jlblLocalDefinitivo.setBounds(10, 250, 120, 25);
 
         jtxtLocalDefinitivo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtLocalDefinitivo.setNextFocusableComponent(jcbbMelhoriaHabitacional);
+        jtxtLocalDefinitivo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtLocalDefinitivoFocusLost(evt);
+            }
+        });
         jpnlAcoesNucleoWrapper.add(jtxtLocalDefinitivo);
         jtxtLocalDefinitivo.setBounds(140, 250, 340, 25);
 
         jlblMelhoriaHabitacional.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblMelhoriaHabitacional.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblMelhoriaHabitacional.setText("Melhoria Habitacional:");
+        jlblMelhoriaHabitacional.setToolTipText("Melhoria habitacional");
         jpnlAcoesNucleoWrapper.add(jlblMelhoriaHabitacional);
         jlblMelhoriaHabitacional.setBounds(10, 280, 120, 25);
 
         jcbbMelhoriaHabitacional.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbMelhoriaHabitacional.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbMelhoriaHabitacional.setNextFocusableComponent(jtxtFonteMelhoriaHabitacional);
+        jcbbMelhoriaHabitacional.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbMelhoriaHabitacionalFocusLost(evt);
+            }
+        });
         jpnlAcoesNucleoWrapper.add(jcbbMelhoriaHabitacional);
         jcbbMelhoriaHabitacional.setBounds(140, 280, 340, 25);
 
         jlblFonteMelhoriaHabitacional.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblFonteMelhoriaHabitacional.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jlblFonteMelhoriaHabitacional.setText("Fonte Melho. Hab.:");
+        jlblFonteMelhoriaHabitacional.setText("Fonte Recursos:");
+        jlblFonteMelhoriaHabitacional.setToolTipText("Fonte de recursos");
         jpnlAcoesNucleoWrapper.add(jlblFonteMelhoriaHabitacional);
         jlblFonteMelhoriaHabitacional.setBounds(10, 310, 120, 25);
 
         jtxtFonteMelhoriaHabitacional.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtFonteMelhoriaHabitacional.setNextFocusableComponent(jcbbAdequacaoInfraestrutura);
         jpnlAcoesNucleoWrapper.add(jtxtFonteMelhoriaHabitacional);
         jtxtFonteMelhoriaHabitacional.setBounds(140, 310, 340, 25);
 
         jlblAdequacaoInfraestrutura.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAdequacaoInfraestrutura.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAdequacaoInfraestrutura.setText("Adequação Infra.:");
+        jlblAdequacaoInfraestrutura.setToolTipText("Adequação de infraestrutura");
         jpnlAcoesNucleoWrapper.add(jlblAdequacaoInfraestrutura);
         jlblAdequacaoInfraestrutura.setBounds(10, 340, 120, 25);
 
         jcbbAdequacaoInfraestrutura.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbAdequacaoInfraestrutura.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbAdequacaoInfraestrutura.setNextFocusableComponent(jtxtFonteAdequacaoInfraestrutura);
+        jcbbAdequacaoInfraestrutura.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbAdequacaoInfraestruturaFocusLost(evt);
+            }
+        });
         jpnlAcoesNucleoWrapper.add(jcbbAdequacaoInfraestrutura);
         jcbbAdequacaoInfraestrutura.setBounds(140, 340, 340, 25);
 
         jlblFonteAdequacaoInfraestrutura.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblFonteAdequacaoInfraestrutura.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jlblFonteAdequacaoInfraestrutura.setText("Fonte Adequação:");
+        jlblFonteAdequacaoInfraestrutura.setText("Fonte Recursos:");
+        jlblFonteAdequacaoInfraestrutura.setToolTipText("Fonte de recursos");
         jpnlAcoesNucleoWrapper.add(jlblFonteAdequacaoInfraestrutura);
         jlblFonteAdequacaoInfraestrutura.setBounds(10, 370, 120, 25);
 
         jtxtFonteAdequacaoInfraestrutura.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtFonteAdequacaoInfraestrutura.setNextFocusableComponent(jcbbDesconstrucao);
         jpnlAcoesNucleoWrapper.add(jtxtFonteAdequacaoInfraestrutura);
         jtxtFonteAdequacaoInfraestrutura.setBounds(140, 370, 340, 25);
 
         jlblDesconstrucao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblDesconstrucao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblDesconstrucao.setText("Desconstrução:");
+        jlblDesconstrucao.setToolTipText("Necessária desconstrução de moradias no núcleo?");
         jpnlAcoesNucleoWrapper.add(jlblDesconstrucao);
         jlblDesconstrucao.setBounds(490, 10, 130, 25);
 
         jcbbDesconstrucao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbDesconstrucao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbDesconstrucao.setNextFocusableComponent(jtxtNumeroMoradiasDemolir);
+        jcbbDesconstrucao.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbbDesconstrucaoItemStateChanged(evt);
+            }
+        });
+        jcbbDesconstrucao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbDesconstrucaoFocusLost(evt);
+            }
+        });
         jpnlAcoesNucleoWrapper.add(jcbbDesconstrucao);
         jcbbDesconstrucao.setBounds(630, 10, 340, 25);
 
         jlblNumeroMoradiasDemolir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblNumeroMoradiasDemolir.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblNumeroMoradiasDemolir.setText("Moradias à Demolir:");
+        jlblNumeroMoradiasDemolir.setToolTipText("Número de moradias à demolir");
         jpnlAcoesNucleoWrapper.add(jlblNumeroMoradiasDemolir);
         jlblNumeroMoradiasDemolir.setBounds(490, 40, 130, 25);
 
         jtxtNumeroMoradiasDemolir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtNumeroMoradiasDemolir.setText("0");
+        jtxtNumeroMoradiasDemolir.setNextFocusableComponent(jtxtaMotivoDemolicao);
+        jtxtNumeroMoradiasDemolir.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtNumeroMoradiasDemolirFocusLost(evt);
+            }
+        });
+        jtxtNumeroMoradiasDemolir.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtNumeroMoradiasDemolirKeyReleased(evt);
+            }
+        });
         jpnlAcoesNucleoWrapper.add(jtxtNumeroMoradiasDemolir);
         jtxtNumeroMoradiasDemolir.setBounds(630, 40, 340, 25);
 
         jlblMotivoDemolicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblMotivoDemolicao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblMotivoDemolicao.setText("Motivo Demolição:");
+        jlblMotivoDemolicao.setToolTipText("Motivo da demolição das moradias");
         jpnlAcoesNucleoWrapper.add(jlblMotivoDemolicao);
         jlblMotivoDemolicao.setBounds(490, 70, 130, 25);
 
         jtxtaMotivoDemolicao.setColumns(20);
         jtxtaMotivoDemolicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtaMotivoDemolicao.setRows(5);
+        jtxtaMotivoDemolicao.setNextFocusableComponent(jtxtaProcessosDemolicao);
+        jtxtaMotivoDemolicao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtaMotivoDemolicaoFocusLost(evt);
+            }
+        });
         jscpTextAreaMotivoDemolicao.setViewportView(jtxtaMotivoDemolicao);
 
         javax.swing.GroupLayout jpnlTextAreaMotivoDemolicaoLayout = new javax.swing.GroupLayout(jpnlTextAreaMotivoDemolicao);
@@ -1550,12 +2069,19 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblProcessosDemolicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblProcessosDemolicao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblProcessosDemolicao.setText("Processos Demolição:");
+        jlblProcessosDemolicao.setToolTipText("Processos para a demolição das moradias");
         jpnlAcoesNucleoWrapper.add(jlblProcessosDemolicao);
         jlblProcessosDemolicao.setBounds(490, 175, 130, 25);
 
         jtxtaProcessosDemolicao.setColumns(20);
         jtxtaProcessosDemolicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtaProcessosDemolicao.setRows(5);
+        jtxtaProcessosDemolicao.setNextFocusableComponent(jcbbRecuperacaoAmbiental);
+        jtxtaProcessosDemolicao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtaProcessosDemolicaoFocusLost(evt);
+            }
+        });
         jscpTextAreaProcessosDemolicao.setViewportView(jtxtaProcessosDemolicao);
 
         javax.swing.GroupLayout jpnlTextAreaProcessosDemolicaoLayout = new javax.swing.GroupLayout(jpnlTextAreaProcessosDemolicao);
@@ -1575,42 +2101,60 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblRecuperacaoAmbiental.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblRecuperacaoAmbiental.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblRecuperacaoAmbiental.setText("Recup. Ambiental:");
+        jlblRecuperacaoAmbiental.setToolTipText("Recuperação ambiental");
         jpnlAcoesNucleoWrapper.add(jlblRecuperacaoAmbiental);
         jlblRecuperacaoAmbiental.setBounds(490, 280, 130, 25);
 
         jcbbRecuperacaoAmbiental.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbRecuperacaoAmbiental.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbRecuperacaoAmbiental.setNextFocusableComponent(jtxtPrad);
+        jcbbRecuperacaoAmbiental.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbRecuperacaoAmbientalFocusLost(evt);
+            }
+        });
         jpnlAcoesNucleoWrapper.add(jcbbRecuperacaoAmbiental);
         jcbbRecuperacaoAmbiental.setBounds(630, 280, 340, 25);
 
         jlblPrad.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblPrad.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jlblPrad.setText("PRAD:");
+        jlblPrad.setText("P.R.A.D.:");
+        jlblPrad.setToolTipText("P.R.A.D.");
         jpnlAcoesNucleoWrapper.add(jlblPrad);
         jlblPrad.setBounds(490, 310, 130, 25);
 
         jtxtPrad.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtPrad.setNextFocusableComponent(jcbbAcoesOutros);
         jpnlAcoesNucleoWrapper.add(jtxtPrad);
         jtxtPrad.setBounds(630, 310, 340, 25);
 
         jlblAcoesOutros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAcoesOutros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAcoesOutros.setText("Outros:");
+        jlblAcoesOutros.setToolTipText("Outras ações no núcleo?");
         jpnlAcoesNucleoWrapper.add(jlblAcoesOutros);
         jlblAcoesOutros.setBounds(490, 340, 130, 25);
 
         jcbbAcoesOutros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbAcoesOutros.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbAcoesOutros.setNextFocusableComponent(jtxtDescOutros);
+        jcbbAcoesOutros.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbAcoesOutrosFocusLost(evt);
+            }
+        });
         jpnlAcoesNucleoWrapper.add(jcbbAcoesOutros);
         jcbbAcoesOutros.setBounds(630, 340, 340, 25);
 
         jlblDescOutros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblDescOutros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblDescOutros.setText("Descrição Outros:");
+        jlblDescOutros.setToolTipText("Descrição das outras ações");
         jpnlAcoesNucleoWrapper.add(jlblDescOutros);
         jlblDescOutros.setBounds(490, 370, 130, 25);
 
         jtxtDescOutros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtDescOutros.setNextFocusableComponent(jpnlAspectosAmbientais);
         jpnlAcoesNucleoWrapper.add(jtxtDescOutros);
         jtxtDescOutros.setBounds(630, 370, 340, 25);
 
@@ -1620,6 +2164,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtbpFormulario.addTab("Ações Núcleo", null, jpnlAcoesNucleo, "Dados de ações realizadas no núcleo");
 
         jpnlAspectosAmbientais.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jpnlAspectosAmbientais.setNextFocusableComponent(jtxtAspAmbLatitude);
         jpnlAspectosAmbientais.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 jpnlAspectosAmbientaisComponentResized(evt);
@@ -1629,60 +2174,93 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
 
         jpnlAspectosAmbientaisWrapper.setLayout(null);
 
+        jlblAspAmbLatitude.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAspAmbLatitude.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAspAmbLatitude.setText("Latitude:");
+        jlblAspAmbLatitude.setToolTipText("Latitude");
         jpnlAspectosAmbientaisWrapper.add(jlblAspAmbLatitude);
         jlblAspAmbLatitude.setBounds(10, 10, 120, 25);
 
         jtxtAspAmbLatitude.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtAspAmbLatitude.setNextFocusableComponent(jtxtAspAmbLongitude);
         jpnlAspectosAmbientaisWrapper.add(jtxtAspAmbLatitude);
         jtxtAspAmbLatitude.setBounds(140, 10, 340, 25);
 
+        jlblAspAmbLongitude.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAspAmbLongitude.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAspAmbLongitude.setText("Longitude:");
+        jlblAspAmbLongitude.setToolTipText("Longitude");
         jpnlAspectosAmbientaisWrapper.add(jlblAspAmbLongitude);
         jlblAspAmbLongitude.setBounds(10, 40, 120, 25);
 
         jtxtAspAmbLongitude.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtAspAmbLongitude.setNextFocusableComponent(jcbbAreaVerde);
         jpnlAspectosAmbientaisWrapper.add(jtxtAspAmbLongitude);
         jtxtAspAmbLongitude.setBounds(140, 40, 340, 25);
 
+        jlblAreaVerde.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAreaVerde.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAreaVerde.setText("Área Verde:");
+        jlblAreaVerde.setToolTipText("O núcleo possui área verde?");
         jpnlAspectosAmbientaisWrapper.add(jlblAreaVerde);
         jlblAreaVerde.setBounds(10, 70, 120, 25);
 
         jcbbAreaVerde.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbAreaVerde.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbAreaVerde.setNextFocusableComponent(jcbbAreaAgricola);
+        jcbbAreaVerde.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbAreaVerdeFocusLost(evt);
+            }
+        });
         jpnlAspectosAmbientaisWrapper.add(jcbbAreaVerde);
         jcbbAreaVerde.setBounds(140, 70, 340, 25);
 
+        jlblAreaAgricola.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAreaAgricola.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAreaAgricola.setText("Área Agrícola:");
+        jlblAreaAgricola.setToolTipText("O núcleo possui área agrícola?");
         jpnlAspectosAmbientaisWrapper.add(jlblAreaAgricola);
-        jlblAreaAgricola.setBounds(500, 10, 120, 25);
+        jlblAreaAgricola.setBounds(490, 10, 130, 25);
 
         jcbbAreaAgricola.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbAreaAgricola.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbAreaAgricola.setNextFocusableComponent(jcbbAspAmbOutros);
+        jcbbAreaAgricola.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbAreaAgricolaFocusLost(evt);
+            }
+        });
         jpnlAspectosAmbientaisWrapper.add(jcbbAreaAgricola);
         jcbbAreaAgricola.setBounds(630, 10, 340, 25);
 
+        jlblAspAmbOutros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAspAmbOutros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAspAmbOutros.setText("Outros:");
+        jlblAspAmbOutros.setToolTipText("O núcleo possui outros aspectos ambientais?");
         jpnlAspectosAmbientaisWrapper.add(jlblAspAmbOutros);
         jlblAspAmbOutros.setBounds(490, 40, 130, 25);
 
         jcbbAspAmbOutros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbAspAmbOutros.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbAspAmbOutros.setNextFocusableComponent(jtxtAspAmbOutrosEspecifique);
+        jcbbAspAmbOutros.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbAspAmbOutrosFocusLost(evt);
+            }
+        });
         jpnlAspectosAmbientaisWrapper.add(jcbbAspAmbOutros);
         jcbbAspAmbOutros.setBounds(630, 40, 340, 25);
 
+        jlblAspAmbOutrosEspecifique.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAspAmbOutrosEspecifique.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAspAmbOutrosEspecifique.setText("Outros Especifique:");
+        jlblAspAmbOutrosEspecifique.setToolTipText("Especifique quais são os outros aspectos ambientais");
         jpnlAspectosAmbientaisWrapper.add(jlblAspAmbOutrosEspecifique);
-        jlblAspAmbOutrosEspecifique.setBounds(500, 70, 120, 25);
+        jlblAspAmbOutrosEspecifique.setBounds(490, 70, 130, 25);
 
         jtxtAspAmbOutrosEspecifique.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtAspAmbOutrosEspecifique.setNextFocusableComponent(jcbbApp);
         jpnlAspectosAmbientaisWrapper.add(jtxtAspAmbOutrosEspecifique);
         jtxtAspAmbOutrosEspecifique.setBounds(630, 70, 340, 25);
 
@@ -1690,84 +2268,148 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jpnlApp.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jpnlApp.setLayout(null);
 
+        jlblApp.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblApp.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblApp.setText("APP:");
+        jlblApp.setToolTipText("O núcleo possui APP?");
         jpnlApp.add(jlblApp);
         jlblApp.setBounds(10, 20, 110, 25);
 
         jcbbApp.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbApp.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbApp.setNextFocusableComponent(jcbbCorpoDagua);
+        jcbbApp.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbbAppItemStateChanged(evt);
+            }
+        });
+        jcbbApp.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbAppFocusLost(evt);
+            }
+        });
         jpnlApp.add(jcbbApp);
         jcbbApp.setBounds(130, 20, 340, 25);
 
-        jlblCorpoAgua.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jlblCorpoAgua.setText("Corpo D'água:");
-        jpnlApp.add(jlblCorpoAgua);
-        jlblCorpoAgua.setBounds(10, 50, 110, 25);
+        jlblCorpoDagua.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlblCorpoDagua.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jlblCorpoDagua.setText("Corpo D'água:");
+        jlblCorpoDagua.setToolTipText("Corpo d'água");
+        jpnlApp.add(jlblCorpoDagua);
+        jlblCorpoDagua.setBounds(10, 50, 110, 25);
 
-        jcbbCorpoAgua.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jcbbCorpoAgua.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
-        jpnlApp.add(jcbbCorpoAgua);
-        jcbbCorpoAgua.setBounds(130, 50, 340, 25);
+        jcbbCorpoDagua.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcbbCorpoDagua.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbCorpoDagua.setNextFocusableComponent(jcbbBrejoCharco);
+        jcbbCorpoDagua.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbCorpoDaguaFocusLost(evt);
+            }
+        });
+        jpnlApp.add(jcbbCorpoDagua);
+        jcbbCorpoDagua.setBounds(130, 50, 340, 25);
 
+        jlblBrejoCharco.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblBrejoCharco.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblBrejoCharco.setText("Brejo/Charco:");
+        jlblBrejoCharco.setToolTipText("Brejo e/ou charco");
         jpnlApp.add(jlblBrejoCharco);
         jlblBrejoCharco.setBounds(10, 80, 110, 25);
 
         jcbbBrejoCharco.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbBrejoCharco.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbBrejoCharco.setNextFocusableComponent(jcbbTopoMorro);
+        jcbbBrejoCharco.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbBrejoCharcoFocusLost(evt);
+            }
+        });
         jpnlApp.add(jcbbBrejoCharco);
         jcbbBrejoCharco.setBounds(130, 80, 340, 25);
 
+        jlblTopoMorro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblTopoMorro.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblTopoMorro.setText("Topo Morro:");
+        jlblTopoMorro.setToolTipText("Topo de morro");
         jpnlApp.add(jlblTopoMorro);
         jlblTopoMorro.setBounds(10, 110, 110, 25);
 
         jcbbTopoMorro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbTopoMorro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbTopoMorro.setNextFocusableComponent(jcbbEncosta);
+        jcbbTopoMorro.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbTopoMorroFocusLost(evt);
+            }
+        });
         jpnlApp.add(jcbbTopoMorro);
         jcbbTopoMorro.setBounds(130, 110, 340, 25);
 
+        jlblEncosta.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblEncosta.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblEncosta.setText("Encosta:");
+        jlblEncosta.setToolTipText("Encosta");
         jpnlApp.add(jlblEncosta);
         jlblEncosta.setBounds(10, 140, 110, 25);
 
         jcbbEncosta.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbEncosta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbEncosta.setNextFocusableComponent(jcbbRestinga);
+        jcbbEncosta.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbEncostaFocusLost(evt);
+            }
+        });
         jpnlApp.add(jcbbEncosta);
         jcbbEncosta.setBounds(130, 140, 340, 25);
 
+        jlblRestinga.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblRestinga.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblRestinga.setText("Restinga:");
+        jlblRestinga.setToolTipText("Restinga");
         jpnlApp.add(jlblRestinga);
         jlblRestinga.setBounds(480, 20, 120, 25);
 
         jcbbRestinga.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbRestinga.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbRestinga.setNextFocusableComponent(jcbbAppOutros);
+        jcbbRestinga.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbRestingaFocusLost(evt);
+            }
+        });
         jpnlApp.add(jcbbRestinga);
         jcbbRestinga.setBounds(610, 20, 340, 25);
 
+        jlblAppOutros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAppOutros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAppOutros.setText("Outros:");
+        jlblAppOutros.setToolTipText("Outros tipos de APP");
         jpnlApp.add(jlblAppOutros);
         jlblAppOutros.setBounds(480, 50, 120, 25);
 
         jcbbAppOutros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbAppOutros.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbAppOutros.setNextFocusableComponent(jtxtaAppOutrosEspecifique);
+        jcbbAppOutros.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbAppOutrosFocusLost(evt);
+            }
+        });
         jpnlApp.add(jcbbAppOutros);
         jcbbAppOutros.setBounds(610, 50, 340, 25);
 
+        jlblAppOutrosEspecifique.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAppOutrosEspecifique.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAppOutrosEspecifique.setText("Outros Especifique:");
+        jlblAppOutrosEspecifique.setToolTipText("Especifique os outros tipos de APP");
         jpnlApp.add(jlblAppOutrosEspecifique);
         jlblAppOutrosEspecifique.setBounds(480, 80, 120, 25);
 
         jtxtaAppOutrosEspecifique.setColumns(20);
         jtxtaAppOutrosEspecifique.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtaAppOutrosEspecifique.setRows(5);
+        jtxtaAppOutrosEspecifique.setNextFocusableComponent(jtblAreasRisco);
         jscpTextAreaAppOutrosEspecifique.setViewportView(jtxtaAppOutrosEspecifique);
 
         javax.swing.GroupLayout jpnlTextAreaAppOutrosEspecifiqueLayout = new javax.swing.GroupLayout(jpnlTextAreaAppOutrosEspecifique);
@@ -1802,6 +2444,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jtblAreasRisco.setNextFocusableComponent(jbtnNovo);
         jscpTabelaAreasRisco.setViewportView(jtblAreasRisco);
 
         javax.swing.GroupLayout jpnlTabelaAreasRiscoLayout = new javax.swing.GroupLayout(jpnlTabelaAreasRisco);
@@ -1840,7 +2483,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jbtnNovo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jbtnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/new.png"))); // NOI18N
         jbtnNovo.setText("Novo");
+        jbtnNovo.setToolTipText("Preparar o formulário para um novo registro");
         jbtnNovo.setIconTextGap(10);
+        jbtnNovo.setNextFocusableComponent(jbtnSalvar);
         jbtnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnNovoActionPerformed(evt);
@@ -1852,7 +2497,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jbtnSalvar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jbtnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/save.png"))); // NOI18N
         jbtnSalvar.setText("Salvar");
+        jbtnSalvar.setToolTipText("Salvar as informações do formulário como um novo registro");
         jbtnSalvar.setIconTextGap(10);
+        jbtnSalvar.setNextFocusableComponent(jbtnEditar);
         jbtnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnSalvarActionPerformed(evt);
@@ -1864,7 +2511,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jbtnEditar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jbtnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/edit.png"))); // NOI18N
         jbtnEditar.setText("Editar");
+        jbtnEditar.setToolTipText("Editar as informações referentes ao núcleo selecionado");
         jbtnEditar.setIconTextGap(10);
+        jbtnEditar.setNextFocusableComponent(jbtnLimpar);
         jbtnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnEditarActionPerformed(evt);
@@ -1876,7 +2525,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jbtnLimpar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jbtnLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/clear.png"))); // NOI18N
         jbtnLimpar.setText("Limpar");
+        jbtnLimpar.setToolTipText("Limpar todos os campos do formulário");
         jbtnLimpar.setIconTextGap(10);
+        jbtnLimpar.setNextFocusableComponent(jbtnExcluir);
         jbtnLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnLimparActionPerformed(evt);
@@ -1893,7 +2544,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jbtnExcluir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jbtnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/delete.png"))); // NOI18N
         jbtnExcluir.setText("Excluir");
+        jbtnExcluir.setToolTipText("Excluir os dados do núcleo selecionado do sistema");
         jbtnExcluir.setIconTextGap(10);
+        jbtnExcluir.setNextFocusableComponent(jpnlDadosAssentamento);
         jbtnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnExcluirActionPerformed(evt);
@@ -2057,9 +2710,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jbtnExcluirActionPerformed
 
-    private void jbtnAnexoTransporteColetivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAnexoTransporteColetivoActionPerformed
+    private void jbtnAnexosTransporteColetivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAnexosTransporteColetivoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jbtnAnexoTransporteColetivoActionPerformed
+    }//GEN-LAST:event_jbtnAnexosTransporteColetivoActionPerformed
 
     private void jbtnAnexosZoneamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAnexosZoneamentoActionPerformed
         // TODO add your handling code here:
@@ -2076,6 +2729,567 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     private void jbtnGerenciarRecursoSocialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGerenciarRecursoSocialActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtnGerenciarRecursoSocialActionPerformed
+
+    private void jtxtAnexosTransporteColetivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtxtAnexosTransporteColetivoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtAnexosTransporteColetivoMouseClicked
+
+    private void jtxtAnexosZoneamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtxtAnexosZoneamentoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtAnexosZoneamentoMouseClicked
+
+    private void jtxtAnexosJudiciaisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtxtAnexosJudiciaisMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtAnexosJudiciaisMouseClicked
+
+    private void jtxtNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtNomeFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jtxtNomeFocusLost
+
+    private void jtxtSetorCadastralFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtSetorCadastralFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jtxtSetorCadastralFocusLost
+
+    private void jcbbZonaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbZonaFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbZonaFocusLost
+
+    private void jcbbControleOcupacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbControleOcupacaoFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbControleOcupacaoFocusLost
+
+    private void jcbbTransporteColetivoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbTransporteColetivoFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbTransporteColetivoFocusLost
+
+    private void jcbbPadraoConstrutivoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbPadraoConstrutivoFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbPadraoConstrutivoFocusLost
+
+    private void jtxtNumeroDomiciliosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtNumeroDomiciliosFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jtxtNumeroDomiciliosFocusLost
+
+    private void jtxtPopulacaoEstimadaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtPopulacaoEstimadaFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jtxtPopulacaoEstimadaFocusLost
+
+    private void jcbbPopulacaoFonteDadosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbPopulacaoFonteDadosFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbPopulacaoFonteDadosFocusLost
+
+    private void jtxtPopulacaoOutrasFontesDadosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtPopulacaoOutrasFontesDadosFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jtxtPopulacaoOutrasFontesDadosFocusLost
+
+    private void jcbbRendaPopulacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbRendaPopulacaoFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbRendaPopulacaoFocusLost
+
+    private void jcbbAdensamentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbAdensamentoFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbAdensamentoFocusLost
+
+    private void jcbbAbastecimentoAguaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbAbastecimentoAguaFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbAbastecimentoAguaFocusLost
+
+    private void jcbbColetaEsgotoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbColetaEsgotoFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbColetaEsgotoFocusLost
+
+    private void jcbbEnergiaEletricaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbEnergiaEletricaFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbEnergiaEletricaFocusLost
+
+    private void jcbbIluminacaoPublicaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbIluminacaoPublicaFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbIluminacaoPublicaFocusLost
+
+    private void jcbbServicosLimpezaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbServicosLimpezaFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbServicosLimpezaFocusLost
+
+    private void jcbbAguasPluviaisSuperficialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbAguasPluviaisSuperficialFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbAguasPluviaisSuperficialFocusLost
+
+    private void jcbbAguasPluviaisRedeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbAguasPluviaisRedeFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbAguasPluviaisRedeFocusLost
+
+    private void jcbbMaterialConstrucaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbMaterialConstrucaoFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbMaterialConstrucaoFocusLost
+
+    private void jcbbProducaoMoradiasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbProducaoMoradiasFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbProducaoMoradiasFocusLost
+
+    private void jcbbAssistenciaTecnicaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbAssistenciaTecnicaFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbAssistenciaTecnicaFocusLost
+
+    private void jcbbUrbAssentamentosPrecariosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbUrbAssentamentosPrecariosFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbUrbAssentamentosPrecariosFocusLost
+
+    private void jcbbComplementacaoInfraestruturaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbComplementacaoInfraestruturaFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbComplementacaoInfraestruturaFocusLost
+
+    private void jcbbRegularizacaoFundiariaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbRegularizacaoFundiariaFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbRegularizacaoFundiariaFocusLost
+
+    private void jcbbCdhuFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbCdhuFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbCdhuFocusLost
+
+    private void jcbbPmcmvFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbPmcmvFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbPmcmvFocusLost
+
+    private void jtxtDecretoAprovacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtDecretoAprovacaoFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jtxtDecretoAprovacaoFocusLost
+
+    private void jcbbDecretoRegistradoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbDecretoRegistradoFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbDecretoRegistradoFocusLost
+
+    private void jtxtaDescEcologicoEconomicoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtaDescEcologicoEconomicoFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jtxtaDescEcologicoEconomicoFocusLost
+
+    private void jcbbProcessosJudiciaisFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbProcessosJudiciaisFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbProcessosJudiciaisFocusLost
+
+    private void jcbbExistenciaEmbargosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbExistenciaEmbargosFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbExistenciaEmbargosFocusLost
+
+    private void jcbbRemanejamentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbRemanejamentoFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbRemanejamentoFocusLost
+
+    private void jcbbEstimativaRelocacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbEstimativaRelocacaoFocusLost
+        
+        checarCamposObrigatoriosRemanejamento();
+        
+    }//GEN-LAST:event_jcbbEstimativaRelocacaoFocusLost
+
+    private void jtxtNumeroRemocaoDefinitivaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtNumeroRemocaoDefinitivaFocusLost
+        
+        checarCamposObrigatoriosRemanejamento();
+        
+    }//GEN-LAST:event_jtxtNumeroRemocaoDefinitivaFocusLost
+
+    private void jtxtNumeroRemocaoProvisoriaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtNumeroRemocaoProvisoriaFocusLost
+        
+        checarCamposObrigatoriosRemanejamento();
+        
+    }//GEN-LAST:event_jtxtNumeroRemocaoProvisoriaFocusLost
+
+    private void jcbbReassentamentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbReassentamentoFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbReassentamentoFocusLost
+
+    private void jcbbEstimativaRemocaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbEstimativaRemocaoFocusLost
+        
+        checarCamposObrigatoriosReassentamento();
+        
+    }//GEN-LAST:event_jcbbEstimativaRemocaoFocusLost
+
+    private void jtxtNumeroMoradiasConstruirFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtNumeroMoradiasConstruirFocusLost
+        
+        checarCamposObrigatoriosReassentamento();
+        
+    }//GEN-LAST:event_jtxtNumeroMoradiasConstruirFocusLost
+
+    private void jtxtNumeroMoradiasProvisoriasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtNumeroMoradiasProvisoriasFocusLost
+        
+        checarCamposObrigatoriosReassentamento();
+        
+    }//GEN-LAST:event_jtxtNumeroMoradiasProvisoriasFocusLost
+
+    private void jtxtLocalDefinitivoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtLocalDefinitivoFocusLost
+        
+        checarCamposObrigatoriosReassentamento();
+        
+    }//GEN-LAST:event_jtxtLocalDefinitivoFocusLost
+
+    private void jcbbMelhoriaHabitacionalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbMelhoriaHabitacionalFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbMelhoriaHabitacionalFocusLost
+
+    private void jcbbAdequacaoInfraestruturaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbAdequacaoInfraestruturaFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbAdequacaoInfraestruturaFocusLost
+
+    private void jcbbDesconstrucaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbDesconstrucaoFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbDesconstrucaoFocusLost
+
+    private void jtxtNumeroMoradiasDemolirFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtNumeroMoradiasDemolirFocusLost
+        
+        checarCamposObrigatoriosDesconstrucao();
+        
+    }//GEN-LAST:event_jtxtNumeroMoradiasDemolirFocusLost
+
+    private void jtxtaMotivoDemolicaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtaMotivoDemolicaoFocusLost
+        
+        checarCamposObrigatoriosDesconstrucao();
+        
+    }//GEN-LAST:event_jtxtaMotivoDemolicaoFocusLost
+
+    private void jtxtaProcessosDemolicaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtaProcessosDemolicaoFocusLost
+        
+        checarCamposObrigatoriosDesconstrucao();
+        
+    }//GEN-LAST:event_jtxtaProcessosDemolicaoFocusLost
+
+    private void jcbbRecuperacaoAmbientalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbRecuperacaoAmbientalFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbRecuperacaoAmbientalFocusLost
+
+    private void jcbbAcoesOutrosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbAcoesOutrosFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbAcoesOutrosFocusLost
+
+    private void jcbbAreaVerdeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbAreaVerdeFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbAreaVerdeFocusLost
+
+    private void jcbbAreaAgricolaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbAreaAgricolaFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbAreaAgricolaFocusLost
+
+    private void jcbbAspAmbOutrosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbAspAmbOutrosFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbAspAmbOutrosFocusLost
+
+    private void jcbbAppFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbAppFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbAppFocusLost
+
+    private void jcbbCorpoDaguaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbCorpoDaguaFocusLost
+        
+        checarCamposObrigatoriosApp();
+        
+    }//GEN-LAST:event_jcbbCorpoDaguaFocusLost
+
+    private void jcbbBrejoCharcoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbBrejoCharcoFocusLost
+        
+        checarCamposObrigatoriosApp();
+        
+    }//GEN-LAST:event_jcbbBrejoCharcoFocusLost
+
+    private void jcbbTopoMorroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbTopoMorroFocusLost
+        
+        checarCamposObrigatoriosApp();
+        
+    }//GEN-LAST:event_jcbbTopoMorroFocusLost
+
+    private void jcbbEncostaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbEncostaFocusLost
+        
+        checarCamposObrigatoriosApp();
+        
+    }//GEN-LAST:event_jcbbEncostaFocusLost
+
+    private void jcbbRestingaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbRestingaFocusLost
+        
+        checarCamposObrigatoriosApp();
+        
+    }//GEN-LAST:event_jcbbRestingaFocusLost
+
+    private void jcbbAppOutrosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbAppOutrosFocusLost
+        
+        checarCamposObrigatoriosApp();
+        
+    }//GEN-LAST:event_jcbbAppOutrosFocusLost
+
+    private void jcbbAppItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbbAppItemStateChanged
+        
+        if (jcbbApp.getSelectedIndex() == 1) {
+            
+            checarCamposObrigatoriosApp();
+            habilitarCamposApp();
+            
+        } else {
+            
+            liberarCamposObrigatoriosApp();
+            desabilitarCamposApp();
+            
+        }
+        
+    }//GEN-LAST:event_jcbbAppItemStateChanged
+
+    private void jcbbDesconstrucaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbbDesconstrucaoItemStateChanged
+        
+        if (jcbbDesconstrucao.getSelectedIndex() == 1) {
+            
+            checarCamposObrigatoriosDesconstrucao();
+            habilitarCamposDesconstrucao();
+            jtxtNumeroMoradiasDemolir.setText("0");
+            
+        } else {
+            
+            liberarCamposObrigatoriosDesconstrucao();
+            desabilitarCamposDesconstrucao();
+            jtxtNumeroMoradiasDemolir.setText("");
+            
+        }
+        
+    }//GEN-LAST:event_jcbbDesconstrucaoItemStateChanged
+
+    private void jcbbReassentamentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbbReassentamentoItemStateChanged
+        
+        if (jcbbReassentamento.getSelectedIndex() == 1) {
+            
+            checarCamposObrigatoriosReassentamento();
+            habilitarCamposReassentamento();
+            jtxtNumeroMoradiasConstruir.setText("0");
+            jtxtNumeroMoradiasProvisorias.setText("0");
+            
+        } else {
+            
+            liberarCamposObrigatoriosReassentamento();
+            desabilitarCamposReassentamento();
+            jtxtNumeroMoradiasConstruir.setText("");
+            jtxtNumeroMoradiasProvisorias.setText("");
+            
+        }
+        
+    }//GEN-LAST:event_jcbbReassentamentoItemStateChanged
+
+    private void jcbbRemanejamentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbbRemanejamentoItemStateChanged
+        
+        if (jcbbRemanejamento.getSelectedIndex() == 1) {
+            
+            checarCamposObrigatoriosRemanejamento();
+            habilitarCamposRemanejamento();
+            jtxtNumeroRemocaoDefinitiva.setText("0");
+            jtxtNumeroRemocaoProvisoria.setText("0");
+            
+        } else {
+            
+            liberarCamposObrigatoriosRemanejamento();
+            desabilitarCamposRemanejamento();
+            jtxtNumeroRemocaoDefinitiva.setText("");
+            jtxtNumeroRemocaoProvisoria.setText("");
+            
+        }
+        
+    }//GEN-LAST:event_jcbbRemanejamentoItemStateChanged
+
+    private void jcbbPropriedadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbPropriedadeFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbPropriedadeFocusLost
+
+    private void jcbbPropriedadeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbbPropriedadeItemStateChanged
+        
+        if (jcbbPropriedade.getSelectedIndex() == 2) {
+            
+            jtxtProprietario.setEnabled(true);
+            jtxtaObsPropriedade.setEnabled(false);
+            
+        } else if (jcbbPropriedade.getSelectedIndex() == 3) {
+            
+            jtxtProprietario.setEnabled(false);
+            jtxtaObsPropriedade.setEnabled(true);
+            
+        } else {
+            
+            jtxtProprietario.setEnabled(false);
+            jtxtaObsPropriedade.setEnabled(false);
+            
+        }
+        
+    }//GEN-LAST:event_jcbbPropriedadeItemStateChanged
+
+    private void jcbbOrigemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbOrigemFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbOrigemFocusLost
+
+    private void jcbbOcupacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbOcupacaoFocusLost
+        
+        checarCamposObrigatorios();
+        
+    }//GEN-LAST:event_jcbbOcupacaoFocusLost
+
+    private void jcbbPopulacaoFonteDadosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbbPopulacaoFonteDadosItemStateChanged
+        
+        if (jcbbPropriedade.getSelectedIndex() == 4) {
+            
+            jtxtPopulacaoOutrasFontesDados.setEnabled(true);
+            
+        } else {
+            
+            jtxtPopulacaoOutrasFontesDados.setEnabled(false);
+            
+        }
+        
+    }//GEN-LAST:event_jcbbPopulacaoFonteDadosItemStateChanged
+
+    private void jcbbDecretoRegistradoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbbDecretoRegistradoItemStateChanged
+        
+        if (jcbbPropriedade.getSelectedIndex() == 1) {
+            
+            jtxtNumeroMatricula.setEnabled(true);
+            
+        } else {
+            
+            jtxtNumeroMatricula.setEnabled(false);
+            
+        }
+        
+    }//GEN-LAST:event_jcbbDecretoRegistradoItemStateChanged
+
+    private void jtxtNumeroRemocaoDefinitivaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroRemocaoDefinitivaKeyReleased
+        
+        com.data.NumberManager.formatInteger(jtxtNumeroRemocaoDefinitiva);
+        
+    }//GEN-LAST:event_jtxtNumeroRemocaoDefinitivaKeyReleased
+
+    private void jtxtAreaTotalKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtAreaTotalKeyReleased
+        
+        com.data.NumberManager.formatDecimalPtbr(jtxtAreaTotal);
+        
+    }//GEN-LAST:event_jtxtAreaTotalKeyReleased
+
+    private void jtxtAreaOcupadaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtAreaOcupadaKeyReleased
+        
+        com.data.NumberManager.formatDecimalPtbr(jtxtAreaOcupada);
+        
+    }//GEN-LAST:event_jtxtAreaOcupadaKeyReleased
+
+    private void jtxtNumeroDomiciliosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroDomiciliosKeyReleased
+        
+        com.data.NumberManager.formatInteger(jtxtNumeroDomicilios);
+        
+    }//GEN-LAST:event_jtxtNumeroDomiciliosKeyReleased
+
+    private void jtxtPopulacaoEstimadaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPopulacaoEstimadaKeyReleased
+        
+        com.data.NumberManager.formatInteger(jtxtPopulacaoEstimada);
+        
+    }//GEN-LAST:event_jtxtPopulacaoEstimadaKeyReleased
+
+    private void jtxtNumeroRemocaoProvisoriaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroRemocaoProvisoriaKeyReleased
+        
+        com.data.NumberManager.formatInteger(jtxtNumeroRemocaoProvisoria);
+        
+    }//GEN-LAST:event_jtxtNumeroRemocaoProvisoriaKeyReleased
+
+    private void jtxtNumeroMoradiasConstruirKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroMoradiasConstruirKeyReleased
+        
+        com.data.NumberManager.formatInteger(jtxtNumeroMoradiasConstruir);
+        
+    }//GEN-LAST:event_jtxtNumeroMoradiasConstruirKeyReleased
+
+    private void jtxtNumeroMoradiasProvisoriasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroMoradiasProvisoriasKeyReleased
+        
+        com.data.NumberManager.formatInteger(jtxtNumeroMoradiasProvisorias);
+        
+    }//GEN-LAST:event_jtxtNumeroMoradiasProvisoriasKeyReleased
+
+    private void jtxtNumeroMoradiasDemolirKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroMoradiasDemolirKeyReleased
+        
+        com.data.NumberManager.formatInteger(jtxtNumeroMoradiasDemolir);
+        
+    }//GEN-LAST:event_jtxtNumeroMoradiasDemolirKeyReleased
 
     private void preencherTabelaPesquisa() {
         
@@ -2128,7 +3342,25 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     private void criarNovo() {
         
         limparCampos();
+        jtxtAreaTotal.setText("0,000");
+        jtxtAreaOcupada.setText("0,000");
+        jtxtNumeroDomicilios.setText("0");
+        jtxtPopulacaoEstimada.setText("0");
+        checarCamposObrigatorios();
         habilitarCampos();
+        desabilitarCamposViaPublica();
+        desabilitarCamposInstitucional();
+        desabilitarCamposAreaRisco();
+        jtxtPopulacaoOutrasFontesDados.setEnabled(false);
+        jtxtProprietario.setEnabled(false);
+        jtxtaObsPropriedade.setEnabled(false);
+        jtxtNumeroMatricula.setEnabled(false);
+        jtxtAnexosTransporteColetivo.setEnabled(false);
+        jtxtAnexosZoneamento.setEnabled(false);
+        jtxtAnexosJudiciais.setEnabled(false);
+        jbtnAnexosTransporteColetivo.setEnabled(false);
+        jbtnAnexosZoneamento.setEnabled(false);
+        jbtnAnexosJudiciais.setEnabled(false);
         desabilitarBotoes();
         jbtnNovo.setEnabled(true);
         jbtnSalvar.setEnabled(true);
@@ -2142,56 +3374,80 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             
             if (checarCamposObrigatorios()) {
                 
-                com.sys.urbano.AspectoAmbiental ambiental = new com.sys.urbano.AspectoAmbiental();
-                ambiental.setLatitude(Double.parseDouble(jtxtAspAmbLatitude.getText()));
-                ambiental.setLongitude(Double.parseDouble(jtxtAspAmbLongitude.getText()));
-                ambiental.setAreaVerde(jcbbAreaVerde.getSelectedItem().toString());
-                ambiental.setAreaAgricola(jcbbAreaAgricola.getSelectedItem().toString());
-                ambiental.setOutros(jcbbAspAmbOutros.getSelectedItem().toString());
-                ambiental.setOutrosEspecifique(jtxtAspAmbOutrosEspecifique.getText());
+                if (jcbbRemanejamento.getSelectedIndex() == 1 && ! checarCamposObrigatoriosRemanejamento()) {
+                    
+                    javax.swing.JOptionPane.showMessageDialog(this, "Verifique se todos os campos obrigatórios se encontram preenchidos e/ou selecionados!", "CadHab", 2);
+                    return;
+                    
+                }
                 
-                com.sys.urbano.AcaoNucleo acaoNucleo = new com.sys.urbano.AcaoNucleo();
-                acaoNucleo.setRemanejamento(jcbbRemanejamento.getSelectedItem().toString());
-                acaoNucleo.setReassentamento(jcbbReassentamento.getSelectedItem().toString());
-                acaoNucleo.setMelhoriaHabitacional(jcbbMelhoriaHabitacional.getSelectedItem().toString());
-                acaoNucleo.setFonteMelhoria(jtxtFonteMelhoriaHabitacional.getText());
-                acaoNucleo.setAdequacaoInfraestrutura(jcbbAdequacaoInfraestrutura.getSelectedItem().toString());
-                acaoNucleo.setFonteAdequacao(jtxtFonteAdequacaoInfraestrutura.getText());
-                acaoNucleo.setDesconstrucao(jcbbDesconstrucao.getSelectedItem().toString());
-                acaoNucleo.setRecuperacaoAmbiental(jcbbRecuperacaoAmbiental.getSelectedItem().toString());
-                acaoNucleo.setPrad(jtxtPrad.getText());
-                acaoNucleo.setOutros(jcbbAcoesOutros.getSelectedItem().toString());
-                acaoNucleo.setDescricaoOutros(jtxtDescOutros.getText());
+                if (jcbbReassentamento.getSelectedIndex() == 1 && ! checarCamposObrigatoriosReassentamento()) {
+                    
+                    javax.swing.JOptionPane.showMessageDialog(this, "Verifique se todos os campos obrigatórios se encontram preenchidos e/ou selecionados!", "CadHab", 2);
+                    return;
+                    
+                }
                 
-                com.sys.urbano.Remanejamento remanejamento = new com.sys.urbano.Remanejamento();
-
-                com.sys.urbano.Nucleo nucleo = new com.sys.urbano.Nucleo();
-                nucleo.setNome(jtxtNome.getText());
-                nucleo.setSetorCadastral(jtxtSetorCadastral.getText());
-                nucleo.setZona(jcbbZona.getSelectedItem().toString());
-                nucleo.setOrigem(jtxtOrigem.getText());
-                nucleo.setAreaTotal(Double.parseDouble(jtxtAreaTotal.getText()));
-                nucleo.setAreaOcupada(Double.parseDouble(jtxtAreaOcupada.getText()));
-                nucleo.setOcupacao(jtxtOcupacao.getText());
-                nucleo.setInicioOcupacao(jtxtInicioOcupacao.getText());
-                nucleo.setControleOcupacao(jcbbControleOcupacao.getSelectedItem().toString());
-                nucleo.setObsControleOcupacao(jtxtaObsControleOcupacao.getText());
-                nucleo.setTransportePublico(jcbbTransporteColetivo.getSelectedItem().toString());
-                nucleo.setPadraoConstrutivo(jcbbPadraoConstrutivo.getSelectedItem().toString());
-                nucleo.setNumeroDomicilios(Integer.parseInt(jtxtNumeroDomicilios.getText()));
-                nucleo.setPopulacaoEstimada(Integer.parseInt(jtxtPopulacaoEstimada.getText()));
-                nucleo.setPopFonteDados(jcbbPopulacaoFonteDados.getSelectedItem().toString());
-                nucleo.setPopOutrasFontesDados(jtxtPopulacaoOutrasFontesDados.getText());
-                nucleo.setRendaPopulacao(jcbbRendaPopulacao.getSelectedItem().toString());
-                nucleo.setUsoIncompativel(jtxtUsoIncompativel.getText());
-                nucleo.setAdensamento(jcbbAdensamento.getSelectedItem().toString());
-                nucleo.setAdensFonteDados(jtxtAdensamentoFonteDados.getText());
-                nucleo.setObsAdensamento(jtxtaObsAdensamento.getText());
+                if (jcbbDesconstrucao.getSelectedIndex() == 1 && ! checarCamposObrigatoriosDesconstrucao()) {
+                    
+                    javax.swing.JOptionPane.showMessageDialog(this, "Verifique se todos os campos obrigatórios se encontram preenchidos e/ou selecionados!", "CadHab", 2);
+                    return;
+                    
+                }
+                
+                if (jcbbApp.getSelectedIndex() == 1 && ! checarCamposObrigatoriosApp()) {
+                    
+                    javax.swing.JOptionPane.showMessageDialog(this, "Verifique se todos os campos obrigatórios se encontram preenchidos e/ou selecionados!", "CadHab", 2);
+                    return;
+                    
+                }
+                
+                com.sys.urbano.Nucleo nucleo = preencherDadosNucleo();
                 
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
                 String input = jsonMgr.parseJson(nucleo);
                 
-                java.lang.Object output = cadhab.conn.ConnectionManager.connect("/nucleos?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                java.lang.Object output = cadhab.conn.ConnectionManager.connect("/nucleo/nome?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                
+                if (output == null) {
+                    
+                    java.lang.Object[] options = {"Sim", "Não"};
+                    java.lang.Object opcao = javax.swing.JOptionPane.showOptionDialog(this, "Deseja realmente inserir o novo núcleo no sistema?", "CadHab",
+                            javax.swing.JOptionPane.DEFAULT_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null,
+                            options, options[1]);
+
+                    if (opcao.toString().equals("0")) {
+                        
+                        output = cadhab.conn.ConnectionManager.connect("/nucleo/completo/salvar?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                        
+                        if (output != null) {
+
+                            if (output instanceof com.sys.Message) {
+
+                                com.sys.Message mensagem = (com.sys.Message) output;
+                                javax.swing.JOptionPane.showMessageDialog(this, mensagem.getMessage(), "CadHab", mensagem.getCode());
+                                limparCampos();
+                                desabilitarCampos();
+                                desabilitarBotoes();
+                                jbtnNovo.setEnabled(true);
+                                preencherTabelaPesquisa();
+                                acao = ' ';
+
+                            }
+
+                        } else {
+
+                            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível fazer o cadastro do novo núcleo!", "CadHab", 0);
+
+                        }
+                        
+                    }
+                    
+                } else {
+                        
+                    javax.swing.JOptionPane.showMessageDialog(this, "Já existe um núcleo com este nome cadastrado no sistema!", "CadHab", 2);
+                        
+                }
                 
             } else {
                 
@@ -2233,28 +3489,162 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         
         
     }
+    
     private void carregarDados() {
         
         
         
     }
     
+    private com.sys.urbano.Nucleo preencherDadosNucleo() {
+        
+        com.sys.urbano.Nucleo nucleo = new com.sys.urbano.Nucleo();
+        nucleo.setNome(jtxtNome.getText());
+        nucleo.setSetorCadastral(jtxtSetorCadastral.getText());
+        nucleo.setZona(jcbbZona.getSelectedItem().toString());
+        nucleo.setOrigem(jcbbOrigem.getSelectedItem().toString());
+        nucleo.setAreaTotal(com.data.NumberManager.formatRawDouble(jtxtAreaTotal.getText()));
+        nucleo.setAreaOcupada(com.data.NumberManager.formatRawDouble(jtxtAreaOcupada.getText()));
+        nucleo.setOcupacao(jcbbOcupacao.getSelectedItem().toString());
+        nucleo.setInicioOcupacao(jtxtInicioOcupacao.getText());
+        nucleo.setControleOcupacao(jcbbControleOcupacao.getSelectedItem().toString());
+        nucleo.setObsControleOcupacao(jtxtaObsControleOcupacao.getText());
+        nucleo.setTransportePublico(jcbbTransporteColetivo.getSelectedItem().toString());
+        nucleo.setPadraoConstrutivo(jcbbPadraoConstrutivo.getSelectedItem().toString());
+        nucleo.setNumeroDomicilios(com.data.NumberManager.formatRawInteger(jtxtNumeroDomicilios.getText()));
+        nucleo.setPopulacaoEstimada(com.data.NumberManager.formatRawInteger(jtxtPopulacaoEstimada.getText()));
+        nucleo.setPopFonteDados(jcbbPopulacaoFonteDados.getSelectedItem().toString());
+        nucleo.setPopOutrasFontesDados(jtxtPopulacaoOutrasFontesDados.getText());
+        nucleo.setRendaPopulacao(jcbbRendaPopulacao.getSelectedItem().toString());
+        nucleo.setUsoIncompativel(jtxtUsoIncompativel.getText());
+        nucleo.setAdensamento(jcbbAdensamento.getSelectedItem().toString());
+        nucleo.setAdensFonteDados(jtxtAdensamentoFonteDados.getText());
+        nucleo.setObsAdensamento(jtxtaObsAdensamento.getText());
+                
+        com.sys.urbano.InfraestruturaUrbana infraestrutura = new com.sys.urbano.InfraestruturaUrbana();
+        infraestrutura.setAbastecimentoAgua(jcbbAbastecimentoAgua.getSelectedItem().toString());
+        infraestrutura.setColetaEsgoto(jcbbColetaEsgoto.getSelectedItem().toString());
+        infraestrutura.setEnergiaEletrica(jcbbEnergiaEletrica.getSelectedItem().toString());
+        infraestrutura.setIluminacaoPublica(jcbbIluminacaoPublica.getSelectedItem().toString());
+        infraestrutura.setServicosLimpeza(jcbbServicosLimpeza.getSelectedItem().toString());
+        infraestrutura.setAguasPluviaisSuperficial(jcbbAguasPluviaisSuperficial.getSelectedItem().toString());
+        infraestrutura.setAguasPluviaisRede(jcbbAguasPluviaisRede.getSelectedItem().toString());
+        infraestrutura.setNucleo(nucleo);
+                
+        com.sys.urbano.ProgramaHabitacional programa = new com.sys.urbano.ProgramaHabitacional();
+        programa.setMaterialConstrucao(jcbbMaterialConstrucao.getSelectedItem().toString());
+        programa.setProducaoMoradias(jcbbProducaoMoradias.getSelectedItem().toString());
+        programa.setAssistenciaTecnica(jcbbAssistenciaTecnica.getSelectedItem().toString());
+        programa.setUrbAssentamentosPrecarios(jcbbUrbAssentamentosPrecarios.getSelectedItem().toString());
+        programa.setComplemInfraestrutura(jcbbComplementacaoInfraestrutura.getSelectedItem().toString());
+        programa.setRegularizacaoFundiaria(jcbbRegularizacaoFundiaria.getSelectedItem().toString());
+        programa.setCdhu(jcbbCdhu.getSelectedItem().toString());
+        programa.setPmcmv(jcbbPmcmv.getSelectedItem().toString());
+        programa.setNucleo(nucleo);
+                
+        com.sys.urbano.SituacaoFundiaria fundiaria = new com.sys.urbano.SituacaoFundiaria();
+        fundiaria.setPropriedade(jcbbPropriedade.getSelectedItem().toString());
+        fundiaria.setProprietario(jtxtProprietario.getText());
+        fundiaria.setObsPropriedade(jtxtaObsPropriedade.getText());
+        fundiaria.setDecretoAprovacao(jtxtDecretoAprovacao.getText());
+        fundiaria.setRegistrado(jcbbDecretoRegistrado.getSelectedItem().toString());
+        fundiaria.setNumeroMatricula(jtxtNumeroMatricula.getText());
+        fundiaria.setDestinacaoAreas(com.data.NumberManager.formatRawDouble(jtxtDestinacaoAreas.getText()));
+        fundiaria.setDescDestinacaoAreas(jtxtaDescDestinacaoAreas.getText());
+        fundiaria.setDescEcologicoEconomico(jtxtaDescEcologicoEconomico.getText());
+        fundiaria.setDescZonasSolo(jtxtaDescZonasSolo.getText());
+        fundiaria.setProcessosJudiciais(jcbbProcessosJudiciais.getSelectedItem().toString());
+        fundiaria.setNumeroProcesso(jtxtNumeroProcesso.getText());
+        fundiaria.setNumeroOrdem(jtxtNumeroOrdem.getText());
+        fundiaria.setVara(jtxtVara.getText());
+        fundiaria.setExistenciaEmbargos(jcbbExistenciaEmbargos.getSelectedItem().toString());
+        fundiaria.setObsJudiciais(jtxtaObsJudiciais.getText());
+        fundiaria.setNucleo(nucleo);
+                
+        com.sys.urbano.AcaoNucleo acaoNucleo = new com.sys.urbano.AcaoNucleo();
+        acaoNucleo.setRemanejamento(jcbbRemanejamento.getSelectedItem().toString());
+        acaoNucleo.setReassentamento(jcbbReassentamento.getSelectedItem().toString());
+        acaoNucleo.setMelhoriaHabitacional(jcbbMelhoriaHabitacional.getSelectedItem().toString());
+        acaoNucleo.setFonteMelhoria(jtxtFonteMelhoriaHabitacional.getText());
+        acaoNucleo.setAdequacaoInfraestrutura(jcbbAdequacaoInfraestrutura.getSelectedItem().toString());
+        acaoNucleo.setFonteAdequacao(jtxtFonteAdequacaoInfraestrutura.getText());
+        acaoNucleo.setDesconstrucao(jcbbDesconstrucao.getSelectedItem().toString());
+        acaoNucleo.setRecuperacaoAmbiental(jcbbRecuperacaoAmbiental.getSelectedItem().toString());
+        acaoNucleo.setPrad(jtxtPrad.getText());
+        acaoNucleo.setOutros(jcbbAcoesOutros.getSelectedItem().toString());
+        acaoNucleo.setDescricaoOutros(jtxtDescOutros.getText());
+        acaoNucleo.setNucleo(nucleo);
+                
+        com.sys.urbano.Remanejamento remanejamento = new com.sys.urbano.Remanejamento();
+        remanejamento.setEstimativaRelocacao(jcbbEstimativaRelocacao.getSelectedIndex() > 0 ? jcbbEstimativaRelocacao.getSelectedItem().toString() : "");
+        remanejamento.setNumeroRemocaoDefinitiva(com.data.NumberManager.formatRawInteger(jtxtNumeroRemocaoDefinitiva.getText()));
+        remanejamento.setNumeroRemocaoProvisoria(com.data.NumberManager.formatRawInteger(jtxtNumeroRemocaoProvisoria.getText()));
+        remanejamento.setAcao(acaoNucleo);
+                
+        com.sys.urbano.Reassentamento reassentamento = new com.sys.urbano.Reassentamento();
+        reassentamento.setEstimativaRemocao(jcbbEstimativaRemocao.getSelectedIndex() > 0 ? jcbbEstimativaRemocao.getSelectedItem().toString() : "");
+        reassentamento.setNumeroAConstruir(com.data.NumberManager.formatRawInteger(jtxtNumeroMoradiasConstruir.getText()));
+        reassentamento.setNumeroProvisorias(com.data.NumberManager.formatRawInteger(jtxtNumeroMoradiasProvisorias.getText()));
+        reassentamento.setLocalDefinitivo(jtxtLocalDefinitivo.getText());
+        reassentamento.setAcao(acaoNucleo);
+                
+        com.sys.urbano.Desconstrucao desconstrucao = new com.sys.urbano.Desconstrucao();
+        desconstrucao.setNumeroADemolir(com.data.NumberManager.formatRawInteger(jtxtNumeroMoradiasDemolir.getText()));
+        desconstrucao.setMotivo(jtxtaMotivoDemolicao.getText());
+        desconstrucao.setProcessos(jtxtaProcessosDemolicao.getText());
+        desconstrucao.setAcao(acaoNucleo);
+                
+        acaoNucleo.setObjRemanejamento(remanejamento);
+        acaoNucleo.setObjReassentamento(reassentamento);
+        acaoNucleo.setObjDesconstrucao(desconstrucao);
+                
+        com.sys.urbano.AspectoAmbiental ambiental = new com.sys.urbano.AspectoAmbiental();
+        ambiental.setLatitude(com.data.NumberManager.formatRawDouble(jtxtAspAmbLatitude.getText()));
+        ambiental.setLongitude(com.data.NumberManager.formatRawDouble(jtxtAspAmbLongitude.getText()));
+        ambiental.setAreaVerde(jcbbAreaVerde.getSelectedItem().toString());
+        ambiental.setAreaAgricola(jcbbAreaAgricola.getSelectedItem().toString());
+        ambiental.setOutros(jcbbAspAmbOutros.getSelectedItem().toString());
+        ambiental.setOutrosEspecifique(jtxtAspAmbOutrosEspecifique.getText());
+        ambiental.setNucleo(nucleo);
+                
+        com.sys.urbano.App app = new com.sys.urbano.App();
+        app.setCorpoDagua(jcbbCorpoDagua.getSelectedIndex() > 0 ? jcbbCorpoDagua.getSelectedItem().toString() : "");
+        app.setBrejoCharco(jcbbBrejoCharco.getSelectedIndex() > 0 ? jcbbBrejoCharco.getSelectedItem().toString() : "");
+        app.setTopoMorro(jcbbTopoMorro.getSelectedIndex() > 0 ? jcbbTopoMorro.getSelectedItem().toString() : "");
+        app.setEncosta(jcbbEncosta.getSelectedIndex() > 0 ? jcbbEncosta.getSelectedItem().toString() : "");
+        app.setRestinga(jcbbRestinga.getSelectedIndex() > 0 ? jcbbRestinga.getSelectedItem().toString(): "");
+        app.setOutros(jcbbAppOutros.getSelectedIndex() > 0 ? jcbbAppOutros.getSelectedItem().toString() : "");
+        app.setEspecifiqueOutros(jtxtaAppOutrosEspecifique.getText());
+        app.setAspecto(ambiental);
+                
+        ambiental.setApp(app);
+                
+        nucleo.setInfraestruturaUrbana(infraestrutura);
+        nucleo.setProgramaHabitacional(programa);
+        nucleo.setSituacaoFundiaria(fundiaria);
+        nucleo.setAcaoNucleo(acaoNucleo);
+        nucleo.setAspectoAmbiental(ambiental);
+                
+        return nucleo;
+        
+    }
+    
     private boolean checarCamposObrigatorios() {
         
         return checarCamposObrigatoriosNucleo() & checarCamposObrigatoriosInfra() & checarCamposObrigatoriosFundiaria()
-                & checarCamposObrigatoriosAcoes() & checarCamposObrigatoriosAmbiental();
+                & checarCamposObrigatoriosAcao() & checarCamposObrigatoriosAmbiental();
         
     }
     
     private boolean checarCamposObrigatoriosNucleo() {
             
         if (com.data.FieldManager.checkEmptyField(jtxtNome) & com.data.FieldManager.checkEmptyField(jtxtSetorCadastral)
-                & com.data.FieldManager.checkEmptyField(jtxtOrigem) & com.data.FieldManager.checkEmptyField(jtxtOcupacao)
                 & com.data.FieldManager.checkEmptyField(jtxtNumeroDomicilios) & com.data.FieldManager.checkEmptyField(jtxtPopulacaoEstimada)
-                & com.data.FieldManager.checkEmptyField(jtxtPopulacaoOutrasFontesDados) & com.data.FieldManager.checkEmptyField(jcbbZona, jlblZona)
-                & com.data.FieldManager.checkEmptyField(jcbbControleOcupacao, jlblControleOcupacao) & com.data.FieldManager.checkEmptyField(jcbbTransporteColetivo, jlblTransporteColetivo)
-                & com.data.FieldManager.checkEmptyField(jcbbPadraoConstrutivo, jlblPadraoConstrutivo) & com.data.FieldManager.checkEmptyField(jcbbPopulacaoFonteDados, jlblPopulacaoFonteDados)
-                & com.data.FieldManager.checkEmptyField(jcbbRendaPopulacao, jlblRendaPopulacao) & com.data.FieldManager.checkEmptyField(jcbbAdensamento, jlblAdensamento)) {
+                & com.data.FieldManager.checkEmptyField(jcbbZona, jlblZona) & com.data.FieldManager.checkEmptyField(jcbbOrigem, jlblOrigem) 
+                & com.data.FieldManager.checkEmptyField(jcbbOcupacao, jlblOcupacao) & com.data.FieldManager.checkEmptyField(jcbbControleOcupacao, jlblControleOcupacao) 
+                & com.data.FieldManager.checkEmptyField(jcbbTransporteColetivo, jlblTransporteColetivo) & com.data.FieldManager.checkEmptyField(jcbbPadraoConstrutivo, jlblPadraoConstrutivo) 
+                & com.data.FieldManager.checkEmptyField(jcbbPopulacaoFonteDados, jlblPopulacaoFonteDados) & com.data.FieldManager.checkEmptyField(jcbbRendaPopulacao, jlblRendaPopulacao) 
+                & com.data.FieldManager.checkEmptyField(jcbbAdensamento, jlblAdensamento)) {
             
             return true;
             
@@ -2289,8 +3679,8 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     
     private boolean checarCamposObrigatoriosFundiaria() {
         
-        if (com.data.FieldManager.checkEmptyField(jtxtPropriedade) & com.data.FieldManager.checkEmptyField(jtxtDecretoAprovacao) 
-                & com.data.FieldManager.checkEmptyField(jtxtaDescEcologicoEconomico) & com.data.FieldManager.checkEmptyField(jcbbDecretoRegistrado, jlblDecretoRegistrado) 
+        if (com.data.FieldManager.checkEmptyField(jtxtDecretoAprovacao) & com.data.FieldManager.checkEmptyField(jtxtaDescEcologicoEconomico) 
+                & com.data.FieldManager.checkEmptyField(jcbbDecretoRegistrado, jlblDecretoRegistrado) & com.data.FieldManager.checkEmptyField(jcbbPropriedade, jlblPropriedade) 
                 & com.data.FieldManager.checkEmptyField(jcbbProcessosJudiciais, jlblProcessosJudiciais) & com.data.FieldManager.checkEmptyField(jcbbExistenciaEmbargos, jlblExistenciaEmbargos)) {
             
             return true;
@@ -2303,14 +3693,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         
     }
     
-    private boolean checarCamposObrigatoriosAcoes() {
+    private boolean checarCamposObrigatoriosAcao() {
         
-        if (com.data.FieldManager.checkEmptyField(jtxtNumeroRemocaoDefinitiva) & com.data.FieldManager.checkEmptyField(jtxtNumeroRemocaoProvisoria) 
-                & com.data.FieldManager.checkEmptyField(jtxtNumeroMoradiasConstruir) & com.data.FieldManager.checkEmptyField(jtxtNumeroMoradiasProvisorias) 
-                & com.data.FieldManager.checkEmptyField(jtxtLocalDefinitivo) & com.data.FieldManager.checkEmptyField(jtxtNumeroMoradiasDemolir) 
-                & com.data.FieldManager.checkEmptyField(jtxtaMotivoDemolicao) & com.data.FieldManager.checkEmptyField(jtxtaProcessosDemolicao) 
-                & com.data.FieldManager.checkEmptyField(jcbbRemanejamento, jlblRemanejamento) & com.data.FieldManager.checkEmptyField(jcbbEstimativaRelocacao, jlblEstimativaRelocacao) 
-                & com.data.FieldManager.checkEmptyField(jcbbReassentamento, jlblReassentamento) & com.data.FieldManager.checkEmptyField(jcbbEstimativaRemocao, jlblEstimativaRemocao) 
+        if (com.data.FieldManager.checkEmptyField(jcbbRemanejamento, jlblRemanejamento) & com.data.FieldManager.checkEmptyField(jcbbReassentamento, jlblReassentamento)  
                 & com.data.FieldManager.checkEmptyField(jcbbMelhoriaHabitacional, jlblMelhoriaHabitacional) & com.data.FieldManager.checkEmptyField(jcbbAdequacaoInfraestrutura, jlblAdequacaoInfraestrutura) 
                 & com.data.FieldManager.checkEmptyField(jcbbDesconstrucao, jlblDesconstrucao) & com.data.FieldManager.checkEmptyField(jcbbRecuperacaoAmbiental, jlblRecuperacaoAmbiental) 
                 & com.data.FieldManager.checkEmptyField(jcbbAcoesOutros, jlblAcoesOutros)) {
@@ -2325,11 +3710,69 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         
     }
     
+    private boolean checarCamposObrigatoriosRemanejamento() {
+        
+        if (com.data.FieldManager.checkEmptyField(jtxtNumeroRemocaoDefinitiva) & com.data.FieldManager.checkEmptyField(jtxtNumeroRemocaoProvisoria) 
+                & com.data.FieldManager.checkEmptyField(jcbbEstimativaRelocacao, jlblEstimativaRelocacao)) {
+            
+            return true;
+            
+        } else {
+            
+            return false;
+            
+        }
+        
+    }
+    
+    private boolean checarCamposObrigatoriosReassentamento() {
+        
+        if (com.data.FieldManager.checkEmptyField(jtxtNumeroMoradiasConstruir) & com.data.FieldManager.checkEmptyField(jtxtNumeroMoradiasProvisorias) 
+                & com.data.FieldManager.checkEmptyField(jtxtLocalDefinitivo) & com.data.FieldManager.checkEmptyField(jcbbEstimativaRemocao, jlblEstimativaRemocao)) {
+            
+            return true;
+            
+        } else {
+            
+            return false;
+            
+        }
+        
+    }
+    
+    private boolean checarCamposObrigatoriosDesconstrucao() {
+        
+        if (com.data.FieldManager.checkEmptyField(jtxtNumeroMoradiasDemolir) & com.data.FieldManager.checkEmptyField(jtxtaMotivoDemolicao) 
+                & com.data.FieldManager.checkEmptyField(jtxtaProcessosDemolicao)) {
+            
+            return true;
+            
+        } else {
+            
+            return false;
+            
+        }
+        
+    }
+    
     private boolean checarCamposObrigatoriosAmbiental() {
         
         if (com.data.FieldManager.checkEmptyField(jcbbAreaVerde, jlblAreaVerde) & com.data.FieldManager.checkEmptyField(jcbbAreaAgricola, jlblAreaAgricola) 
-                & com.data.FieldManager.checkEmptyField(jcbbAspAmbOutros, jlblAspAmbOutros) & com.data.FieldManager.checkEmptyField(jcbbApp, jlblApp) 
-                & com.data.FieldManager.checkEmptyField(jcbbCorpoAgua, jlblCorpoAgua) & com.data.FieldManager.checkEmptyField(jcbbBrejoCharco, jlblBrejoCharco) 
+                & com.data.FieldManager.checkEmptyField(jcbbAspAmbOutros, jlblAspAmbOutros) & com.data.FieldManager.checkEmptyField(jcbbApp, jlblApp)) {
+            
+            return true;
+            
+        } else {
+            
+            return false;
+            
+        }
+        
+    }
+    
+    private boolean checarCamposObrigatoriosApp() {
+        
+        if (com.data.FieldManager.checkEmptyField(jcbbCorpoDagua, jlblCorpoDagua) & com.data.FieldManager.checkEmptyField(jcbbBrejoCharco, jlblBrejoCharco) 
                 & com.data.FieldManager.checkEmptyField(jcbbTopoMorro, jlblTopoMorro) & com.data.FieldManager.checkEmptyField(jcbbEncosta, jlblEncosta) 
                 & com.data.FieldManager.checkEmptyField(jcbbRestinga, jlblRestinga) & com.data.FieldManager.checkEmptyField(jcbbAppOutros, jlblAppOutros)) {
             
@@ -2340,6 +3783,127 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             return false;
             
         }
+        
+    }
+    
+    private void liberarTodosCamposObrigatorios() {
+        
+        liberarCamposObrigatoriosNucleo();
+        liberarCamposObrigatoriosInfra();
+        liberarCamposObrigatoriosFundiaria();
+        liberarCamposObrigatoriosAcao();
+        liberarCamposObrigatoriosRemanejamento();
+        liberarCamposObrigatoriosReassentamento();
+        liberarCamposObrigatoriosDesconstrucao();
+        liberarCamposObrigatoriosAmbiental();
+        liberarCamposObrigatoriosApp();
+        
+    }
+    
+    private void liberarCamposObrigatoriosNucleo() {
+        
+        com.data.FieldManager.releaseField(jtxtNome);
+        com.data.FieldManager.releaseField(jtxtSetorCadastral);
+        com.data.FieldManager.releaseField(jtxtNumeroDomicilios);
+        com.data.FieldManager.releaseField(jtxtPopulacaoEstimada);
+        com.data.FieldManager.releaseField(jtxtPopulacaoOutrasFontesDados);
+        com.data.FieldManager.releaseField(jlblZona);
+        com.data.FieldManager.releaseField(jlblOrigem);
+        com.data.FieldManager.releaseField(jlblOcupacao);
+        com.data.FieldManager.releaseField(jlblControleOcupacao);
+        com.data.FieldManager.releaseField(jlblTransporteColetivo);
+        com.data.FieldManager.releaseField(jlblPadraoConstrutivo);
+        com.data.FieldManager.releaseField(jlblPopulacaoFonteDados);
+        com.data.FieldManager.releaseField(jlblRendaPopulacao);
+        com.data.FieldManager.releaseField(jlblAdensamento);
+        
+    }
+    
+    private void liberarCamposObrigatoriosInfra() {
+        
+        com.data.FieldManager.releaseField(jlblAbastecimentoAgua);
+        com.data.FieldManager.releaseField(jlblColetaEsgoto);
+        com.data.FieldManager.releaseField(jlblEnergiaEletrica);
+        com.data.FieldManager.releaseField(jlblIluminacaoPublica);
+        com.data.FieldManager.releaseField(jlblServicosLimpeza);
+        com.data.FieldManager.releaseField(jlblAguasPluviaisSuperficial);
+        com.data.FieldManager.releaseField(jlblAguasPluviaisRede);
+        com.data.FieldManager.releaseField(jlblMaterialConstrucao);
+        com.data.FieldManager.releaseField(jlblProducaoMoradias);
+        com.data.FieldManager.releaseField(jlblAssistenciaTecnica);
+        com.data.FieldManager.releaseField(jlblUrbAssentamentosPrecarios);
+        com.data.FieldManager.releaseField(jlblComplementacaoInfraestrutura);
+        com.data.FieldManager.releaseField(jlblRegularizacaoFundiaria);
+        com.data.FieldManager.releaseField(jlblCdhu);
+        com.data.FieldManager.releaseField(jlblPmcmv);
+        
+    }
+    
+    private void liberarCamposObrigatoriosFundiaria() {
+        
+        com.data.FieldManager.releaseField(jtxtDecretoAprovacao);
+        com.data.FieldManager.releaseField(jtxtaDescEcologicoEconomico);
+        com.data.FieldManager.releaseField(jlblPropriedade);
+        com.data.FieldManager.releaseField(jlblDecretoRegistrado);
+        com.data.FieldManager.releaseField(jlblProcessosJudiciais);
+        com.data.FieldManager.releaseField(jlblExistenciaEmbargos);
+        
+    }
+    
+    private void liberarCamposObrigatoriosAcao() {
+        
+        com.data.FieldManager.releaseField(jlblRemanejamento);
+        com.data.FieldManager.releaseField(jlblReassentamento);
+        com.data.FieldManager.releaseField(jlblMelhoriaHabitacional);
+        com.data.FieldManager.releaseField(jlblAdequacaoInfraestrutura);
+        com.data.FieldManager.releaseField(jlblDesconstrucao);
+        com.data.FieldManager.releaseField(jlblRecuperacaoAmbiental);
+        com.data.FieldManager.releaseField(jlblAcoesOutros);
+        
+    }
+    
+    private void liberarCamposObrigatoriosRemanejamento() {
+        
+        com.data.FieldManager.releaseField(jtxtNumeroRemocaoDefinitiva);
+        com.data.FieldManager.releaseField(jtxtNumeroRemocaoProvisoria);
+        com.data.FieldManager.releaseField(jlblEstimativaRelocacao);
+        
+    }
+    
+    private void liberarCamposObrigatoriosReassentamento() {
+        
+        com.data.FieldManager.releaseField(jtxtNumeroMoradiasConstruir);
+        com.data.FieldManager.releaseField(jtxtNumeroMoradiasProvisorias);
+        com.data.FieldManager.releaseField(jtxtLocalDefinitivo);
+        com.data.FieldManager.releaseField(jlblEstimativaRemocao);
+        
+    }
+    
+    private void liberarCamposObrigatoriosDesconstrucao() {
+        
+        com.data.FieldManager.releaseField(jtxtNumeroMoradiasDemolir);
+        com.data.FieldManager.releaseField(jtxtaMotivoDemolicao);
+        com.data.FieldManager.releaseField(jtxtaProcessosDemolicao);
+        
+    }
+    
+    private void liberarCamposObrigatoriosAmbiental() {
+        
+        com.data.FieldManager.releaseField(jlblAreaVerde);
+        com.data.FieldManager.releaseField(jlblAreaAgricola);
+        com.data.FieldManager.releaseField(jlblAspAmbOutros);
+        com.data.FieldManager.releaseField(jlblApp);
+        
+    }
+    
+    private void liberarCamposObrigatoriosApp() {
+        
+        com.data.FieldManager.releaseField(jlblCorpoDagua);
+        com.data.FieldManager.releaseField(jlblBrejoCharco);
+        com.data.FieldManager.releaseField(jlblTopoMorro);
+        com.data.FieldManager.releaseField(jlblEncosta);
+        com.data.FieldManager.releaseField(jlblRestinga);
+        com.data.FieldManager.releaseField(jlblAppOutros);
         
     }
     
@@ -2408,13 +3972,28 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     
     private void limparCampos() {
         
-        // Dados Assentamento
+        limparCamposNucleo();
+        limparCamposInfraestrutura();
+        limparCamposProgramaHabitacional();
+        limparCamposSituacaoFundiaria();
+        limparCamposViaPublica();
+        limparCamposInstitucional();
+        limparCamposAcaoNucleo();
+        limparCamposRemanejamento();
+        limparCamposReassentamento();
+        limparCamposDesconstrucao();
+        limparCamposAspectoAmbiental();
+        limparCamposApp();
+        limparCamposAreaRisco();
+        
+    }
+    
+    private void limparCamposNucleo() {
+        
         jtxtNome.setText("");
         jtxtSetorCadastral.setText("");
-        jtxtOrigem.setText("");
         jtxtAreaTotal.setText("");
         jtxtAreaOcupada.setText("");
-        jtxtOcupacao.setText("");
         jtxtInicioOcupacao.setText("");
         jtxtNumeroDomicilios.setText("");
         jtxtPopulacaoEstimada.setText("");
@@ -2423,8 +4002,10 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtxtAdensamentoFonteDados.setText("");
         jtxtaObsControleOcupacao.setText("");
         jtxtaObsAdensamento.setText("");
-        jtxtAnexoTransporteColetivo.setText("");
+        jtxtAnexosTransporteColetivo.setText("");
         jcbbZona.setSelectedIndex(0);
+        jcbbOrigem.setSelectedIndex(0);
+        jcbbOcupacao.setSelectedIndex(0);
         jcbbControleOcupacao.setSelectedIndex(0);
         jcbbTransporteColetivo.setSelectedIndex(0);
         jcbbPadraoConstrutivo.setSelectedIndex(0);
@@ -2432,7 +4013,10 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbRendaPopulacao.setSelectedIndex(0);
         jcbbAdensamento.setSelectedIndex(0);
         
-        // Infraestrutura Urbana / Programas Habitacionais
+    }
+    
+    private void limparCamposInfraestrutura() {
+        
         jcbbAbastecimentoAgua.setSelectedIndex(0);
         jcbbColetaEsgoto.setSelectedIndex(0);
         jcbbEnergiaEletrica.setSelectedIndex(0);
@@ -2440,6 +4024,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbServicosLimpeza.setSelectedIndex(0);
         jcbbAguasPluviaisSuperficial.setSelectedIndex(0);
         jcbbAguasPluviaisRede.setSelectedIndex(0);
+        
+    }
+    
+    private void limparCamposProgramaHabitacional() {
+        
         jcbbMaterialConstrucao.setSelectedIndex(0);
         jcbbProducaoMoradias.setSelectedIndex(0);
         jcbbAssistenciaTecnica.setSelectedIndex(0);
@@ -2449,8 +4038,10 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbCdhu.setSelectedIndex(0);
         jcbbPmcmv.setSelectedIndex(0);
         
-        // Situação Fundiária
-        jtxtPropriedade.setText("");
+    }
+    
+    private void limparCamposSituacaoFundiaria() {
+        
         jtxtProprietario.setText("");
         jtxtDecretoAprovacao.setText("");
         jtxtNumeroMatricula.setText("");
@@ -2465,74 +4056,141 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtxtaDescEcologicoEconomico.setText("");
         jtxtaDescZonasSolo.setText("");
         jtxtaObsJudiciais.setText("");
+        jcbbPropriedade.setSelectedIndex(0);
         jcbbDecretoRegistrado.setSelectedIndex(0);
         jcbbProcessosJudiciais.setSelectedIndex(0);
         jcbbExistenciaEmbargos.setSelectedIndex(0);
         
-        // Vias Públicas
+    }
+    
+    private void limparCamposViaPublica() {
+        
         jtxtaDescRecursoMobilidade.setText("");
         jcbbRecursoMobilidadeNome.setSelectedIndex(0);
-        javax.swing.table.DefaultTableModel modeloVia = (javax.swing.table.DefaultTableModel) jtblViasPublicas.getModel();
-        modeloVia.setNumRows(0);
+        javax.swing.table.DefaultTableModel modeloAreaRisco = (javax.swing.table.DefaultTableModel) jtblViasPublicas.getModel();
+        modeloAreaRisco.setNumRows(0);
         
-        // Institucional / Social
+    }
+    
+    private void limparCamposInstitucional() {
+        
         jtxtaDescRecursoSocial.setText("");
         jcbbRecursoSocialNome.setSelectedIndex(0);
-        javax.swing.table.DefaultTableModel modeloSocial = (javax.swing.table.DefaultTableModel) jtblInstitucionalSocial.getModel();
-        modeloSocial.setNumRows(0);
+        javax.swing.table.DefaultTableModel modeloAreaRisco = (javax.swing.table.DefaultTableModel) jtblInstitucionalSocial.getModel();
+        modeloAreaRisco.setNumRows(0);
         
-        // Ações Núcleo
-        jtxtNumeroRemocaoDefinitiva.setText("");
-        jtxtNumeroRemocaoProvisoria.setText("");
-        jtxtNumeroMoradiasConstruir.setText("");
-        jtxtNumeroMoradiasProvisorias.setText("");
-        jtxtLocalDefinitivo.setText("");
+    }
+    
+    private void limparCamposAcaoNucleo() {
+        
         jtxtFonteMelhoriaHabitacional.setText("");
         jtxtFonteAdequacaoInfraestrutura.setText("");
-        jtxtNumeroMoradiasDemolir.setText("");
         jtxtPrad.setText("");
         jtxtDescOutros.setText("");
-        jtxtaMotivoDemolicao.setText("");
-        jtxtaProcessosDemolicao.setText("");
         jcbbRemanejamento.setSelectedIndex(0);
-        jcbbEstimativaRelocacao.setSelectedIndex(0);
         jcbbReassentamento.setSelectedIndex(0);
-        jcbbEstimativaRemocao.setSelectedIndex(0);
         jcbbMelhoriaHabitacional.setSelectedIndex(0);
         jcbbAdequacaoInfraestrutura.setSelectedIndex(0);
         jcbbDesconstrucao.setSelectedIndex(0);
         jcbbRecuperacaoAmbiental.setSelectedIndex(0);
         jcbbAcoesOutros.setSelectedIndex(0);
         
-        // Aspectos Ambientais
+    }
+    
+    private void limparCamposRemanejamento() {
+        
+        jtxtNumeroRemocaoDefinitiva.setText("");
+        jtxtNumeroRemocaoProvisoria.setText("");
+        jcbbEstimativaRelocacao.setSelectedIndex(0);
+        
+    }
+    
+    private void limparCamposReassentamento() {
+        
+        jtxtNumeroMoradiasConstruir.setText("");
+        jtxtNumeroMoradiasProvisorias.setText("");
+        jtxtLocalDefinitivo.setText("");
+        jcbbEstimativaRemocao.setSelectedIndex(0);
+        
+    }
+    
+    private void limparCamposDesconstrucao() {
+        
+        jtxtNumeroMoradiasDemolir.setText("");
+        jtxtaMotivoDemolicao.setText("");
+        jtxtaProcessosDemolicao.setText("");
+        
+    }
+    
+    private void limparCamposAspectoAmbiental() {
+        
         jtxtAspAmbLatitude.setText("");
         jtxtAspAmbLongitude.setText("");
         jtxtAspAmbOutrosEspecifique.setText("");
-        jtxtaAppOutrosEspecifique.setText("");
         jcbbAreaVerde.setSelectedIndex(0);
         jcbbAreaAgricola.setSelectedIndex(0);
         jcbbAspAmbOutros.setSelectedIndex(0);
         jcbbApp.setSelectedIndex(0);
-        jcbbCorpoAgua.setSelectedIndex(0);
+        
+    }
+    
+    private void limparCamposApp() {
+        
+        jtxtaAppOutrosEspecifique.setText("");
+        jcbbCorpoDagua.setSelectedIndex(0);
         jcbbBrejoCharco.setSelectedIndex(0);
         jcbbTopoMorro.setSelectedIndex(0);
         jcbbEncosta.setSelectedIndex(0);
         jcbbRestinga.setSelectedIndex(0);
         jcbbAppOutros.setSelectedIndex(0);
-        javax.swing.table.DefaultTableModel modeloAreaRisco = (javax.swing.table.DefaultTableModel) jtblInstitucionalSocial.getModel();
+        
+    }
+    
+    private void limparCamposAreaRisco() {
+        
+        javax.swing.table.DefaultTableModel modeloAreaRisco = (javax.swing.table.DefaultTableModel) jtblAreasRisco.getModel();
         modeloAreaRisco.setNumRows(0);
         
     }
     
     private void habilitarCampos() {
         
-        // Dados Assentamento
+        habilitarCamposNucleo();
+        habilitarCamposInfraestrutura();
+        habilitarCamposProgramaHabitacional();
+        habilitarCamposSituacaoFundiaria();
+        habilitarCamposViaPublica();
+        habilitarCamposInstitucional();
+        habilitarCamposAcaoNucleo();
+        habilitarCamposAspectoAmbiental();
+        habilitarCamposAreaRisco();
+        
+    }
+    
+    private void habilitarTodosCampos() {
+        
+        habilitarCamposNucleo();
+        habilitarCamposInfraestrutura();
+        habilitarCamposProgramaHabitacional();
+        habilitarCamposSituacaoFundiaria();
+        habilitarCamposViaPublica();
+        habilitarCamposInstitucional();
+        habilitarCamposAcaoNucleo();
+        habilitarCamposRemanejamento();
+        habilitarCamposReassentamento();
+        habilitarCamposDesconstrucao();
+        habilitarCamposAspectoAmbiental();
+        habilitarCamposApp();
+        habilitarCamposAreaRisco();
+        
+    }
+    
+    private void habilitarCamposNucleo() {
+        
         jtxtNome.setEnabled(true);
         jtxtSetorCadastral.setEnabled(true);
-        jtxtOrigem.setEnabled(true);
         jtxtAreaTotal.setEnabled(true);
         jtxtAreaOcupada.setEnabled(true);
-        jtxtOcupacao.setEnabled(true);
         jtxtInicioOcupacao.setEnabled(true);
         jtxtNumeroDomicilios.setEnabled(true);
         jtxtPopulacaoEstimada.setEnabled(true);
@@ -2541,16 +4199,22 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtxtAdensamentoFonteDados.setEnabled(true);
         jtxtaObsControleOcupacao.setEnabled(true);
         jtxtaObsAdensamento.setEnabled(true);
-        jtxtAnexoTransporteColetivo.setEnabled(true);
+        jtxtAnexosTransporteColetivo.setEnabled(true);
         jcbbZona.setEnabled(true);
+        jcbbOrigem.setEnabled(true);
+        jcbbOcupacao.setEnabled(true);
         jcbbControleOcupacao.setEnabled(true);
         jcbbTransporteColetivo.setEnabled(true);
         jcbbPadraoConstrutivo.setEnabled(true);
         jcbbPopulacaoFonteDados.setEnabled(true);
         jcbbRendaPopulacao.setEnabled(true);
         jcbbAdensamento.setEnabled(true);
+        jbtnAnexosTransporteColetivo.setEnabled(true);
         
-        // Infraestrutura Urbana / Programas Habitacionais
+    }
+    
+    private void habilitarCamposInfraestrutura() {
+        
         jcbbAbastecimentoAgua.setEnabled(true);
         jcbbColetaEsgoto.setEnabled(true);
         jcbbEnergiaEletrica.setEnabled(true);
@@ -2558,6 +4222,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbServicosLimpeza.setEnabled(true);
         jcbbAguasPluviaisSuperficial.setEnabled(true);
         jcbbAguasPluviaisRede.setEnabled(true);
+        
+    }
+    
+    private void habilitarCamposProgramaHabitacional() {
+        
         jcbbMaterialConstrucao.setEnabled(true);
         jcbbProducaoMoradias.setEnabled(true);
         jcbbAssistenciaTecnica.setEnabled(true);
@@ -2567,8 +4236,10 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbCdhu.setEnabled(true);
         jcbbPmcmv.setEnabled(true);
         
-        // Situação Fundiária
-        jtxtPropriedade.setEnabled(true);
+    }
+    
+    private void habilitarCamposSituacaoFundiaria() {
+        
         jtxtProprietario.setEnabled(true);
         jtxtDecretoAprovacao.setEnabled(true);
         jtxtNumeroMatricula.setEnabled(true);
@@ -2583,71 +4254,142 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtxtaDescEcologicoEconomico.setEnabled(true);
         jtxtaDescZonasSolo.setEnabled(true);
         jtxtaObsJudiciais.setEnabled(true);
+        jcbbPropriedade.setEnabled(true);
         jcbbDecretoRegistrado.setEnabled(true);
         jcbbProcessosJudiciais.setEnabled(true);
         jcbbExistenciaEmbargos.setEnabled(true);
+        jbtnAnexosZoneamento.setEnabled(true);
+        jbtnAnexosJudiciais.setEnabled(true);
         
-        // Vias Públicas
+    }
+    
+    private void habilitarCamposViaPublica() {
+        
         jtxtaDescRecursoMobilidade.setEnabled(true);
         jcbbRecursoMobilidadeNome.setEnabled(true);
         jtblViasPublicas.setEnabled(true);
+        jbtnGerenciarRecursoMobilidade.setEnabled(true);
         
-        // Institucional / Social
+    }
+    
+    private void habilitarCamposInstitucional() {
+        
         jtxtaDescRecursoSocial.setEnabled(true);
         jcbbRecursoSocialNome.setEnabled(true);
         jtblInstitucionalSocial.setEnabled(true);
+        jbtnGerenciarRecursoSocial.setEnabled(true);
         
-        // Ações Núcleo
-        jtxtNumeroRemocaoDefinitiva.setEnabled(true);
-        jtxtNumeroRemocaoProvisoria.setEnabled(true);
-        jtxtNumeroMoradiasConstruir.setEnabled(true);
-        jtxtNumeroMoradiasProvisorias.setEnabled(true);
-        jtxtLocalDefinitivo.setEnabled(true);
+    }
+    
+    private void habilitarCamposAcaoNucleo() {
+        
         jtxtFonteMelhoriaHabitacional.setEnabled(true);
         jtxtFonteAdequacaoInfraestrutura.setEnabled(true);
-        jtxtNumeroMoradiasDemolir.setEnabled(true);
         jtxtPrad.setEnabled(true);
         jtxtDescOutros.setEnabled(true);
-        jtxtaMotivoDemolicao.setEnabled(true);
-        jtxtaProcessosDemolicao.setEnabled(true);
         jcbbRemanejamento.setEnabled(true);
-        jcbbEstimativaRelocacao.setEnabled(true);
         jcbbReassentamento.setEnabled(true);
-        jcbbEstimativaRemocao.setEnabled(true);
         jcbbMelhoriaHabitacional.setEnabled(true);
         jcbbAdequacaoInfraestrutura.setEnabled(true);
         jcbbDesconstrucao.setEnabled(true);
         jcbbRecuperacaoAmbiental.setEnabled(true);
         jcbbAcoesOutros.setEnabled(true);
         
-        // Aspectos Ambientais
+    }
+    
+    private void habilitarCamposRemanejamento() {
+        
+        jtxtNumeroRemocaoDefinitiva.setEnabled(true);
+        jtxtNumeroRemocaoProvisoria.setEnabled(true);
+        jcbbEstimativaRelocacao.setEnabled(true);
+        
+    }
+    
+    private void habilitarCamposReassentamento() {
+        
+        jtxtNumeroMoradiasConstruir.setEnabled(true);
+        jtxtNumeroMoradiasProvisorias.setEnabled(true);
+        jtxtLocalDefinitivo.setEnabled(true);
+        jcbbEstimativaRemocao.setEnabled(true);
+        
+    }
+    
+    private void habilitarCamposDesconstrucao() {
+        
+        jtxtNumeroMoradiasDemolir.setEnabled(true);
+        jtxtaMotivoDemolicao.setEnabled(true);
+        jtxtaProcessosDemolicao.setEnabled(true);
+        
+    }
+    
+    private void habilitarCamposAspectoAmbiental() {
+        
         jtxtAspAmbLatitude.setEnabled(true);
         jtxtAspAmbLongitude.setEnabled(true);
         jtxtAspAmbOutrosEspecifique.setEnabled(true);
-        jtxtaAppOutrosEspecifique.setEnabled(true);
         jcbbAreaVerde.setEnabled(true);
         jcbbAreaAgricola.setEnabled(true);
         jcbbAspAmbOutros.setEnabled(true);
         jcbbApp.setEnabled(true);
-        jcbbCorpoAgua.setEnabled(true);
+        
+    }
+    
+    private void habilitarCamposApp() {
+        
+        jtxtaAppOutrosEspecifique.setEnabled(true);
+        jcbbCorpoDagua.setEnabled(true);
         jcbbBrejoCharco.setEnabled(true);
         jcbbTopoMorro.setEnabled(true);
         jcbbEncosta.setEnabled(true);
         jcbbRestinga.setEnabled(true);
         jcbbAppOutros.setEnabled(true);
+        
+    }
+    
+    private void habilitarCamposAreaRisco() {
+        
         jtblAreasRisco.setEnabled(true);
         
     }
     
     private void desabilitarCampos() {
         
-        // Dados Assentamento
+        desabilitarCamposNucleo();
+        desabilitarCamposInfraestrutura();
+        desabilitarCamposProgramaHabitacional();
+        desabilitarCamposSituacaoFundiaria();
+        desabilitarCamposViaPublica();
+        desabilitarCamposInstitucional();
+        desabilitarCamposAcaoNucleo();
+        desabilitarCamposAspectoAmbiental();
+        desabilitarCamposAreaRisco();
+        
+    }
+    
+    private void desabilitarTodosCampos() {
+        
+        desabilitarCamposNucleo();
+        desabilitarCamposInfraestrutura();
+        desabilitarCamposProgramaHabitacional();
+        desabilitarCamposSituacaoFundiaria();
+        desabilitarCamposViaPublica();
+        desabilitarCamposInstitucional();
+        desabilitarCamposAcaoNucleo();
+        desabilitarCamposRemanejamento();
+        desabilitarCamposReassentamento();
+        desabilitarCamposDesconstrucao();
+        desabilitarCamposAspectoAmbiental();
+        desabilitarCamposApp();
+        desabilitarCamposAreaRisco();
+        
+    }
+    
+    private void desabilitarCamposNucleo() {
+        
         jtxtNome.setEnabled(false);
         jtxtSetorCadastral.setEnabled(false);
-        jtxtOrigem.setEnabled(false);
         jtxtAreaTotal.setEnabled(false);
         jtxtAreaOcupada.setEnabled(false);
-        jtxtOcupacao.setEnabled(false);
         jtxtInicioOcupacao.setEnabled(false);
         jtxtNumeroDomicilios.setEnabled(false);
         jtxtPopulacaoEstimada.setEnabled(false);
@@ -2656,16 +4398,22 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtxtAdensamentoFonteDados.setEnabled(false);
         jtxtaObsControleOcupacao.setEnabled(false);
         jtxtaObsAdensamento.setEnabled(false);
-        jtxtAnexoTransporteColetivo.setEnabled(false);
+        jtxtAnexosTransporteColetivo.setEnabled(false);
         jcbbZona.setEnabled(false);
+        jcbbOrigem.setEnabled(false);
+        jcbbOcupacao.setEnabled(false);
         jcbbControleOcupacao.setEnabled(false);
         jcbbTransporteColetivo.setEnabled(false);
         jcbbPadraoConstrutivo.setEnabled(false);
         jcbbPopulacaoFonteDados.setEnabled(false);
         jcbbRendaPopulacao.setEnabled(false);
         jcbbAdensamento.setEnabled(false);
+        jbtnAnexosTransporteColetivo.setEnabled(false);
         
-        // Infraestrutura Urbana / Programas Habitacionais
+    }
+    
+    private void desabilitarCamposInfraestrutura() {
+        
         jcbbAbastecimentoAgua.setEnabled(false);
         jcbbColetaEsgoto.setEnabled(false);
         jcbbEnergiaEletrica.setEnabled(false);
@@ -2673,6 +4421,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbServicosLimpeza.setEnabled(false);
         jcbbAguasPluviaisSuperficial.setEnabled(false);
         jcbbAguasPluviaisRede.setEnabled(false);
+        
+    }
+    
+    private void desabilitarCamposProgramaHabitacional() {
+        
         jcbbMaterialConstrucao.setEnabled(false);
         jcbbProducaoMoradias.setEnabled(false);
         jcbbAssistenciaTecnica.setEnabled(false);
@@ -2682,8 +4435,10 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbCdhu.setEnabled(false);
         jcbbPmcmv.setEnabled(false);
         
-        // Situação Fundiária
-        jtxtPropriedade.setEnabled(false);
+    }
+    
+    private void desabilitarCamposSituacaoFundiaria() {
+        
         jtxtProprietario.setEnabled(false);
         jtxtDecretoAprovacao.setEnabled(false);
         jtxtNumeroMatricula.setEnabled(false);
@@ -2698,58 +4453,100 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtxtaDescEcologicoEconomico.setEnabled(false);
         jtxtaDescZonasSolo.setEnabled(false);
         jtxtaObsJudiciais.setEnabled(false);
+        jcbbPropriedade.setEnabled(false);
         jcbbDecretoRegistrado.setEnabled(false);
         jcbbProcessosJudiciais.setEnabled(false);
         jcbbExistenciaEmbargos.setEnabled(false);
+        jbtnAnexosZoneamento.setEnabled(false);
+        jbtnAnexosJudiciais.setEnabled(false);
         
-        // Vias Públicas
+    }
+    
+    private void desabilitarCamposViaPublica() {
+        
         jtxtaDescRecursoMobilidade.setEnabled(false);
         jcbbRecursoMobilidadeNome.setEnabled(false);
         jtblViasPublicas.setEnabled(false);
+        jbtnGerenciarRecursoMobilidade.setEnabled(false);
         
-        // Institucional / Social
+    }
+    
+    private void desabilitarCamposInstitucional() {
+        
         jtxtaDescRecursoSocial.setEnabled(false);
         jcbbRecursoSocialNome.setEnabled(false);
         jtblInstitucionalSocial.setEnabled(false);
+        jbtnGerenciarRecursoSocial.setEnabled(false);
         
-        // Ações Núcleo
-        jtxtNumeroRemocaoDefinitiva.setEnabled(false);
-        jtxtNumeroRemocaoProvisoria.setEnabled(false);
-        jtxtNumeroMoradiasConstruir.setEnabled(false);
-        jtxtNumeroMoradiasProvisorias.setEnabled(false);
-        jtxtLocalDefinitivo.setEnabled(false);
+    }
+    
+    private void desabilitarCamposAcaoNucleo() {
+        
         jtxtFonteMelhoriaHabitacional.setEnabled(false);
         jtxtFonteAdequacaoInfraestrutura.setEnabled(false);
-        jtxtNumeroMoradiasDemolir.setEnabled(false);
         jtxtPrad.setEnabled(false);
         jtxtDescOutros.setEnabled(false);
-        jtxtaMotivoDemolicao.setEnabled(false);
-        jtxtaProcessosDemolicao.setEnabled(false);
         jcbbRemanejamento.setEnabled(false);
-        jcbbEstimativaRelocacao.setEnabled(false);
         jcbbReassentamento.setEnabled(false);
-        jcbbEstimativaRemocao.setEnabled(false);
         jcbbMelhoriaHabitacional.setEnabled(false);
         jcbbAdequacaoInfraestrutura.setEnabled(false);
         jcbbDesconstrucao.setEnabled(false);
         jcbbRecuperacaoAmbiental.setEnabled(false);
         jcbbAcoesOutros.setEnabled(false);
         
-        // Aspectos Ambientais
+    }
+    
+    private void desabilitarCamposRemanejamento() {
+        
+        jtxtNumeroRemocaoDefinitiva.setEnabled(false);
+        jtxtNumeroRemocaoProvisoria.setEnabled(false);
+        jcbbEstimativaRelocacao.setEnabled(false);
+        
+    }
+    
+    private void desabilitarCamposReassentamento() {
+        
+        jtxtNumeroMoradiasConstruir.setEnabled(false);
+        jtxtNumeroMoradiasProvisorias.setEnabled(false);
+        jtxtLocalDefinitivo.setEnabled(false);
+        jcbbEstimativaRemocao.setEnabled(false);
+        
+    }
+    
+    private void desabilitarCamposDesconstrucao() {
+        
+        jtxtNumeroMoradiasDemolir.setEnabled(false);
+        jtxtaMotivoDemolicao.setEnabled(false);
+        jtxtaProcessosDemolicao.setEnabled(false);
+        
+    }
+    
+    private void desabilitarCamposAspectoAmbiental() {
+        
         jtxtAspAmbLatitude.setEnabled(false);
         jtxtAspAmbLongitude.setEnabled(false);
         jtxtAspAmbOutrosEspecifique.setEnabled(false);
-        jtxtaAppOutrosEspecifique.setEnabled(false);
         jcbbAreaVerde.setEnabled(false);
         jcbbAreaAgricola.setEnabled(false);
         jcbbAspAmbOutros.setEnabled(false);
         jcbbApp.setEnabled(false);
-        jcbbCorpoAgua.setEnabled(false);
+        
+    }
+    
+    private void desabilitarCamposApp() {
+        
+        jtxtaAppOutrosEspecifique.setEnabled(false);
+        jcbbCorpoDagua.setEnabled(false);
         jcbbBrejoCharco.setEnabled(false);
         jcbbTopoMorro.setEnabled(false);
         jcbbEncosta.setEnabled(false);
         jcbbRestinga.setEnabled(false);
         jcbbAppOutros.setEnabled(false);
+        
+    }
+    
+    private void desabilitarCamposAreaRisco() {
+        
         jtblAreasRisco.setEnabled(false);
         
     }
@@ -2785,8 +4582,8 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jbtnAnexoTransporteColetivo;
     private javax.swing.JButton jbtnAnexosJudiciais;
+    private javax.swing.JButton jbtnAnexosTransporteColetivo;
     private javax.swing.JButton jbtnAnexosZoneamento;
     private javax.swing.JButton jbtnEditar;
     private javax.swing.JButton jbtnExcluir;
@@ -2813,7 +4610,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jcbbColetaEsgoto;
     private javax.swing.JComboBox jcbbComplementacaoInfraestrutura;
     private javax.swing.JComboBox jcbbControleOcupacao;
-    private javax.swing.JComboBox jcbbCorpoAgua;
+    private javax.swing.JComboBox jcbbCorpoDagua;
     private javax.swing.JComboBox jcbbDecretoRegistrado;
     private javax.swing.JComboBox jcbbDesconstrucao;
     private javax.swing.JComboBox jcbbEncosta;
@@ -2825,11 +4622,14 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jcbbIluminacaoPublica;
     private javax.swing.JComboBox jcbbMaterialConstrucao;
     private javax.swing.JComboBox jcbbMelhoriaHabitacional;
+    private javax.swing.JComboBox jcbbOcupacao;
+    private javax.swing.JComboBox jcbbOrigem;
     private javax.swing.JComboBox jcbbPadraoConstrutivo;
     private javax.swing.JComboBox jcbbPmcmv;
     private javax.swing.JComboBox jcbbPopulacaoFonteDados;
     private javax.swing.JComboBox jcbbProcessosJudiciais;
     private javax.swing.JComboBox jcbbProducaoMoradias;
+    private javax.swing.JComboBox jcbbPropriedade;
     private javax.swing.JComboBox jcbbReassentamento;
     private javax.swing.JComboBox jcbbRecuperacaoAmbiental;
     private javax.swing.JComboBox jcbbRecursoMobilidadeNome;
@@ -2870,7 +4670,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jlblColetaEsgoto;
     private javax.swing.JLabel jlblComplementacaoInfraestrutura;
     private javax.swing.JLabel jlblControleOcupacao;
-    private javax.swing.JLabel jlblCorpoAgua;
+    private javax.swing.JLabel jlblCorpoDagua;
     private javax.swing.JLabel jlblDecretoAprovacao;
     private javax.swing.JLabel jlblDecretoRegistrado;
     private javax.swing.JLabel jlblDescDestinacaoAreas;
@@ -2999,8 +4799,8 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane jtbpFormulario;
     private javax.swing.JTabbedPane jtbpPrincipal;
     private javax.swing.JTextField jtxtAdensamentoFonteDados;
-    private javax.swing.JTextField jtxtAnexoTransporteColetivo;
     private javax.swing.JTextField jtxtAnexosJudiciais;
+    private javax.swing.JTextField jtxtAnexosTransporteColetivo;
     private javax.swing.JTextField jtxtAnexosZoneamento;
     private javax.swing.JTextField jtxtAreaOcupada;
     private javax.swing.JTextField jtxtAreaTotal;
@@ -3024,13 +4824,10 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtxtNumeroProcesso;
     private javax.swing.JTextField jtxtNumeroRemocaoDefinitiva;
     private javax.swing.JTextField jtxtNumeroRemocaoProvisoria;
-    private javax.swing.JTextField jtxtOcupacao;
-    private javax.swing.JTextField jtxtOrigem;
     private javax.swing.JTextField jtxtPesquisa;
     private javax.swing.JTextField jtxtPopulacaoEstimada;
     private javax.swing.JTextField jtxtPopulacaoOutrasFontesDados;
     private javax.swing.JTextField jtxtPrad;
-    private javax.swing.JTextField jtxtPropriedade;
     private javax.swing.JTextField jtxtProprietario;
     private javax.swing.JTextField jtxtSetorCadastral;
     private javax.swing.JTextField jtxtUsoIncompativel;

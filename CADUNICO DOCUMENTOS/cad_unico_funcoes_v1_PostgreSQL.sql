@@ -14,12 +14,13 @@ $$ LANGUAGE SQL VOLATILE;
 
 
 CREATE OR REPLACE FUNCTION fn_inserir_familia
-(CHAR(3), CHARACTER VARYING, CHARACTER VARYING)
+(CHAR(3), CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, DATE, CHARACTER VARYING, DATE)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		INSERT INTO familias (remocao_familia, situacao_remocao, especifique_remocao) VALUES ($1, $2, $3);
+		INSERT INTO familias (remocao_familia, situacao_remocao, especifique_remocao, atendente, dt_atendimento, atendente_atualizacao, dt_atualizacao) 
+		VALUES ($1, $2, $3, $4, $5, $6, $7);
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -31,7 +32,8 @@ RETURNS SETOF tp_familia AS $$
 DECLARE
     linha tp_familia;
 BEGIN
-    FOR linha IN SELECT id, remocao_familia, situacao_remocao, especifique_remocao FROM familias WHERE id = $1 LOOP
+    FOR linha IN SELECT id, remocao_familia, situacao_remocao, especifique_remocao, atendente, dt_atendimento, atendente_atualizacao, dt_atualizacao 
+	FROM familias WHERE id = $1 LOOP
         RETURN NEXT linha;
     END LOOP;
     RETURN;
@@ -44,7 +46,8 @@ RETURNS SETOF tp_familia AS $$
 DECLARE
     linha tp_familia;
 BEGIN
-    FOR linha IN SELECT id, remocao_familia, situacao_remocao, especifique_remocao FROM familias WHERE remocao_familia = $1 LOOP
+    FOR linha IN SELECT id, remocao_familia, situacao_remocao, especifique_remocao, atendente, dt_atendimento, atendente_atualizacao, dt_atualizacao 
+	FROM familias WHERE remocao_familia = $1 LOOP
         RETURN NEXT linha;
     END LOOP;
     RETURN;
@@ -57,7 +60,8 @@ RETURNS SETOF tp_familia AS $$
 DECLARE
     linha tp_familia;
 BEGIN
-    FOR linha IN SELECT id, remocao_familia, situacao_remocao, especifique_remocao FROM familias WHERE situacao_remocao LIKE $1 LOOP
+    FOR linha IN SELECT id, remocao_familia, situacao_remocao, especifique_remocao, atendente, dt_atendimento, atendente_atualizacao, dt_atualizacao 
+	FROM familias WHERE situacao_remocao LIKE $1 LOOP
         RETURN NEXT linha;
     END LOOP;
     RETURN;
@@ -66,12 +70,13 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_familia
-(CHAR(3), CHARACTER VARYING, CHARACTER VARYING, BIGINT)
+(CHAR(3), CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, DATE, CHARACTER VARYING, DATE, BIGINT)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		UPDATE familias SET remocao_familia = $1, situacao_remocao = $2, especifique_remocao = $3 WHERE id = $4;
+		UPDATE familias SET remocao_familia = $1, situacao_remocao = $2, especifique_remocao = $3, atendente = $4, 
+		dt_atendimento = $5, atendente_atualizacao = $6, dt_atualizacao = $7 WHERE id = $8;
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -95,13 +100,14 @@ $$ LANGUAGE PLPGSQL;
 
 CREATE OR REPLACE FUNCTION fn_inserir_individuo
 (BIGINT, CHAR(3), CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHAR(2), CHARACTER VARYING, CHARACTER VARYING, 
-CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING)
+CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, TEXT, CHARACTER VARYING, CHAR(15))
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		INSERT INTO individuo (id_familia, responsavel_familia, nome, apelido, idade, sexo, etnia, estado_civil, nome_mae, nome_pai, responsavel, grau_parentesco, prestou_informacao) 
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);
+		INSERT INTO individuo (id_familia, responsavel_familia, nome, apelido, idade, sexo, etnia, estado_civil, 
+		nome_mae, nome_pai, responsavel, grau_parentesco, observacoes, prestou_informacao, cpf_informante) 
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14);
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -113,23 +119,9 @@ RETURNS SETOF tp_individuo AS $$
 DECLARE
     linha tp_individuo;
 BEGIN
-    FOR linha IN SELECT id, id_familia, responsavel_familia, nome, apelido, idade, sexo, etnia, estado_civil, nome_mae, nome_pai, responsavel, grau_parentesco, prestou_informacao 
+    FOR linha IN SELECT id, id_familia, responsavel_familia, nome, apelido, idade, sexo, etnia, estado_civil, 
+	nome_mae, nome_pai, responsavel, grau_parentesco, observacoes, prestou_informacao, cpf_informante 
 	FROM individuo WHERE id = $1 LOOP
-        RETURN NEXT linha;
-    END LOOP;
-    RETURN;
-END;
-$$ LANGUAGE PLPGSQL;
-
-
-CREATE OR REPLACE FUNCTION fn_procurar_individuo_por_cpf(CHARACTER VARYING)
-RETURNS SETOF tp_individuo AS $$
-DECLARE
-    linha tp_individuo;
-BEGIN
-    FOR linha IN SELECT i.id, i.id_familia, i.responsavel_familia, i.nome, i.apelido, i.idade, i.sexo, i.etnia, i.estado_civil, i.nome_mae, 
-	i.nome_pai, i.responsavel, i.grau_parentesco, i.prestou_informacao FROM individuo AS i INNER JOIN documentos_individuo AS di 
-	ON i.id = di.id_individuo WHERE di.num_cpf LIKE $1 LOOP
         RETURN NEXT linha;
     END LOOP;
     RETURN;
@@ -139,13 +131,13 @@ $$ LANGUAGE PLPGSQL;
 
 CREATE OR REPLACE FUNCTION fn_alterar_individuo
 (BIGINT, CHAR(3), CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHAR(2), CHARACTER VARYING, CHARACTER VARYING, 
-CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, BIGINT)
+CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, TEXT, CHARACTER VARYING, CHAR(15), BIGINT)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
 		UPDATE individuo SET id_familia = $1, responsavel_familia = $2, nome = $3, apelido = $4, idade = $5, sexo = $6, etnia = $7, estado_civil = $8, nome_mae = $9, nome_pai = $10, 
-		responsavel = $11, grau_parentesco = $12, prestou_informacao = $13 WHERE id = $14;
+		responsavel = $11, grau_parentesco = $12, observacoes = $13, prestou_informacao = $14, cpf_informante = $15 WHERE id = $16;
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -468,14 +460,16 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_inserir_deficiente_individuo
-(BIGINT, CHAR(3), TEXT, TEXT, CHARACTER VARYING, TEXT, CHARACTER VARYING, CHARACTER VARYING, CHAR(3))
+(BIGINT, CHAR(3), CHAR(3), CHAR(3), CHAR(3), CHAR(3), CHAR(3), CHAR(3), CHAR(3), CHAR(3), TEXT, 
+CHARACTER VARYING, TEXT, CHARACTER VARYING, CHAR(3), CHAR(3), CHAR(3), CHAR(3), CHAR(3), CHARACTER VARYING)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		INSERT INTO deficiente_individuo (id_individuo, deficiente, tipo_deficiencia, obs_tipo_deficiencia, causa_deficiencia, 
-		obs_causa_deficiencia, quando_adquiriu, depende_cuidados, cadastro_sepedi) 
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);
+		INSERT INTO deficiente_individuo (id_individuo, deficiente, deficiencia_fisica, deficiencia_mental, transtorno_mental, sindrome_down, 
+		cegueira, baixa_visao, surdez_severa, surdez_moderada, obs_tipo_deficiencia, causa_deficiencia, obs_causa_deficiencia, quando_adquiriu, 
+		cuidados_familia, cuidados_especializado, cuidados_vizinho, cuidados_instituicao, cuidados_outros, cadastro_sepedi) 
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20);
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -487,8 +481,10 @@ RETURNS SETOF tp_deficiente_individuo AS $$
 DECLARE
     linha tp_deficiente_individuo;
 BEGIN
-    FOR linha IN SELECT id, id_individuo, deficiente, tipo_deficiencia, obs_tipo_deficiencia, causa_deficiencia, obs_causa_deficiencia, 
-	quando_adquiriu, depende_cuidados, cadastro_sepedi FROM deficiente_individuo WHERE id = $1 LOOP
+    FOR linha IN SELECT id, id_individuo, deficiente, deficiencia_fisica, deficiencia_mental, transtorno_mental, sindrome_down, 
+	cegueira, baixa_visao, surdez_severa, surdez_moderada, obs_tipo_deficiencia, causa_deficiencia, obs_causa_deficiencia, quando_adquiriu, 
+	cuidados_familia, cuidados_especializado, cuidados_vizinho, cuidados_instituicao, cuidados_outros, cadastro_sepedi 
+	FROM deficiente_individuo WHERE id = $1 LOOP
         RETURN NEXT linha;
     END LOOP;
     RETURN;
@@ -501,8 +497,10 @@ RETURNS SETOF tp_deficiente_individuo AS $$
 DECLARE
     linha tp_deficiente_individuo;
 BEGIN
-    FOR linha IN SELECT id, id_individuo, deficiente, tipo_deficiencia, obs_tipo_deficiencia, causa_deficiencia, obs_causa_deficiencia, 
-	quando_adquiriu, depende_cuidados, cadastro_sepedi FROM deficiente_individuo WHERE id_individuo = $1 LOOP
+    FOR linha IN SELECT id, id_individuo, deficiente, deficiencia_fisica, deficiencia_mental, transtorno_mental, sindrome_down, 
+	cegueira, baixa_visao, surdez_severa, surdez_moderada, obs_tipo_deficiencia, causa_deficiencia, obs_causa_deficiencia, quando_adquiriu, 
+	cuidados_familia, cuidados_especializado, cuidados_vizinho, cuidados_instituicao, cuidados_outros, cadastro_sepedi 
+	FROM deficiente_individuo WHERE id_individuo = $1 LOOP
         RETURN NEXT linha;
     END LOOP;
     RETURN;
@@ -511,13 +509,16 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_deficiente_individuo
-(BIGINT, CHAR(3), TEXT, TEXT, CHARACTER VARYING, TEXT, CHARACTER VARYING, CHARACTER VARYING, CHAR(3), BIGINT)
+(BIGINT, CHAR(3), CHAR(3), CHAR(3), CHAR(3), CHAR(3), CHAR(3), CHAR(3), CHAR(3), CHAR(3), TEXT, 
+CHARACTER VARYING, TEXT, CHARACTER VARYING, CHAR(3), CHAR(3), CHAR(3), CHAR(3), CHAR(3), CHARACTER VARYING, BIGINT)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		UPDATE deficiente_individuo SET id_individuo = $1, deficiente = $2, tipo_deficiencia = $3, obs_tipo_deficiencia = $4, causa_deficiencia = $5, 
-		obs_causa_deficiencia = $6, quando_adquiriu = $7, depende_cuidados = $8, cadastro_sepedi = $9 WHERE id = $10;
+		UPDATE deficiente_individuo SET id_individuo = $1, deficiente = $2, deficiencia_fisica = $3, deficiencia_mental = $4, transtorno_mental = $5, 
+		sindrome_down = $6, cegueira = $7, baixa_visao = $8, surdez_severa = $9, surdez_moderada = $10, obs_tipo_deficiencia = $11, causa_deficiencia = $12, 
+		obs_causa_deficiencia = $13, quando_adquiriu = $14, cuidados_familia = $15, cuidados_especializado = $16, cuidados_vizinho = $17, 
+		cuidados_instituicao = $18, cuidados_outros = $19, cadastro_sepedi = $20 WHERE id = $21;
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -712,13 +713,15 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_inserir_documentos_empresa
-(BIGINT, CHAR(18), DATE, CHARACTER VARYING, DATE, CHARACTER VARYING, DATE, DATE)
+(BIGINT, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, DATE, CHAR(2), CHARACTER VARYING, 
+CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		INSERT INTO documentos_empresa (id_empresa, cnpj, dt_emissao_cnpj, inscricao_estadual, dt_emissao_insc_estadual, alvara, 
-		dt_emissao_alvara, dt_validade_alvara) VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
+		INSERT INTO documentos_empresa (id_empresa, tipo, numero, serie, data_emissao, uf_emissao, cidade, 
+		orgao_emissor, zona, secao, categoria, validade, sts_documento) 
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -730,8 +733,8 @@ RETURNS SETOF tp_documento_empresa AS $$
 DECLARE
     linha tp_documento_empresa;
 BEGIN
-    FOR linha IN SELECT id, id_empresa, cnpj, dt_emissao_cnpj, inscricao_estadual, dt_emissao_insc_estadual, alvara, 
-	dt_emissao_alvara, dt_validade_alvara FROM documentos_empresa WHERE id = $1 LOOP
+    FOR linha IN SELECT id, id_empresa, tipo, numero, serie, data_emissao, uf_emissao, cidade, 
+	orgao_emissor, zona, secao, categoria, validade, sts_documento FROM documentos_empresa WHERE id = $1 LOOP
         RETURN NEXT linha;
     END LOOP;
     RETURN;
@@ -744,8 +747,8 @@ RETURNS SETOF tp_documento_empresa AS $$
 DECLARE
     linha tp_documento_empresa;
 BEGIN
-    FOR linha IN SELECT id, id_empresa, cnpj, dt_emissao_cnpj, inscricao_estadual, dt_emissao_insc_estadual, alvara, 
-	dt_emissao_alvara, dt_validade_alvara FROM documentos_empresa WHERE id_empresa = $1 LOOP
+    FOR linha IN SELECT id, id_empresa, tipo, numero, serie, data_emissao, uf_emissao, cidade, 
+	orgao_emissor, zona, secao, categoria, validade, sts_documento FROM documentos_empresa WHERE id_empresa = $1 LOOP
         RETURN NEXT linha;
     END LOOP;
     RETURN;
@@ -754,13 +757,14 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_documentos_empresa
-(BIGINT, CHAR(18), DATE, CHARACTER VARYING, DATE, CHARACTER VARYING, DATE, DATE, BIGINT)
+(BIGINT, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, DATE, CHAR(2), CHARACTER VARYING, CHARACTER VARYING, 
+CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, BIGINT)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		UPDATE documentos_empresa SET id_empresa = $1, cnpj = $2, dt_emissao_cnpj = $3, inscricao_estadual = $4, dt_emissao_insc_estadual = $5, 
-		alvara = $6, dt_emissao_alvara = $7, dt_validade_alvara = $8 WHERE id = $9;
+		UPDATE documentos_empresa SET id_empresa = $1, tipo = $2, numero = $3, serie = $4, data_emissao = $5, uf_emissao = $6, 
+		cidade = $7, orgao_emissor = $8, zona = $9, secao = $10, categoria = $11, validade = $12, sts_documento = $13 WHERE id = $14;
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -923,13 +927,14 @@ $$ LANGUAGE PLPGSQL;
 
 CREATE OR REPLACE FUNCTION fn_inserir_imovel
 (BIGINT, CHARACTER VARYING, CHARACTER VARYING, DECIMAL(10,2), CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, 
-CHARACTER VARYING, CHARACTER VARYING, CHAR(3), CHARACTER VARYING, CHARACTER VARYING)
+CHARACTER VARYING, CHARACTER VARYING, CHAR(3), CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, DATE)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		INSERT INTO imovel (id_nucleo, tipo_imovel, situacao_imovel, valor_aluguel, tipo_propriedade, doc_propriedade, num_doc_propriedade, construcao, localidade, paga_iptu, ic, selagem) 
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);
+		INSERT INTO imovel (id_nucleo, tipo_imovel, situacao_imovel, valor_aluguel, tipo_propriedade, doc_propriedade, 
+		num_doc_propriedade, construcao, localidade, paga_iptu, ic, selagem, atendente, atendente_atualizacao, dt_atualizacao) 
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15);
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -942,7 +947,7 @@ DECLARE
     linha tp_imovel;
 BEGIN
     FOR linha IN SELECT id, id_nucleo, tipo_imovel, situacao_imovel, valor_aluguel, tipo_propriedade, doc_propriedade, num_doc_propriedade, construcao, 
-	localidade, paga_iptu, ic, selagem FROM imovel WHERE id = $1 LOOP
+	localidade, paga_iptu, ic, selagem, atendente, atendente_atualizacao, dt_atualizacao FROM imovel WHERE id = $1 LOOP
         RETURN NEXT linha;
     END LOOP;
     RETURN;
@@ -956,7 +961,7 @@ DECLARE
     linha tp_imovel;
 BEGIN
     FOR linha IN SELECT id, id_nucleo, tipo_imovel, situacao_imovel, valor_aluguel, tipo_propriedade, doc_propriedade, num_doc_propriedade, construcao, 
-	localidade, paga_iptu, ic, selagem FROM imovel WHERE tipo_imovel LIKE $1 LOOP
+	localidade, paga_iptu, ic, selagem, atendente, atendente_atualizacao, dt_atualizacao FROM imovel WHERE tipo_imovel LIKE $1 LOOP
         RETURN NEXT linha;
     END LOOP;
     RETURN;
@@ -970,7 +975,7 @@ DECLARE
     linha tp_imovel;
 BEGIN
     FOR linha IN SELECT id, id_nucleo, tipo_imovel, situacao_imovel, valor_aluguel, tipo_propriedade, doc_propriedade, num_doc_propriedade, construcao, 
-	localidade, paga_iptu, ic, selagem FROM imovel WHERE situacao_imovel LIKE $1 LOOP
+	localidade, paga_iptu, ic, selagem, atendente, atendente_atualizacao, dt_atualizacao FROM imovel WHERE situacao_imovel LIKE $1 LOOP
         RETURN NEXT linha;
     END LOOP;
     RETURN;
@@ -984,7 +989,7 @@ DECLARE
     linha tp_imovel;
 BEGIN
     FOR linha IN SELECT id, id_nucleo, tipo_imovel, situacao_imovel, valor_aluguel, tipo_propriedade, doc_propriedade, num_doc_propriedade, construcao, 
-	localidade, paga_iptu, ic, selagem FROM imovel WHERE num_doc_propriedade LIKE $1 LOOP
+	localidade, paga_iptu, ic, selagem, atendente, atendente_atualizacao, dt_atualizacao FROM imovel WHERE num_doc_propriedade LIKE $1 LOOP
         RETURN NEXT linha;
     END LOOP;
     RETURN;
@@ -998,7 +1003,7 @@ DECLARE
     linha tp_imovel;
 BEGIN
     FOR linha IN SELECT id, id_nucleo, tipo_imovel, situacao_imovel, valor_aluguel, tipo_propriedade, doc_propriedade, num_doc_propriedade, construcao, 
-	localidade, paga_iptu, ic, selagem FROM imovel WHERE localidade LIKE $1 LOOP
+	localidade, paga_iptu, ic, selagem, atendente, atendente_atualizacao, dt_atualizacao FROM imovel WHERE localidade LIKE $1 LOOP
         RETURN NEXT linha;
     END LOOP;
     RETURN;
@@ -1012,7 +1017,8 @@ DECLARE
     linha tp_imovel;
 BEGIN
     FOR linha IN SELECT i.id, i.id_nucleo, i.tipo_imovel, i.situacao_imovel, i.valor_aluguel, i.tipo_propriedade, i.doc_propriedade, i.num_doc_propriedade, 
-	i.construcao, i.localidade, i.paga_iptu, i.ic, i.selagem FROM imovel AS i INNER JOIN endereco_imovel AS ei ON i.id = ei.id_imovel 
+	i.construcao, i.localidade, i.paga_iptu, i.ic, i.selagem, i.atendente, i.atendente_atualizacao, i.dt_atualizacao FROM imovel AS i 
+	INNER JOIN endereco_imovel AS ei ON i.id = ei.id_imovel 
 	WHERE ei.logradouro LIKE $1 LOOP
         RETURN NEXT linha;
     END LOOP;
@@ -1027,7 +1033,8 @@ DECLARE
     linha tp_imovel;
 BEGIN
     FOR linha IN SELECT i.id, i.id_nucleo, i.tipo_imovel, i.situacao_imovel, i.valor_aluguel, i.tipo_propriedade, i.doc_propriedade, i.num_doc_propriedade, 
-	i.construcao, i.localidade, i.paga_iptu, i.ic, i.selagem FROM imovel AS i INNER JOIN endereco_imovel AS ei ON i.id = ei.id_imovel 
+	i.construcao, i.localidade, i.paga_iptu, i.ic, i.selagem, i.atendente, i.atendente_atualizacao, i.dt_atualizacao FROM imovel AS i 
+	INNER JOIN endereco_imovel AS ei ON i.id = ei.id_imovel 
 	WHERE ei.cep LIKE $1 LOOP
         RETURN NEXT linha;
     END LOOP;
@@ -1042,7 +1049,8 @@ DECLARE
     linha tp_imovel;
 BEGIN
     FOR linha IN SELECT i.id, i.id_nucleo, i.tipo_imovel, i.situacao_imovel, i.valor_aluguel, i.tipo_propriedade, i.doc_propriedade, i.num_doc_propriedade, 
-	i.construcao, i.localidade, i.paga_iptu, i.ic, i.selagem FROM imovel AS i INNER JOIN endereco_imovel AS ei ON i.id = ei.id_imovel 
+	i.construcao, i.localidade, i.paga_iptu, i.ic, i.selagem, i.atendente, i.atendente_atualizacao, i.dt_atualizacao FROM imovel AS i 
+	INNER JOIN endereco_imovel AS ei ON i.id = ei.id_imovel 
 	WHERE ei.bairro LIKE $1 LOOP
         RETURN NEXT linha;
     END LOOP;
@@ -1052,14 +1060,15 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_imovel
-(BIGINT, CHARACTER VARYING, CHARACTER VARYING, DECIMAL(10,2), CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, 
-CHARACTER VARYING, CHARACTER VARYING, CHAR(3), CHARACTER VARYING, CHARACTER VARYING, BIGINT)
+(BIGINT, CHARACTER VARYING, CHARACTER VARYING, DECIMAL(10,2), CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, 
+CHARACTER VARYING, CHAR(3), CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, DATE, BIGINT)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		UPDATE imovel SET id_nucleo = $1, tipo_imovel = $2, situacao_imovel = $3, valor_aluguel = $4, tipo_propriedade = $5, doc_propriedade = $6, 
-		num_doc_propriedade = $7, construcao = $8, localidade = $9, paga_iptu = $10, ic = $11, selagem = $12 WHERE id = $13;
+		UPDATE imovel SET id_nucleo = $1, tipo_imovel = $2, situacao_imovel = $3, valor_aluguel = $4, tipo_propriedade = $5, 
+		doc_propriedade = $6, num_doc_propriedade = $7, construcao = $8, localidade = $9, paga_iptu = $10, ic = $11, selagem = $12, 
+		atendente = $13, atendente_atualizacao = $14, dt_atualizacao = $15 WHERE id = $16;
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -1232,15 +1241,15 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_inserir_servicos_imovel
-(BIGINT, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, 
-CHARACTER VARYING, CHAR(3), CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING)
+(BIGINT, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, 
+CHARACTER VARYING, CHARACTER VARYING, CHAR(3), CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		INSERT INTO servicos_imovel (id_imovel, existe_pavimentacao, iluminacao_utilizada, abastecimento_agua, tratamento_agua, 
+		INSERT INTO servicos_imovel (id_imovel, existe_pavimentacao, qual_pavimentacao, iluminacao_utilizada, especifique_iluminacao, abastecimento_agua, tratamento_agua, 
 		agua_encanada, existe_banheiro, escoamento_sanitario, tratamento_lixo, presenca_animais) 
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -1252,8 +1261,8 @@ RETURNS SETOF tp_servico_imovel AS $$
 DECLARE
     linha tp_servico_imovel;
 BEGIN
-    FOR linha IN SELECT id, id_imovel, existe_pavimentacao, iluminacao_utilizada, abastecimento_agua, tratamento_agua, 
-	agua_encanada, existe_banheiro, escoamento_sanitario, tratamento_lixo, presenca_animais 
+    FOR linha IN SELECT id, id_imovel, existe_pavimentacao, qual_pavimentacao, iluminacao_utilizada, especifique_iluminacao, 
+	abastecimento_agua, tratamento_agua, agua_encanada, existe_banheiro, escoamento_sanitario, tratamento_lixo, presenca_animais 
 	FROM servicos_imovel WHERE id = $1 LOOP
         RETURN NEXT linha;
     END LOOP;
@@ -1267,8 +1276,8 @@ RETURNS SETOF tp_servico_imovel AS $$
 DECLARE
     linha tp_servico_imovel;
 BEGIN
-    FOR linha IN SELECT id, id_imovel, existe_pavimentacao, iluminacao_utilizada, abastecimento_agua, tratamento_agua, 
-	agua_encanada, existe_banheiro, escoamento_sanitario, tratamento_lixo, presenca_animais 
+    FOR linha IN SELECT id, id_imovel, existe_pavimentacao, qual_pavimentacao, iluminacao_utilizada, especifique_iluminacao, 
+	abastecimento_agua, tratamento_agua, agua_encanada, existe_banheiro, escoamento_sanitario, tratamento_lixo, presenca_animais 
 	FROM servicos_imovel WHERE id_imovel = $1 LOOP
         RETURN NEXT linha;
     END LOOP;
@@ -1278,14 +1287,15 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_servicos_imovel
-(BIGINT, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, 
-CHARACTER VARYING, CHAR(3), CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, BIGINT)
+(BIGINT, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, 
+CHARACTER VARYING, CHARACTER VARYING, CHAR(3), CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, BIGINT)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		UPDATE servicos_imovel SET id_imovel = $1, existe_pavimentacao = $2, iluminacao_utilizada = $3, abastecimento_agua = $4, tratamento_agua = $5, 
-		agua_encanada = $6, existe_banheiro = $7, escoamento_sanitario = $8, tratamento_lixo = $9, presenca_animais = $10 WHERE id = $11;
+		UPDATE servicos_imovel SET id_imovel = $1, existe_pavimentacao = $2, qual_pavimentacao = $3, iluminacao_utilizada = $4, especifique_iluminacao = $5, 
+		abastecimento_agua = $6, tratamento_agua = $7, agua_encanada = $8, existe_banheiro = $9, escoamento_sanitario = $10, tratamento_lixo = $11, 
+		presenca_animais = $12 WHERE id = $13;
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -1622,8 +1632,8 @@ $$ LANGUAGE PLPGSQL;
 
 CREATE OR REPLACE FUNCTION fn_inserir_nucleo
 (CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, DOUBLE PRECISION, DOUBLE PRECISION, INTEGER, INTEGER, 
-CHARACTER VARYING, CHARACTER VARYING, DOUBLE PRECISION, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, 
-CHAR(3), TEXT, CHARACTER VARYING, CHAR(3), CHAR(3), CHARACTER VARYING, TEXT, CHAR(3))
+CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, 
+CHAR(3), TEXT, CHARACTER VARYING, CHAR(3), CHAR(3), CHARACTER VARYING, TEXT, CHARACTER VARYING)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
@@ -1660,7 +1670,7 @@ DECLARE
 BEGIN
     FOR linha IN SELECT id, nome, origem, ocupacao, area_total, area_ocupada, num_domicilios, populacao_estimada, pop_fonte_dados, pop_outra_fonte_dados, 
 	renda_populacao, inicio_ocupacao, setor_cadastral, zona, controle_ocupacao, obs_controle_ocupacao, padrao_construtivo, transporte_coletivo, 
-	adensamento, adens_fonte_dados, obs_adensamento, uso_incompativel FROM nucleo WHERE nome LIKE $1 LOOP
+	adensamento, adens_fonte_dados, obs_adensamento, uso_incompativel FROM nucleo WHERE UPPER(nome) LIKE UPPER($1) LOOP
         RETURN NEXT linha;
     END LOOP;
     RETURN;
@@ -1685,8 +1695,8 @@ $$ LANGUAGE PLPGSQL;
 
 CREATE OR REPLACE FUNCTION fn_alterar_nucleo
 (CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, DOUBLE PRECISION, DOUBLE PRECISION, INTEGER, INTEGER, 
-CHARACTER VARYING, CHARACTER VARYING, DOUBLE PRECISION, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, 
-CHAR(3), TEXT, CHARACTER VARYING, CHAR(3), CHAR(3), CHARACTER VARYING, TEXT, CHAR(3), BIGINT)
+CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, 
+CHAR(3), TEXT, CHARACTER VARYING, CHAR(3), CHAR(3), CHARACTER VARYING, TEXT, CHARACTER VARYING, BIGINT)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
@@ -2420,12 +2430,12 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_inserir_aspecto_ambiental
-(BIGINT, CHAR(3), CHAR(3), CHAR(3), CHAR(3), CHAR(3), DOUBLE PRECISION, DOUBLE PRECISION)
+(BIGINT, CHAR(3), CHAR(3), CHAR(3), CHAR(3), TEXT, DOUBLE PRECISION, DOUBLE PRECISION)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		INSERT INTO aspectos_ambientais (id_nucleo, area_risco, app, area_verde, area_agricola, outros, latitude, longitude) 
+		INSERT INTO aspectos_ambientais (id_nucleo, area_risco, area_verde, area_agricola, outros, outros_especifique, latitude, longitude) 
 		VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
@@ -2438,7 +2448,7 @@ RETURNS SETOF tp_aspecto_ambiental AS $$
 DECLARE
     linha tp_aspecto_ambiental;
 BEGIN
-    FOR linha IN SELECT id, id_nucleo, area_risco, app, area_verde, area_agricola, outros, latitude, longitude 
+    FOR linha IN SELECT id, id_nucleo, area_risco, area_verde, area_agricola, outros, outros_especifique, latitude, longitude 
 	FROM aspectos_ambientais WHERE id = $1 LOOP
         RETURN NEXT linha;
     END LOOP;
@@ -2452,7 +2462,7 @@ RETURNS SETOF tp_aspecto_ambiental AS $$
 DECLARE
     linha tp_aspecto_ambiental;
 BEGIN
-    FOR linha IN SELECT id, id_nucleo, area_risco, app, area_verde, area_agricola, outros, latitude, longitude 
+    FOR linha IN SELECT id, id_nucleo, area_risco, area_verde, area_agricola, outros, outros_especifique, latitude, longitude 
 	FROM aspectos_ambientais WHERE id_nucleo = $1 LOOP
         RETURN NEXT linha;
     END LOOP;
@@ -2462,13 +2472,13 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_aspecto_ambiental
-(BIGINT, CHAR(3), CHAR(3), CHAR(3), CHAR(3), CHAR(3), DOUBLE PRECISION, DOUBLE PRECISION, BIGINT)
+(BIGINT, CHAR(3), CHAR(3), CHAR(3), CHAR(3), TEXT, DOUBLE PRECISION, DOUBLE PRECISION, BIGINT)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		UPDATE aspectos_ambientais SET id_nucleo = $1, area_risco = $2, app = $3, area_verde = $4, area_agricola = $5, 
-		outros = $6, latitude = $7, longitude = $8 WHERE id = $9; 
+		UPDATE aspectos_ambientais SET id_nucleo = $1, area_risco = $2, area_verde = $3, area_agricola = $4, 
+		outros = $5, outros_especifique = $6, latitude = $7, longitude = $8 WHERE id = $9; 
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -2496,7 +2506,7 @@ RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		INSERT INTO apps (id_aspecto_ambiental, corpo_dagua, brejo_charco, topo_morro, enconsta, restinga, outros, especifique_outros) 
+		INSERT INTO apps (id_ambiental, corpo_dagua, brejo_charco, topo_morro, enconsta, restinga, outros, especifique_outros) 
 		VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
@@ -2509,7 +2519,7 @@ RETURNS SETOF tp_app AS $$
 DECLARE
     linha tp_app;
 BEGIN
-    FOR linha IN SELECT id, id_aspecto_ambiental, corpo_dagua, brejo_charco, topo_morro, enconsta, restinga, outros, especifique_outros 
+    FOR linha IN SELECT id, id_ambiental, corpo_dagua, brejo_charco, topo_morro, enconsta, restinga, outros, especifique_outros 
 	FROM apps WHERE id = $1 LOOP
         RETURN NEXT linha;
     END LOOP;
@@ -2523,7 +2533,7 @@ RETURNS SETOF tp_app AS $$
 DECLARE
     linha tp_app;
 BEGIN
-    FOR linha IN SELECT id, id_aspecto_ambiental, corpo_dagua, brejo_charco, topo_morro, enconsta, restinga, outros, especifique_outros 
+    FOR linha IN SELECT id, id_ambiental, corpo_dagua, brejo_charco, topo_morro, enconsta, restinga, outros, especifique_outros 
 	FROM apps WHERE id_aspecto_ambiental = $1 LOOP
         RETURN NEXT linha;
     END LOOP;
@@ -2538,7 +2548,7 @@ RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		UPDATE apps SET id_aspecto_ambiental = $1, corpo_dagua = $2, brejo_charco = $3, topo_morro = $4, enconsta = $5, restinga = $6, 
+		UPDATE apps SET id_ambiental = $1, corpo_dagua = $2, brejo_charco = $3, topo_morro = $4, enconsta = $5, restinga = $6, 
 		outros = $7, especifique_outros = $8 WHERE id = $9;
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
@@ -2726,12 +2736,12 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_inserir_via_publica
-(INTEGER, BIGINT, CHARACTER VARYING)
+(BIGINT, INTEGER, CHARACTER VARYING)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		INSERT INTO vias_publicas (id_recurso, id_nucleo, descricao) 
+		INSERT INTO vias_publicas (id_nucleo, id_recurso, descricao) 
 		VALUES ($1, $2, $3);
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
@@ -2739,12 +2749,12 @@ RETURNS INTEGER AS $$
 $$ LANGUAGE PLPGSQL;
 
 
-CREATE OR REPLACE FUNCTION fn_selecionar_via_publica_por_id(BIGINT)
+CREATE OR REPLACE FUNCTION fn_procurar_via_publica_por_id_nucleo(BIGINT)
 RETURNS SETOF tp_via_publica AS $$
 DECLARE
     linha tp_via_publica;
 BEGIN
-    FOR linha IN SELECT id, id_recurso, id_nucleo, descricao FROM vias_publicas WHERE id = $1 LOOP
+    FOR linha IN SELECT id_recurso, id_nucleo, descricao FROM vias_publicas WHERE id_nucleo = $1 LOOP
         RETURN NEXT linha;
     END LOOP;
     RETURN;
@@ -2757,20 +2767,7 @@ RETURNS SETOF tp_via_publica AS $$
 DECLARE
     linha tp_via_publica;
 BEGIN
-    FOR linha IN SELECT id, id_recurso, id_nucleo, descricao FROM vias_publicas WHERE id_recurso = $1 LOOP
-        RETURN NEXT linha;
-    END LOOP;
-    RETURN;
-END;
-$$ LANGUAGE PLPGSQL;
-
-
-CREATE OR REPLACE FUNCTION fn_procurar_via_publica_por_id_nucleo(BIGINT)
-RETURNS SETOF tp_via_publica AS $$
-DECLARE
-    linha tp_via_publica;
-BEGIN
-    FOR linha IN SELECT id, id_recurso, id_nucleo, descricao FROM vias_publicas WHERE id_nucleo = $1 LOOP
+    FOR linha IN SELECT id_recurso, id_nucleo, descricao FROM vias_publicas WHERE id_recurso = $1 LOOP
         RETURN NEXT linha;
     END LOOP;
     RETURN;
@@ -2779,24 +2776,24 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_via_publica
-(INTEGER, BIGINT, CHARACTER VARYING, BIGINT)
+(BIGINT, INTEGER, CHARACTER VARYING)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		UPDATE vias_publicas SET id_recurso = $1, id_nucleo = $2, descricao = $3 WHERE id = $4; 
+		UPDATE vias_publicas SET descricao = $3 WHERE id_nucleo = $1 AND id_recurso = $2; 
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
 $$ LANGUAGE PLPGSQL;
 
 
-CREATE OR REPLACE FUNCTION fn_excluir_via_publica(BIGINT)
+CREATE OR REPLACE FUNCTION fn_excluir_via_publica(BIGINT, INTEGER)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		DELETE FROM vias_publicas WHERE id = $1;
+		DELETE FROM vias_publicas WHERE id_nucleo = $1 AND id_recurso = $2;
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -2833,6 +2830,19 @@ END;
 $$ LANGUAGE PLPGSQL;
 
 
+CREATE OR REPLACE FUNCTION fn_selecionar_recurso_mobilidade_por_nome(CHARACTER VARYING)
+RETURNS SETOF tp_recurso_mobilidade AS $$
+DECLARE
+    linha tp_recurso_mobilidade;
+BEGIN
+    FOR linha IN SELECT id, nome FROM recurso_mobilidade WHERE UPPER(remove_acentos(nome)) = UPPER(remove_acentos($1)) LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
+END;
+$$ LANGUAGE PLPGSQL;
+
+
 CREATE OR REPLACE FUNCTION fn_alterar_recurso_mobilidade
 (CHARACTER VARYING, INTEGER)
 RETURNS INTEGER AS $$
@@ -2862,12 +2872,12 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_inserir_institucional_social
-(INTEGER, BIGINT, CHARACTER VARYING)
+(BIGINT, INTEGER, CHARACTER VARYING)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		INSERT INTO institucional_social (id_recurso, id_nucleo, descricao) 
+		INSERT INTO institucional_social (id_nucleo, id_recurso, nome) 
 		VALUES ($1, $2, $3);
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
@@ -2875,12 +2885,12 @@ RETURNS INTEGER AS $$
 $$ LANGUAGE PLPGSQL;
 
 
-CREATE OR REPLACE FUNCTION fn_selecionar_institucional_social_por_id(BIGINT)
+CREATE OR REPLACE FUNCTION fn_procurar_institucional_social_por_id_nucleo(BIGINT)
 RETURNS SETOF tp_institucional_social AS $$
 DECLARE
     linha tp_institucional_social;
 BEGIN
-    FOR linha IN SELECT id, id_recurso, id_nucleo, descricao FROM institucional_social WHERE id = $1 LOOP
+    FOR linha IN SELECT id_recurso, id_nucleo, nome FROM institucional_social WHERE id_nucleo = $1 LOOP
         RETURN NEXT linha;
     END LOOP;
     RETURN;
@@ -2893,20 +2903,7 @@ RETURNS SETOF tp_institucional_social AS $$
 DECLARE
     linha tp_institucional_social;
 BEGIN
-    FOR linha IN SELECT id, id_recurso, id_nucleo, descricao FROM institucional_social WHERE id_recurso = $1 LOOP
-        RETURN NEXT linha;
-    END LOOP;
-    RETURN;
-END;
-$$ LANGUAGE PLPGSQL;
-
-
-CREATE OR REPLACE FUNCTION fn_procurar_institucional_social_por_id_nucleo(BIGINT)
-RETURNS SETOF tp_institucional_social AS $$
-DECLARE
-    linha tp_institucional_social;
-BEGIN
-    FOR linha IN SELECT id, id_recurso, id_nucleo, descricao FROM institucional_social WHERE id_nucleo = $1 LOOP
+    FOR linha IN SELECT id_recurso, id_nucleo, nome FROM institucional_social WHERE id_recurso = $1 LOOP
         RETURN NEXT linha;
     END LOOP;
     RETURN;
@@ -2915,24 +2912,24 @@ $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_institucional_social
-(INTEGER, BIGINT, CHARACTER VARYING, BIGINT)
+(BIGINT, INTEGER, CHARACTER VARYING)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		UPDATE institucional_social SET id_recurso = $1, id_nucleo = $2, descricao = $3 WHERE id = $4; 
+		UPDATE institucional_social SET nome = $3 WHERE id_nucleo = $1 AND id_recurso = $2;
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
 $$ LANGUAGE PLPGSQL;
 
 
-CREATE OR REPLACE FUNCTION fn_excluir_institucional_social(BIGINT)
+CREATE OR REPLACE FUNCTION fn_excluir_institucional_social(BIGINT, INTEGER)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		DELETE FROM institucional_social WHERE id = $1;
+		DELETE FROM institucional_social WHERE id_nucleo = $1 AND id_recurso = $2;
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -2969,6 +2966,19 @@ END;
 $$ LANGUAGE PLPGSQL;
 
 
+CREATE OR REPLACE FUNCTION fn_selecionar_recurso_social_por_nome(CHARACTER VARYING)
+RETURNS SETOF tp_recurso_social AS $$
+DECLARE
+    linha tp_recurso_social;
+BEGIN
+    FOR linha IN SELECT id, nome FROM recurso_social WHERE UPPER(remove_acentos(nome)) = UPPER(remove_acentos($1)) LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
+END;
+$$ LANGUAGE PLPGSQL;
+
+
 CREATE OR REPLACE FUNCTION fn_alterar_recurso_social
 (CHARACTER VARYING, INTEGER)
 RETURNS INTEGER AS $$
@@ -2994,29 +3004,29 @@ RETURNS INTEGER AS $$
 $$ LANGUAGE PLPGSQL;
 
 
--------------------- SECRETARIAS -----------------
+-------------------- DEPARTAMENTOS -----------------
 
 
-CREATE OR REPLACE FUNCTION fn_inserir_secretaria
-(CHARACTER VARYING, TEXT, CHAR(3))
+CREATE OR REPLACE FUNCTION fn_inserir_departamento
+(CHARACTER VARYING, CHARACTER VARYING, TEXT, CHAR(3))
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		INSERT INTO secretarias (nome, descricao, ativo) 
-		VALUES ($1, $2, $3);
+		INSERT INTO departamentos (sigla, nome, descricao, ativo) 
+		VALUES ($1, $2, $3, $4);
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
 $$ LANGUAGE PLPGSQL;
 
 
-CREATE OR REPLACE FUNCTION fn_selecionar_secretaria_por_id(INTEGER)
-RETURNS SETOF tp_secretaria AS $$
+CREATE OR REPLACE FUNCTION fn_selecionar_departamento_por_id(INTEGER)
+RETURNS SETOF tp_departamento AS $$
 DECLARE
-    linha tp_secretaria;
+    linha tp_departamento;
 BEGIN
-    FOR linha IN SELECT id, nome, descricao, ativo FROM secretarias WHERE id = $1 LOOP
+    FOR linha IN SELECT id, sigla, nome, descricao, ativo FROM departamentos WHERE id = $1 LOOP
         RETURN NEXT linha;
     END LOOP;
     RETURN;
@@ -3024,26 +3034,52 @@ END;
 $$ LANGUAGE PLPGSQL;
 
 
-CREATE OR REPLACE FUNCTION fn_alterar_secretaria
-(CHARACTER VARYING, TEXT, CHAR(3), INTEGER)
+CREATE OR REPLACE FUNCTION fn_selecionar_departamento_por_sigla(CHARACTER VARYING)
+RETURNS SETOF tp_departamento AS $$
+DECLARE
+    linha tp_departamento;
+BEGIN
+    FOR linha IN SELECT id, sigla, nome, descricao, ativo FROM departamentos WHERE UPPER(remove_acentos(sigla)) = UPPER(remove_acentos($1)) LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
+END;
+$$ LANGUAGE PLPGSQL;
+
+
+CREATE OR REPLACE FUNCTION fn_procurar_departamento_por_nome(CHARACTER VARYING)
+RETURNS SETOF tp_departamento AS $$
+DECLARE
+    linha tp_departamento;
+BEGIN
+    FOR linha IN SELECT id, sigla, nome, descricao, ativo FROM departamentos WHERE UPPER(remove_acentos(nome)) LIKE UPPER(remove_acentos($1)) LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
+END;
+$$ LANGUAGE PLPGSQL;
+
+
+CREATE OR REPLACE FUNCTION fn_alterar_departamento
+(CHARACTER VARYING, CHARACTER VARYING, TEXT, CHAR(3), INTEGER)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		UPDATE secretarias SET nome = $1, descricao = $2, ativo = $3 
-		WHERE id = $4;
+		UPDATE departamentos SET sigla = $1, nome = $2, descricao = $3, ativo = $4 
+		WHERE id = $5;
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
 $$ LANGUAGE PLPGSQL;
 
 
-CREATE OR REPLACE FUNCTION fn_excluir_secretaria(INTEGER)
+CREATE OR REPLACE FUNCTION fn_excluir_departamento(INTEGER)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		DELETE FROM secretarias WHERE id = $1;
+		DELETE FROM departamentos WHERE id = $1;
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;
@@ -3073,6 +3109,19 @@ DECLARE
     linha tp_grupo;
 BEGIN
     FOR linha IN SELECT id, nome, descricao, ativo FROM grupos WHERE id = $1 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
+END;
+$$ LANGUAGE PLPGSQL;
+
+
+CREATE OR REPLACE FUNCTION fn_selecionar_grupo_por_nome(CHARACTER VARYING)
+RETURNS SETOF tp_grupo AS $$
+DECLARE
+    linha tp_grupo;
+BEGIN
+    FOR linha IN SELECT id, nome, descricao, ativo FROM grupos WHERE UPPER(remove_acentos(nome)) = UPPER(remove_acentos($1)) LOOP
         RETURN NEXT linha;
     END LOOP;
     RETURN;
@@ -3213,7 +3262,7 @@ RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		INSERT INTO usuarios (id_grupo, id_secretaria, matricula, senha, foto, nome, email, ativo) 
+		INSERT INTO usuarios (id_grupo, id_departamento, usuario, senha, foto, nome, email, ativo) 
 		VALUES ($1, $2, $3, MD5($4), $5, $6, $7, $8);
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
@@ -3223,34 +3272,208 @@ $$ LANGUAGE PLPGSQL;
 
 CREATE OR REPLACE FUNCTION fn_selecionar_usuario_por_id(INTEGER)
 RETURNS SETOF tp_usuario AS $$
-DECLARE
-    linha tp_usuario;
-BEGIN
-    FOR linha IN SELECT id, id_grupo, id_secretaria, matricula, senha, foto, nome, email, ativo FROM usuarios WHERE id = $1 LOOP
-        RETURN NEXT linha;
-    END LOOP;
-    RETURN;
-END;
+	DECLARE
+		linha tp_usuario;
+	BEGIN
+		FOR linha IN SELECT id, id_grupo, id_departamento, usuario, senha, foto, nome, email, ativo FROM usuarios WHERE id = $1 LOOP
+			RETURN NEXT linha;
+		END LOOP;
+		RETURN;
+	END;
+$$ LANGUAGE PLPGSQL;
+
+
+CREATE OR REPLACE FUNCTION fn_selecionar_usuario_por_nomeusuario(CHARACTER VARYING)
+RETURNS SETOF tp_usuario AS $$
+	DECLARE
+		linha tp_usuario;
+	BEGIN
+		FOR linha IN SELECT id, id_grupo, id_departamento, usuario, senha, foto, nome, email, ativo FROM usuarios WHERE UPPER(remove_acentos(usuario)) = UPPER(remove_acentos($1)) LOOP
+			RETURN NEXT linha;
+		END LOOP;
+		RETURN;
+	END;
+$$ LANGUAGE PLPGSQL;
+
+
+CREATE OR REPLACE FUNCTION fn_selecionar_usuario_completo_por_nomeusuario(CHARACTER VARYING)
+RETURNS TABLE (
+	u_id INTEGER,
+	u_usuario VARCHAR(20),
+	u_senha VARCHAR(32),
+	u_foto TEXT,
+	u_nome VARCHAR(255),
+	u_email VARCHAR(255),
+	u_ativo CHAR(3),
+	d_id INTEGER,
+	d_sigla VARCHAR(10),
+	d_nome VARCHAR(255),
+	d_descricao TEXT,
+	d_ativo CHAR(3),
+	g_id INTEGER,
+	g_nome VARCHAR(255),
+	g_descricao TEXT,
+	g_ativo CHAR(3)
+) AS $$
+	BEGIN
+		RETURN QUERY SELECT u.id, u.usuario, u.senha, u.foto, u.nome, u.email, u.ativo, 
+		d.id, d.sigla, d.nome, d.descricao, d.ativo, 
+		g.id, g.nome, g.descricao, g.ativo  
+		FROM usuarios AS u 
+		INNER JOIN departamentos AS d ON u.id_departamento = d.id 
+		INNER JOIN grupos AS g ON u.id_grupo = g.id 
+		WHERE UPPER(remove_acentos(u.usuario)) = UPPER(remove_acentos($1));
+		RETURN;
+	END;
+$$ LANGUAGE PLPGSQL;
+
+
+CREATE OR REPLACE FUNCTION fn_procurar_usuario_completo_por_nomeusuario(CHARACTER VARYING)
+RETURNS TABLE (
+	u_id INTEGER,
+	u_usuario VARCHAR(20),
+	u_senha VARCHAR(32),
+	u_foto TEXT,
+	u_nome VARCHAR(255),
+	u_email VARCHAR(255),
+	u_ativo CHAR(3),
+	d_id INTEGER,
+	d_sigla VARCHAR(10),
+	d_nome VARCHAR(255),
+	d_descricao TEXT,
+	d_ativo CHAR(3),
+	g_id INTEGER,
+	g_nome VARCHAR(255),
+	g_descricao TEXT,
+	g_ativo CHAR(3)
+) AS $$
+	BEGIN
+		RETURN QUERY SELECT u.id, u.usuario, u.senha, u.foto, u.nome, u.email, u.ativo, 
+		d.id, d.sigla, d.nome, d.descricao, d.ativo, 
+		g.id, g.nome, g.descricao, g.ativo  
+		FROM usuarios AS u 
+		INNER JOIN departamentos AS d ON u.id_departamento = d.id 
+		INNER JOIN grupos AS g ON u.id_grupo = g.id 
+		WHERE UPPER(remove_acentos(u.usuario)) LIKE UPPER(remove_acentos('%' || $1 || '%'));
+		RETURN;
+	END;
+$$ LANGUAGE PLPGSQL;
+
+
+CREATE OR REPLACE FUNCTION fn_procurar_usuario_completo_por_nome(CHARACTER VARYING)
+RETURNS TABLE (
+	u_id INTEGER,
+	u_usuario VARCHAR(20),
+	u_senha VARCHAR(32),
+	u_foto TEXT,
+	u_nome VARCHAR(255),
+	u_email VARCHAR(255),
+	u_ativo CHAR(3),
+	d_id INTEGER,
+	d_sigla VARCHAR(10),
+	d_nome VARCHAR(255),
+	d_descricao TEXT,
+	d_ativo CHAR(3),
+	g_id INTEGER,
+	g_nome VARCHAR(255),
+	g_descricao TEXT,
+	g_ativo CHAR(3)
+) AS $$
+	BEGIN
+		RETURN QUERY SELECT u.id, u.usuario, u.senha, u.foto, u.nome, u.email, u.ativo, 
+		d.id, d.sigla, d.nome, d.descricao, d.ativo, 
+		g.id, g.nome, g.descricao, g.ativo  
+		FROM usuarios AS u 
+		INNER JOIN departamentos AS d ON u.id_departamento = d.id 
+		INNER JOIN grupos AS g ON u.id_grupo = g.id 
+		WHERE UPPER(remove_acentos(u.nome)) LIKE UPPER(remove_acentos('%' || $1 || '%'));
+		RETURN;
+	END;
+$$ LANGUAGE PLPGSQL;
+
+
+CREATE OR REPLACE FUNCTION fn_procurar_usuario_completo_por_email(CHARACTER VARYING)
+RETURNS TABLE (
+	u_id INTEGER,
+	u_usuario VARCHAR(20),
+	u_senha VARCHAR(32),
+	u_foto TEXT,
+	u_nome VARCHAR(255),
+	u_email VARCHAR(255),
+	u_ativo CHAR(3),
+	d_id INTEGER,
+	d_sigla VARCHAR(10),
+	d_nome VARCHAR(255),
+	d_descricao TEXT,
+	d_ativo CHAR(3),
+	g_id INTEGER,
+	g_nome VARCHAR(255),
+	g_descricao TEXT,
+	g_ativo CHAR(3)
+) AS $$
+	BEGIN
+		RETURN QUERY SELECT u.id, u.usuario, u.senha, u.foto, u.nome, u.email, u.ativo, 
+		d.id, d.sigla, d.nome, d.descricao, d.ativo, 
+		g.id, g.nome, g.descricao, g.ativo  
+		FROM usuarios AS u 
+		INNER JOIN departamentos AS d ON u.id_departamento = d.id 
+		INNER JOIN grupos AS g ON u.id_grupo = g.id 
+		WHERE UPPER(remove_acentos(u.email)) LIKE UPPER(remove_acentos('%' || $1 || '%'));
+		RETURN;
+	END;
 $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_logon_usuario
 (CHARACTER VARYING, CHARACTER VARYING)
-RETURNS INTEGER AS $$
+RETURNS SETOF tp_usuario AS $$
+	DECLARE
+		linha tp_usuario;
 	BEGIN
-		SELECT id FROM usuarios WHERE matricula = $1 AND senha = MD5($2) AND ativo = 'SIM';
+		FOR linha IN SELECT id, id_grupo, id_departamento, usuario, senha, foto, nome, email, ativo FROM usuarios 
+		WHERE usuario = $1 AND senha = MD5($2) AND ativo = 'Sim' LOOP
+			RETURN NEXT linha;
+		END LOOP;
+		RETURN;
 	END;
 $$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_alterar_usuario
-(INTEGER, INTEGER, CHARACTER VARYING, CHARACTER VARYING, TEXT, CHARACTER VARYING, CHARACTER VARYING, CHAR(3), INTEGER)
+(INTEGER, INTEGER, CHARACTER VARYING, TEXT, CHARACTER VARYING, CHARACTER VARYING, CHAR(3), INTEGER)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		UPDATE usuarios SET id_grupo = $1, id_secretaria = $2, matricula = $3, senha = MD5($4), foto = $5, nome = $6, email = $7, ativo = $8 
-		WHERE id = $9;
+		UPDATE usuarios SET id_grupo = $1, id_departamento = $2, usuario = $3, foto = $4, nome = $5, email = $6, ativo = $7 
+		WHERE id = $8;
+		GET DIAGNOSTICS affected_rows := ROW_COUNT;
+		RETURN affected_rows;
+	END;
+$$ LANGUAGE PLPGSQL;
+
+
+CREATE OR REPLACE FUNCTION fn_alterar_foto_usuario
+(TEXT, INTEGER)
+RETURNS INTEGER AS $$
+	DECLARE 
+		affected_rows INTEGER DEFAULT 0;
+	BEGIN
+		UPDATE usuarios SET foto = $1 WHERE id = $2;
+		GET DIAGNOSTICS affected_rows := ROW_COUNT;
+		RETURN affected_rows;
+	END;
+$$ LANGUAGE PLPGSQL;
+
+
+CREATE OR REPLACE FUNCTION fn_alterar_senha_usuario
+(CHARACTER VARYING, CHARACTER VARYING)
+RETURNS INTEGER AS $$
+	DECLARE 
+		affected_rows INTEGER DEFAULT 0;
+	BEGIN
+		UPDATE usuarios SET senha = MD5($1) 
+		WHERE usuario = $2;
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
 		RETURN affected_rows;
 	END;

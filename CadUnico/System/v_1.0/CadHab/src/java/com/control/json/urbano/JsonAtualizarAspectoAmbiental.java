@@ -39,9 +39,8 @@ public class JsonAtualizarAspectoAmbiental extends javax.servlet.http.HttpServle
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
                 com.sys.urbano.AspectoAmbiental aspecto = jsonMgr.parseAspectoAmbiental(json);
 
-                if (! aspecto.getAreaRisco().isEmpty() && ! aspecto.getApp().isEmpty() && ! aspecto.getAreaVerde().isEmpty() 
-                        && ! aspecto.getAreaAgricola().isEmpty() && ! aspecto.getOutros().isEmpty() && aspecto.getNucleo().getId() > 0 
-                        && aspecto.getId() > 0) {
+                if (! aspecto.getAreaRisco().isEmpty() && ! aspecto.getAreaVerde().isEmpty() && ! aspecto.getAreaAgricola().isEmpty() 
+                        && ! aspecto.getOutros().isEmpty() && aspecto.getNucleo().getId() > 0 && aspecto.getId() > 0) {
 
                     pgsql.sys.urbano.AspectoAmbientalDAO aspectoDAO = new pgsql.sys.urbano.AspectoAmbientalDAO();
 

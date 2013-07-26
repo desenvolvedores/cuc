@@ -20,18 +20,17 @@ public class AspectoAmbientalDAO {
         
         com.data.TextManager txtMgr = new com.data.TextManager();
         
-        java.lang.String sql = "{ ? = CALL fn_inserir_aspecto_ambiental(?, ?, ?, ?, ?, ?, ?, ?, ?) }";
+        java.lang.String sql = "{ ? = CALL fn_inserir_aspecto_ambiental(?, ?, ?, ?, ?, ?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
         stmt.setLong(2, aspecto.getNucleo().getId());
         stmt.setString(3, txtMgr.addSlashes(aspecto.getAreaRisco()));
-        stmt.setString(4, txtMgr.addSlashes(aspecto.getApp()));
-        stmt.setString(5, txtMgr.addSlashes(aspecto.getAreaVerde()));
-        stmt.setString(6, txtMgr.addSlashes(aspecto.getAreaAgricola()));
-        stmt.setString(7, txtMgr.addSlashes(aspecto.getOutros()));
-        stmt.setString(8, txtMgr.addSlashes(aspecto.getOutrosEspecifique()));
-        stmt.setDouble(9, aspecto.getLatitude());
-        stmt.setDouble(10, aspecto.getLongitude());
+        stmt.setString(4, txtMgr.addSlashes(aspecto.getAreaVerde()));
+        stmt.setString(5, txtMgr.addSlashes(aspecto.getAreaAgricola()));
+        stmt.setString(6, txtMgr.addSlashes(aspecto.getOutros()));
+        stmt.setString(7, txtMgr.addSlashes(aspecto.getOutrosEspecifique()));
+        stmt.setDouble(8, aspecto.getLatitude());
+        stmt.setDouble(9, aspecto.getLongitude());
         stmt.execute();
         return stmt.getInt(1);
         
@@ -66,19 +65,18 @@ public class AspectoAmbientalDAO {
         
         com.data.TextManager txtMgr = new com.data.TextManager();
         
-        java.lang.String sql = "{ ? = CALL fn_alterar_aspecto_ambiental(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
+        java.lang.String sql = "{ ? = CALL fn_alterar_aspecto_ambiental(?, ?, ?, ?, ?, ?, ?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
         stmt.setLong(2, aspecto.getNucleo().getId());
         stmt.setString(3, txtMgr.addSlashes(aspecto.getAreaRisco()));
-        stmt.setString(4, txtMgr.addSlashes(aspecto.getApp()));
-        stmt.setString(5, txtMgr.addSlashes(aspecto.getAreaVerde()));
-        stmt.setString(6, txtMgr.addSlashes(aspecto.getAreaAgricola()));
-        stmt.setString(7, txtMgr.addSlashes(aspecto.getOutros()));
-        stmt.setString(8, txtMgr.addSlashes(aspecto.getOutrosEspecifique()));
-        stmt.setDouble(9, aspecto.getLatitude());
-        stmt.setDouble(10, aspecto.getLongitude());
-        stmt.setLong(11, aspecto.getId());
+        stmt.setString(4, txtMgr.addSlashes(aspecto.getAreaVerde()));
+        stmt.setString(5, txtMgr.addSlashes(aspecto.getAreaAgricola()));
+        stmt.setString(6, txtMgr.addSlashes(aspecto.getOutros()));
+        stmt.setString(7, txtMgr.addSlashes(aspecto.getOutrosEspecifique()));
+        stmt.setDouble(8, aspecto.getLatitude());
+        stmt.setDouble(9, aspecto.getLongitude());
+        stmt.setLong(10, aspecto.getId());
         stmt.execute();
         return stmt.getInt(1);
         
@@ -106,7 +104,6 @@ public class AspectoAmbientalDAO {
             com.sys.urbano.AspectoAmbiental aspecto = new com.sys.urbano.AspectoAmbiental(nucleo);
             aspecto.setId(rs.getLong("id"));
             aspecto.setAreaRisco(rs.getString("area_risco"));
-            aspecto.setApp(rs.getString("app"));
             aspecto.setAreaVerde(rs.getString("area_verde"));
             aspecto.setAreaAgricola(rs.getString("area_agricola"));
             aspecto.setOutros(rs.getString("outros"));

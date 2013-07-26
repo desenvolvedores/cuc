@@ -62,4 +62,22 @@ public class FieldManager {
         }
     }
     
+    public static void releaseField(javax.swing.JTextField field) {
+        
+        field.setBackground(com.sys.SystemSettings.FILLED_UP_REQUIRED_TEXTBOX);
+        
+    }
+    
+    public static void releaseField(javax.swing.JTextArea field) {
+        
+        field.setBackground(com.sys.SystemSettings.FILLED_UP_REQUIRED_TEXTBOX);
+        
+    }
+    
+    public static void releaseField(javax.swing.JLabel field) {
+        
+        field.setForeground(com.sys.SystemSettings.FILLED_UP_REQUIRED_COMBOBOX);
+        
+    }
+    
 }
