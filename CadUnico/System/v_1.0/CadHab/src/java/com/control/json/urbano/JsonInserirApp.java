@@ -41,7 +41,7 @@ public class JsonInserirApp extends javax.servlet.http.HttpServlet {
 
                 if (! app.getCorpoDagua().isEmpty() && ! app.getBrejoCharco().isEmpty() && ! app.getTopoMorro().isEmpty() 
                         && ! app.getEncosta().isEmpty() && ! app.getRestinga().isEmpty() && ! app.getOutros().isEmpty() 
-                        && app.getAspecto().getId() > 0) {
+                        && app.getIdAmbiental() > 0) {
 
                     pgsql.sys.urbano.AppDAO appDAO = new pgsql.sys.urbano.AppDAO();
 

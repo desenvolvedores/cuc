@@ -17,31 +17,31 @@ public class NumberManager {
     
     public static short formatRawShort(String value) {
         
-        return Short.parseShort(value.replaceAll(".", ""));
+        return Short.parseShort(value.replace(".", ""));
         
     }
     
     public static int formatRawInteger(String value) {
         
-        return Integer.parseInt(value.replaceAll(".", ""));
+        return Integer.parseInt(value.replace(".", ""));
         
     }
     
     public static long formatRawLong(String value) {
         
-        return Long.parseLong(value.replaceAll(".", ""));
+        return Long.parseLong(value.replace(".", ""));
         
     }
     
     public static float formatRawFloat(String value) {
         
-        return Float.parseFloat(value.replaceAll(".", "").replaceAll(",", "."));
+        return Float.parseFloat(value.replace(".", "").replace(",", "."));
         
     }
     
     public static double formatRawDouble(String value) {
         
-        return Double.parseDouble(value.replaceAll(".", "").replaceAll(",", "."));
+        return Double.parseDouble(value.replace(".", "").replace(",", "."));
         
     }
     

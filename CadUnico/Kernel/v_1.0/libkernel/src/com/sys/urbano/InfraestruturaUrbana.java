@@ -15,6 +15,7 @@ public class InfraestruturaUrbana {
     
     private String type;
     private long id;
+    private long idNucleo;
     private String abastecimentoAgua;
     private String coletaEsgoto;
     private String servicosLimpeza;
@@ -22,11 +23,12 @@ public class InfraestruturaUrbana {
     private String aguasPluviaisRede;
     private String energiaEletrica;
     private String iluminacaoPublica;
-    private Nucleo nucleo;
     
     public InfraestruturaUrbana() {
+        
         this.type = "infraestruturaurbana";
         this.id = 0l;
+        this.idNucleo = 0l;
         this.abastecimentoAgua = "";
         this.coletaEsgoto = "";
         this.servicosLimpeza = "";
@@ -34,20 +36,7 @@ public class InfraestruturaUrbana {
         this.aguasPluviaisRede = "";
         this.energiaEletrica = "";
         this.iluminacaoPublica = "";
-        this.nucleo = null;
-    }
-    
-    public InfraestruturaUrbana(Nucleo nucleo) {
-        this.type = "infraestruturaurbana";
-        this.id = 0l;
-        this.abastecimentoAgua = "";
-        this.coletaEsgoto = "";
-        this.servicosLimpeza = "";
-        this.aguasPluviaisSuperficial = "";
-        this.aguasPluviaisRede = "";
-        this.energiaEletrica = "";
-        this.iluminacaoPublica = "";
-        this.nucleo = nucleo;
+
     }
     
     public String getType() {
@@ -60,6 +49,14 @@ public class InfraestruturaUrbana {
 
     public void setId(long id) {
         this.id = id;
+    }
+    
+    public long getIdNucleo() {
+        return idNucleo;
+    }
+
+    public void setIdNucleo(long idNucleo) {
+        this.idNucleo = idNucleo;
     }
 
     public String getAbastecimentoAgua() {
@@ -116,14 +113,6 @@ public class InfraestruturaUrbana {
 
     public void setIluminacaoPublica(String iluminacaoPublica) {
         this.iluminacaoPublica = iluminacaoPublica;
-    }
-
-    public Nucleo getNucleo() {
-        return nucleo;
-    }
-
-    public void setNucleo(Nucleo nucleo) {
-        this.nucleo = nucleo;
     }
     
 }

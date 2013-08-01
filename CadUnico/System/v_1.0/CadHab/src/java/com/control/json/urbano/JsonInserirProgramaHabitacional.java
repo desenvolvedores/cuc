@@ -41,7 +41,7 @@ public class JsonInserirProgramaHabitacional extends javax.servlet.http.HttpServ
 
                 if (! programa.getMaterialConstrucao().isEmpty() && ! programa.getProducaoMoradias().isEmpty() && ! programa.getAssistenciaTecnica().isEmpty() 
                         && ! programa.getUrbAssentamentosPrecarios().isEmpty() && ! programa.getComplemInfraestrutura().isEmpty() && ! programa.getRegularizacaoFundiaria().isEmpty() 
-                        && ! programa.getCdhu().isEmpty() && ! programa.getPmcmv().isEmpty() && programa.getNucleo().getId() > 0) {
+                        && ! programa.getCdhu().isEmpty() && ! programa.getPmcmv().isEmpty() && programa.getIdNucleo() > 0) {
 
                     pgsql.sys.urbano.ProgramaHabitacionalDAO programaDAO = new pgsql.sys.urbano.ProgramaHabitacionalDAO();
 

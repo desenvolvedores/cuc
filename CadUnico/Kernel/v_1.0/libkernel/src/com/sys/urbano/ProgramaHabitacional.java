@@ -15,6 +15,7 @@ public class ProgramaHabitacional {
     
     private String type;
     private long id;
+    private long idNucleo;
     private String materialConstrucao;
     private String producaoMoradias;
     private String assistenciaTecnica;
@@ -23,11 +24,12 @@ public class ProgramaHabitacional {
     private String regularizacaoFundiaria;
     private String cdhu;
     private String pmcmv;
-    private Nucleo nucleo;
     
     public ProgramaHabitacional() {
+        
         this.type = "programahabitacional";
         this.id = 0l;
+        this.idNucleo = 0l;
         this.materialConstrucao = "";
         this.producaoMoradias = "";
         this.assistenciaTecnica = "";
@@ -36,21 +38,7 @@ public class ProgramaHabitacional {
         this.regularizacaoFundiaria = "";
         this.cdhu = "";
         this.pmcmv = "";
-        this.nucleo = null;
-    }
-    
-    public ProgramaHabitacional(Nucleo nucleo) {
-        this.type = "programahabitacional";
-        this.id = 0l;
-        this.materialConstrucao = "";
-        this.producaoMoradias = "";
-        this.assistenciaTecnica = "";
-        this.urbAssentamentosPrecarios = "";
-        this.complemInfraestrutura = "";
-        this.regularizacaoFundiaria = "";
-        this.cdhu = "";
-        this.pmcmv = "";
-        this.nucleo = nucleo;
+        
     }
     
     public String getType() {
@@ -63,6 +51,14 @@ public class ProgramaHabitacional {
 
     public void setId(long id) {
         this.id = id;
+    }
+    
+    public long getIdNucleo() {
+        return idNucleo;
+    }
+
+    public void setIdNucleo(long idNucleo) {
+        this.idNucleo = idNucleo;
     }
 
     public String getMaterialConstrucao() {
@@ -127,14 +123,6 @@ public class ProgramaHabitacional {
 
     public void setPmcmv(String pmcmv) {
         this.pmcmv = pmcmv;
-    }
-
-    public Nucleo getNucleo() {
-        return nucleo;
-    }
-
-    public void setNucleo(Nucleo nucleo) {
-        this.nucleo = nucleo;
     }
     
 }

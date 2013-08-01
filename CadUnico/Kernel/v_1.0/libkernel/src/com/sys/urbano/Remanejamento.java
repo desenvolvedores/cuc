@@ -15,27 +15,20 @@ public class Remanejamento {
     
     private String type;
     private long id;
+    private long idAcao;
     private String estimativaRelocacao;
     private int numeroRemocaoDefinitiva;
     private int numeroRemocaoProvisoria;
-    private com.sys.urbano.AcaoNucleo acao;
     
     public Remanejamento() {
+        
         this.type = "remanejamento";
         this.id = 0l;
+        this.idAcao = 0l;
         this.estimativaRelocacao = "";
         this.numeroRemocaoDefinitiva = 0;
         this.numeroRemocaoProvisoria = 0;
-        this.acao = null;
-    }
-    
-    public Remanejamento(com.sys.urbano.AcaoNucleo acao) {
-        this.type = "remanejamento";
-        this.id = 0l;
-        this.estimativaRelocacao = "";
-        this.numeroRemocaoDefinitiva = 0;
-        this.numeroRemocaoProvisoria = 0;
-        this.acao = acao;
+        
     }
     
     public String getType() {
@@ -48,6 +41,14 @@ public class Remanejamento {
 
     public void setId(long id) {
         this.id = id;
+    }
+    
+    public long getIdAcao() {
+        return idAcao;
+    }
+
+    public void setIdAcao(long idAcao) {
+        this.idAcao = idAcao;
     }
 
     public String getEstimativaRelocacao() {
@@ -72,20 +73,6 @@ public class Remanejamento {
 
     public void setNumeroRemocaoProvisoria(int numeroRemocaoProvisoria) {
         this.numeroRemocaoProvisoria = numeroRemocaoProvisoria;
-    }
-
-    /**
-     * @return the acao
-     */
-    public com.sys.urbano.AcaoNucleo getAcao() {
-        return acao;
-    }
-
-    /**
-     * @param acao the acao to set
-     */
-    public void setAcao(com.sys.urbano.AcaoNucleo acao) {
-        this.acao = acao;
     }
     
 }

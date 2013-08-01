@@ -23,7 +23,7 @@ public class AspectoAmbientalDAO {
         java.lang.String sql = "{ ? = CALL fn_inserir_aspecto_ambiental(?, ?, ?, ?, ?, ?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, aspecto.getNucleo().getId());
+        stmt.setLong(2, aspecto.getIdNucleo());
         stmt.setString(3, txtMgr.addSlashes(aspecto.getAreaRisco()));
         stmt.setString(4, txtMgr.addSlashes(aspecto.getAreaVerde()));
         stmt.setString(5, txtMgr.addSlashes(aspecto.getAreaAgricola()));
@@ -48,12 +48,12 @@ public class AspectoAmbientalDAO {
         
     }
     
-    public com.sys.urbano.AspectoAmbiental selecionarAspectoAmbientalPorIDNucleo(com.sys.urbano.Nucleo nucleo) 
+    public com.sys.urbano.AspectoAmbiental selecionarAspectoAmbientalPorIDNucleo(long idNucleo) 
             throws java.lang.ClassNotFoundException, java.sql.SQLException {
         
         java.lang.String sql = "SELECT * FROM fn_selecionar_aspecto_ambiental_por_id_nucleo(?)";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
-        stmt.setLong(1, nucleo.getId());
+        stmt.setLong(1, idNucleo);
         java.sql.ResultSet rs = stmt.executeQuery();
         
         return selecionar(rs);
@@ -68,7 +68,7 @@ public class AspectoAmbientalDAO {
         java.lang.String sql = "{ ? = CALL fn_alterar_aspecto_ambiental(?, ?, ?, ?, ?, ?, ?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, aspecto.getNucleo().getId());
+        stmt.setLong(2, aspecto.getIdNucleo());
         stmt.setString(3, txtMgr.addSlashes(aspecto.getAreaRisco()));
         stmt.setString(4, txtMgr.addSlashes(aspecto.getAreaVerde()));
         stmt.setString(5, txtMgr.addSlashes(aspecto.getAreaAgricola()));
@@ -98,11 +98,9 @@ public class AspectoAmbientalDAO {
             throws java.sql.SQLException {
         
         if (rs.next()) {
-            com.sys.urbano.Nucleo nucleo = new com.sys.urbano.Nucleo();
-            nucleo.setId(rs.getLong("id_nucleo"));
-            
-            com.sys.urbano.AspectoAmbiental aspecto = new com.sys.urbano.AspectoAmbiental(nucleo);
+            com.sys.urbano.AspectoAmbiental aspecto = new com.sys.urbano.AspectoAmbiental();
             aspecto.setId(rs.getLong("id"));
+            aspecto.setIdNucleo(rs.getLong("id_nucleo"));
             aspecto.setAreaRisco(rs.getString("area_risco"));
             aspecto.setAreaVerde(rs.getString("area_verde"));
             aspecto.setAreaAgricola(rs.getString("area_agricola"));

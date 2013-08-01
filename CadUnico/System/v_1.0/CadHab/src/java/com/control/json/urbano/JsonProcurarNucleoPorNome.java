@@ -35,6 +35,7 @@ public class JsonProcurarNucleoPorNome extends javax.servlet.http.HttpServlet {
                 
                 com.settings.Configuracao.iniciarConfiguracoes();
                 String json = request.getReader().readLine();
+                json = com.data.TextManager.removeSimpleSpecialCharacters(json);
 
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
                 com.sys.urbano.Nucleo nucleo = jsonMgr.parseNucleo(json);

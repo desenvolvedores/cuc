@@ -39,10 +39,10 @@ public class JsonProcurarInstitucionalSocialPorNucleo extends javax.servlet.http
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
                 com.sys.urbano.InstitucionalSocial institucional = jsonMgr.parseInstitucionalSocial(json);
                 
-                if (institucional.getNucleo().getId() > 0) {
+                if (institucional.getIdNucleo() > 0) {
                     
                     pgsql.sys.urbano.InstitucionalSocialDAO institucionalDAO = new pgsql.sys.urbano.InstitucionalSocialDAO();
-                    java.util.List<com.sys.urbano.InstitucionalSocial> institucionais = institucionalDAO.procurarInstitucionalSocialPorIDNucleo(institucional.getNucleo());
+                    java.util.List<com.sys.urbano.InstitucionalSocial> institucionais = institucionalDAO.procurarInstitucionalSocialPorIDNucleo(institucional.getIdNucleo());
                     out.print(jsonMgr.parseJsonListaInstitucionalSocial(institucionais));
                     
                 } else {

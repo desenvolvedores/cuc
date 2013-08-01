@@ -23,7 +23,7 @@ public class InfraestruturaUrbanaDAO {
         java.lang.String sql = "{ ? = CALL fn_inserir_infraestrutura_urbana(?, ?, ?, ?, ?, ?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, infraestrutura.getNucleo().getId());
+        stmt.setLong(2, infraestrutura.getIdNucleo());
         stmt.setString(3, txtMgr.addSlashes(infraestrutura.getAbastecimentoAgua()));
         stmt.setString(4, txtMgr.addSlashes(infraestrutura.getColetaEsgoto()));
         stmt.setString(5, txtMgr.addSlashes(infraestrutura.getServicosLimpeza()));
@@ -48,12 +48,12 @@ public class InfraestruturaUrbanaDAO {
         
     }
     
-    public com.sys.urbano.InfraestruturaUrbana selecionarInfraestruturaUrbanaPorIDNucleo(com.sys.urbano.Nucleo nucleo) 
+    public com.sys.urbano.InfraestruturaUrbana selecionarInfraestruturaUrbanaPorIDNucleo(long idNucleo) 
             throws java.lang.ClassNotFoundException, java.sql.SQLException {
         
         java.lang.String sql = "SELECT * FROM fn_selecionar_infraestrutura_urbana_por_id_nucleo(?)";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
-        stmt.setLong(1, nucleo.getId());
+        stmt.setLong(1, idNucleo);
         java.sql.ResultSet rs = stmt.executeQuery();
         
         return selecionar(rs);
@@ -68,7 +68,7 @@ public class InfraestruturaUrbanaDAO {
         java.lang.String sql = "{ ? = CALL fn_alterar_infraestrutura_urbana(?, ?, ?, ?, ?, ?, ?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, infraestrutura.getNucleo().getId());
+        stmt.setLong(2, infraestrutura.getIdNucleo());
         stmt.setString(3, txtMgr.addSlashes(infraestrutura.getAbastecimentoAgua()));
         stmt.setString(4, txtMgr.addSlashes(infraestrutura.getColetaEsgoto()));
         stmt.setString(5, txtMgr.addSlashes(infraestrutura.getServicosLimpeza()));
@@ -98,10 +98,8 @@ public class InfraestruturaUrbanaDAO {
             throws java.sql.SQLException {
         
         if (rs.next()) {
-            com.sys.urbano.Nucleo nucleo = new com.sys.urbano.Nucleo();
-            nucleo.setId(rs.getLong("id_nucleo"));
-            
-            com.sys.urbano.InfraestruturaUrbana infraestrutura = new com.sys.urbano.InfraestruturaUrbana(nucleo);
+            com.sys.urbano.InfraestruturaUrbana infraestrutura = new com.sys.urbano.InfraestruturaUrbana();
+            infraestrutura.setIdNucleo(rs.getLong("id_nucleo"));
             infraestrutura.setId(rs.getLong("id"));
             infraestrutura.setAbastecimentoAgua(rs.getString("abastecimento_agua"));
             infraestrutura.setColetaEsgoto(rs.getString("coleta_esgoto"));

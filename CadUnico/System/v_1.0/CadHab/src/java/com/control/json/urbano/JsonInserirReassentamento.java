@@ -39,7 +39,7 @@ public class JsonInserirReassentamento extends javax.servlet.http.HttpServlet {
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
                 com.sys.urbano.Reassentamento reassentamento = jsonMgr.parseReassentamento(json);
 
-                if (! reassentamento.getEstimativaRemocao().isEmpty() && ! reassentamento.getLocalDefinitivo().isEmpty() && reassentamento.getAcao().getId() > 0) {
+                if (! reassentamento.getEstimativaRemocao().isEmpty() && ! reassentamento.getLocalDefinitivo().isEmpty() && reassentamento.getIdAcao() > 0) {
 
                     pgsql.sys.urbano.ReassentamentoDAO reassentamentoDAO = new pgsql.sys.urbano.ReassentamentoDAO();
 

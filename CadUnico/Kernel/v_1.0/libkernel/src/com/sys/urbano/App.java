@@ -15,6 +15,7 @@ public class App {
     
     private String type;
     private long id;
+    private long idAmbiental;
     private String corpoDagua;
     private String brejoCharco;
     private String topoMorro;
@@ -22,11 +23,12 @@ public class App {
     private String restinga;
     private String outros;
     private String especifiqueOutros;
-    private com.sys.urbano.AspectoAmbiental aspecto;
     
     public App() {
+        
         this.type = "app";
         this.id = 0l;
+        this.idAmbiental = 0l;
         this.corpoDagua = "";
         this.brejoCharco = "";
         this.topoMorro = "";
@@ -34,20 +36,7 @@ public class App {
         this.restinga = "";
         this.outros = "";
         this.especifiqueOutros = "";
-        this.aspecto = null;
-    }
-    
-    public App(com.sys.urbano.AspectoAmbiental aspecto) {
-        this.type = "app";
-        this.id = 0l;
-        this.corpoDagua = "";
-        this.brejoCharco = "";
-        this.topoMorro = "";
-        this.encosta = "";
-        this.restinga = "";
-        this.outros = "";
-        this.especifiqueOutros = "";
-        this.aspecto = aspecto;
+        
     }
     
     public String getType() {
@@ -60,6 +49,14 @@ public class App {
 
     public void setId(long id) {
         this.id = id;
+    }
+    
+    public long getIdAmbiental() {
+        return idAmbiental;
+    }
+
+    public void setIdAmbiental(long idAmbiental) {
+        this.idAmbiental = idAmbiental;
     }
 
     public String getCorpoDagua() {
@@ -116,14 +113,6 @@ public class App {
 
     public void setEspecifiqueOutros(String especifiqueOutros) {
         this.especifiqueOutros = especifiqueOutros;
-    }
-
-    public com.sys.urbano.AspectoAmbiental getAspecto() {
-        return aspecto;
-    }
-
-    public void setAspecto(com.sys.urbano.AspectoAmbiental aspecto) {
-        this.aspecto = aspecto;
     }
     
 }

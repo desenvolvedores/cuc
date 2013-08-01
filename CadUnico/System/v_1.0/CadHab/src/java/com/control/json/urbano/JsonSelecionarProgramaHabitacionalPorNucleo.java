@@ -42,7 +42,7 @@ public class JsonSelecionarProgramaHabitacionalPorNucleo extends javax.servlet.h
                 if (programa.getId() > 0) {
                     
                     pgsql.sys.urbano.ProgramaHabitacionalDAO programaDAO = new pgsql.sys.urbano.ProgramaHabitacionalDAO();
-                    programa = programaDAO.selecionarProgramaHabitacionalPorIDNucleo(programa.getNucleo());
+                    programa = programaDAO.selecionarProgramaHabitacionalPorIDNucleo(programa.getIdNucleo());
                     out.print(jsonMgr.parseJson(programa));
                     
                 } else {

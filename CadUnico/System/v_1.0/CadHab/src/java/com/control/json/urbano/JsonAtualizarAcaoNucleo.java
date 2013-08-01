@@ -41,7 +41,7 @@ public class JsonAtualizarAcaoNucleo extends javax.servlet.http.HttpServlet {
 
                 if (! acao.getRemanejamento().isEmpty() && ! acao.getReassentamento().isEmpty() && ! acao.getDesconstrucao().isEmpty() 
                         && ! acao.getMelhoriaHabitacional().isEmpty() && ! acao.getRecuperacaoAmbiental().isEmpty() && ! acao.getAdequacaoInfraestrutura().isEmpty() 
-                        && ! acao.getOutros().isEmpty() && acao.getNucleo().getId() > 0 && acao.getId() > 0) {
+                        && ! acao.getOutros().isEmpty() && acao.getIdNucleo() > 0 && acao.getId() > 0) {
 
                     pgsql.sys.urbano.AcaoNucleoDAO acaoDAO = new pgsql.sys.urbano.AcaoNucleoDAO();
 

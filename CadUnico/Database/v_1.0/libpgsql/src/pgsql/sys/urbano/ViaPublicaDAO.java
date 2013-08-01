@@ -23,7 +23,7 @@ public class ViaPublicaDAO {
         java.lang.String sql = "{ ? = CALL fn_inserir_via_publica(?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, via.getNucleo().getId());
+        stmt.setLong(2, via.getIdNucleo());
         stmt.setLong(3, via.getMobilidade().getId());
         stmt.setString(4, txtMgr.addSlashes(via.getDescricao()));
         stmt.execute();
@@ -31,12 +31,12 @@ public class ViaPublicaDAO {
         
     }
     
-    public java.util.List<com.sys.urbano.ViaPublica> procurarViaPublicaPorIDNucleo(com.sys.urbano.Nucleo nucleo) 
+    public java.util.List<com.sys.urbano.ViaPublica> procurarViaPublicaPorIDNucleo(long idNucleo) 
             throws java.lang.ClassNotFoundException, java.sql.SQLException {
         
         java.lang.String sql = "SELECT * FROM fn_procurar_via_publica_por_id_nucleo(?)";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
-        stmt.setLong(1, nucleo.getId());
+        stmt.setLong(1, idNucleo);
         java.sql.ResultSet rs = stmt.executeQuery();
         
         return listar(rs);
@@ -63,7 +63,7 @@ public class ViaPublicaDAO {
         java.lang.String sql = "{ ? = CALL fn_alterar_via_publica(?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, via.getNucleo().getId());
+        stmt.setLong(2, via.getIdNucleo());
         stmt.setLong(3, via.getMobilidade().getId());
         stmt.setString(4, txtMgr.addSlashes(via.getDescricao()));
         stmt.execute();
@@ -77,7 +77,7 @@ public class ViaPublicaDAO {
         java.lang.String sql = "{ ? = CALL fn_excluir_via_publica(?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, via.getNucleo().getId());
+        stmt.setLong(2, via.getIdNucleo());
         stmt.setLong(3, via.getMobilidade().getId());
         stmt.execute();
         return stmt.getInt(1);
@@ -87,15 +87,12 @@ public class ViaPublicaDAO {
     private com.sys.urbano.ViaPublica selecionar(java.sql.ResultSet rs) 
             throws java.sql.SQLException {
         
-        if (rs.next()) {
-            com.sys.urbano.Nucleo nucleo = new com.sys.urbano.Nucleo();
-            nucleo.setId(rs.getLong("id_nucleo"));
-            
+        if (rs.next()) {            
             com.sys.urbano.RecursoMobilidade recurso = new com.sys.urbano.RecursoMobilidade();
             recurso.setId(rs.getInt("id_recurso"));
             
-            com.sys.urbano.ViaPublica via = new com.sys.urbano.ViaPublica(nucleo, recurso);
-            via.setNucleo(nucleo);
+            com.sys.urbano.ViaPublica via = new com.sys.urbano.ViaPublica(recurso);
+            via.setIdNucleo(rs.getLong("id_nucleo"));
             via.setMobilidade(recurso);
             via.setDescricao(rs.getString("descricao"));
             return via;
@@ -109,15 +106,12 @@ public class ViaPublicaDAO {
             throws java.sql.SQLException {
         
         java.util.List<com.sys.urbano.ViaPublica> vias = new java.util.ArrayList<>();
-        while (rs.next()) {
-            com.sys.urbano.Nucleo nucleo = new com.sys.urbano.Nucleo();
-            nucleo.setId(rs.getLong("id_nucleo"));
-            
+        while (rs.next()) {            
             com.sys.urbano.RecursoMobilidade recurso = new com.sys.urbano.RecursoMobilidade();
             recurso.setId(rs.getInt("id_recurso"));
             
-            com.sys.urbano.ViaPublica via = new com.sys.urbano.ViaPublica(nucleo, recurso);
-            via.setNucleo(nucleo);
+            com.sys.urbano.ViaPublica via = new com.sys.urbano.ViaPublica(recurso);
+            via.setIdNucleo(rs.getLong("id_nucleo"));
             via.setMobilidade(recurso);
             via.setDescricao(rs.getString("descricao"));
             vias.add(via);

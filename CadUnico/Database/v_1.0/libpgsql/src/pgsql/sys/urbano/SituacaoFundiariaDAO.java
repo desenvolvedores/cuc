@@ -23,7 +23,7 @@ public class SituacaoFundiariaDAO {
         java.lang.String sql = "{ ? = CALL fn_inserir_situacao_fundiaria(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, fundiaria.getNucleo().getId());
+        stmt.setLong(2, fundiaria.getIdNucleo());
         stmt.setString(3, txtMgr.addSlashes(fundiaria.getPropriedade()));
         stmt.setString(4, txtMgr.addSlashes(fundiaria.getProprietario()));
         stmt.setString(5, txtMgr.addSlashes(fundiaria.getObsPropriedade()));
@@ -57,12 +57,12 @@ public class SituacaoFundiariaDAO {
         
     }
     
-    public com.sys.urbano.SituacaoFundiaria selecionarSituacaoFundiariaPorIDNucleo(com.sys.urbano.Nucleo nucleo) 
+    public com.sys.urbano.SituacaoFundiaria selecionarSituacaoFundiariaPorIDNucleo(long idNucleo) 
             throws java.lang.ClassNotFoundException, java.sql.SQLException {
         
         java.lang.String sql = "SELECT * FROM fn_selecionar_situacao_fundiaria_por_id_nucleo(?)";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
-        stmt.setLong(1, nucleo.getId());
+        stmt.setLong(1, idNucleo);
         java.sql.ResultSet rs = stmt.executeQuery();
         
         return selecionar(rs);
@@ -77,7 +77,7 @@ public class SituacaoFundiariaDAO {
         java.lang.String sql = "{ ? = CALL fn_alterar_situacao_fundiaria(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, fundiaria.getNucleo().getId());
+        stmt.setLong(2, fundiaria.getIdNucleo());
         stmt.setString(3, txtMgr.addSlashes(fundiaria.getPropriedade()));
         stmt.setString(4, txtMgr.addSlashes(fundiaria.getProprietario()));
         stmt.setString(5, txtMgr.addSlashes(fundiaria.getObsPropriedade()));
@@ -115,12 +115,10 @@ public class SituacaoFundiariaDAO {
     private com.sys.urbano.SituacaoFundiaria selecionar(java.sql.ResultSet rs) 
             throws java.sql.SQLException {
         
-        if (rs.next()) {
-            com.sys.urbano.Nucleo nucleo = new com.sys.urbano.Nucleo();
-            nucleo.setId(rs.getLong("id_nucleo"));
-            
-            com.sys.urbano.SituacaoFundiaria fundiaria = new com.sys.urbano.SituacaoFundiaria(nucleo);
+        if (rs.next()) {           
+            com.sys.urbano.SituacaoFundiaria fundiaria = new com.sys.urbano.SituacaoFundiaria();
             fundiaria.setId(rs.getLong("id"));
+            fundiaria.setIdNucleo(rs.getLong("id_nucleo"));
             fundiaria.setPropriedade(rs.getString("propriedade"));
             fundiaria.setProprietario(rs.getString("proprietario"));
             fundiaria.setObsPropriedade(rs.getString("obs_propriedade"));

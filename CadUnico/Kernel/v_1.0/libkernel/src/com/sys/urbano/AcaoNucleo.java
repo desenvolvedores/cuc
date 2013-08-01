@@ -15,6 +15,7 @@ public class AcaoNucleo {
     
     private String type;
     private long id;
+    private long idNucleo;
     private String remanejamento;
     private String reassentamento;
     private String desconstrucao;
@@ -26,14 +27,15 @@ public class AcaoNucleo {
     private String fonteAdequacao;
     private String outros;
     private String descricaoOutros;
-    private Nucleo nucleo;
     private Remanejamento objRemanejamento;
     private Reassentamento objReassentamento;
     private Desconstrucao objDesconstrucao;
     
     public AcaoNucleo() {
+        
         this.type = "acaonucleo";
         this.id = 0l;
+        this.idNucleo = 0l;
         this.remanejamento = "";
         this.reassentamento = "";
         this.desconstrucao = "";
@@ -45,30 +47,10 @@ public class AcaoNucleo {
         this.fonteAdequacao = "";
         this.outros = "";
         this.descricaoOutros = "";
-        this.nucleo = null;
         this.objRemanejamento = null;
         this.objReassentamento = null;
         this.objDesconstrucao = null;
-    }
-    
-    public AcaoNucleo(Nucleo nucleo) {
-        this.type = "acaonucleo";
-        this.id = 0l;
-        this.remanejamento = "";
-        this.reassentamento = "";
-        this.desconstrucao = "";
-        this.melhoriaHabitacional = "";
-        this.fonteMelhoria = "";
-        this.recuperacaoAmbiental = "";
-        this.prad = "";
-        this.adequacaoInfraestrutura = "";
-        this.fonteAdequacao = "";
-        this.outros = "";
-        this.descricaoOutros = "";
-        this.nucleo = nucleo;
-        this.objRemanejamento = null;
-        this.objReassentamento = null;
-        this.objDesconstrucao = null;
+        
     }
     
     public String getType() {
@@ -83,44 +65,34 @@ public class AcaoNucleo {
         this.id = id;
     }
     
-    /**
-     * @return the remanejamento
-     */
+    public long getIdNucleo() {
+        return idNucleo;
+    }
+
+    public void setIdNucleo(long idNucleo) {
+        this.idNucleo = idNucleo;
+    }
+
     public String getRemanejamento() {
         return remanejamento;
     }
 
-    /**
-     * @param remanejamento the remanejamento to set
-     */
     public void setRemanejamento(String remanejamento) {
         this.remanejamento = remanejamento;
     }
 
-    /**
-     * @return the reassentamento
-     */
     public String getReassentamento() {
         return reassentamento;
     }
 
-    /**
-     * @param reassentamento the reassentamento to set
-     */
     public void setReassentamento(String reassentamento) {
         this.reassentamento = reassentamento;
     }
 
-    /**
-     * @return the desconstrucao
-     */
     public String getDesconstrucao() {
         return desconstrucao;
     }
 
-    /**
-     * @param desconstrucao the desconstrucao to set
-     */
     public void setDesconstrucao(String desconstrucao) {
         this.desconstrucao = desconstrucao;
     }
@@ -188,53 +160,27 @@ public class AcaoNucleo {
     public void setDescricaoOutros(String descricaoOutros) {
         this.descricaoOutros = descricaoOutros;
     }
-
-    public Nucleo getNucleo() {
-        return nucleo;
-    }
-
-    public void setNucleo(Nucleo nucleo) {
-        this.nucleo = nucleo;
-    }
     
-    /**
-     * @return the Remanejamento
-     */
     public Remanejamento getObjRemanejamento() {
         return objRemanejamento;
     }
 
-    /**
-     * @param objRemanejamento the Remanejamento to set
-     */
     public void setObjRemanejamento(Remanejamento objRemanejamento) {
         this.objRemanejamento = objRemanejamento;
     }
-    
-    /**
-     * @return the Reassentamento
-     */
+
     public Reassentamento getObjReassentamento() {
         return objReassentamento;
     }
 
-    /**
-     * @param objReassentamento the Reassentamento to set
-     */
     public void setObjReassentamento(Reassentamento objReassentamento) {
         this.objReassentamento = objReassentamento;
     }
-    
-    /**
-     * @return the Desconstrucao
-     */
+
     public Desconstrucao getObjDesconstrucao() {
         return objDesconstrucao;
     }
 
-    /**
-     * @param objDesconstrucao the Desconstrucao to set
-     */
     public void setObjDesconstrucao(Desconstrucao objDesconstrucao) {
         this.objDesconstrucao = objDesconstrucao;
     }

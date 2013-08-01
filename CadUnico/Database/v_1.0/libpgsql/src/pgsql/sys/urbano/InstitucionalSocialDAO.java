@@ -23,7 +23,7 @@ public class InstitucionalSocialDAO {
         java.lang.String sql = "{ ? = CALL fn_inserir_institucional_social(?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, institucional.getNucleo().getId());
+        stmt.setLong(2, institucional.getIdNucleo());
         stmt.setLong(3, institucional.getSocial().getId());
         stmt.setString(4, txtMgr.addSlashes(institucional.getNome()));
         stmt.execute();
@@ -31,12 +31,12 @@ public class InstitucionalSocialDAO {
         
     }
     
-    public java.util.List<com.sys.urbano.InstitucionalSocial> procurarInstitucionalSocialPorIDNucleo(com.sys.urbano.Nucleo nucleo) 
+    public java.util.List<com.sys.urbano.InstitucionalSocial> procurarInstitucionalSocialPorIDNucleo(long idNucleo) 
             throws java.lang.ClassNotFoundException, java.sql.SQLException {
         
         java.lang.String sql = "SELECT * FROM fn_procurar_institucional_social_por_id_nucleo(?)";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
-        stmt.setLong(1, nucleo.getId());
+        stmt.setLong(1, idNucleo);
         java.sql.ResultSet rs = stmt.executeQuery();
         
         return listar(rs);
@@ -63,7 +63,7 @@ public class InstitucionalSocialDAO {
         java.lang.String sql = "{ ? = CALL fn_alterar_institucional_social(?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, institucional.getNucleo().getId());
+        stmt.setLong(2, institucional.getIdNucleo());
         stmt.setLong(3, institucional.getSocial().getId());
         stmt.setString(4, txtMgr.addSlashes(institucional.getNome()));
         stmt.execute();
@@ -77,7 +77,7 @@ public class InstitucionalSocialDAO {
         java.lang.String sql = "{ ? = CALL fn_excluir_institucional_social(?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, institucional.getNucleo().getId());
+        stmt.setLong(2, institucional.getIdNucleo());
         stmt.setLong(3, institucional.getSocial().getId());
         stmt.execute();
         return stmt.getInt(1);
@@ -88,14 +88,11 @@ public class InstitucionalSocialDAO {
             throws java.sql.SQLException {
         
         if (rs.next()) {
-            com.sys.urbano.Nucleo nucleo = new com.sys.urbano.Nucleo();
-            nucleo.setId(rs.getLong("id_nucleo"));
-            
             com.sys.urbano.RecursoSocial recurso = new com.sys.urbano.RecursoSocial();
             recurso.setId(rs.getInt("id_recurso"));
             
-            com.sys.urbano.InstitucionalSocial institucional = new com.sys.urbano.InstitucionalSocial(nucleo, recurso);
-            institucional.setNucleo(nucleo);
+            com.sys.urbano.InstitucionalSocial institucional = new com.sys.urbano.InstitucionalSocial(recurso);
+            institucional.setIdNucleo(rs.getLong("id_nucleo"));
             institucional.setSocial(recurso);
             institucional.setNome(rs.getString("nome"));
             return institucional;
@@ -110,14 +107,11 @@ public class InstitucionalSocialDAO {
         
         java.util.List<com.sys.urbano.InstitucionalSocial> institucionais = new java.util.ArrayList<>();
         while (rs.next()) {
-            com.sys.urbano.Nucleo nucleo = new com.sys.urbano.Nucleo();
-            nucleo.setId(rs.getLong("id_nucleo"));
-            
             com.sys.urbano.RecursoSocial recurso = new com.sys.urbano.RecursoSocial();
             recurso.setId(rs.getInt("id_recurso"));
             
-            com.sys.urbano.InstitucionalSocial institucional = new com.sys.urbano.InstitucionalSocial(nucleo, recurso);
-            institucional.setNucleo(nucleo);
+            com.sys.urbano.InstitucionalSocial institucional = new com.sys.urbano.InstitucionalSocial(recurso);
+            institucional.setIdNucleo(rs.getLong("id_nucleo"));
             institucional.setSocial(recurso);
             institucional.setNome(rs.getString("nome"));
             institucionais.add(institucional);

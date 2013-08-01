@@ -42,7 +42,7 @@ public class JsonSelecionarDesconstrucaoPorAcao extends javax.servlet.http.HttpS
                 if (desconstrucao.getId() > 0) {
                     
                     pgsql.sys.urbano.DesconstrucaoDAO desconstrucaoDAO = new pgsql.sys.urbano.DesconstrucaoDAO();
-                    desconstrucao = desconstrucaoDAO.selecionarDesconstrucaoPorIDAcao(desconstrucao.getAcao());
+                    desconstrucao = desconstrucaoDAO.selecionarDesconstrucaoPorIDAcao(desconstrucao.getIdAcao());
                     out.print(jsonMgr.parseJson(desconstrucao));
                     
                 } else {

@@ -23,7 +23,7 @@ public class AcaoNucleoDAO {
         java.lang.String sql = "{ ? = CALL fn_inserir_acoes_nucleo(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, acao.getNucleo().getId());
+        stmt.setLong(2, acao.getIdNucleo());
         stmt.setString(3, txtMgr.addSlashes(acao.getRemanejamento()));
         stmt.setString(4, txtMgr.addSlashes(acao.getReassentamento()));
         stmt.setString(5, txtMgr.addSlashes(acao.getDesconstrucao()));
@@ -52,12 +52,12 @@ public class AcaoNucleoDAO {
         
     }
     
-    public com.sys.urbano.AcaoNucleo selecionarAcaoNucleoPorIDNucleo(com.sys.urbano.Nucleo nucleo) 
+    public com.sys.urbano.AcaoNucleo selecionarAcaoNucleoPorIDNucleo(long idNucleo) 
             throws java.lang.ClassNotFoundException, java.sql.SQLException {
         
         java.lang.String sql = "SELECT * FROM fn_selecionar_acoes_nucleo_por_id_nucleo(?)";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
-        stmt.setLong(1, nucleo.getId());
+        stmt.setLong(1, idNucleo);
         java.sql.ResultSet rs = stmt.executeQuery();
         
         return selecionar(rs);
@@ -72,7 +72,7 @@ public class AcaoNucleoDAO {
         java.lang.String sql = "{ ? = CALL fn_alterar_acoes_nucleo(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, acao.getNucleo().getId());
+        stmt.setLong(2, acao.getIdNucleo());
         stmt.setString(3, txtMgr.addSlashes(acao.getRemanejamento()));
         stmt.setString(4, txtMgr.addSlashes(acao.getReassentamento()));
         stmt.setString(5, txtMgr.addSlashes(acao.getDesconstrucao()));
@@ -106,10 +106,8 @@ public class AcaoNucleoDAO {
             throws java.sql.SQLException {
         
         if (rs.next()) {
-            com.sys.urbano.Nucleo nucleo = new com.sys.urbano.Nucleo();
-            nucleo.setId(rs.getLong("id_nucleo"));
-            
-            com.sys.urbano.AcaoNucleo acao = new com.sys.urbano.AcaoNucleo(nucleo);
+            com.sys.urbano.AcaoNucleo acao = new com.sys.urbano.AcaoNucleo();
+            acao.setIdNucleo(rs.getLong("id_nucleo"));
             acao.setId(rs.getLong("id"));
             acao.setRemanejamento(rs.getString("remanejamento"));
             acao.setReassentamento(rs.getString("reassentamento"));

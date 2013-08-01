@@ -42,7 +42,7 @@ public class JsonSelecionarInfraestruturaUrbanaPorNucleo extends javax.servlet.h
                 if (infraestrutura.getId() > 0) {
                     
                     pgsql.sys.urbano.InfraestruturaUrbanaDAO infraestruturaDAO = new pgsql.sys.urbano.InfraestruturaUrbanaDAO();
-                    infraestrutura = infraestruturaDAO.selecionarInfraestruturaUrbanaPorIDNucleo(infraestrutura.getNucleo());
+                    infraestrutura = infraestruturaDAO.selecionarInfraestruturaUrbanaPorIDNucleo(infraestrutura.getIdNucleo());
                     out.print(jsonMgr.parseJson(infraestrutura));
                     
                 } else {

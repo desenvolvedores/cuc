@@ -41,7 +41,7 @@ public class JsonAtualizarSituacaoFundiaria extends javax.servlet.http.HttpServl
 
                 if (! fundiaria.getPropriedade().isEmpty() && ! fundiaria.getDecretoAprovacao().isEmpty() && ! fundiaria.getRegistrado().isEmpty() 
                         && ! fundiaria.getDescEcologicoEconomico().isEmpty() && ! fundiaria.getProcessosJudiciais().isEmpty() && ! fundiaria.getExistenciaEmbargos().isEmpty() 
-                        && fundiaria.getNucleo().getId() > 0 && fundiaria.getId() > 0) {
+                        && fundiaria.getIdNucleo() > 0 && fundiaria.getId() > 0) {
 
                     pgsql.sys.urbano.SituacaoFundiariaDAO fundiariaDAO = new pgsql.sys.urbano.SituacaoFundiariaDAO();
 

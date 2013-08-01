@@ -39,7 +39,7 @@ public class JsonInserirInstitucionalSocial extends javax.servlet.http.HttpServl
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
                 com.sys.urbano.InstitucionalSocial institucional = jsonMgr.parseInstitucionalSocial(json);
 
-                if (institucional.getSocial().getId() > 0 && institucional.getNucleo().getId() > 0 && ! institucional.getNome().isEmpty()) {
+                if (institucional.getSocial().getId() > 0 && institucional.getIdNucleo() > 0 && ! institucional.getNome().isEmpty()) {
 
                     pgsql.sys.urbano.InstitucionalSocialDAO institucionalDAO = new pgsql.sys.urbano.InstitucionalSocialDAO();
 

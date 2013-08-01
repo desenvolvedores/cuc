@@ -42,7 +42,7 @@ public class JsonSelecionarAspectoAmbientalPorNucleo extends javax.servlet.http.
                 if (aspecto.getId() > 0) {
                     
                     pgsql.sys.urbano.AspectoAmbientalDAO aspectoDAO = new pgsql.sys.urbano.AspectoAmbientalDAO();
-                    aspecto = aspectoDAO.selecionarAspectoAmbientalPorIDNucleo(aspecto.getNucleo());
+                    aspecto = aspectoDAO.selecionarAspectoAmbientalPorIDNucleo(aspecto.getIdNucleo());
                     out.print(jsonMgr.parseJson(aspecto));
                     
                 } else {

@@ -30,6 +30,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             
         }
         
+        limparCampos();
         liberarTodosCamposObrigatorios();
         desabilitarTodosCampos();
         desabilitarBotoes();
@@ -3100,11 +3101,13 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         
         if (jcbbApp.getSelectedIndex() == 1) {
             
+            limparCamposApp();
             checarCamposObrigatoriosApp();
             habilitarCamposApp();
             
         } else {
             
+            limparCamposApp();
             liberarCamposObrigatoriosApp();
             desabilitarCamposApp();
             
@@ -3116,15 +3119,17 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         
         if (jcbbDesconstrucao.getSelectedIndex() == 1) {
             
+            jtxtNumeroMoradiasDemolir.setText("0");
+            jtxtaMotivoDemolicao.setText("");
+            jtxtaProcessosDemolicao.setText("");
             checarCamposObrigatoriosDesconstrucao();
             habilitarCamposDesconstrucao();
-            jtxtNumeroMoradiasDemolir.setText("0");
             
         } else {
             
+            limparCamposDesconstrucao();
             liberarCamposObrigatoriosDesconstrucao();
             desabilitarCamposDesconstrucao();
-            jtxtNumeroMoradiasDemolir.setText("");
             
         }
         
@@ -3134,17 +3139,18 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         
         if (jcbbReassentamento.getSelectedIndex() == 1) {
             
-            checarCamposObrigatoriosReassentamento();
-            habilitarCamposReassentamento();
             jtxtNumeroMoradiasConstruir.setText("0");
             jtxtNumeroMoradiasProvisorias.setText("0");
+            jtxtLocalDefinitivo.setText("");
+            jcbbEstimativaRemocao.setSelectedIndex(0);
+            checarCamposObrigatoriosReassentamento();
+            habilitarCamposReassentamento();
             
         } else {
             
+            limparCamposReassentamento();
             liberarCamposObrigatoriosReassentamento();
             desabilitarCamposReassentamento();
-            jtxtNumeroMoradiasConstruir.setText("");
-            jtxtNumeroMoradiasProvisorias.setText("");
             
         }
         
@@ -3154,17 +3160,17 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         
         if (jcbbRemanejamento.getSelectedIndex() == 1) {
             
-            checarCamposObrigatoriosRemanejamento();
-            habilitarCamposRemanejamento();
             jtxtNumeroRemocaoDefinitiva.setText("0");
             jtxtNumeroRemocaoProvisoria.setText("0");
+            jcbbEstimativaRelocacao.setSelectedIndex(0);
+            checarCamposObrigatoriosRemanejamento();
+            habilitarCamposRemanejamento();
             
         } else {
             
+            limparCamposRemanejamento();
             liberarCamposObrigatoriosRemanejamento();
             desabilitarCamposRemanejamento();
-            jtxtNumeroRemocaoDefinitiva.setText("");
-            jtxtNumeroRemocaoProvisoria.setText("");
             
         }
         
@@ -3407,46 +3413,59 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
                 String input = jsonMgr.parseJson(nucleo);
                 
-                java.lang.Object output = cadhab.conn.ConnectionManager.connect("/nucleo/nome?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                java.lang.Object output = cadhab.conn.ConnectionManager.connect2("/nucleo/nome?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
                 
-                if (output == null) {
+                if (output != null) {
                     
-                    java.lang.Object[] options = {"Sim", "Não"};
-                    java.lang.Object opcao = javax.swing.JOptionPane.showOptionDialog(this, "Deseja realmente inserir o novo núcleo no sistema?", "CadHab",
-                            javax.swing.JOptionPane.DEFAULT_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null,
-                            options, options[1]);
-
-                    if (opcao.toString().equals("0")) {
+                    if (output instanceof com.sys.urbano.Nucleo) {
                         
-                        output = cadhab.conn.ConnectionManager.connect("/nucleo/completo/salvar?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                        javax.swing.JOptionPane.showMessageDialog(this, "Já existe um núcleo com este nome cadastrado no sistema!", "CadHab", 2);
                         
-                        if (output != null) {
+                    } else {
+                    
+                        java.lang.Object[] options = { "Sim", "Não" };
+                        java.lang.Object opcao = javax.swing.JOptionPane.showOptionDialog(this, "Deseja realmente inserir o novo núcleo no sistema?", "CadHab",
+                                javax.swing.JOptionPane.DEFAULT_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null,
+                                options, options[1]);
 
-                            if (output instanceof com.sys.Message) {
+                        if (opcao.toString().equals("0")) {
 
-                                com.sys.Message mensagem = (com.sys.Message) output;
-                                javax.swing.JOptionPane.showMessageDialog(this, mensagem.getMessage(), "CadHab", mensagem.getCode());
-                                limparCampos();
-                                desabilitarCampos();
-                                desabilitarBotoes();
-                                jbtnNovo.setEnabled(true);
-                                preencherTabelaPesquisa();
-                                acao = ' ';
+                            output = cadhab.conn.ConnectionManager.connect2("/nucleo/completo/salvar?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+
+                            if (output != null) {
+
+                                if (output instanceof com.sys.Message) {
+
+                                    com.sys.Message mensagem = (com.sys.Message) output;
+                                    javax.swing.JOptionPane.showMessageDialog(this, mensagem.getMessage(), "CadHab", mensagem.getCode());
+                                    
+                                    if (mensagem.getCode() == 1) {
+                                        
+                                        limparCampos();
+                                        desabilitarTodosCampos();
+                                        desabilitarBotoes();
+                                        jbtnNovo.setEnabled(true);
+                                        preencherTabelaPesquisa();
+                                        acao = ' ';
+                                    
+                                    }
+
+                                }
+
+                            } else {
+
+                                javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível fazer o cadastro do novo núcleo!", "CadHab", 0);
 
                             }
 
-                        } else {
-
-                            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível fazer o cadastro do novo núcleo!", "CadHab", 0);
-
                         }
-                        
+                    
                     }
                     
                 } else {
-                        
-                    javax.swing.JOptionPane.showMessageDialog(this, "Já existe um núcleo com este nome cadastrado no sistema!", "CadHab", 2);
-                        
+                    
+                    javax.swing.JOptionPane.showMessageDialog(this, "a");
+                    
                 }
                 
             } else {
@@ -3469,9 +3488,15 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             
             ex.printStackTrace();
             javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações para/do servidor!", "CadHab", 0);
+         
+        } catch (java.lang.NumberFormatException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Algum(ns) campo(s) numérico(s) possui(em) valor(es) inválido(s)!", "CadHab", 0);
             
         } catch (java.lang.Exception ex) {
             
+            ex.printStackTrace();
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
             
         }
@@ -3498,6 +3523,93 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     
     private com.sys.urbano.Nucleo preencherDadosNucleo() {
         
+        com.sys.urbano.App app = new com.sys.urbano.App();
+        app.setCorpoDagua(jcbbCorpoDagua.getSelectedIndex() > 0 ? jcbbCorpoDagua.getSelectedItem().toString() : "");
+        app.setBrejoCharco(jcbbBrejoCharco.getSelectedIndex() > 0 ? jcbbBrejoCharco.getSelectedItem().toString() : "");
+        app.setTopoMorro(jcbbTopoMorro.getSelectedIndex() > 0 ? jcbbTopoMorro.getSelectedItem().toString() : "");
+        app.setEncosta(jcbbEncosta.getSelectedIndex() > 0 ? jcbbEncosta.getSelectedItem().toString() : "");
+        app.setRestinga(jcbbRestinga.getSelectedIndex() > 0 ? jcbbRestinga.getSelectedItem().toString(): "");
+        app.setOutros(jcbbAppOutros.getSelectedIndex() > 0 ? jcbbAppOutros.getSelectedItem().toString() : "");
+        app.setEspecifiqueOutros(jtxtaAppOutrosEspecifique.getText());
+              
+        com.sys.urbano.AspectoAmbiental ambiental = new com.sys.urbano.AspectoAmbiental();
+        ambiental.setLatitude(com.data.NumberManager.formatRawDouble(jtxtAspAmbLatitude.getText()));
+        ambiental.setLongitude(com.data.NumberManager.formatRawDouble(jtxtAspAmbLongitude.getText()));
+        ambiental.setAreaVerde(jcbbAreaVerde.getSelectedItem().toString());
+        ambiental.setAreaAgricola(jcbbAreaAgricola.getSelectedItem().toString());
+        ambiental.setOutros(jcbbAspAmbOutros.getSelectedItem().toString());
+        ambiental.setOutrosEspecifique(jtxtAspAmbOutrosEspecifique.getText());
+        ambiental.setApp(app);
+        
+        com.sys.urbano.Remanejamento remanejamento = new com.sys.urbano.Remanejamento();
+        remanejamento.setEstimativaRelocacao(jcbbEstimativaRelocacao.getSelectedIndex() > 0 ? jcbbEstimativaRelocacao.getSelectedItem().toString() : "");
+        remanejamento.setNumeroRemocaoDefinitiva(com.data.NumberManager.formatRawInteger(jtxtNumeroRemocaoDefinitiva.getText()));
+        remanejamento.setNumeroRemocaoProvisoria(com.data.NumberManager.formatRawInteger(jtxtNumeroRemocaoProvisoria.getText()));
+                
+        com.sys.urbano.Reassentamento reassentamento = new com.sys.urbano.Reassentamento();
+        reassentamento.setEstimativaRemocao(jcbbEstimativaRemocao.getSelectedIndex() > 0 ? jcbbEstimativaRemocao.getSelectedItem().toString() : "");
+        reassentamento.setNumeroAConstruir(com.data.NumberManager.formatRawInteger(jtxtNumeroMoradiasConstruir.getText()));
+        reassentamento.setNumeroProvisorias(com.data.NumberManager.formatRawInteger(jtxtNumeroMoradiasProvisorias.getText()));
+        reassentamento.setLocalDefinitivo(jtxtLocalDefinitivo.getText());
+                
+        com.sys.urbano.Desconstrucao desconstrucao = new com.sys.urbano.Desconstrucao();
+        desconstrucao.setNumeroADemolir(com.data.NumberManager.formatRawInteger(jtxtNumeroMoradiasDemolir.getText()));
+        desconstrucao.setMotivo(jtxtaMotivoDemolicao.getText());
+        desconstrucao.setProcessos(jtxtaProcessosDemolicao.getText());
+                
+        com.sys.urbano.AcaoNucleo acaoNucleo = new com.sys.urbano.AcaoNucleo();
+        acaoNucleo.setRemanejamento(jcbbRemanejamento.getSelectedItem().toString());
+        acaoNucleo.setReassentamento(jcbbReassentamento.getSelectedItem().toString());
+        acaoNucleo.setMelhoriaHabitacional(jcbbMelhoriaHabitacional.getSelectedItem().toString());
+        acaoNucleo.setFonteMelhoria(jtxtFonteMelhoriaHabitacional.getText());
+        acaoNucleo.setAdequacaoInfraestrutura(jcbbAdequacaoInfraestrutura.getSelectedItem().toString());
+        acaoNucleo.setFonteAdequacao(jtxtFonteAdequacaoInfraestrutura.getText());
+        acaoNucleo.setDesconstrucao(jcbbDesconstrucao.getSelectedItem().toString());
+        acaoNucleo.setRecuperacaoAmbiental(jcbbRecuperacaoAmbiental.getSelectedItem().toString());
+        acaoNucleo.setPrad(jtxtPrad.getText());
+        acaoNucleo.setOutros(jcbbAcoesOutros.getSelectedItem().toString());
+        acaoNucleo.setDescricaoOutros(jtxtDescOutros.getText());
+        acaoNucleo.setObjRemanejamento(remanejamento);
+        acaoNucleo.setObjReassentamento(reassentamento);
+        acaoNucleo.setObjDesconstrucao(desconstrucao);
+        
+        com.sys.urbano.SituacaoFundiaria fundiaria = new com.sys.urbano.SituacaoFundiaria();
+        fundiaria.setPropriedade(jcbbPropriedade.getSelectedItem().toString());
+        fundiaria.setProprietario(jtxtProprietario.getText());
+        fundiaria.setObsPropriedade(jtxtaObsPropriedade.getText());
+        fundiaria.setDecretoAprovacao(jtxtDecretoAprovacao.getText());
+        fundiaria.setRegistrado(jcbbDecretoRegistrado.getSelectedItem().toString());
+        fundiaria.setNumeroMatricula(jtxtNumeroMatricula.getText());
+        fundiaria.setDestinacaoAreas(com.data.NumberManager.formatRawDouble(jtxtDestinacaoAreas.getText()));
+        fundiaria.setDescDestinacaoAreas(jtxtaDescDestinacaoAreas.getText());
+        fundiaria.setDescEcologicoEconomico(jtxtaDescEcologicoEconomico.getText());
+        fundiaria.setDescZonasSolo(jtxtaDescZonasSolo.getText());
+        fundiaria.setProcessosJudiciais(jcbbProcessosJudiciais.getSelectedItem().toString());
+        fundiaria.setNumeroProcesso(jtxtNumeroProcesso.getText());
+        fundiaria.setNumeroOrdem(jtxtNumeroOrdem.getText());
+        fundiaria.setVara(jtxtVara.getText());
+        fundiaria.setExistenciaEmbargos(jcbbExistenciaEmbargos.getSelectedItem().toString());
+        fundiaria.setObsJudiciais(jtxtaObsJudiciais.getText());
+        
+        com.sys.urbano.ProgramaHabitacional programa = new com.sys.urbano.ProgramaHabitacional();
+        programa.setMaterialConstrucao(jcbbMaterialConstrucao.getSelectedItem().toString());
+        programa.setProducaoMoradias(jcbbProducaoMoradias.getSelectedItem().toString());
+        programa.setAssistenciaTecnica(jcbbAssistenciaTecnica.getSelectedItem().toString());
+        programa.setUrbAssentamentosPrecarios(jcbbUrbAssentamentosPrecarios.getSelectedItem().toString());
+        programa.setComplemInfraestrutura(jcbbComplementacaoInfraestrutura.getSelectedItem().toString());
+        programa.setRegularizacaoFundiaria(jcbbRegularizacaoFundiaria.getSelectedItem().toString());
+        programa.setCdhu(jcbbCdhu.getSelectedItem().toString());
+        programa.setPmcmv(jcbbPmcmv.getSelectedItem().toString());
+                
+        com.sys.urbano.InfraestruturaUrbana infraestrutura = new com.sys.urbano.InfraestruturaUrbana();
+        infraestrutura.setAbastecimentoAgua(jcbbAbastecimentoAgua.getSelectedItem().toString());
+        infraestrutura.setColetaEsgoto(jcbbColetaEsgoto.getSelectedItem().toString());
+        infraestrutura.setEnergiaEletrica(jcbbEnergiaEletrica.getSelectedItem().toString());
+        infraestrutura.setIluminacaoPublica(jcbbIluminacaoPublica.getSelectedItem().toString());
+        infraestrutura.setServicosLimpeza(jcbbServicosLimpeza.getSelectedItem().toString());
+        infraestrutura.setAguasPluviaisSuperficial(jcbbAguasPluviaisSuperficial.getSelectedItem().toString());
+        infraestrutura.setAguasPluviaisRede(jcbbAguasPluviaisRede.getSelectedItem().toString());
+                
         com.sys.urbano.Nucleo nucleo = new com.sys.urbano.Nucleo();
         nucleo.setNome(jtxtNome.getText());
         nucleo.setSetorCadastral(jtxtSetorCadastral.getText());
@@ -3520,105 +3632,6 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         nucleo.setAdensamento(jcbbAdensamento.getSelectedItem().toString());
         nucleo.setAdensFonteDados(jtxtAdensamentoFonteDados.getText());
         nucleo.setObsAdensamento(jtxtaObsAdensamento.getText());
-                
-        com.sys.urbano.InfraestruturaUrbana infraestrutura = new com.sys.urbano.InfraestruturaUrbana();
-        infraestrutura.setAbastecimentoAgua(jcbbAbastecimentoAgua.getSelectedItem().toString());
-        infraestrutura.setColetaEsgoto(jcbbColetaEsgoto.getSelectedItem().toString());
-        infraestrutura.setEnergiaEletrica(jcbbEnergiaEletrica.getSelectedItem().toString());
-        infraestrutura.setIluminacaoPublica(jcbbIluminacaoPublica.getSelectedItem().toString());
-        infraestrutura.setServicosLimpeza(jcbbServicosLimpeza.getSelectedItem().toString());
-        infraestrutura.setAguasPluviaisSuperficial(jcbbAguasPluviaisSuperficial.getSelectedItem().toString());
-        infraestrutura.setAguasPluviaisRede(jcbbAguasPluviaisRede.getSelectedItem().toString());
-        infraestrutura.setNucleo(nucleo);
-                
-        com.sys.urbano.ProgramaHabitacional programa = new com.sys.urbano.ProgramaHabitacional();
-        programa.setMaterialConstrucao(jcbbMaterialConstrucao.getSelectedItem().toString());
-        programa.setProducaoMoradias(jcbbProducaoMoradias.getSelectedItem().toString());
-        programa.setAssistenciaTecnica(jcbbAssistenciaTecnica.getSelectedItem().toString());
-        programa.setUrbAssentamentosPrecarios(jcbbUrbAssentamentosPrecarios.getSelectedItem().toString());
-        programa.setComplemInfraestrutura(jcbbComplementacaoInfraestrutura.getSelectedItem().toString());
-        programa.setRegularizacaoFundiaria(jcbbRegularizacaoFundiaria.getSelectedItem().toString());
-        programa.setCdhu(jcbbCdhu.getSelectedItem().toString());
-        programa.setPmcmv(jcbbPmcmv.getSelectedItem().toString());
-        programa.setNucleo(nucleo);
-                
-        com.sys.urbano.SituacaoFundiaria fundiaria = new com.sys.urbano.SituacaoFundiaria();
-        fundiaria.setPropriedade(jcbbPropriedade.getSelectedItem().toString());
-        fundiaria.setProprietario(jtxtProprietario.getText());
-        fundiaria.setObsPropriedade(jtxtaObsPropriedade.getText());
-        fundiaria.setDecretoAprovacao(jtxtDecretoAprovacao.getText());
-        fundiaria.setRegistrado(jcbbDecretoRegistrado.getSelectedItem().toString());
-        fundiaria.setNumeroMatricula(jtxtNumeroMatricula.getText());
-        fundiaria.setDestinacaoAreas(com.data.NumberManager.formatRawDouble(jtxtDestinacaoAreas.getText()));
-        fundiaria.setDescDestinacaoAreas(jtxtaDescDestinacaoAreas.getText());
-        fundiaria.setDescEcologicoEconomico(jtxtaDescEcologicoEconomico.getText());
-        fundiaria.setDescZonasSolo(jtxtaDescZonasSolo.getText());
-        fundiaria.setProcessosJudiciais(jcbbProcessosJudiciais.getSelectedItem().toString());
-        fundiaria.setNumeroProcesso(jtxtNumeroProcesso.getText());
-        fundiaria.setNumeroOrdem(jtxtNumeroOrdem.getText());
-        fundiaria.setVara(jtxtVara.getText());
-        fundiaria.setExistenciaEmbargos(jcbbExistenciaEmbargos.getSelectedItem().toString());
-        fundiaria.setObsJudiciais(jtxtaObsJudiciais.getText());
-        fundiaria.setNucleo(nucleo);
-                
-        com.sys.urbano.AcaoNucleo acaoNucleo = new com.sys.urbano.AcaoNucleo();
-        acaoNucleo.setRemanejamento(jcbbRemanejamento.getSelectedItem().toString());
-        acaoNucleo.setReassentamento(jcbbReassentamento.getSelectedItem().toString());
-        acaoNucleo.setMelhoriaHabitacional(jcbbMelhoriaHabitacional.getSelectedItem().toString());
-        acaoNucleo.setFonteMelhoria(jtxtFonteMelhoriaHabitacional.getText());
-        acaoNucleo.setAdequacaoInfraestrutura(jcbbAdequacaoInfraestrutura.getSelectedItem().toString());
-        acaoNucleo.setFonteAdequacao(jtxtFonteAdequacaoInfraestrutura.getText());
-        acaoNucleo.setDesconstrucao(jcbbDesconstrucao.getSelectedItem().toString());
-        acaoNucleo.setRecuperacaoAmbiental(jcbbRecuperacaoAmbiental.getSelectedItem().toString());
-        acaoNucleo.setPrad(jtxtPrad.getText());
-        acaoNucleo.setOutros(jcbbAcoesOutros.getSelectedItem().toString());
-        acaoNucleo.setDescricaoOutros(jtxtDescOutros.getText());
-        acaoNucleo.setNucleo(nucleo);
-                
-        com.sys.urbano.Remanejamento remanejamento = new com.sys.urbano.Remanejamento();
-        remanejamento.setEstimativaRelocacao(jcbbEstimativaRelocacao.getSelectedIndex() > 0 ? jcbbEstimativaRelocacao.getSelectedItem().toString() : "");
-        remanejamento.setNumeroRemocaoDefinitiva(com.data.NumberManager.formatRawInteger(jtxtNumeroRemocaoDefinitiva.getText()));
-        remanejamento.setNumeroRemocaoProvisoria(com.data.NumberManager.formatRawInteger(jtxtNumeroRemocaoProvisoria.getText()));
-        remanejamento.setAcao(acaoNucleo);
-                
-        com.sys.urbano.Reassentamento reassentamento = new com.sys.urbano.Reassentamento();
-        reassentamento.setEstimativaRemocao(jcbbEstimativaRemocao.getSelectedIndex() > 0 ? jcbbEstimativaRemocao.getSelectedItem().toString() : "");
-        reassentamento.setNumeroAConstruir(com.data.NumberManager.formatRawInteger(jtxtNumeroMoradiasConstruir.getText()));
-        reassentamento.setNumeroProvisorias(com.data.NumberManager.formatRawInteger(jtxtNumeroMoradiasProvisorias.getText()));
-        reassentamento.setLocalDefinitivo(jtxtLocalDefinitivo.getText());
-        reassentamento.setAcao(acaoNucleo);
-                
-        com.sys.urbano.Desconstrucao desconstrucao = new com.sys.urbano.Desconstrucao();
-        desconstrucao.setNumeroADemolir(com.data.NumberManager.formatRawInteger(jtxtNumeroMoradiasDemolir.getText()));
-        desconstrucao.setMotivo(jtxtaMotivoDemolicao.getText());
-        desconstrucao.setProcessos(jtxtaProcessosDemolicao.getText());
-        desconstrucao.setAcao(acaoNucleo);
-                
-        acaoNucleo.setObjRemanejamento(remanejamento);
-        acaoNucleo.setObjReassentamento(reassentamento);
-        acaoNucleo.setObjDesconstrucao(desconstrucao);
-                
-        com.sys.urbano.AspectoAmbiental ambiental = new com.sys.urbano.AspectoAmbiental();
-        ambiental.setLatitude(com.data.NumberManager.formatRawDouble(jtxtAspAmbLatitude.getText()));
-        ambiental.setLongitude(com.data.NumberManager.formatRawDouble(jtxtAspAmbLongitude.getText()));
-        ambiental.setAreaVerde(jcbbAreaVerde.getSelectedItem().toString());
-        ambiental.setAreaAgricola(jcbbAreaAgricola.getSelectedItem().toString());
-        ambiental.setOutros(jcbbAspAmbOutros.getSelectedItem().toString());
-        ambiental.setOutrosEspecifique(jtxtAspAmbOutrosEspecifique.getText());
-        ambiental.setNucleo(nucleo);
-                
-        com.sys.urbano.App app = new com.sys.urbano.App();
-        app.setCorpoDagua(jcbbCorpoDagua.getSelectedIndex() > 0 ? jcbbCorpoDagua.getSelectedItem().toString() : "");
-        app.setBrejoCharco(jcbbBrejoCharco.getSelectedIndex() > 0 ? jcbbBrejoCharco.getSelectedItem().toString() : "");
-        app.setTopoMorro(jcbbTopoMorro.getSelectedIndex() > 0 ? jcbbTopoMorro.getSelectedItem().toString() : "");
-        app.setEncosta(jcbbEncosta.getSelectedIndex() > 0 ? jcbbEncosta.getSelectedItem().toString() : "");
-        app.setRestinga(jcbbRestinga.getSelectedIndex() > 0 ? jcbbRestinga.getSelectedItem().toString(): "");
-        app.setOutros(jcbbAppOutros.getSelectedIndex() > 0 ? jcbbAppOutros.getSelectedItem().toString() : "");
-        app.setEspecifiqueOutros(jtxtaAppOutrosEspecifique.getText());
-        app.setAspecto(ambiental);
-                
-        ambiental.setApp(app);
-                
         nucleo.setInfraestruturaUrbana(infraestrutura);
         nucleo.setProgramaHabitacional(programa);
         nucleo.setSituacaoFundiaria(fundiaria);
@@ -4099,16 +4112,16 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     
     private void limparCamposRemanejamento() {
         
-        jtxtNumeroRemocaoDefinitiva.setText("");
-        jtxtNumeroRemocaoProvisoria.setText("");
+        jtxtNumeroRemocaoDefinitiva.setText("0");
+        jtxtNumeroRemocaoProvisoria.setText("0");
         jcbbEstimativaRelocacao.setSelectedIndex(0);
         
     }
     
     private void limparCamposReassentamento() {
         
-        jtxtNumeroMoradiasConstruir.setText("");
-        jtxtNumeroMoradiasProvisorias.setText("");
+        jtxtNumeroMoradiasConstruir.setText("0");
+        jtxtNumeroMoradiasProvisorias.setText("0");
         jtxtLocalDefinitivo.setText("");
         jcbbEstimativaRemocao.setSelectedIndex(0);
         
@@ -4116,7 +4129,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     
     private void limparCamposDesconstrucao() {
         
-        jtxtNumeroMoradiasDemolir.setText("");
+        jtxtNumeroMoradiasDemolir.setText("0");
         jtxtaMotivoDemolicao.setText("");
         jtxtaProcessosDemolicao.setText("");
         

@@ -42,7 +42,7 @@ public class JsonSelecionarAcaoNucleoPorNucleo extends javax.servlet.http.HttpSe
                 if (acao.getId() > 0) {
                     
                     pgsql.sys.urbano.AcaoNucleoDAO acaoDAO = new pgsql.sys.urbano.AcaoNucleoDAO();
-                    acao = acaoDAO.selecionarAcaoNucleoPorIDNucleo(acao.getNucleo());
+                    acao = acaoDAO.selecionarAcaoNucleoPorIDNucleo(acao.getIdNucleo());
                     out.print(jsonMgr.parseJson(acao));
                     
                 } else {

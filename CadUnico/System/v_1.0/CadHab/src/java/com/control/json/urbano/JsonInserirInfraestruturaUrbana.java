@@ -41,7 +41,7 @@ public class JsonInserirInfraestruturaUrbana extends javax.servlet.http.HttpServ
 
                 if (! infraestrutura.getAbastecimentoAgua().isEmpty() && ! infraestrutura.getColetaEsgoto().isEmpty() && ! infraestrutura.getServicosLimpeza().isEmpty() 
                         && ! infraestrutura.getEnergiaEletrica().isEmpty() && ! infraestrutura.getIluminacaoPublica().isEmpty() && ! infraestrutura.getAguasPluviaisSuperficial().isEmpty() 
-                        && ! infraestrutura.getAguasPluviaisRede().isEmpty() && infraestrutura.getNucleo().getId() > 0) {
+                        && ! infraestrutura.getAguasPluviaisRede().isEmpty() && infraestrutura.getIdNucleo() > 0) {
 
                     pgsql.sys.urbano.InfraestruturaUrbanaDAO infraDAO = new pgsql.sys.urbano.InfraestruturaUrbanaDAO();
 

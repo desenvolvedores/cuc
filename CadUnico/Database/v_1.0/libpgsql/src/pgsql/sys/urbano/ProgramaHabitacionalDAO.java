@@ -23,7 +23,7 @@ public class ProgramaHabitacionalDAO {
         java.lang.String sql = "{ ? = CALL fn_inserir_programa_habitacional(?, ?, ?, ?, ?, ?, ?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, programa.getNucleo().getId());
+        stmt.setLong(2, programa.getIdNucleo());
         stmt.setString(3, txtMgr.addSlashes(programa.getMaterialConstrucao()));
         stmt.setString(4, txtMgr.addSlashes(programa.getProducaoMoradias()));
         stmt.setString(5, txtMgr.addSlashes(programa.getAssistenciaTecnica()));
@@ -49,12 +49,12 @@ public class ProgramaHabitacionalDAO {
         
     }
     
-    public com.sys.urbano.ProgramaHabitacional selecionarProgramaHabitacionalPorIDNucleo(com.sys.urbano.Nucleo nucleo) 
+    public com.sys.urbano.ProgramaHabitacional selecionarProgramaHabitacionalPorIDNucleo(long idNucleo) 
             throws java.lang.ClassNotFoundException, java.sql.SQLException {
         
         java.lang.String sql = "SELECT * FROM fn_selecionar_programa_habitacional_por_id_nucleo(?)";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
-        stmt.setLong(1, nucleo.getId());
+        stmt.setLong(1, idNucleo);
         java.sql.ResultSet rs = stmt.executeQuery();
         
         return selecionar(rs);
@@ -69,7 +69,7 @@ public class ProgramaHabitacionalDAO {
         java.lang.String sql = "{ ? = CALL fn_alterar_programa_habitacional(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, programa.getNucleo().getId());
+        stmt.setLong(2, programa.getIdNucleo());
         stmt.setString(3, txtMgr.addSlashes(programa.getMaterialConstrucao()));
         stmt.setString(4, txtMgr.addSlashes(programa.getProducaoMoradias()));
         stmt.setString(5, txtMgr.addSlashes(programa.getAssistenciaTecnica()));
@@ -99,12 +99,10 @@ public class ProgramaHabitacionalDAO {
     private com.sys.urbano.ProgramaHabitacional selecionar(java.sql.ResultSet rs) 
             throws java.sql.SQLException {
         
-        if (rs.next()) {
-            com.sys.urbano.Nucleo nucleo = new com.sys.urbano.Nucleo();
-            nucleo.setId(rs.getLong("id_nucleo"));
-            
-            com.sys.urbano.ProgramaHabitacional programa = new com.sys.urbano.ProgramaHabitacional(nucleo);
+        if (rs.next()) {            
+            com.sys.urbano.ProgramaHabitacional programa = new com.sys.urbano.ProgramaHabitacional();
             programa.setId(rs.getLong("id"));
+            programa.setIdNucleo(rs.getLong("id_nucleo"));
             programa.setMaterialConstrucao(rs.getString("material_construcao"));
             programa.setProducaoMoradias(rs.getString("producao_moradias"));
             programa.setAssistenciaTecnica(rs.getString("assistencia_tecnica"));

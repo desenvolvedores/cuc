@@ -23,7 +23,7 @@ public class DesconstrucaoDAO {
         java.lang.String sql = "{ ? = CALL fn_inserir_desconstrucao(?, ?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, desconstrucao.getAcao().getId());
+        stmt.setLong(2, desconstrucao.getIdAcao());
         stmt.setInt(3, desconstrucao.getNumeroADemolir());
         stmt.setString(4, txtMgr.addSlashes(desconstrucao.getMotivo()));
         stmt.setString(5, txtMgr.addSlashes(desconstrucao.getProcessos()));
@@ -44,12 +44,12 @@ public class DesconstrucaoDAO {
         
     }
     
-    public com.sys.urbano.Desconstrucao selecionarDesconstrucaoPorIDAcao(com.sys.urbano.AcaoNucleo acao) 
+    public com.sys.urbano.Desconstrucao selecionarDesconstrucaoPorIDAcao(long idAcao) 
             throws java.lang.ClassNotFoundException, java.sql.SQLException {
         
         java.lang.String sql = "SELECT * FROM fn_selecionar_desconstrucao_por_id_acao(?)";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
-        stmt.setLong(1, acao.getId());
+        stmt.setLong(1, idAcao);
         java.sql.ResultSet rs = stmt.executeQuery();
         
         return selecionar(rs);
@@ -64,7 +64,7 @@ public class DesconstrucaoDAO {
         java.lang.String sql = "{ ? = CALL fn_alterar_desconstrucao(?, ?, ?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, desconstrucao.getAcao().getId());
+        stmt.setLong(2, desconstrucao.getIdAcao());
         stmt.setInt(3, desconstrucao.getNumeroADemolir());
         stmt.setString(4, txtMgr.addSlashes(desconstrucao.getMotivo()));
         stmt.setString(5, txtMgr.addSlashes(desconstrucao.getProcessos()));
@@ -89,12 +89,10 @@ public class DesconstrucaoDAO {
     private com.sys.urbano.Desconstrucao selecionar(java.sql.ResultSet rs) 
             throws java.sql.SQLException {
         
-        if (rs.next()) {
-            com.sys.urbano.AcaoNucleo acao = new com.sys.urbano.AcaoNucleo();
-            acao.setId(rs.getLong("id_acao"));
-            
-            com.sys.urbano.Desconstrucao desconstrucao = new com.sys.urbano.Desconstrucao(acao);
+        if (rs.next()) {            
+            com.sys.urbano.Desconstrucao desconstrucao = new com.sys.urbano.Desconstrucao();
             desconstrucao.setId(rs.getLong("id"));
+            desconstrucao.setIdAcao(rs.getLong("id_acao"));
             desconstrucao.setNumeroADemolir(rs.getInt("num_a_demolir"));
             desconstrucao.setMotivo(rs.getString("motivo"));
             desconstrucao.setProcessos(rs.getString("processos"));

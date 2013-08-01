@@ -14,40 +14,38 @@ package com.sys.urbano;
 public class ViaPublica {
     
     private String type;
+    private long idNucleo;
     private String descricao;
     private RecursoMobilidade mobilidade;
-    private Nucleo nucleo;
     
     public ViaPublica() {
+        
         this.type = "viapublica";
+        this.idNucleo = 0l;
         this.descricao = "";
         this.mobilidade = null;
-        this.nucleo = null;
-    }
-    
-    public ViaPublica(Nucleo nucleo) {
-        this.type = "viapublica";
-        this.descricao = "";
-        this.mobilidade = null;
-        this.nucleo = nucleo;
+        
     }
     
     public ViaPublica(RecursoMobilidade mobilidade) {
+        
         this.type = "viapublica";
+        this.idNucleo = 0l;
         this.descricao = "";
         this.mobilidade = mobilidade;
-        this.nucleo = null;
-    }
-    
-    public ViaPublica(Nucleo nucleo, RecursoMobilidade mobilidade) {
-        this.type = "viapublica";
-        this.descricao = "";
-        this.mobilidade = mobilidade;
-        this.nucleo = nucleo;
+        
     }
     
     public String getType() {
         return type;
+    }
+    
+    public long getIdNucleo() {
+        return idNucleo;
+    }
+
+    public void setIdNucleo(long idNucleo) {
+        this.idNucleo = idNucleo;
     }
 
     public String getDescricao() {
@@ -64,14 +62,6 @@ public class ViaPublica {
 
     public void setMobilidade(RecursoMobilidade mobilidade) {
         this.mobilidade = mobilidade;
-    }
-
-    public Nucleo getNucleo() {
-        return nucleo;
-    }
-
-    public void setNucleo(Nucleo nucleo) {
-        this.nucleo = nucleo;
     }
     
 }

@@ -15,27 +15,20 @@ public class Desconstrucao {
     
     private String type;
     private long id;
+    private long idAcao;
     private int numeroADemolir;
     private String motivo;
     private String processos;
-    private com.sys.urbano.AcaoNucleo acao;
     
     public Desconstrucao() {
+        
         this.type = "desconstrucao";
         this.id = 0l;
+        this.idAcao = 0l;
         this.numeroADemolir = 0;
         this.motivo = "";
         this.processos = "";
-        this.acao = null;
-    }
-    
-    public Desconstrucao(com.sys.urbano.AcaoNucleo acao) {
-        this.type = "desconstrucao";
-        this.id = 0l;
-        this.numeroADemolir = 0;
-        this.motivo = "";
-        this.processos = "";
-        this.acao = acao;
+        
     }
     
     public String getType() {
@@ -48,6 +41,14 @@ public class Desconstrucao {
 
     public void setId(long id) {
         this.id = id;
+    }
+    
+    public long getIdAcao() {
+        return idAcao;
+    }
+
+    public void setIdAcao(long idAcao) {
+        this.idAcao = idAcao;
     }
 
     public int getNumeroADemolir() {
@@ -72,20 +73,6 @@ public class Desconstrucao {
 
     public void setProcessos(String processos) {
         this.processos = processos;
-    }
-
-    /**
-     * @return the acao
-     */
-    public com.sys.urbano.AcaoNucleo getAcao() {
-        return acao;
-    }
-
-    /**
-     * @param acao the acao to set
-     */
-    public void setAcao(com.sys.urbano.AcaoNucleo acao) {
-        this.acao = acao;
     }
     
 }

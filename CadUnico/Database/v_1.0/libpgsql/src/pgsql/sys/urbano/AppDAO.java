@@ -23,7 +23,7 @@ public class AppDAO {
         java.lang.String sql = "{ ? = CALL fn_inserir_app(?, ?, ?, ?, ?, ?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, app.getAspecto().getId());
+        stmt.setLong(2, app.getIdAmbiental());
         stmt.setString(3, txtMgr.addSlashes(app.getCorpoDagua()));
         stmt.setString(4, txtMgr.addSlashes(app.getBrejoCharco()));
         stmt.setString(5, txtMgr.addSlashes(app.getTopoMorro()));
@@ -48,12 +48,12 @@ public class AppDAO {
         
     }
     
-    public com.sys.urbano.App selecionarAppPorIDAspectoAmbiental(com.sys.urbano.AspectoAmbiental aspecto) 
+    public com.sys.urbano.App selecionarAppPorIDAspectoAmbiental(long idAmbiental) 
             throws java.lang.ClassNotFoundException, java.sql.SQLException {
         
         java.lang.String sql = "SELECT * FROM fn_selecionar_app_por_id_aspecto_ambiental(?)";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
-        stmt.setLong(1, aspecto.getId());
+        stmt.setLong(1, idAmbiental);
         java.sql.ResultSet rs = stmt.executeQuery();
         
         return selecionar(rs);
@@ -68,7 +68,7 @@ public class AppDAO {
         java.lang.String sql = "{ ? = CALL fn_alterar_app(?, ?, ?, ?, ?, ?, ?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, app.getAspecto().getId());
+        stmt.setLong(2, app.getIdAmbiental());
         stmt.setString(3, txtMgr.addSlashes(app.getCorpoDagua()));
         stmt.setString(4, txtMgr.addSlashes(app.getBrejoCharco()));
         stmt.setString(5, txtMgr.addSlashes(app.getTopoMorro()));
@@ -97,12 +97,10 @@ public class AppDAO {
     private com.sys.urbano.App selecionar(java.sql.ResultSet rs) 
             throws java.sql.SQLException {
         
-        if (rs.next()) {
-            com.sys.urbano.AspectoAmbiental aspecto = new com.sys.urbano.AspectoAmbiental();
-            aspecto.setId(rs.getLong("id_aspecto_ambiental"));
-            
-            com.sys.urbano.App app = new com.sys.urbano.App(aspecto);
+        if (rs.next()) {            
+            com.sys.urbano.App app = new com.sys.urbano.App();
             app.setId(rs.getLong("id"));
+            app.setIdAmbiental(rs.getLong("id_aspecto_ambiental"));
             app.setCorpoDagua(rs.getString("corpo_dagua"));
             app.setBrejoCharco(rs.getString("brejo_charco"));
             app.setTopoMorro(rs.getString("topo_morro"));

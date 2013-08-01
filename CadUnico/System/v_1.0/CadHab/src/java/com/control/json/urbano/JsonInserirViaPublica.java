@@ -39,7 +39,7 @@ public class JsonInserirViaPublica extends javax.servlet.http.HttpServlet {
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
                 com.sys.urbano.ViaPublica via = jsonMgr.parseViaPublica(json);
 
-                if (via.getMobilidade().getId() > 0 && via.getNucleo().getId() > 0 && ! via.getDescricao().isEmpty()) {
+                if (via.getMobilidade().getId() > 0 && via.getIdNucleo() > 0 && ! via.getDescricao().isEmpty()) {
 
                     pgsql.sys.urbano.ViaPublicaDAO viaDAO = new pgsql.sys.urbano.ViaPublicaDAO();
 

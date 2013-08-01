@@ -41,9 +41,9 @@ public class Nucleo {
     private com.sys.urbano.AcaoNucleo acaoNucleo;
     private com.sys.urbano.AspectoAmbiental aspectoAmbiental;
     private com.sys.urbano.ProgramaHabitacional programaHabitacional;
-    private java.util.List<com.sys.habitacional.Imovel> imoveis;
     
     public Nucleo() {
+        
         this.type = "nucleo";
         this.id = 0l;
         this.nome = "";
@@ -72,39 +72,7 @@ public class Nucleo {
         this.acaoNucleo = null;
         this.aspectoAmbiental = null;
         this.programaHabitacional = null;
-        this.imoveis = null;
-    }
-    
-    public Nucleo(java.util.List<com.sys.habitacional.Imovel> imoveis) {
-        this.type = "nucleo";
-        this.id = 0l;
-        this.nome = "";
-        this.origem = "";
-        this.ocupacao = "";
-        this.areaTotal = 0.00d;
-        this.areaOcupada = 0.00d;
-        this.numeroDomicilios = 0;
-        this.populacaoEstimada = 0;
-        this.popFonteDados = "";
-        this.popOutrasFontesDados = "";
-        this.rendaPopulacao = "";
-        this.inicioOcupacao = "";
-        this.setorCadastral = "";
-        this.zona = "";
-        this.controleOcupacao = "";
-        this.obsControleOcupacao = "";
-        this.padraoConstrutivo = "";
-        this.transportePublico = "";
-        this.adensamento = "";
-        this.adensFonteDados = "";
-        this.obsAdensamento = "";
-        this.usoIncompativel = "";
-        this.infraestruturaUrbana = null;
-        this.situacaoFundiaria = null;
-        this.acaoNucleo = null;
-        this.aspectoAmbiental = null;
-        this.programaHabitacional = null;
-        this.imoveis = imoveis;
+        
     }
     
     public String getType() {
@@ -325,14 +293,6 @@ public class Nucleo {
 
     public void setProgramaHabitacional(com.sys.urbano.ProgramaHabitacional programaHabitacional) {
         this.programaHabitacional = programaHabitacional;
-    }
-
-    public java.util.List<com.sys.habitacional.Imovel> getImoveis() {
-        return imoveis;
-    }
-
-    public void setImoveis(java.util.List<com.sys.habitacional.Imovel> imoveis) {
-        this.imoveis = imoveis;
     }
     
 }

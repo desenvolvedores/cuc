@@ -15,30 +15,22 @@ public class Reassentamento {
     
     private String type;
     private long id;
+    private long idAcao;
     private String estimativaRemocao;
     private int numeroAConstruir;
     private int numeroProvisorias;
     private String localDefinitivo;
-    private com.sys.urbano.AcaoNucleo acao;
     
     public Reassentamento() {
+        
         this.type = "reassentamento";
         this.id = 0l;
+        this.idAcao = 0l;
         this.estimativaRemocao = "";
         this.numeroAConstruir = 0;
         this.numeroProvisorias = 0;
         this.localDefinitivo = "";
-        this.acao = null;
-    }
-    
-    public Reassentamento(com.sys.urbano.AcaoNucleo acao) {
-        this.type = "reassentamento";
-        this.id = 0l;
-        this.estimativaRemocao = "";
-        this.numeroAConstruir = 0;
-        this.numeroProvisorias = 0;
-        this.localDefinitivo = "";
-        this.acao = acao;
+        
     }
     
     public String getType() {
@@ -51,6 +43,14 @@ public class Reassentamento {
 
     public void setId(long id) {
         this.id = id;
+    }
+    
+    public long getIdAcao() {
+        return idAcao;
+    }
+
+    public void setIdAcao(long idAcao) {
+        this.idAcao = idAcao;
     }
 
     public String getEstimativaRemocao() {
@@ -83,20 +83,6 @@ public class Reassentamento {
 
     public void setLocalDefinitivo(String localDefinitivo) {
         this.localDefinitivo = localDefinitivo;
-    }
-
-    /**
-     * @return the acao
-     */
-    public com.sys.urbano.AcaoNucleo getAcao() {
-        return acao;
-    }
-
-    /**
-     * @param acao the acao to set
-     */
-    public void setAcao(com.sys.urbano.AcaoNucleo acao) {
-        this.acao = acao;
     }
     
 }

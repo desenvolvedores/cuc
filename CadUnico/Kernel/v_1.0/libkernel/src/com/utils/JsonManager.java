@@ -1174,7 +1174,7 @@ public class JsonManager {
             com.fasterxml.jackson.databind.JsonMappingException, 
             java.io.IOException {
         
-        com.data.TextManager txtMgr = new com.data.TextManager();
+        com.data.TextManager txtMgr = new com.data.TextManager(); 
         com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
         return mapper.readValue(txtMgr.removeSpecialCharacters(json), com.sys.urbano.Nucleo.class);
         

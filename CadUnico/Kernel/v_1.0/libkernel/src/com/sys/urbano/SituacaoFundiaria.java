@@ -15,6 +15,7 @@ public class SituacaoFundiaria {
     
     private String type;
     private long id;
+    private long idNucleo;
     private String propriedade;
     private String proprietario;
     private String obsPropriedade;
@@ -31,11 +32,12 @@ public class SituacaoFundiaria {
     private String vara;
     private String existenciaEmbargos;
     private String obsJudiciais;
-    private Nucleo nucleo;
     
     public SituacaoFundiaria() {
+        
         this.type = "situacaofundiaria";
         this.id = 0l;
+        this.idNucleo = 0l;
         this.propriedade = "";
         this.proprietario = "";
         this.obsPropriedade = "";
@@ -52,29 +54,7 @@ public class SituacaoFundiaria {
         this.vara = "";
         this.existenciaEmbargos = "";
         this.obsJudiciais = "";
-        this.nucleo = null;
-    }
-    
-    public SituacaoFundiaria(Nucleo nucleo) {
-        this.type = "situacaofundiaria";
-        this.id = 0l;
-        this.propriedade = "";
-        this.proprietario = "";
-        this.obsPropriedade = "";
-        this.decretoAprovacao = "";
-        this.registrado = "";
-        this.numeroMatricula = "";
-        this.destinacaoAreas = 0.00d;
-        this.descDestinacaoAreas = "";
-        this.descZonasSolo = "";
-        this.descEcologicoEconomico = "";
-        this.processosJudiciais = "";
-        this.numeroProcesso = "";
-        this.numeroOrdem = "";
-        this.vara = "";
-        this.existenciaEmbargos = "";
-        this.obsJudiciais = "";
-        this.nucleo = nucleo;
+        
     }
     
     public String getType() {
@@ -87,6 +67,14 @@ public class SituacaoFundiaria {
 
     public void setId(long id) {
         this.id = id;
+    }
+    
+    public long getIdNucleo() {
+        return idNucleo;
+    }
+
+    public void setIdNucleo(long idNucleo) {
+        this.idNucleo = idNucleo;
     }
 
     public String getPropriedade() {
@@ -215,14 +203,6 @@ public class SituacaoFundiaria {
 
     public void setObsJudiciais(String obsJudiciais) {
         this.obsJudiciais = obsJudiciais;
-    }
-
-    public Nucleo getNucleo() {
-        return nucleo;
-    }
-
-    public void setNucleo(Nucleo nucleo) {
-        this.nucleo = nucleo;
     }
     
 }

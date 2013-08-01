@@ -23,7 +23,7 @@ public class RemanejamentoDAO {
         java.lang.String sql = "{ ? = CALL fn_inserir_remanejamento(?, ?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, remanejamento.getAcao().getId());
+        stmt.setLong(2, remanejamento.getIdAcao());
         stmt.setString(3, txtMgr.addSlashes(remanejamento.getEstimativaRelocacao()));
         stmt.setInt(4, remanejamento.getNumeroRemocaoDefinitiva());
         stmt.setInt(5, remanejamento.getNumeroRemocaoProvisoria());
@@ -44,12 +44,12 @@ public class RemanejamentoDAO {
         
     }
     
-    public com.sys.urbano.Remanejamento selecionarRemanejamentoPorIDAcao(com.sys.urbano.AcaoNucleo acao) 
+    public com.sys.urbano.Remanejamento selecionarRemanejamentoPorIDAcao(long idAcao) 
             throws java.lang.ClassNotFoundException, java.sql.SQLException {
         
         java.lang.String sql = "SELECT * FROM fn_selecionar_remanejamento_por_id_acao(?)";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
-        stmt.setLong(1, acao.getId());
+        stmt.setLong(1, idAcao);
         java.sql.ResultSet rs = stmt.executeQuery();
         
         return selecionar(rs);
@@ -64,7 +64,7 @@ public class RemanejamentoDAO {
         java.lang.String sql = "{ ? = CALL fn_alterar_remanejamento(?, ?, ?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, remanejamento.getAcao().getId());
+        stmt.setLong(2, remanejamento.getIdAcao());
         stmt.setString(3, txtMgr.addSlashes(remanejamento.getEstimativaRelocacao()));
         stmt.setInt(4, remanejamento.getNumeroRemocaoDefinitiva());
         stmt.setInt(5, remanejamento.getNumeroRemocaoProvisoria());
@@ -89,12 +89,10 @@ public class RemanejamentoDAO {
     private com.sys.urbano.Remanejamento selecionar(java.sql.ResultSet rs) 
             throws java.sql.SQLException {
         
-        if (rs.next()) {
-            com.sys.urbano.AcaoNucleo acao = new com.sys.urbano.AcaoNucleo();
-            acao.setId(rs.getLong("id_acao"));
-            
-            com.sys.urbano.Remanejamento remanejamento = new com.sys.urbano.Remanejamento(acao);
+        if (rs.next()) {            
+            com.sys.urbano.Remanejamento remanejamento = new com.sys.urbano.Remanejamento();
             remanejamento.setId(rs.getLong("id"));
+            remanejamento.setIdAcao(rs.getLong("id_acao"));
             remanejamento.setEstimativaRelocacao(rs.getString("estimativa_relocacao"));
             remanejamento.setNumeroRemocaoDefinitiva(rs.getInt("num_remocao_definitiva"));
             remanejamento.setNumeroRemocaoProvisoria(rs.getInt("num_remocao_provisoria"));

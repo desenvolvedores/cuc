@@ -42,7 +42,7 @@ public class JsonSelecionarAppPorAspectoAmbiental extends javax.servlet.http.Htt
                 if (app.getId() > 0) {
                     
                     pgsql.sys.urbano.AppDAO appDAO = new pgsql.sys.urbano.AppDAO();
-                    app = appDAO.selecionarAppPorIDAspectoAmbiental(app.getAspecto());
+                    app = appDAO.selecionarAppPorIDAspectoAmbiental(app.getIdAmbiental());
                     out.print(jsonMgr.parseJson(app));
                     
                 } else {

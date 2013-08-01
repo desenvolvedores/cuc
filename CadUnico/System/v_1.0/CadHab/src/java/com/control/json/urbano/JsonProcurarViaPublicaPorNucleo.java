@@ -39,10 +39,10 @@ public class JsonProcurarViaPublicaPorNucleo extends javax.servlet.http.HttpServ
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
                 com.sys.urbano.ViaPublica via = jsonMgr.parseViaPublica(json);
                 
-                if (via.getNucleo().getId() > 0) {
+                if (via.getIdNucleo() > 0) {
                     
                     pgsql.sys.urbano.ViaPublicaDAO viaDAO = new pgsql.sys.urbano.ViaPublicaDAO();
-                    java.util.List<com.sys.urbano.ViaPublica> vias = viaDAO.procurarViaPublicaPorIDNucleo(via.getNucleo());
+                    java.util.List<com.sys.urbano.ViaPublica> vias = viaDAO.procurarViaPublicaPorIDNucleo(via.getIdNucleo());
                     out.print(jsonMgr.parseJsonListaViaPublica(vias));
                     
                 } else {

@@ -42,7 +42,7 @@ public class JsonSelecionarReassentamentoPorAcao extends javax.servlet.http.Http
                 if (reassentamento.getId() > 0) {
                     
                     pgsql.sys.urbano.ReassentamentoDAO reassentamentoDAO = new pgsql.sys.urbano.ReassentamentoDAO();
-                    reassentamento = reassentamentoDAO.selecionarReassentamentoPorIDAcao(reassentamento.getAcao());
+                    reassentamento = reassentamentoDAO.selecionarReassentamentoPorIDAcao(reassentamento.getIdAcao());
                     out.print(jsonMgr.parseJson(reassentamento));
                     
                 } else {

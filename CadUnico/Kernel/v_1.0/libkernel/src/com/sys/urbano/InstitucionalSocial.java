@@ -14,40 +14,38 @@ package com.sys.urbano;
 public class InstitucionalSocial {
     
     private String type;
+    private long idNucleo;
     private String nome;
     private RecursoSocial social;
-    private Nucleo nucleo;
     
     public InstitucionalSocial() {
+        
         this.type = "institucionalsocial";
+        this.idNucleo = 0l;
         this.nome = "";
         this.social = null;
-        this.nucleo = null;
-    }
-    
-    public InstitucionalSocial(Nucleo nucleo) {
-        this.type = "institucionalsocial";
-        this.nome = "";
-        this.social = null;
-        this.nucleo = nucleo;
+        
     }
     
     public InstitucionalSocial(RecursoSocial social) {
+        
         this.type = "institucionalsocial";
+        this.idNucleo = 0l;
         this.nome = "";
         this.social = social;
-        this.nucleo = null;
-    }
-    
-    public InstitucionalSocial(Nucleo nucleo, RecursoSocial social) {
-        this.type = "institucionalsocial";
-        this.nome = "";
-        this.social = social;
-        this.nucleo = nucleo;
+        
     }
     
     public String getType() {
         return type;
+    }
+    
+    public long getIdNucleo() {
+        return idNucleo;
+    }
+
+    public void setIdNucleo(long idNucleo) {
+        this.idNucleo = idNucleo;
     }
 
     public String getNome() {
@@ -64,14 +62,6 @@ public class InstitucionalSocial {
 
     public void setSocial(RecursoSocial social) {
         this.social = social;
-    }
-
-    public Nucleo getNucleo() {
-        return nucleo;
-    }
-
-    public void setNucleo(Nucleo nucleo) {
-        this.nucleo = nucleo;
     }
     
 }

@@ -39,7 +39,7 @@ public class JsonAtualizarRemanejamento extends javax.servlet.http.HttpServlet {
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
                 com.sys.urbano.Remanejamento remanejamento = jsonMgr.parseRemanejamento(json);
 
-                if (! remanejamento.getEstimativaRelocacao().isEmpty() && remanejamento.getAcao().getId() > 0 && remanejamento.getId() > 0) {
+                if (! remanejamento.getEstimativaRelocacao().isEmpty() && remanejamento.getIdAcao() > 0 && remanejamento.getId() > 0) {
 
                     pgsql.sys.urbano.RemanejamentoDAO remanejamentoDAO = new pgsql.sys.urbano.RemanejamentoDAO();
 

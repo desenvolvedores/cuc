@@ -42,7 +42,7 @@ public class JsonSelecionarSituacaoFundiariaPorNucleo extends javax.servlet.http
                 if (fundiaria.getId() > 0) {
                     
                     pgsql.sys.urbano.SituacaoFundiariaDAO fundiariaDAO = new pgsql.sys.urbano.SituacaoFundiariaDAO();
-                    fundiaria = fundiariaDAO.selecionarSituacaoFundiariaPorIDNucleo(fundiaria.getNucleo());
+                    fundiaria = fundiariaDAO.selecionarSituacaoFundiariaPorIDNucleo(fundiaria.getIdNucleo());
                     out.print(jsonMgr.parseJson(fundiaria));
                     
                 } else {

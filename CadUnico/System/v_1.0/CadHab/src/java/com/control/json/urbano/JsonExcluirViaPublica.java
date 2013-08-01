@@ -39,7 +39,7 @@ public class JsonExcluirViaPublica extends javax.servlet.http.HttpServlet {
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
                 com.sys.urbano.ViaPublica via = jsonMgr.parseViaPublica(json);
 
-                if (via.getNucleo().getId() > 0 && via.getMobilidade().getId() > 0) {
+                if (via.getIdNucleo() > 0 && via.getMobilidade().getId() > 0) {
 
                     pgsql.sys.urbano.ViaPublicaDAO viaDAO = new pgsql.sys.urbano.ViaPublicaDAO();
 

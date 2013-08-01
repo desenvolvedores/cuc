@@ -15,6 +15,7 @@ public class AspectoAmbiental {
     
     private String type;
     private long id;
+    private long idNucleo;
     private String areaRisco;
     private String areaVerde;
     private String areaAgricola;
@@ -22,12 +23,13 @@ public class AspectoAmbiental {
     private String outrosEspecifique;
     private double latitude;
     private double longitude;
-    private Nucleo nucleo;
     private App app;
     
     public AspectoAmbiental() {
+        
         this.type = "aspectoambiental";
         this.id = 0l;
+        this.idNucleo = 0l;
         this.areaRisco = "";
         this.areaVerde = "";
         this.areaAgricola = "";
@@ -35,22 +37,8 @@ public class AspectoAmbiental {
         this.outrosEspecifique = "";
         this.latitude = 0.00d;
         this.longitude = 0.00d;
-        this.nucleo = null;
         this.app = null;
-    }
-    
-    public AspectoAmbiental(Nucleo nucleo) {
-        this.type = "aspectoambiental";
-        this.id = 0l;
-        this.areaRisco = "";
-        this.areaVerde = "";
-        this.areaAgricola = "";
-        this.outros = "";
-        this.outrosEspecifique = "";
-        this.latitude = 0.00d;
-        this.longitude = 0.00d;
-        this.nucleo = nucleo;
-        this.app = null;
+        
     }
     
     public String getType() {
@@ -63,6 +51,14 @@ public class AspectoAmbiental {
 
     public void setId(long id) {
         this.id = id;
+    }
+    
+    public long getIdNucleo() {
+        return idNucleo;
+    }
+
+    public void setIdNucleo(long idNucleo) {
+        this.idNucleo = idNucleo;
     }
 
     public String getAreaRisco() {
@@ -119,14 +115,6 @@ public class AspectoAmbiental {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
-    }
-
-    public Nucleo getNucleo() {
-        return nucleo;
-    }
-
-    public void setNucleo(Nucleo nucleo) {
-        this.nucleo = nucleo;
     }
     
     public App getApp() {

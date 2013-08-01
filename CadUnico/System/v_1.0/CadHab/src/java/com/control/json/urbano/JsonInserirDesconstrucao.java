@@ -39,7 +39,7 @@ public class JsonInserirDesconstrucao extends javax.servlet.http.HttpServlet {
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
                 com.sys.urbano.Desconstrucao desconstrucao = jsonMgr.parseDesconstrucao(json);
 
-                if (! desconstrucao.getMotivo().isEmpty() && ! desconstrucao.getProcessos().isEmpty() && desconstrucao.getAcao().getId() > 0) {
+                if (! desconstrucao.getMotivo().isEmpty() && ! desconstrucao.getProcessos().isEmpty() && desconstrucao.getIdAcao() > 0) {
 
                     pgsql.sys.urbano.DesconstrucaoDAO desconstrucaoDAO = new pgsql.sys.urbano.DesconstrucaoDAO();
 
