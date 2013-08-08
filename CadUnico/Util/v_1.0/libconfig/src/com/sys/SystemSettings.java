@@ -12,6 +12,7 @@ package com.sys;
 public class SystemSettings {
     
     public static java.lang.String systemPath = "";
+    public static java.lang.String attachmentPath = "";
     public static java.lang.String systemName = "";
     public static java.lang.String url = "";
     public static java.lang.String theme = "";

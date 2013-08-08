@@ -50,10 +50,12 @@ public class JsonDesautenticarUsuario extends javax.servlet.http.HttpServlet {
         } catch (java.io.IOException ex) {
             
             ex.printStackTrace();
+            com.settings.Configuracao.releaseDatabase();
             
         } catch (java.security.NoSuchAlgorithmException ex) {
             
             ex.printStackTrace();
+            com.settings.Configuracao.releaseDatabase();
             
         } finally {            
             

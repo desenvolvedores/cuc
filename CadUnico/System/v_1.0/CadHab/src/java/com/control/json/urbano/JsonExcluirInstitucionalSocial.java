@@ -24,6 +24,7 @@ public class JsonExcluirInstitucionalSocial extends javax.servlet.http.HttpServl
     protected void processRequest(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response)
             throws javax.servlet.ServletException, java.io.IOException {
         
+        request.setCharacterEncoding("UTF-8");
         java.io.PrintWriter out = response.getWriter();
         
         try {
@@ -39,11 +40,11 @@ public class JsonExcluirInstitucionalSocial extends javax.servlet.http.HttpServl
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
                 com.sys.urbano.InstitucionalSocial institucional = jsonMgr.parseInstitucionalSocial(json);
 
-                if (institucional.getIdNucleo() > 0 && institucional.getSocial().getId() > 0) {
+                if (institucional.getId() > 0) {
 
                     pgsql.sys.urbano.InstitucionalSocialDAO institucionalDAO = new pgsql.sys.urbano.InstitucionalSocialDAO();
 
-                    if (institucionalDAO.excluirInstitucionalSocial(institucional) > 0) {
+                    if (institucionalDAO.excluirInstitucionalSocial(institucional.getId()) > 0) {
 
                         com.db.DBConnection.getInstance().getConnection().commit();
                         com.sys.Message message = new com.sys.Message();
@@ -86,6 +87,7 @@ public class JsonExcluirInstitucionalSocial extends javax.servlet.http.HttpServl
         } catch (java.io.IOException ex) {
             
             ex.printStackTrace();
+            com.settings.Configuracao.releaseDatabase();
             com.sys.Message message = new com.sys.Message();
             message.setCode(0);
             message.setMessage("O servidor não pôde obter os dados institucionais/sociais para efetuar a exclusão!");
@@ -95,15 +97,17 @@ public class JsonExcluirInstitucionalSocial extends javax.servlet.http.HttpServl
         } catch (java.lang.ClassNotFoundException ex) {
             
             ex.printStackTrace();
+            com.settings.Configuracao.releaseDatabase();
             com.sys.Message message = new com.sys.Message();
             message.setCode(0);
-            message.setMessage("Não foi possível encontrar as configurações do banco de dados do CadÚnico.<br />Contate o administrador do sistema!");
+            message.setMessage("Não foi possível encontrar as configurações do banco de dados do CadHab.<br />Contate o administrador do sistema!");
             com.data.MessageManager messMgr = new com.data.MessageManager();
             out.print(messMgr.parseJson(message));
             
         } catch (java.sql.SQLException ex) {
             
             ex.printStackTrace();
+            com.settings.Configuracao.releaseDatabase();
             com.sys.Message message = new com.sys.Message();
             message.setCode(0);
             message.setMessage("O banco de dados retornou um erro durante a exclusão dos dados institucionais/sociais.<br />Contate o administrador do sistema!");

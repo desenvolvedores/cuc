@@ -92,6 +92,8 @@ public class FormPrincipal extends javax.swing.JFrame {
         jmitFerramentaConfigurarServidor = new javax.swing.JMenuItem();
         jmenJanela = new javax.swing.JMenu();
         jmitJanelaCascata = new javax.swing.JMenuItem();
+        jsepJanelas = new javax.swing.JPopupMenu.Separator();
+        jmitJanelaFecharTodas = new javax.swing.JMenuItem();
         jmenSobre = new javax.swing.JMenu();
         jmenAjuda = new javax.swing.JMenu();
 
@@ -124,6 +126,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         jmenPrincipal.add(jmitPrincipalTrocarSenha);
         jmenPrincipal.add(jsepPrincipal);
 
+        jmitPrincipalLogoff.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
         jmitPrincipalLogoff.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jmitPrincipalLogoff.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/logoff.png"))); // NOI18N
         jmitPrincipalLogoff.setText("Logoff");
@@ -134,6 +137,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
         jmenPrincipal.add(jmitPrincipalLogoff);
 
+        jmitPrincipalSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         jmitPrincipalSair.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jmitPrincipalSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/exit.png"))); // NOI18N
         jmitPrincipalSair.setText("Sair");
@@ -153,6 +157,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         jmenGerenciamentoAcesso.setText("Acesso");
         jmenGerenciamentoAcesso.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
+        jmitAcessoGrupo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
         jmitAcessoGrupo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jmitAcessoGrupo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/group.png"))); // NOI18N
         jmitAcessoGrupo.setText("Grupo");
@@ -163,6 +168,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
         jmenGerenciamentoAcesso.add(jmitAcessoGrupo);
 
+        jmitAcessoUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_MASK));
         jmitAcessoUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jmitAcessoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/user.png"))); // NOI18N
         jmitAcessoUsuario.setText("Usuário");
@@ -179,6 +185,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         jmenGerenciamentoCadHab.setText("CadHab");
         jmenGerenciamentoCadHab.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
+        jmitCadHabEmpresa.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         jmitCadHabEmpresa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jmitCadHabEmpresa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/building.png"))); // NOI18N
         jmitCadHabEmpresa.setText("Empresa");
@@ -189,6 +196,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
         jmenGerenciamentoCadHab.add(jmitCadHabEmpresa);
 
+        jmitCadHabFamilia.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
         jmitCadHabFamilia.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jmitCadHabFamilia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/family.png"))); // NOI18N
         jmitCadHabFamilia.setText("Família");
@@ -199,6 +207,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
         jmenGerenciamentoCadHab.add(jmitCadHabFamilia);
 
+        jmitCadHabIndividuo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
         jmitCadHabIndividuo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jmitCadHabIndividuo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/subject.png"))); // NOI18N
         jmitCadHabIndividuo.setText("Indivíduo");
@@ -209,6 +218,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
         jmenGerenciamentoCadHab.add(jmitCadHabIndividuo);
 
+        jmitCadHabImovel.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         jmitCadHabImovel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jmitCadHabImovel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/house.png"))); // NOI18N
         jmitCadHabImovel.setText("Imóvel");
@@ -219,6 +229,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
         jmenGerenciamentoCadHab.add(jmitCadHabImovel);
 
+        jmitCadHabNucleo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         jmitCadHabNucleo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jmitCadHabNucleo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/centre.png"))); // NOI18N
         jmitCadHabNucleo.setText("Núcleo");
@@ -300,6 +311,17 @@ public class FormPrincipal extends javax.swing.JFrame {
             }
         });
         jmenJanela.add(jmitJanelaCascata);
+        jmenJanela.add(jsepJanelas);
+
+        jmitJanelaFecharTodas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jmitJanelaFecharTodas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/windowclose.png"))); // NOI18N
+        jmitJanelaFecharTodas.setText("Fechar Todas as Janelas");
+        jmitJanelaFecharTodas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmitJanelaFecharTodasActionPerformed(evt);
+            }
+        });
+        jmenJanela.add(jmitJanelaFecharTodas);
 
         jmbarSuperior.add(jmenJanela);
 
@@ -527,6 +549,15 @@ public class FormPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jmitPrincipalLogoffActionPerformed
 
+    private void jmitJanelaFecharTodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmitJanelaFecharTodasActionPerformed
+        
+        javax.swing.JInternalFrame[] janelas = jdktDesktop.getAllFrames();
+        
+        for (int i = 0; i < janelas.length; i++)
+            janelas[i].dispose();
+        
+    }//GEN-LAST:event_jmitJanelaFecharTodasActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jdktDesktop;
     private javax.swing.JLabel jlblStatusServidor;
@@ -550,6 +581,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmitCadHabNucleo;
     private javax.swing.JMenuItem jmitFerramentaConfigurarServidor;
     private javax.swing.JMenuItem jmitJanelaCascata;
+    private javax.swing.JMenuItem jmitJanelaFecharTodas;
     private javax.swing.JMenuItem jmitPrincipalLogoff;
     private javax.swing.JMenuItem jmitPrincipalSair;
     private javax.swing.JMenuItem jmitPrincipalTrocarSenha;
@@ -557,6 +589,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmitRecursoSecretaria;
     private javax.swing.JMenuItem jmitRecursoSocial;
     private javax.swing.JPanel jpnlBarraStatus;
+    private javax.swing.JPopupMenu.Separator jsepJanelas;
     private javax.swing.JPopupMenu.Separator jsepPrincipal;
     private javax.swing.JSeparator jsepStatusServidor;
     // End of variables declaration//GEN-END:variables

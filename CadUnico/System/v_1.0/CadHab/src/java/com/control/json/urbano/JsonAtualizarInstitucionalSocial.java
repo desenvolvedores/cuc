@@ -24,6 +24,7 @@ public class JsonAtualizarInstitucionalSocial extends javax.servlet.http.HttpSer
     protected void processRequest(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response)
             throws javax.servlet.ServletException, java.io.IOException {
         
+        request.setCharacterEncoding("UTF-8");
         java.io.PrintWriter out = response.getWriter();
         
         try {
@@ -86,6 +87,7 @@ public class JsonAtualizarInstitucionalSocial extends javax.servlet.http.HttpSer
         } catch (java.io.IOException ex) {
             
             ex.printStackTrace();
+            com.settings.Configuracao.releaseDatabase();
             com.sys.Message message = new com.sys.Message();
             message.setCode(0);
             message.setMessage("O servidor não pôde obter os dados institucionais/sociais para efetuar a atualização!");
@@ -95,15 +97,17 @@ public class JsonAtualizarInstitucionalSocial extends javax.servlet.http.HttpSer
         } catch (java.lang.ClassNotFoundException ex) {
             
             ex.printStackTrace();
+            com.settings.Configuracao.releaseDatabase();
             com.sys.Message message = new com.sys.Message();
             message.setCode(0);
-            message.setMessage("Não foi possível encontrar as configurações do banco de dados do CadÚnico.<br />Contate o administrador do sistema!");
+            message.setMessage("Não foi possível encontrar as configurações do banco de dados do CadHab.<br />Contate o administrador do sistema!");
             com.data.MessageManager messMgr = new com.data.MessageManager();
             out.print(messMgr.parseJson(message));
             
         } catch (java.sql.SQLException ex) {
             
             ex.printStackTrace();
+            com.settings.Configuracao.releaseDatabase();
             com.sys.Message message = new com.sys.Message();
             message.setCode(0);
             message.setMessage("O banco de dados retornou um erro durante a atualização dos dados institucionais/sociais.<br />Contate o administrador do sistema!");

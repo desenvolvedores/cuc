@@ -73,6 +73,19 @@ public class NucleoDAO {
         
     }
     
+    public java.util.List<com.sys.urbano.Nucleo> procurarNucleoExistentePorNome(com.sys.urbano.Nucleo nucleo) 
+            throws java.lang.ClassNotFoundException, java.sql.SQLException {
+        
+        java.lang.String sql = "SELECT * FROM fn_procurar_nucleo_existente_por_nome(?, ?)";
+        java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
+        stmt.setString(1, nucleo.getNome());
+        stmt.setLong(2, nucleo.getId());
+        java.sql.ResultSet rs = stmt.executeQuery();
+        
+        return listar(rs);
+        
+    }
+    
     public java.util.List<com.sys.urbano.Nucleo> procurarNucleoPorSetor(java.lang.String setor) 
             throws java.lang.ClassNotFoundException, java.sql.SQLException {
         

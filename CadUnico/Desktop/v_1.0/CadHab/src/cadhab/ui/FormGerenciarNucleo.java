@@ -12,6 +12,18 @@ package cadhab.ui;
 public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     
     private char acao = ' ';
+    private long idNucleoAtual = 0;
+    private long idInfraestruturaAtual = 0;
+    private long idProgramaAtual = 0;
+    private long idFundiariaAtual = 0;
+    private long idAcaoAtual = 0;
+    private long idRemanejamentoAtual = 0;
+    private long idReassentamentoAtual = 0;
+    private long idDesconstrucaoAtual = 0;
+    private long idAmbientalAtual = 0;
+    private long idAppAtual = 0;
+    private long idViaPublicaAtual = 0;
+    private long idInstitucionalAtual = 0;
 
     /**
      * Creates new form FormGerenciarNucleo
@@ -159,7 +171,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblNumeroMatricula = new javax.swing.JLabel();
         jtxtNumeroMatricula = new javax.swing.JTextField();
         jlblDestinacaoAreas = new javax.swing.JLabel();
-        jtxtDestinacaoAreas = new javax.swing.JTextField();
+        jtxtDestinacaoAreas = new com.data.NumberField();
         jlblDescDestinacaoAreas = new javax.swing.JLabel();
         jpnlTextAreaDescDestinacaoAreas = new javax.swing.JPanel();
         jscpTextAreaDescDestinacaoAreas = new javax.swing.JScrollPane();
@@ -200,24 +212,30 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jscpTabelaViasPublicas = new javax.swing.JScrollPane();
         jtblViasPublicas = new javax.swing.JTable();
         jlblRecursoMobilidadeNome = new javax.swing.JLabel();
-        jcbbRecursoMobilidadeNome = new javax.swing.JComboBox();
+        jcbbRecursoMobilidade = new javax.swing.JComboBox();
         jbtnGerenciarRecursoMobilidade = new javax.swing.JButton();
         jlblDescRecursoMobilidade = new javax.swing.JLabel();
         jpnlTextAreaDescRecursoMobilidade = new javax.swing.JPanel();
         jscpTextAreaDescRecursoMobilidade = new javax.swing.JScrollPane();
         jtxtaDescRecursoMobilidade = new javax.swing.JTextArea();
+        jbtnAdicionarViaPublica = new javax.swing.JButton();
+        jbtnEditarViaPublica = new javax.swing.JButton();
+        jbtnExcluirViaPublica = new javax.swing.JButton();
         jpnlInstitucionalSocial = new javax.swing.JPanel();
         jpnlInstitucionalSocialWrapper = new javax.swing.JPanel();
         jpnlTabelaInstitucionalSocial = new javax.swing.JPanel();
         jscpTabelaInstitucionalSocial = new javax.swing.JScrollPane();
         jtblInstitucionalSocial = new javax.swing.JTable();
         jlblRecursoSocialNome = new javax.swing.JLabel();
-        jcbbRecursoSocialNome = new javax.swing.JComboBox();
+        jcbbRecursoSocial = new javax.swing.JComboBox();
         jbtnGerenciarRecursoSocial = new javax.swing.JButton();
         jlblDescRecursoSocial = new javax.swing.JLabel();
         jpnlTextAreaDescRecursoSocial = new javax.swing.JPanel();
         jscpTextAreaDescRecursoSocial = new javax.swing.JScrollPane();
         jtxtaDescRecursoSocial = new javax.swing.JTextArea();
+        jbtnAdicionarInstitucional = new javax.swing.JButton();
+        jbtnEditarInstitucional = new javax.swing.JButton();
+        jbtnExcluirInstitucional = new javax.swing.JButton();
         jpnlAcoesNucleo = new javax.swing.JPanel();
         jpnlAcoesNucleoWrapper = new javax.swing.JPanel();
         jlblRemanejamento = new javax.swing.JLabel();
@@ -316,11 +334,38 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("CadHab - Gerenciamento de Núcleos");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/centre.png"))); // NOI18N
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+        });
 
         jtbpPrincipal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtbpPrincipal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtbpPrincipalKeyPressed(evt);
+            }
+        });
 
         jpnlPesquisa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jpnlPesquisa.setNextFocusableComponent(jtxtPesquisa);
+        jpnlPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jpnlPesquisaKeyPressed(evt);
+            }
+        });
 
         jtblPesquisa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -343,7 +388,41 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         });
         jtblPesquisa.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jtblPesquisa.setNextFocusableComponent(jpnlFormulario);
+        jtblPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtblPesquisaMouseClicked(evt);
+            }
+        });
+        jtblPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtblPesquisaKeyPressed(evt);
+            }
+        });
         jscpTabelaPesquisa.setViewportView(jtblPesquisa);
+        jtblPesquisa.getColumnModel().getColumn(0).setResizable(false);
+        jtblPesquisa.getColumnModel().getColumn(0).setMinWidth(0);
+        jtblPesquisa.getColumnModel().getColumn(0).setPreferredWidth(0);
+        jtblPesquisa.getColumnModel().getColumn(0).setMaxWidth(0);
+        jtblPesquisa.getColumnModel().getColumn(1).setMinWidth(300);
+        jtblPesquisa.getColumnModel().getColumn(1).setPreferredWidth(300);
+        jtblPesquisa.getColumnModel().getColumn(2).setMinWidth(150);
+        jtblPesquisa.getColumnModel().getColumn(2).setPreferredWidth(150);
+        jtblPesquisa.getColumnModel().getColumn(3).setMinWidth(100);
+        jtblPesquisa.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jtblPesquisa.getColumnModel().getColumn(4).setMinWidth(100);
+        jtblPesquisa.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jtblPesquisa.getColumnModel().getColumn(5).setMinWidth(150);
+        jtblPesquisa.getColumnModel().getColumn(5).setPreferredWidth(150);
+        jtblPesquisa.getColumnModel().getColumn(6).setMinWidth(150);
+        jtblPesquisa.getColumnModel().getColumn(6).setPreferredWidth(150);
+        jtblPesquisa.getColumnModel().getColumn(7).setMinWidth(150);
+        jtblPesquisa.getColumnModel().getColumn(7).setPreferredWidth(150);
+        jtblPesquisa.getColumnModel().getColumn(8).setMinWidth(150);
+        jtblPesquisa.getColumnModel().getColumn(8).setPreferredWidth(150);
+        jtblPesquisa.getColumnModel().getColumn(9).setMinWidth(100);
+        jtblPesquisa.getColumnModel().getColumn(9).setPreferredWidth(100);
+        jtblPesquisa.getColumnModel().getColumn(10).setMinWidth(200);
+        jtblPesquisa.getColumnModel().getColumn(10).setPreferredWidth(200);
 
         jpnlPesquisar.setLayout(null);
 
@@ -354,6 +433,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
 
         jtxtPesquisa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtPesquisa.setNextFocusableComponent(jcbbFiltro);
+        jtxtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtPesquisaKeyPressed(evt);
+            }
+        });
         jpnlPesquisar.add(jtxtPesquisa);
         jtxtPesquisa.setBounds(70, 10, 480, 25);
 
@@ -365,6 +449,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbFiltro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbFiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sem filtro", "Nome", "Setor cadastral", "Zona", "Origem" }));
         jcbbFiltro.setNextFocusableComponent(jbtnPesquisar);
+        jcbbFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbFiltroKeyPressed(evt);
+            }
+        });
         jpnlPesquisar.add(jcbbFiltro);
         jcbbFiltro.setBounds(640, 10, 200, 25);
 
@@ -372,6 +461,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jbtnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/search.png"))); // NOI18N
         jbtnPesquisar.setText("Pesquisar");
         jbtnPesquisar.setNextFocusableComponent(jtblPesquisa);
+        jbtnPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbtnPesquisarKeyPressed(evt);
+            }
+        });
         jpnlPesquisar.add(jbtnPesquisar);
         jbtnPesquisar.setBounds(850, 10, 120, 30);
 
@@ -409,6 +503,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         });
 
         jtbpFormulario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtbpFormulario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtbpFormularioKeyPressed(evt);
+            }
+        });
 
         jpnlDadosAssentamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jpnlDadosAssentamento.setNextFocusableComponent(jtxtNome);
@@ -435,6 +534,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jtxtNomeFocusLost(evt);
             }
         });
+        jtxtNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtNomeKeyPressed(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jtxtNome);
         jtxtNome.setBounds(140, 10, 830, 25);
 
@@ -450,6 +554,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtxtSetorCadastral.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jtxtSetorCadastralFocusLost(evt);
+            }
+        });
+        jtxtSetorCadastral.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtSetorCadastralKeyPressed(evt);
             }
         });
         jpnlDadosAssentamentoWrapper.add(jtxtSetorCadastral);
@@ -470,6 +579,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jcbbZonaFocusLost(evt);
             }
         });
+        jcbbZona.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbZonaKeyPressed(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jcbbZona);
         jcbbZona.setBounds(140, 70, 340, 25);
 
@@ -484,6 +598,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtxtAreaTotal.setText("0,000");
         jtxtAreaTotal.setNextFocusableComponent(jtxtAreaOcupada);
         jtxtAreaTotal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtAreaTotalKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtxtAreaTotalKeyReleased(evt);
             }
@@ -502,6 +619,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtxtAreaOcupada.setText("0,000");
         jtxtAreaOcupada.setNextFocusableComponent(jcbbOrigem);
         jtxtAreaOcupada.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtAreaOcupadaKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtxtAreaOcupadaKeyReleased(evt);
             }
@@ -524,6 +644,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jcbbOrigemFocusLost(evt);
             }
         });
+        jcbbOrigem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbOrigemKeyPressed(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jcbbOrigem);
         jcbbOrigem.setBounds(140, 160, 340, 25);
 
@@ -541,6 +666,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jcbbOcupacaoFocusLost(evt);
             }
         });
+        jcbbOcupacao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbOcupacaoKeyPressed(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jcbbOcupacao);
         jcbbOcupacao.setBounds(140, 190, 340, 25);
 
@@ -553,6 +683,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
 
         jtxtInicioOcupacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtInicioOcupacao.setNextFocusableComponent(jcbbControleOcupacao);
+        jtxtInicioOcupacao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtInicioOcupacaoKeyPressed(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jtxtInicioOcupacao);
         jtxtInicioOcupacao.setBounds(140, 220, 340, 25);
 
@@ -566,9 +701,19 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbControleOcupacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbControleOcupacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
         jcbbControleOcupacao.setNextFocusableComponent(jtxtaObsControleOcupacao);
+        jcbbControleOcupacao.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbbControleOcupacaoItemStateChanged(evt);
+            }
+        });
         jcbbControleOcupacao.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jcbbControleOcupacaoFocusLost(evt);
+            }
+        });
+        jcbbControleOcupacao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbControleOcupacaoKeyPressed(evt);
             }
         });
         jpnlDadosAssentamentoWrapper.add(jcbbControleOcupacao);
@@ -585,6 +730,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtxtaObsControleOcupacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtaObsControleOcupacao.setRows(5);
         jtxtaObsControleOcupacao.setNextFocusableComponent(jcbbTransporteColetivo);
+        jtxtaObsControleOcupacao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtaObsControleOcupacaoKeyPressed(evt);
+            }
+        });
         jscpTextAreaObsControleOcupacao.setViewportView(jtxtaObsControleOcupacao);
 
         javax.swing.GroupLayout jpnlTextAreaObsControleOcupacaoLayout = new javax.swing.GroupLayout(jpnlTextAreaObsControleOcupacao);
@@ -616,6 +766,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jcbbPadraoConstrutivoFocusLost(evt);
             }
         });
+        jcbbPadraoConstrutivo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbPadraoConstrutivoKeyPressed(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jcbbPadraoConstrutivo);
         jcbbPadraoConstrutivo.setBounds(620, 40, 350, 25);
 
@@ -635,6 +790,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             }
         });
         jtxtNumeroDomicilios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtNumeroDomiciliosKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtxtNumeroDomiciliosKeyReleased(evt);
             }
@@ -658,6 +816,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             }
         });
         jtxtPopulacaoEstimada.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtPopulacaoEstimadaKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtxtPopulacaoEstimadaKeyReleased(evt);
             }
@@ -685,6 +846,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jcbbPopulacaoFonteDadosFocusLost(evt);
             }
         });
+        jcbbPopulacaoFonteDados.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbPopulacaoFonteDadosKeyPressed(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jcbbPopulacaoFonteDados);
         jcbbPopulacaoFonteDados.setBounds(620, 130, 350, 25);
 
@@ -700,6 +866,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtxtPopulacaoOutrasFontesDados.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jtxtPopulacaoOutrasFontesDadosFocusLost(evt);
+            }
+        });
+        jtxtPopulacaoOutrasFontesDados.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtPopulacaoOutrasFontesDadosKeyPressed(evt);
             }
         });
         jpnlDadosAssentamentoWrapper.add(jtxtPopulacaoOutrasFontesDados);
@@ -720,6 +891,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jcbbRendaPopulacaoFocusLost(evt);
             }
         });
+        jcbbRendaPopulacao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbRendaPopulacaoKeyPressed(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jcbbRendaPopulacao);
         jcbbRendaPopulacao.setBounds(620, 190, 350, 25);
 
@@ -732,6 +908,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
 
         jtxtUsoIncompativel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtUsoIncompativel.setNextFocusableComponent(jcbbAdensamento);
+        jtxtUsoIncompativel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtUsoIncompativelKeyPressed(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jtxtUsoIncompativel);
         jtxtUsoIncompativel.setBounds(620, 220, 350, 25);
 
@@ -745,9 +926,19 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbAdensamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbAdensamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
         jcbbAdensamento.setNextFocusableComponent(jtxtAdensamentoFonteDados);
+        jcbbAdensamento.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbbAdensamentoItemStateChanged(evt);
+            }
+        });
         jcbbAdensamento.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jcbbAdensamentoFocusLost(evt);
+            }
+        });
+        jcbbAdensamento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbAdensamentoKeyPressed(evt);
             }
         });
         jpnlDadosAssentamentoWrapper.add(jcbbAdensamento);
@@ -762,6 +953,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
 
         jtxtAdensamentoFonteDados.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtAdensamentoFonteDados.setNextFocusableComponent(jtxtaObsAdensamento);
+        jtxtAdensamentoFonteDados.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtAdensamentoFonteDadosKeyPressed(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jtxtAdensamentoFonteDados);
         jtxtAdensamentoFonteDados.setBounds(620, 280, 350, 25);
 
@@ -776,6 +972,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtxtaObsAdensamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtaObsAdensamento.setRows(5);
         jtxtaObsAdensamento.setNextFocusableComponent(jbtnAnexosTransporteColetivo);
+        jtxtaObsAdensamento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtaObsAdensamentoKeyPressed(evt);
+            }
+        });
         jscpTextAreaObsAdensamento.setViewportView(jtxtaObsAdensamento);
 
         javax.swing.GroupLayout jpnlTextAreaObsAdensamentoLayout = new javax.swing.GroupLayout(jpnlTextAreaObsAdensamento);
@@ -807,6 +1008,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jcbbTransporteColetivoFocusLost(evt);
             }
         });
+        jcbbTransporteColetivo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbTransporteColetivoKeyPressed(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jcbbTransporteColetivo);
         jcbbTransporteColetivo.setBounds(140, 435, 340, 25);
 
@@ -824,6 +1030,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jtxtAnexosTransporteColetivoMouseClicked(evt);
             }
         });
+        jtxtAnexosTransporteColetivo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtAnexosTransporteColetivoKeyPressed(evt);
+            }
+        });
         jpnlDadosAssentamentoWrapper.add(jtxtAnexosTransporteColetivo);
         jtxtAnexosTransporteColetivo.setBounds(140, 465, 700, 25);
 
@@ -835,6 +1046,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jbtnAnexosTransporteColetivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnAnexosTransporteColetivoActionPerformed(evt);
+            }
+        });
+        jbtnAnexosTransporteColetivo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbtnAnexosTransporteColetivoKeyPressed(evt);
             }
         });
         jpnlDadosAssentamentoWrapper.add(jbtnAnexosTransporteColetivo);
@@ -875,6 +1091,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jcbbAbastecimentoAguaFocusLost(evt);
             }
         });
+        jcbbAbastecimentoAgua.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbAbastecimentoAguaKeyPressed(evt);
+            }
+        });
         jpnlInfraestruturaUrbana.add(jcbbAbastecimentoAgua);
         jcbbAbastecimentoAgua.setBounds(140, 20, 330, 25);
 
@@ -891,6 +1112,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbColetaEsgoto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jcbbColetaEsgotoFocusLost(evt);
+            }
+        });
+        jcbbColetaEsgoto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbColetaEsgotoKeyPressed(evt);
             }
         });
         jpnlInfraestruturaUrbana.add(jcbbColetaEsgoto);
@@ -911,6 +1137,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jcbbEnergiaEletricaFocusLost(evt);
             }
         });
+        jcbbEnergiaEletrica.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbEnergiaEletricaKeyPressed(evt);
+            }
+        });
         jpnlInfraestruturaUrbana.add(jcbbEnergiaEletrica);
         jcbbEnergiaEletrica.setBounds(140, 80, 330, 25);
 
@@ -927,6 +1158,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbIluminacaoPublica.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jcbbIluminacaoPublicaFocusLost(evt);
+            }
+        });
+        jcbbIluminacaoPublica.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbIluminacaoPublicaKeyPressed(evt);
             }
         });
         jpnlInfraestruturaUrbana.add(jcbbIluminacaoPublica);
@@ -947,6 +1183,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jcbbServicosLimpezaFocusLost(evt);
             }
         });
+        jcbbServicosLimpeza.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbServicosLimpezaKeyPressed(evt);
+            }
+        });
         jpnlInfraestruturaUrbana.add(jcbbServicosLimpeza);
         jcbbServicosLimpeza.setBounds(620, 20, 330, 25);
 
@@ -965,6 +1206,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jcbbAguasPluviaisSuperficialFocusLost(evt);
             }
         });
+        jcbbAguasPluviaisSuperficial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbAguasPluviaisSuperficialKeyPressed(evt);
+            }
+        });
         jpnlInfraestruturaUrbana.add(jcbbAguasPluviaisSuperficial);
         jcbbAguasPluviaisSuperficial.setBounds(620, 50, 330, 25);
 
@@ -981,6 +1227,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbAguasPluviaisRede.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jcbbAguasPluviaisRedeFocusLost(evt);
+            }
+        });
+        jcbbAguasPluviaisRede.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbAguasPluviaisRedeKeyPressed(evt);
             }
         });
         jpnlInfraestruturaUrbana.add(jcbbAguasPluviaisRede);
@@ -1008,6 +1259,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jcbbMaterialConstrucaoFocusLost(evt);
             }
         });
+        jcbbMaterialConstrucao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbMaterialConstrucaoKeyPressed(evt);
+            }
+        });
         jpnlProgramasHabitacionais.add(jcbbMaterialConstrucao);
         jcbbMaterialConstrucao.setBounds(140, 20, 330, 25);
 
@@ -1024,6 +1280,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbProducaoMoradias.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jcbbProducaoMoradiasFocusLost(evt);
+            }
+        });
+        jcbbProducaoMoradias.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbProducaoMoradiasKeyPressed(evt);
             }
         });
         jpnlProgramasHabitacionais.add(jcbbProducaoMoradias);
@@ -1044,6 +1305,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jcbbAssistenciaTecnicaFocusLost(evt);
             }
         });
+        jcbbAssistenciaTecnica.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbAssistenciaTecnicaKeyPressed(evt);
+            }
+        });
         jpnlProgramasHabitacionais.add(jcbbAssistenciaTecnica);
         jcbbAssistenciaTecnica.setBounds(140, 80, 330, 25);
 
@@ -1060,6 +1326,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbUrbAssentamentosPrecarios.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jcbbUrbAssentamentosPrecariosFocusLost(evt);
+            }
+        });
+        jcbbUrbAssentamentosPrecarios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbUrbAssentamentosPrecariosKeyPressed(evt);
             }
         });
         jpnlProgramasHabitacionais.add(jcbbUrbAssentamentosPrecarios);
@@ -1080,6 +1351,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jcbbComplementacaoInfraestruturaFocusLost(evt);
             }
         });
+        jcbbComplementacaoInfraestrutura.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbComplementacaoInfraestruturaKeyPressed(evt);
+            }
+        });
         jpnlProgramasHabitacionais.add(jcbbComplementacaoInfraestrutura);
         jcbbComplementacaoInfraestrutura.setBounds(620, 20, 330, 25);
 
@@ -1096,6 +1372,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbRegularizacaoFundiaria.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jcbbRegularizacaoFundiariaFocusLost(evt);
+            }
+        });
+        jcbbRegularizacaoFundiaria.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbRegularizacaoFundiariaKeyPressed(evt);
             }
         });
         jpnlProgramasHabitacionais.add(jcbbRegularizacaoFundiaria);
@@ -1116,6 +1397,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jcbbCdhuFocusLost(evt);
             }
         });
+        jcbbCdhu.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbCdhuKeyPressed(evt);
+            }
+        });
         jpnlProgramasHabitacionais.add(jcbbCdhu);
         jcbbCdhu.setBounds(620, 80, 330, 25);
 
@@ -1132,6 +1418,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbPmcmv.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jcbbPmcmvFocusLost(evt);
+            }
+        });
+        jcbbPmcmv.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbPmcmvKeyPressed(evt);
             }
         });
         jpnlProgramasHabitacionais.add(jcbbPmcmv);
@@ -1176,6 +1467,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jcbbPropriedadeFocusLost(evt);
             }
         });
+        jcbbPropriedade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbPropriedadeKeyPressed(evt);
+            }
+        });
         jpnlSituacaoFundiariaWrapper.add(jcbbPropriedade);
         jcbbPropriedade.setBounds(140, 10, 340, 25);
 
@@ -1188,6 +1484,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
 
         jtxtProprietario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtProprietario.setNextFocusableComponent(jtxtaObsPropriedade);
+        jtxtProprietario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtProprietarioKeyPressed(evt);
+            }
+        });
         jpnlSituacaoFundiariaWrapper.add(jtxtProprietario);
         jtxtProprietario.setBounds(140, 40, 340, 25);
 
@@ -1202,6 +1503,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtxtaObsPropriedade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtaObsPropriedade.setRows(5);
         jtxtaObsPropriedade.setNextFocusableComponent(jcbbDecretoRegistrado);
+        jtxtaObsPropriedade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtaObsPropriedadeKeyPressed(evt);
+            }
+        });
         jscpTextAreaObsPropriedade.setViewportView(jtxtaObsPropriedade);
 
         javax.swing.GroupLayout jpnlTextAreaObsPropriedadeLayout = new javax.swing.GroupLayout(jpnlTextAreaObsPropriedade);
@@ -1232,6 +1538,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jtxtDecretoAprovacaoFocusLost(evt);
             }
         });
+        jtxtDecretoAprovacao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtDecretoAprovacaoKeyPressed(evt);
+            }
+        });
         jpnlSituacaoFundiariaWrapper.add(jtxtDecretoAprovacao);
         jtxtDecretoAprovacao.setBounds(140, 205, 340, 25);
 
@@ -1244,6 +1555,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
 
         jtxtNumeroMatricula.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtNumeroMatricula.setNextFocusableComponent(jtxtDestinacaoAreas);
+        jtxtNumeroMatricula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtNumeroMatriculaKeyPressed(evt);
+            }
+        });
         jpnlSituacaoFundiariaWrapper.add(jtxtNumeroMatricula);
         jtxtNumeroMatricula.setBounds(140, 235, 340, 25);
 
@@ -1256,6 +1572,14 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
 
         jtxtDestinacaoAreas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtDestinacaoAreas.setNextFocusableComponent(jtxtaDescDestinacaoAreas);
+        jtxtDestinacaoAreas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtDestinacaoAreasKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtDestinacaoAreasKeyReleased(evt);
+            }
+        });
         jpnlSituacaoFundiariaWrapper.add(jtxtDestinacaoAreas);
         jtxtDestinacaoAreas.setBounds(140, 265, 340, 25);
 
@@ -1270,6 +1594,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtxtaDescDestinacaoAreas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtaDescDestinacaoAreas.setRows(5);
         jtxtaDescDestinacaoAreas.setNextFocusableComponent(jtxtaDescEcologicoEconomico);
+        jtxtaDescDestinacaoAreas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtaDescDestinacaoAreasKeyPressed(evt);
+            }
+        });
         jscpTextAreaDescDestinacaoAreas.setViewportView(jtxtaDescDestinacaoAreas);
 
         javax.swing.GroupLayout jpnlTextAreaDescDestinacaoAreasLayout = new javax.swing.GroupLayout(jpnlTextAreaDescDestinacaoAreas);
@@ -1302,6 +1631,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jtxtaDescEcologicoEconomicoFocusLost(evt);
             }
         });
+        jtxtaDescEcologicoEconomico.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtaDescEcologicoEconomicoKeyPressed(evt);
+            }
+        });
         jscpTextAreaDescEcologicoEconomico.setViewportView(jtxtaDescEcologicoEconomico);
 
         javax.swing.GroupLayout jpnlTextAreaDescEcologicoEconomicoLayout = new javax.swing.GroupLayout(jpnlTextAreaDescEcologicoEconomico);
@@ -1329,6 +1663,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtxtaDescZonasSolo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtaDescZonasSolo.setRows(5);
         jtxtaDescZonasSolo.setNextFocusableComponent(jbtnAnexosZoneamento);
+        jtxtaDescZonasSolo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtaDescZonasSoloKeyPressed(evt);
+            }
+        });
         jscpTextAreaDescZonasSolo.setViewportView(jtxtaDescZonasSolo);
 
         javax.swing.GroupLayout jpnlTextAreaDescZonasSoloLayout = new javax.swing.GroupLayout(jpnlTextAreaDescZonasSolo);
@@ -1359,6 +1698,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jtxtAnexosZoneamentoMouseClicked(evt);
             }
         });
+        jtxtAnexosZoneamento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtAnexosZoneamentoKeyPressed(evt);
+            }
+        });
         jpnlSituacaoFundiariaWrapper.add(jtxtAnexosZoneamento);
         jtxtAnexosZoneamento.setBounds(630, 115, 340, 25);
 
@@ -1370,6 +1714,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jbtnAnexosZoneamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnAnexosZoneamentoActionPerformed(evt);
+            }
+        });
+        jbtnAnexosZoneamento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbtnAnexosZoneamentoKeyPressed(evt);
             }
         });
         jpnlSituacaoFundiariaWrapper.add(jbtnAnexosZoneamento);
@@ -1385,9 +1734,19 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbProcessosJudiciais.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbProcessosJudiciais.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
         jcbbProcessosJudiciais.setNextFocusableComponent(jtxtNumeroProcesso);
+        jcbbProcessosJudiciais.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbbProcessosJudiciaisItemStateChanged(evt);
+            }
+        });
         jcbbProcessosJudiciais.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jcbbProcessosJudiciaisFocusLost(evt);
+            }
+        });
+        jcbbProcessosJudiciais.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbProcessosJudiciaisKeyPressed(evt);
             }
         });
         jpnlSituacaoFundiariaWrapper.add(jcbbProcessosJudiciais);
@@ -1402,6 +1761,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
 
         jtxtNumeroProcesso.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtNumeroProcesso.setNextFocusableComponent(jtxtNumeroOrdem);
+        jtxtNumeroProcesso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtNumeroProcessoKeyPressed(evt);
+            }
+        });
         jpnlSituacaoFundiariaWrapper.add(jtxtNumeroProcesso);
         jtxtNumeroProcesso.setBounds(630, 210, 340, 25);
 
@@ -1414,6 +1778,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
 
         jtxtNumeroOrdem.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtNumeroOrdem.setNextFocusableComponent(jtxtVara);
+        jtxtNumeroOrdem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtNumeroOrdemKeyPressed(evt);
+            }
+        });
         jpnlSituacaoFundiariaWrapper.add(jtxtNumeroOrdem);
         jtxtNumeroOrdem.setBounds(630, 240, 340, 25);
 
@@ -1426,6 +1795,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
 
         jtxtVara.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtVara.setNextFocusableComponent(jcbbExistenciaEmbargos);
+        jtxtVara.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtVaraKeyPressed(evt);
+            }
+        });
         jpnlSituacaoFundiariaWrapper.add(jtxtVara);
         jtxtVara.setBounds(630, 270, 340, 25);
 
@@ -1444,6 +1818,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jcbbExistenciaEmbargosFocusLost(evt);
             }
         });
+        jcbbExistenciaEmbargos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbExistenciaEmbargosKeyPressed(evt);
+            }
+        });
         jpnlSituacaoFundiariaWrapper.add(jcbbExistenciaEmbargos);
         jcbbExistenciaEmbargos.setBounds(630, 300, 340, 25);
 
@@ -1458,6 +1837,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtxtaObsJudiciais.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtaObsJudiciais.setRows(5);
         jtxtaObsJudiciais.setNextFocusableComponent(jbtnAnexosJudiciais);
+        jtxtaObsJudiciais.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtaObsJudiciaisKeyPressed(evt);
+            }
+        });
         jscpTextAreaObsJudiciais.setViewportView(jtxtaObsJudiciais);
 
         javax.swing.GroupLayout jpnlTextAreaObsJudiciaisLayout = new javax.swing.GroupLayout(jpnlTextAreaObsJudiciais);
@@ -1488,6 +1872,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jtxtAnexosJudiciaisMouseClicked(evt);
             }
         });
+        jtxtAnexosJudiciais.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtAnexosJudiciaisKeyPressed(evt);
+            }
+        });
         jpnlSituacaoFundiariaWrapper.add(jtxtAnexosJudiciais);
         jtxtAnexosJudiciais.setBounds(630, 435, 340, 25);
 
@@ -1499,6 +1888,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jbtnAnexosJudiciais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnAnexosJudiciaisActionPerformed(evt);
+            }
+        });
+        jbtnAnexosJudiciais.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbtnAnexosJudiciaisKeyPressed(evt);
             }
         });
         jpnlSituacaoFundiariaWrapper.add(jbtnAnexosJudiciais);
@@ -1515,6 +1909,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbDecretoRegistrado.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jcbbDecretoRegistradoFocusLost(evt);
+            }
+        });
+        jcbbDecretoRegistrado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbDecretoRegistradoKeyPressed(evt);
             }
         });
         jpnlSituacaoFundiariaWrapper.add(jcbbDecretoRegistrado);
@@ -1547,17 +1946,44 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtblViasPublicas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtblViasPublicas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "", "Recurso de Acesso", "Descrição"
             }
-        ));
-        jtblViasPublicas.setNextFocusableComponent(jcbbRecursoMobilidadeNome);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtblViasPublicas.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jtblViasPublicas.setNextFocusableComponent(jcbbRecursoMobilidade);
+        jtblViasPublicas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtblViasPublicasMouseClicked(evt);
+            }
+        });
+        jtblViasPublicas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtblViasPublicasKeyPressed(evt);
+            }
+        });
         jscpTabelaViasPublicas.setViewportView(jtblViasPublicas);
+        jtblViasPublicas.getColumnModel().getColumn(0).setResizable(false);
+        jtblViasPublicas.getColumnModel().getColumn(0).setMinWidth(0);
+        jtblViasPublicas.getColumnModel().getColumn(0).setPreferredWidth(0);
+        jtblViasPublicas.getColumnModel().getColumn(0).setMaxWidth(0);
+        jtblViasPublicas.getColumnModel().getColumn(1).setMinWidth(400);
+        jtblViasPublicas.getColumnModel().getColumn(1).setPreferredWidth(400);
+        jtblViasPublicas.getColumnModel().getColumn(2).setMinWidth(600);
+        jtblViasPublicas.getColumnModel().getColumn(2).setPreferredWidth(600);
 
         javax.swing.GroupLayout jpnlTabelaViasPublicasLayout = new javax.swing.GroupLayout(jpnlTabelaViasPublicas);
         jpnlTabelaViasPublicas.setLayout(jpnlTabelaViasPublicasLayout);
@@ -1567,24 +1993,34 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         );
         jpnlTabelaViasPublicasLayout.setVerticalGroup(
             jpnlTabelaViasPublicasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jscpTabelaViasPublicas, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+            .addComponent(jscpTabelaViasPublicas, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
         );
 
         jpnlViasPublicasWrapper.add(jpnlTabelaViasPublicas);
-        jpnlTabelaViasPublicas.setBounds(10, 10, 970, 350);
+        jpnlTabelaViasPublicas.setBounds(10, 10, 970, 310);
 
         jlblRecursoMobilidadeNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblRecursoMobilidadeNome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblRecursoMobilidadeNome.setText("Recurso de Acesso:");
         jlblRecursoMobilidadeNome.setToolTipText("Tipo de recurso de acesso");
         jpnlViasPublicasWrapper.add(jlblRecursoMobilidadeNome);
-        jlblRecursoMobilidadeNome.setBounds(10, 370, 120, 25);
+        jlblRecursoMobilidadeNome.setBounds(10, 330, 120, 25);
 
-        jcbbRecursoMobilidadeNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jcbbRecursoMobilidadeNome.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jcbbRecursoMobilidadeNome.setNextFocusableComponent(jbtnGerenciarRecursoMobilidade);
-        jpnlViasPublicasWrapper.add(jcbbRecursoMobilidadeNome);
-        jcbbRecursoMobilidadeNome.setBounds(140, 370, 800, 25);
+        jcbbRecursoMobilidade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcbbRecursoMobilidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção" }));
+        jcbbRecursoMobilidade.setNextFocusableComponent(jbtnGerenciarRecursoMobilidade);
+        jcbbRecursoMobilidade.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbRecursoMobilidadeFocusLost(evt);
+            }
+        });
+        jcbbRecursoMobilidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbRecursoMobilidadeKeyPressed(evt);
+            }
+        });
+        jpnlViasPublicasWrapper.add(jcbbRecursoMobilidade);
+        jcbbRecursoMobilidade.setBounds(140, 330, 805, 25);
 
         jbtnGerenciarRecursoMobilidade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jbtnGerenciarRecursoMobilidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/manage.png"))); // NOI18N
@@ -1595,20 +2031,35 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jbtnGerenciarRecursoMobilidadeActionPerformed(evt);
             }
         });
+        jbtnGerenciarRecursoMobilidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbtnGerenciarRecursoMobilidadeKeyPressed(evt);
+            }
+        });
         jpnlViasPublicasWrapper.add(jbtnGerenciarRecursoMobilidade);
-        jbtnGerenciarRecursoMobilidade.setBounds(950, 370, 25, 25);
+        jbtnGerenciarRecursoMobilidade.setBounds(955, 330, 25, 25);
 
         jlblDescRecursoMobilidade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblDescRecursoMobilidade.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblDescRecursoMobilidade.setText("Descrição:");
         jlblDescRecursoMobilidade.setToolTipText("Descrição do recurso de acesso");
         jpnlViasPublicasWrapper.add(jlblDescRecursoMobilidade);
-        jlblDescRecursoMobilidade.setBounds(10, 400, 120, 25);
+        jlblDescRecursoMobilidade.setBounds(10, 360, 120, 25);
 
         jtxtaDescRecursoMobilidade.setColumns(20);
         jtxtaDescRecursoMobilidade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtaDescRecursoMobilidade.setRows(5);
         jtxtaDescRecursoMobilidade.setNextFocusableComponent(jpnlInstitucionalSocial);
+        jtxtaDescRecursoMobilidade.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtaDescRecursoMobilidadeFocusLost(evt);
+            }
+        });
+        jtxtaDescRecursoMobilidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtaDescRecursoMobilidadeKeyPressed(evt);
+            }
+        });
         jscpTextAreaDescRecursoMobilidade.setViewportView(jtxtaDescRecursoMobilidade);
 
         javax.swing.GroupLayout jpnlTextAreaDescRecursoMobilidadeLayout = new javax.swing.GroupLayout(jpnlTextAreaDescRecursoMobilidade);
@@ -1623,7 +2074,40 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         );
 
         jpnlViasPublicasWrapper.add(jpnlTextAreaDescRecursoMobilidade);
-        jpnlTextAreaDescRecursoMobilidade.setBounds(140, 400, 840, 100);
+        jpnlTextAreaDescRecursoMobilidade.setBounds(140, 360, 840, 100);
+
+        jbtnAdicionarViaPublica.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jbtnAdicionarViaPublica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/add.png"))); // NOI18N
+        jbtnAdicionarViaPublica.setText("Adicionar");
+        jbtnAdicionarViaPublica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnAdicionarViaPublicaActionPerformed(evt);
+            }
+        });
+        jpnlViasPublicasWrapper.add(jbtnAdicionarViaPublica);
+        jbtnAdicionarViaPublica.setBounds(600, 470, 120, 30);
+
+        jbtnEditarViaPublica.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jbtnEditarViaPublica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/edit.png"))); // NOI18N
+        jbtnEditarViaPublica.setText("Editar");
+        jbtnEditarViaPublica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnEditarViaPublicaActionPerformed(evt);
+            }
+        });
+        jpnlViasPublicasWrapper.add(jbtnEditarViaPublica);
+        jbtnEditarViaPublica.setBounds(730, 470, 120, 30);
+
+        jbtnExcluirViaPublica.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jbtnExcluirViaPublica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/delete.png"))); // NOI18N
+        jbtnExcluirViaPublica.setText("Excluir");
+        jbtnExcluirViaPublica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnExcluirViaPublicaActionPerformed(evt);
+            }
+        });
+        jpnlViasPublicasWrapper.add(jbtnExcluirViaPublica);
+        jbtnExcluirViaPublica.setBounds(860, 470, 120, 30);
 
         jpnlViasPublicas.add(jpnlViasPublicasWrapper);
         jpnlViasPublicasWrapper.setBounds(0, 0, 987, 510);
@@ -1644,17 +2128,44 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtblInstitucionalSocial.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtblInstitucionalSocial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "", "Recurso Social", "Nome"
             }
-        ));
-        jtblInstitucionalSocial.setNextFocusableComponent(jcbbRecursoSocialNome);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtblInstitucionalSocial.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jtblInstitucionalSocial.setNextFocusableComponent(jcbbRecursoSocial);
+        jtblInstitucionalSocial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtblInstitucionalSocialMouseClicked(evt);
+            }
+        });
+        jtblInstitucionalSocial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtblInstitucionalSocialKeyPressed(evt);
+            }
+        });
         jscpTabelaInstitucionalSocial.setViewportView(jtblInstitucionalSocial);
+        jtblInstitucionalSocial.getColumnModel().getColumn(0).setResizable(false);
+        jtblInstitucionalSocial.getColumnModel().getColumn(0).setMinWidth(0);
+        jtblInstitucionalSocial.getColumnModel().getColumn(0).setPreferredWidth(0);
+        jtblInstitucionalSocial.getColumnModel().getColumn(0).setMaxWidth(0);
+        jtblInstitucionalSocial.getColumnModel().getColumn(1).setMinWidth(400);
+        jtblInstitucionalSocial.getColumnModel().getColumn(1).setPreferredWidth(400);
+        jtblInstitucionalSocial.getColumnModel().getColumn(2).setMinWidth(600);
+        jtblInstitucionalSocial.getColumnModel().getColumn(2).setPreferredWidth(600);
 
         javax.swing.GroupLayout jpnlTabelaInstitucionalSocialLayout = new javax.swing.GroupLayout(jpnlTabelaInstitucionalSocial);
         jpnlTabelaInstitucionalSocial.setLayout(jpnlTabelaInstitucionalSocialLayout);
@@ -1664,24 +2175,34 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         );
         jpnlTabelaInstitucionalSocialLayout.setVerticalGroup(
             jpnlTabelaInstitucionalSocialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jscpTabelaInstitucionalSocial, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+            .addComponent(jscpTabelaInstitucionalSocial, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
         );
 
         jpnlInstitucionalSocialWrapper.add(jpnlTabelaInstitucionalSocial);
-        jpnlTabelaInstitucionalSocial.setBounds(10, 10, 970, 350);
+        jpnlTabelaInstitucionalSocial.setBounds(10, 10, 970, 310);
 
         jlblRecursoSocialNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblRecursoSocialNome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblRecursoSocialNome.setText("Recurso Social:");
         jlblRecursoSocialNome.setToolTipText("Tipo de recurso social");
         jpnlInstitucionalSocialWrapper.add(jlblRecursoSocialNome);
-        jlblRecursoSocialNome.setBounds(10, 370, 120, 25);
+        jlblRecursoSocialNome.setBounds(10, 330, 120, 25);
 
-        jcbbRecursoSocialNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jcbbRecursoSocialNome.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jcbbRecursoSocialNome.setNextFocusableComponent(jbtnGerenciarRecursoSocial);
-        jpnlInstitucionalSocialWrapper.add(jcbbRecursoSocialNome);
-        jcbbRecursoSocialNome.setBounds(140, 370, 800, 25);
+        jcbbRecursoSocial.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcbbRecursoSocial.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção" }));
+        jcbbRecursoSocial.setNextFocusableComponent(jbtnGerenciarRecursoSocial);
+        jcbbRecursoSocial.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbRecursoSocialFocusLost(evt);
+            }
+        });
+        jcbbRecursoSocial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbRecursoSocialKeyPressed(evt);
+            }
+        });
+        jpnlInstitucionalSocialWrapper.add(jcbbRecursoSocial);
+        jcbbRecursoSocial.setBounds(140, 330, 805, 25);
 
         jbtnGerenciarRecursoSocial.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jbtnGerenciarRecursoSocial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/manage.png"))); // NOI18N
@@ -1692,20 +2213,35 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jbtnGerenciarRecursoSocialActionPerformed(evt);
             }
         });
+        jbtnGerenciarRecursoSocial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbtnGerenciarRecursoSocialKeyPressed(evt);
+            }
+        });
         jpnlInstitucionalSocialWrapper.add(jbtnGerenciarRecursoSocial);
-        jbtnGerenciarRecursoSocial.setBounds(950, 370, 25, 25);
+        jbtnGerenciarRecursoSocial.setBounds(955, 330, 25, 25);
 
         jlblDescRecursoSocial.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblDescRecursoSocial.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblDescRecursoSocial.setText("Descrição:");
         jlblDescRecursoSocial.setToolTipText("Descrição do recurso social");
         jpnlInstitucionalSocialWrapper.add(jlblDescRecursoSocial);
-        jlblDescRecursoSocial.setBounds(10, 400, 120, 25);
+        jlblDescRecursoSocial.setBounds(10, 360, 120, 25);
 
         jtxtaDescRecursoSocial.setColumns(20);
         jtxtaDescRecursoSocial.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtaDescRecursoSocial.setRows(5);
         jtxtaDescRecursoSocial.setNextFocusableComponent(jpnlAcoesNucleo);
+        jtxtaDescRecursoSocial.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtaDescRecursoSocialFocusLost(evt);
+            }
+        });
+        jtxtaDescRecursoSocial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtaDescRecursoSocialKeyPressed(evt);
+            }
+        });
         jscpTextAreaDescRecursoSocial.setViewportView(jtxtaDescRecursoSocial);
 
         javax.swing.GroupLayout jpnlTextAreaDescRecursoSocialLayout = new javax.swing.GroupLayout(jpnlTextAreaDescRecursoSocial);
@@ -1720,7 +2256,40 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         );
 
         jpnlInstitucionalSocialWrapper.add(jpnlTextAreaDescRecursoSocial);
-        jpnlTextAreaDescRecursoSocial.setBounds(140, 400, 840, 100);
+        jpnlTextAreaDescRecursoSocial.setBounds(140, 360, 840, 100);
+
+        jbtnAdicionarInstitucional.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jbtnAdicionarInstitucional.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/add.png"))); // NOI18N
+        jbtnAdicionarInstitucional.setText("Adicionar");
+        jbtnAdicionarInstitucional.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnAdicionarInstitucionalActionPerformed(evt);
+            }
+        });
+        jpnlInstitucionalSocialWrapper.add(jbtnAdicionarInstitucional);
+        jbtnAdicionarInstitucional.setBounds(600, 470, 120, 30);
+
+        jbtnEditarInstitucional.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jbtnEditarInstitucional.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/edit.png"))); // NOI18N
+        jbtnEditarInstitucional.setText("Editar");
+        jbtnEditarInstitucional.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnEditarInstitucionalActionPerformed(evt);
+            }
+        });
+        jpnlInstitucionalSocialWrapper.add(jbtnEditarInstitucional);
+        jbtnEditarInstitucional.setBounds(730, 470, 120, 30);
+
+        jbtnExcluirInstitucional.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jbtnExcluirInstitucional.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/delete.png"))); // NOI18N
+        jbtnExcluirInstitucional.setText("Excluir");
+        jbtnExcluirInstitucional.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnExcluirInstitucionalActionPerformed(evt);
+            }
+        });
+        jpnlInstitucionalSocialWrapper.add(jbtnExcluirInstitucional);
+        jbtnExcluirInstitucional.setBounds(860, 470, 120, 30);
 
         jpnlInstitucionalSocial.add(jpnlInstitucionalSocialWrapper);
         jpnlInstitucionalSocialWrapper.setBounds(0, 0, 990, 510);
@@ -1758,6 +2327,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jcbbRemanejamentoFocusLost(evt);
             }
         });
+        jcbbRemanejamento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbRemanejamentoKeyPressed(evt);
+            }
+        });
         jpnlAcoesNucleoWrapper.add(jcbbRemanejamento);
         jcbbRemanejamento.setBounds(140, 10, 340, 25);
 
@@ -1774,6 +2348,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbEstimativaRelocacao.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jcbbEstimativaRelocacaoFocusLost(evt);
+            }
+        });
+        jcbbEstimativaRelocacao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbEstimativaRelocacaoKeyPressed(evt);
             }
         });
         jpnlAcoesNucleoWrapper.add(jcbbEstimativaRelocacao);
@@ -1795,6 +2374,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             }
         });
         jtxtNumeroRemocaoDefinitiva.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtNumeroRemocaoDefinitivaKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtxtNumeroRemocaoDefinitivaKeyReleased(evt);
             }
@@ -1818,6 +2400,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             }
         });
         jtxtNumeroRemocaoProvisoria.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtNumeroRemocaoProvisoriaKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtxtNumeroRemocaoProvisoriaKeyReleased(evt);
             }
@@ -1845,6 +2430,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jcbbReassentamentoFocusLost(evt);
             }
         });
+        jcbbReassentamento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbReassentamentoKeyPressed(evt);
+            }
+        });
         jpnlAcoesNucleoWrapper.add(jcbbReassentamento);
         jcbbReassentamento.setBounds(140, 130, 340, 25);
 
@@ -1861,6 +2451,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbEstimativaRemocao.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jcbbEstimativaRemocaoFocusLost(evt);
+            }
+        });
+        jcbbEstimativaRemocao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbEstimativaRemocaoKeyPressed(evt);
             }
         });
         jpnlAcoesNucleoWrapper.add(jcbbEstimativaRemocao);
@@ -1882,6 +2477,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             }
         });
         jtxtNumeroMoradiasConstruir.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtNumeroMoradiasConstruirKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtxtNumeroMoradiasConstruirKeyReleased(evt);
             }
@@ -1905,6 +2503,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             }
         });
         jtxtNumeroMoradiasProvisorias.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtNumeroMoradiasProvisoriasKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtxtNumeroMoradiasProvisoriasKeyReleased(evt);
             }
@@ -1926,6 +2527,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jtxtLocalDefinitivoFocusLost(evt);
             }
         });
+        jtxtLocalDefinitivo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtLocalDefinitivoKeyPressed(evt);
+            }
+        });
         jpnlAcoesNucleoWrapper.add(jtxtLocalDefinitivo);
         jtxtLocalDefinitivo.setBounds(140, 250, 340, 25);
 
@@ -1939,9 +2545,19 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbMelhoriaHabitacional.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbMelhoriaHabitacional.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
         jcbbMelhoriaHabitacional.setNextFocusableComponent(jtxtFonteMelhoriaHabitacional);
+        jcbbMelhoriaHabitacional.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbbMelhoriaHabitacionalItemStateChanged(evt);
+            }
+        });
         jcbbMelhoriaHabitacional.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jcbbMelhoriaHabitacionalFocusLost(evt);
+            }
+        });
+        jcbbMelhoriaHabitacional.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbMelhoriaHabitacionalKeyPressed(evt);
             }
         });
         jpnlAcoesNucleoWrapper.add(jcbbMelhoriaHabitacional);
@@ -1956,6 +2572,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
 
         jtxtFonteMelhoriaHabitacional.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtFonteMelhoriaHabitacional.setNextFocusableComponent(jcbbAdequacaoInfraestrutura);
+        jtxtFonteMelhoriaHabitacional.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtFonteMelhoriaHabitacionalKeyPressed(evt);
+            }
+        });
         jpnlAcoesNucleoWrapper.add(jtxtFonteMelhoriaHabitacional);
         jtxtFonteMelhoriaHabitacional.setBounds(140, 310, 340, 25);
 
@@ -1969,9 +2590,19 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbAdequacaoInfraestrutura.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbAdequacaoInfraestrutura.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
         jcbbAdequacaoInfraestrutura.setNextFocusableComponent(jtxtFonteAdequacaoInfraestrutura);
+        jcbbAdequacaoInfraestrutura.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbbAdequacaoInfraestruturaItemStateChanged(evt);
+            }
+        });
         jcbbAdequacaoInfraestrutura.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jcbbAdequacaoInfraestruturaFocusLost(evt);
+            }
+        });
+        jcbbAdequacaoInfraestrutura.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbAdequacaoInfraestruturaKeyPressed(evt);
             }
         });
         jpnlAcoesNucleoWrapper.add(jcbbAdequacaoInfraestrutura);
@@ -1986,6 +2617,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
 
         jtxtFonteAdequacaoInfraestrutura.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtFonteAdequacaoInfraestrutura.setNextFocusableComponent(jcbbDesconstrucao);
+        jtxtFonteAdequacaoInfraestrutura.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtFonteAdequacaoInfraestruturaKeyPressed(evt);
+            }
+        });
         jpnlAcoesNucleoWrapper.add(jtxtFonteAdequacaoInfraestrutura);
         jtxtFonteAdequacaoInfraestrutura.setBounds(140, 370, 340, 25);
 
@@ -2009,6 +2645,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jcbbDesconstrucaoFocusLost(evt);
             }
         });
+        jcbbDesconstrucao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbDesconstrucaoKeyPressed(evt);
+            }
+        });
         jpnlAcoesNucleoWrapper.add(jcbbDesconstrucao);
         jcbbDesconstrucao.setBounds(630, 10, 340, 25);
 
@@ -2028,6 +2669,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             }
         });
         jtxtNumeroMoradiasDemolir.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtNumeroMoradiasDemolirKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtxtNumeroMoradiasDemolirKeyReleased(evt);
             }
@@ -2049,6 +2693,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtxtaMotivoDemolicao.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jtxtaMotivoDemolicaoFocusLost(evt);
+            }
+        });
+        jtxtaMotivoDemolicao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtaMotivoDemolicaoKeyPressed(evt);
             }
         });
         jscpTextAreaMotivoDemolicao.setViewportView(jtxtaMotivoDemolicao);
@@ -2083,6 +2732,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jtxtaProcessosDemolicaoFocusLost(evt);
             }
         });
+        jtxtaProcessosDemolicao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtaProcessosDemolicaoKeyPressed(evt);
+            }
+        });
         jscpTextAreaProcessosDemolicao.setViewportView(jtxtaProcessosDemolicao);
 
         javax.swing.GroupLayout jpnlTextAreaProcessosDemolicaoLayout = new javax.swing.GroupLayout(jpnlTextAreaProcessosDemolicao);
@@ -2109,9 +2763,19 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbRecuperacaoAmbiental.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbRecuperacaoAmbiental.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
         jcbbRecuperacaoAmbiental.setNextFocusableComponent(jtxtPrad);
+        jcbbRecuperacaoAmbiental.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbbRecuperacaoAmbientalItemStateChanged(evt);
+            }
+        });
         jcbbRecuperacaoAmbiental.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jcbbRecuperacaoAmbientalFocusLost(evt);
+            }
+        });
+        jcbbRecuperacaoAmbiental.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbRecuperacaoAmbientalKeyPressed(evt);
             }
         });
         jpnlAcoesNucleoWrapper.add(jcbbRecuperacaoAmbiental);
@@ -2126,6 +2790,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
 
         jtxtPrad.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtPrad.setNextFocusableComponent(jcbbAcoesOutros);
+        jtxtPrad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtPradKeyPressed(evt);
+            }
+        });
         jpnlAcoesNucleoWrapper.add(jtxtPrad);
         jtxtPrad.setBounds(630, 310, 340, 25);
 
@@ -2139,9 +2808,19 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbAcoesOutros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbAcoesOutros.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
         jcbbAcoesOutros.setNextFocusableComponent(jtxtDescOutros);
+        jcbbAcoesOutros.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbbAcoesOutrosItemStateChanged(evt);
+            }
+        });
         jcbbAcoesOutros.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jcbbAcoesOutrosFocusLost(evt);
+            }
+        });
+        jcbbAcoesOutros.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbAcoesOutrosKeyPressed(evt);
             }
         });
         jpnlAcoesNucleoWrapper.add(jcbbAcoesOutros);
@@ -2156,6 +2835,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
 
         jtxtDescOutros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtDescOutros.setNextFocusableComponent(jpnlAspectosAmbientais);
+        jtxtDescOutros.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtDescOutrosKeyPressed(evt);
+            }
+        });
         jpnlAcoesNucleoWrapper.add(jtxtDescOutros);
         jtxtDescOutros.setBounds(630, 370, 340, 25);
 
@@ -2184,6 +2868,19 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
 
         jtxtAspAmbLatitude.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtAspAmbLatitude.setNextFocusableComponent(jtxtAspAmbLongitude);
+        jtxtAspAmbLatitude.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtxtAspAmbLatitudeFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtAspAmbLatitudeFocusLost(evt);
+            }
+        });
+        jtxtAspAmbLatitude.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtAspAmbLatitudeKeyPressed(evt);
+            }
+        });
         jpnlAspectosAmbientaisWrapper.add(jtxtAspAmbLatitude);
         jtxtAspAmbLatitude.setBounds(140, 10, 340, 25);
 
@@ -2196,6 +2893,19 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
 
         jtxtAspAmbLongitude.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtAspAmbLongitude.setNextFocusableComponent(jcbbAreaVerde);
+        jtxtAspAmbLongitude.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtxtAspAmbLongitudeFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtAspAmbLongitudeFocusLost(evt);
+            }
+        });
+        jtxtAspAmbLongitude.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtAspAmbLongitudeKeyPressed(evt);
+            }
+        });
         jpnlAspectosAmbientaisWrapper.add(jtxtAspAmbLongitude);
         jtxtAspAmbLongitude.setBounds(140, 40, 340, 25);
 
@@ -2212,6 +2922,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbAreaVerde.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jcbbAreaVerdeFocusLost(evt);
+            }
+        });
+        jcbbAreaVerde.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbAreaVerdeKeyPressed(evt);
             }
         });
         jpnlAspectosAmbientaisWrapper.add(jcbbAreaVerde);
@@ -2232,6 +2947,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jcbbAreaAgricolaFocusLost(evt);
             }
         });
+        jcbbAreaAgricola.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbAreaAgricolaKeyPressed(evt);
+            }
+        });
         jpnlAspectosAmbientaisWrapper.add(jcbbAreaAgricola);
         jcbbAreaAgricola.setBounds(630, 10, 340, 25);
 
@@ -2245,9 +2965,19 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbAspAmbOutros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbAspAmbOutros.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
         jcbbAspAmbOutros.setNextFocusableComponent(jtxtAspAmbOutrosEspecifique);
+        jcbbAspAmbOutros.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbbAspAmbOutrosItemStateChanged(evt);
+            }
+        });
         jcbbAspAmbOutros.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jcbbAspAmbOutrosFocusLost(evt);
+            }
+        });
+        jcbbAspAmbOutros.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbAspAmbOutrosKeyPressed(evt);
             }
         });
         jpnlAspectosAmbientaisWrapper.add(jcbbAspAmbOutros);
@@ -2262,6 +2992,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
 
         jtxtAspAmbOutrosEspecifique.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtAspAmbOutrosEspecifique.setNextFocusableComponent(jcbbApp);
+        jtxtAspAmbOutrosEspecifique.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtAspAmbOutrosEspecifiqueKeyPressed(evt);
+            }
+        });
         jpnlAspectosAmbientaisWrapper.add(jtxtAspAmbOutrosEspecifique);
         jtxtAspAmbOutrosEspecifique.setBounds(630, 70, 340, 25);
 
@@ -2289,6 +3024,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jcbbAppFocusLost(evt);
             }
         });
+        jcbbApp.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbAppKeyPressed(evt);
+            }
+        });
         jpnlApp.add(jcbbApp);
         jcbbApp.setBounds(130, 20, 340, 25);
 
@@ -2305,6 +3045,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbCorpoDagua.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jcbbCorpoDaguaFocusLost(evt);
+            }
+        });
+        jcbbCorpoDagua.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbCorpoDaguaKeyPressed(evt);
             }
         });
         jpnlApp.add(jcbbCorpoDagua);
@@ -2325,6 +3070,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jcbbBrejoCharcoFocusLost(evt);
             }
         });
+        jcbbBrejoCharco.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbBrejoCharcoKeyPressed(evt);
+            }
+        });
         jpnlApp.add(jcbbBrejoCharco);
         jcbbBrejoCharco.setBounds(130, 80, 340, 25);
 
@@ -2341,6 +3091,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbTopoMorro.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jcbbTopoMorroFocusLost(evt);
+            }
+        });
+        jcbbTopoMorro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbTopoMorroKeyPressed(evt);
             }
         });
         jpnlApp.add(jcbbTopoMorro);
@@ -2361,6 +3116,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jcbbEncostaFocusLost(evt);
             }
         });
+        jcbbEncosta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbEncostaKeyPressed(evt);
+            }
+        });
         jpnlApp.add(jcbbEncosta);
         jcbbEncosta.setBounds(130, 140, 340, 25);
 
@@ -2377,6 +3137,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jcbbRestinga.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jcbbRestingaFocusLost(evt);
+            }
+        });
+        jcbbRestinga.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbRestingaKeyPressed(evt);
             }
         });
         jpnlApp.add(jcbbRestinga);
@@ -2397,6 +3162,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jcbbAppOutrosFocusLost(evt);
             }
         });
+        jcbbAppOutros.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbbAppOutrosKeyPressed(evt);
+            }
+        });
         jpnlApp.add(jcbbAppOutros);
         jcbbAppOutros.setBounds(610, 50, 340, 25);
 
@@ -2411,6 +3181,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtxtaAppOutrosEspecifique.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtaAppOutrosEspecifique.setRows(5);
         jtxtaAppOutrosEspecifique.setNextFocusableComponent(jtblAreasRisco);
+        jtxtaAppOutrosEspecifique.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtaAppOutrosEspecifiqueKeyPressed(evt);
+            }
+        });
         jscpTextAreaAppOutrosEspecifique.setViewportView(jtxtaAppOutrosEspecifique);
 
         javax.swing.GroupLayout jpnlTextAreaAppOutrosEspecifiqueLayout = new javax.swing.GroupLayout(jpnlTextAreaAppOutrosEspecifique);
@@ -2446,6 +3221,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             }
         ));
         jtblAreasRisco.setNextFocusableComponent(jbtnNovo);
+        jtblAreasRisco.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtblAreasRiscoKeyPressed(evt);
+            }
+        });
         jscpTabelaAreasRisco.setViewportView(jtblAreasRisco);
 
         javax.swing.GroupLayout jpnlTabelaAreasRiscoLayout = new javax.swing.GroupLayout(jpnlTabelaAreasRisco);
@@ -2492,6 +3272,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jbtnNovoActionPerformed(evt);
             }
         });
+        jbtnNovo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbtnNovoKeyPressed(evt);
+            }
+        });
         jpnlRodapeWrapper.add(jbtnNovo);
         jbtnNovo.setBounds(340, 10, 120, 30);
 
@@ -2506,6 +3291,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 jbtnSalvarActionPerformed(evt);
             }
         });
+        jbtnSalvar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbtnSalvarKeyPressed(evt);
+            }
+        });
         jpnlRodapeWrapper.add(jbtnSalvar);
         jbtnSalvar.setBounds(470, 10, 120, 30);
 
@@ -2518,6 +3308,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jbtnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnEditarActionPerformed(evt);
+            }
+        });
+        jbtnEditar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbtnEditarKeyPressed(evt);
             }
         });
         jpnlRodapeWrapper.add(jbtnEditar);
@@ -2551,6 +3346,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jbtnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnExcluirActionPerformed(evt);
+            }
+        });
+        jbtnExcluir.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbtnExcluirKeyPressed(evt);
             }
         });
         jpnlRodapeWrapper.add(jbtnExcluir);
@@ -2712,7 +3512,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbtnExcluirActionPerformed
 
     private void jbtnAnexosTransporteColetivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAnexosTransporteColetivoActionPerformed
-        // TODO add your handling code here:
+        
+        anexarDocumentoTransporte();
+        
     }//GEN-LAST:event_jbtnAnexosTransporteColetivoActionPerformed
 
     private void jbtnAnexosZoneamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAnexosZoneamentoActionPerformed
@@ -3231,7 +4033,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
 
     private void jcbbDecretoRegistradoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbbDecretoRegistradoItemStateChanged
         
-        if (jcbbPropriedade.getSelectedIndex() == 1) {
+        if (jcbbDecretoRegistrado.getSelectedIndex() == 1) {
             
             jtxtNumeroMatricula.setEnabled(true);
             
@@ -3245,7 +4047,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
 
     private void jtxtNumeroRemocaoDefinitivaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroRemocaoDefinitivaKeyReleased
         
-        com.data.NumberManager.formatInteger(jtxtNumeroRemocaoDefinitiva);
+        com.data.NumberManager.formatIntegerPtbr(jtxtNumeroRemocaoDefinitiva);
         
     }//GEN-LAST:event_jtxtNumeroRemocaoDefinitivaKeyReleased
 
@@ -3263,87 +4065,981 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
 
     private void jtxtNumeroDomiciliosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroDomiciliosKeyReleased
         
-        com.data.NumberManager.formatInteger(jtxtNumeroDomicilios);
+        com.data.NumberManager.formatIntegerPtbr(jtxtNumeroDomicilios);
         
     }//GEN-LAST:event_jtxtNumeroDomiciliosKeyReleased
 
     private void jtxtPopulacaoEstimadaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPopulacaoEstimadaKeyReleased
         
-        com.data.NumberManager.formatInteger(jtxtPopulacaoEstimada);
+        com.data.NumberManager.formatIntegerPtbr(jtxtPopulacaoEstimada);
         
     }//GEN-LAST:event_jtxtPopulacaoEstimadaKeyReleased
 
     private void jtxtNumeroRemocaoProvisoriaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroRemocaoProvisoriaKeyReleased
         
-        com.data.NumberManager.formatInteger(jtxtNumeroRemocaoProvisoria);
+        com.data.NumberManager.formatIntegerPtbr(jtxtNumeroRemocaoProvisoria);
         
     }//GEN-LAST:event_jtxtNumeroRemocaoProvisoriaKeyReleased
 
     private void jtxtNumeroMoradiasConstruirKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroMoradiasConstruirKeyReleased
         
-        com.data.NumberManager.formatInteger(jtxtNumeroMoradiasConstruir);
+        com.data.NumberManager.formatIntegerPtbr(jtxtNumeroMoradiasConstruir);
         
     }//GEN-LAST:event_jtxtNumeroMoradiasConstruirKeyReleased
 
     private void jtxtNumeroMoradiasProvisoriasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroMoradiasProvisoriasKeyReleased
         
-        com.data.NumberManager.formatInteger(jtxtNumeroMoradiasProvisorias);
+        com.data.NumberManager.formatIntegerPtbr(jtxtNumeroMoradiasProvisorias);
         
     }//GEN-LAST:event_jtxtNumeroMoradiasProvisoriasKeyReleased
 
     private void jtxtNumeroMoradiasDemolirKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroMoradiasDemolirKeyReleased
         
-        com.data.NumberManager.formatInteger(jtxtNumeroMoradiasDemolir);
+        com.data.NumberManager.formatIntegerPtbr(jtxtNumeroMoradiasDemolir);
         
     }//GEN-LAST:event_jtxtNumeroMoradiasDemolirKeyReleased
 
-    private void preencherTabelaPesquisa() {
+    private void jtxtDestinacaoAreasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtDestinacaoAreasKeyReleased
         
-        try {
+        com.data.NumberManager.formatDecimalPtbr(jtxtDestinacaoAreas);
+        
+    }//GEN-LAST:event_jtxtDestinacaoAreasKeyReleased
+
+    private void jtxtAspAmbLatitudeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtAspAmbLatitudeFocusGained
+        
+        if (jtxtAspAmbLatitude.getText().equals("0,0")) {
             
-            javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jtblPesquisa.getModel();
-            modelo.setNumRows(0);
-            
-            java.lang.Object output = cadhab.conn.ConnectionManager.connect("/nucleos?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), "");
-            
-            if (output != null) {
-                
-                if (output instanceof java.util.List) {
-                    
-                    java.util.List<com.sys.urbano.Nucleo> nucleos = (java.util.List<com.sys.urbano.Nucleo>) output;
-                    
-                    for (com.sys.urbano.Nucleo cursor : nucleos) {
-                        
-                        modelo.addRow(new java.lang.Object[] { cursor.getId(), cursor.getNome(), cursor.getSetorCadastral(), cursor.getZona(), cursor.getOrigem(), cursor.getNumeroDomicilios(), cursor.getPopulacaoEstimada(), cursor.getAreaTotal(), cursor.getAreaOcupada(), cursor.getOcupacao(), cursor.getInicioOcupacao() });
-                        
-                    }
-                    
-                }
-                
-            }
-            
-        } catch (java.net.MalformedURLException ex) {
-            
-            ex.printStackTrace();
-            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
-            
-        } catch (java.net.ConnectException ex) {
-            
-            ex.printStackTrace();
-            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
-            
-        } catch (java.io.IOException ex) {
-            
-            ex.printStackTrace();
-            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações para/do servidor!", "CadHab", 0);
-            
-        } catch (java.lang.Exception ex) {
-            
-            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            jtxtAspAmbLatitude.setText("");
             
         }
         
-    }
+    }//GEN-LAST:event_jtxtAspAmbLatitudeFocusGained
+
+    private void jtxtAspAmbLongitudeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtAspAmbLongitudeFocusGained
+        
+        if (jtxtAspAmbLongitude.getText().equals("0,0")) {
+            
+            jtxtAspAmbLongitude.setText("");
+            
+        }
+        
+    }//GEN-LAST:event_jtxtAspAmbLongitudeFocusGained
+
+    private void jtxtAspAmbLatitudeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtAspAmbLatitudeFocusLost
+        
+        if (jtxtAspAmbLatitude.getText().equals("")) {
+            
+            jtxtAspAmbLatitude.setText("0,0");
+            
+        }
+        
+    }//GEN-LAST:event_jtxtAspAmbLatitudeFocusLost
+
+    private void jtxtAspAmbLongitudeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtAspAmbLongitudeFocusLost
+        
+        if (jtxtAspAmbLongitude.getText().equals("")) {
+            
+            jtxtAspAmbLongitude.setText("0,0");
+            
+        }
+        
+    }//GEN-LAST:event_jtxtAspAmbLongitudeFocusLost
+
+    private void jcbbControleOcupacaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbbControleOcupacaoItemStateChanged
+        
+        if (jcbbControleOcupacao.getSelectedItem().toString().equals("Sim")) {
+            
+            jtxtaObsControleOcupacao.setEnabled(true);
+            
+        } else {
+            
+            jtxtaObsControleOcupacao.setEnabled(false);
+            
+        }
+        
+    }//GEN-LAST:event_jcbbControleOcupacaoItemStateChanged
+
+    private void jcbbAdensamentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbbAdensamentoItemStateChanged
+        
+        if (jcbbAdensamento.getSelectedItem().toString().equals("Sim")) {
+            
+            jtxtAdensamentoFonteDados.setEnabled(true);
+            jtxtaObsAdensamento.setEnabled(true);
+            
+        } else {
+            
+            jtxtAdensamentoFonteDados.setEnabled(false);
+            jtxtaObsAdensamento.setEnabled(false);
+            
+        }
+        
+    }//GEN-LAST:event_jcbbAdensamentoItemStateChanged
+
+    private void jcbbMelhoriaHabitacionalItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbbMelhoriaHabitacionalItemStateChanged
+        
+        if (jcbbMelhoriaHabitacional.getSelectedItem().toString().equals("Sim")) {
+            
+            jtxtFonteMelhoriaHabitacional.setEnabled(true);
+            
+        } else {
+            
+            jtxtFonteMelhoriaHabitacional.setEnabled(false);
+            
+        }
+        
+    }//GEN-LAST:event_jcbbMelhoriaHabitacionalItemStateChanged
+
+    private void jcbbAdequacaoInfraestruturaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbbAdequacaoInfraestruturaItemStateChanged
+        
+        if (jcbbAdequacaoInfraestrutura.getSelectedItem().toString().equals("Sim")) {
+            
+            jtxtFonteAdequacaoInfraestrutura.setEnabled(true);
+            
+        } else {
+            
+            jtxtFonteAdequacaoInfraestrutura.setEnabled(false);
+            
+        }
+        
+    }//GEN-LAST:event_jcbbAdequacaoInfraestruturaItemStateChanged
+
+    private void jcbbRecuperacaoAmbientalItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbbRecuperacaoAmbientalItemStateChanged
+        
+        if (jcbbRecuperacaoAmbiental.getSelectedItem().toString().equals("Sim")) {
+            
+            jtxtPrad.setEnabled(true);
+            
+        } else {
+            
+            jtxtPrad.setEnabled(false);
+            
+        }
+        
+    }//GEN-LAST:event_jcbbRecuperacaoAmbientalItemStateChanged
+
+    private void jcbbAcoesOutrosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbbAcoesOutrosItemStateChanged
+        
+        if (jcbbAcoesOutros.getSelectedItem().toString().equals("Sim")) {
+            
+            jtxtDescOutros.setEnabled(true);
+            
+        } else {
+            
+            jtxtDescOutros.setEnabled(false);
+            
+        }
+        
+    }//GEN-LAST:event_jcbbAcoesOutrosItemStateChanged
+
+    private void jcbbAspAmbOutrosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbbAspAmbOutrosItemStateChanged
+        
+        if (jcbbAspAmbOutros.getSelectedItem().toString().equals("Sim")) {
+            
+            jtxtAspAmbOutrosEspecifique.setEnabled(true);
+            
+        } else {
+            
+            jtxtAspAmbOutrosEspecifique.setEnabled(false);
+            
+        }
+        
+    }//GEN-LAST:event_jcbbAspAmbOutrosItemStateChanged
+
+    private void jcbbProcessosJudiciaisItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbbProcessosJudiciaisItemStateChanged
+        
+        if (jcbbProcessosJudiciais.getSelectedItem().toString().equals("Sim")) {
+            
+            jtxtNumeroProcesso.setEnabled(true);
+            jtxtNumeroOrdem.setEnabled(true);
+            jtxtVara.setEnabled(true);
+            
+        } else {
+            
+            jtxtNumeroProcesso.setEnabled(false);
+            jtxtNumeroOrdem.setEnabled(false);
+            jtxtVara.setEnabled(false);
+            
+        }
+        
+    }//GEN-LAST:event_jcbbProcessosJudiciaisItemStateChanged
+
+    private void jtbpPrincipalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtbpPrincipalKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtbpPrincipalKeyPressed
+
+    private void jpnlPesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jpnlPesquisaKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jpnlPesquisaKeyPressed
+
+    private void jtxtPesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPesquisaKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtPesquisaKeyPressed
+
+    private void jcbbFiltroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbFiltroKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbFiltroKeyPressed
+
+    private void jbtnPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbtnPesquisarKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jbtnPesquisarKeyPressed
+
+    private void jtblPesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtblPesquisaKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtblPesquisaKeyPressed
+
+    private void jtbpFormularioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtbpFormularioKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtbpFormularioKeyPressed
+
+    private void jtxtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNomeKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtNomeKeyPressed
+
+    private void jtxtSetorCadastralKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtSetorCadastralKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtSetorCadastralKeyPressed
+
+    private void jcbbZonaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbZonaKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbZonaKeyPressed
+
+    private void jtxtAreaTotalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtAreaTotalKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtAreaTotalKeyPressed
+
+    private void jtxtAreaOcupadaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtAreaOcupadaKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtAreaOcupadaKeyPressed
+
+    private void jcbbOrigemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbOrigemKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbOrigemKeyPressed
+
+    private void jcbbOcupacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbOcupacaoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbOcupacaoKeyPressed
+
+    private void jtxtInicioOcupacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtInicioOcupacaoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtInicioOcupacaoKeyPressed
+
+    private void jcbbControleOcupacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbControleOcupacaoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbControleOcupacaoKeyPressed
+
+    private void jtxtaObsControleOcupacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtaObsControleOcupacaoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtaObsControleOcupacaoKeyPressed
+
+    private void jcbbTransporteColetivoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbTransporteColetivoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbTransporteColetivoKeyPressed
+
+    private void jcbbPadraoConstrutivoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbPadraoConstrutivoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbPadraoConstrutivoKeyPressed
+
+    private void jtxtNumeroDomiciliosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroDomiciliosKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtNumeroDomiciliosKeyPressed
+
+    private void jtxtPopulacaoEstimadaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPopulacaoEstimadaKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtPopulacaoEstimadaKeyPressed
+
+    private void jcbbPopulacaoFonteDadosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbPopulacaoFonteDadosKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbPopulacaoFonteDadosKeyPressed
+
+    private void jtxtPopulacaoOutrasFontesDadosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPopulacaoOutrasFontesDadosKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtPopulacaoOutrasFontesDadosKeyPressed
+
+    private void jcbbRendaPopulacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbRendaPopulacaoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbRendaPopulacaoKeyPressed
+
+    private void jtxtUsoIncompativelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtUsoIncompativelKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtUsoIncompativelKeyPressed
+
+    private void jcbbAdensamentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbAdensamentoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbAdensamentoKeyPressed
+
+    private void jtxtAdensamentoFonteDadosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtAdensamentoFonteDadosKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtAdensamentoFonteDadosKeyPressed
+
+    private void jtxtaObsAdensamentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtaObsAdensamentoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtaObsAdensamentoKeyPressed
+
+    private void jtxtAnexosTransporteColetivoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtAnexosTransporteColetivoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtAnexosTransporteColetivoKeyPressed
+
+    private void jbtnAnexosTransporteColetivoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbtnAnexosTransporteColetivoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jbtnAnexosTransporteColetivoKeyPressed
+
+    private void jcbbAbastecimentoAguaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbAbastecimentoAguaKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbAbastecimentoAguaKeyPressed
+
+    private void jcbbColetaEsgotoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbColetaEsgotoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbColetaEsgotoKeyPressed
+
+    private void jcbbEnergiaEletricaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbEnergiaEletricaKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbEnergiaEletricaKeyPressed
+
+    private void jcbbIluminacaoPublicaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbIluminacaoPublicaKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbIluminacaoPublicaKeyPressed
+
+    private void jcbbServicosLimpezaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbServicosLimpezaKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbServicosLimpezaKeyPressed
+
+    private void jcbbAguasPluviaisSuperficialKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbAguasPluviaisSuperficialKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbAguasPluviaisSuperficialKeyPressed
+
+    private void jcbbAguasPluviaisRedeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbAguasPluviaisRedeKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbAguasPluviaisRedeKeyPressed
+
+    private void jcbbMaterialConstrucaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbMaterialConstrucaoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbMaterialConstrucaoKeyPressed
+
+    private void jcbbProducaoMoradiasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbProducaoMoradiasKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbProducaoMoradiasKeyPressed
+
+    private void jcbbAssistenciaTecnicaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbAssistenciaTecnicaKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbAssistenciaTecnicaKeyPressed
+
+    private void jcbbUrbAssentamentosPrecariosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbUrbAssentamentosPrecariosKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbUrbAssentamentosPrecariosKeyPressed
+
+    private void jcbbComplementacaoInfraestruturaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbComplementacaoInfraestruturaKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbComplementacaoInfraestruturaKeyPressed
+
+    private void jcbbRegularizacaoFundiariaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbRegularizacaoFundiariaKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbRegularizacaoFundiariaKeyPressed
+
+    private void jcbbCdhuKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbCdhuKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbCdhuKeyPressed
+
+    private void jcbbPmcmvKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbPmcmvKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbPmcmvKeyPressed
+
+    private void jcbbPropriedadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbPropriedadeKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbPropriedadeKeyPressed
+
+    private void jtxtProprietarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtProprietarioKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtProprietarioKeyPressed
+
+    private void jtxtaObsPropriedadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtaObsPropriedadeKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtaObsPropriedadeKeyPressed
+
+    private void jcbbDecretoRegistradoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbDecretoRegistradoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbDecretoRegistradoKeyPressed
+
+    private void jtxtDecretoAprovacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtDecretoAprovacaoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtDecretoAprovacaoKeyPressed
+
+    private void jtxtNumeroMatriculaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroMatriculaKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtNumeroMatriculaKeyPressed
+
+    private void jtxtDestinacaoAreasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtDestinacaoAreasKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtDestinacaoAreasKeyPressed
+
+    private void jtxtaDescDestinacaoAreasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtaDescDestinacaoAreasKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtaDescDestinacaoAreasKeyPressed
+
+    private void jtxtaDescEcologicoEconomicoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtaDescEcologicoEconomicoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtaDescEcologicoEconomicoKeyPressed
+
+    private void jtxtaDescZonasSoloKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtaDescZonasSoloKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtaDescZonasSoloKeyPressed
+
+    private void jtxtAnexosZoneamentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtAnexosZoneamentoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtAnexosZoneamentoKeyPressed
+
+    private void jbtnAnexosZoneamentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbtnAnexosZoneamentoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jbtnAnexosZoneamentoKeyPressed
+
+    private void jcbbProcessosJudiciaisKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbProcessosJudiciaisKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbProcessosJudiciaisKeyPressed
+
+    private void jtxtNumeroProcessoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroProcessoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtNumeroProcessoKeyPressed
+
+    private void jtxtNumeroOrdemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroOrdemKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtNumeroOrdemKeyPressed
+
+    private void jtxtVaraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtVaraKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtVaraKeyPressed
+
+    private void jcbbExistenciaEmbargosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbExistenciaEmbargosKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbExistenciaEmbargosKeyPressed
+
+    private void jtxtaObsJudiciaisKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtaObsJudiciaisKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtaObsJudiciaisKeyPressed
+
+    private void jtxtAnexosJudiciaisKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtAnexosJudiciaisKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtAnexosJudiciaisKeyPressed
+
+    private void jbtnAnexosJudiciaisKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbtnAnexosJudiciaisKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jbtnAnexosJudiciaisKeyPressed
+
+    private void jtblViasPublicasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtblViasPublicasKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtblViasPublicasKeyPressed
+
+    private void jcbbRecursoMobilidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbRecursoMobilidadeKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbRecursoMobilidadeKeyPressed
+
+    private void jbtnGerenciarRecursoMobilidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbtnGerenciarRecursoMobilidadeKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jbtnGerenciarRecursoMobilidadeKeyPressed
+
+    private void jtxtaDescRecursoMobilidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtaDescRecursoMobilidadeKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtaDescRecursoMobilidadeKeyPressed
+
+    private void jtblInstitucionalSocialKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtblInstitucionalSocialKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtblInstitucionalSocialKeyPressed
+
+    private void jcbbRecursoSocialKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbRecursoSocialKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbRecursoSocialKeyPressed
+
+    private void jbtnGerenciarRecursoSocialKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbtnGerenciarRecursoSocialKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jbtnGerenciarRecursoSocialKeyPressed
+
+    private void jtxtaDescRecursoSocialKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtaDescRecursoSocialKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtaDescRecursoSocialKeyPressed
+
+    private void jcbbRemanejamentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbRemanejamentoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbRemanejamentoKeyPressed
+
+    private void jcbbEstimativaRelocacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbEstimativaRelocacaoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbEstimativaRelocacaoKeyPressed
+
+    private void jtxtNumeroRemocaoDefinitivaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroRemocaoDefinitivaKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtNumeroRemocaoDefinitivaKeyPressed
+
+    private void jtxtNumeroRemocaoProvisoriaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroRemocaoProvisoriaKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtNumeroRemocaoProvisoriaKeyPressed
+
+    private void jcbbReassentamentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbReassentamentoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbReassentamentoKeyPressed
+
+    private void jcbbEstimativaRemocaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbEstimativaRemocaoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbEstimativaRemocaoKeyPressed
+
+    private void jtxtNumeroMoradiasConstruirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroMoradiasConstruirKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtNumeroMoradiasConstruirKeyPressed
+
+    private void jtxtNumeroMoradiasProvisoriasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroMoradiasProvisoriasKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtNumeroMoradiasProvisoriasKeyPressed
+
+    private void jtxtLocalDefinitivoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtLocalDefinitivoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtLocalDefinitivoKeyPressed
+
+    private void jcbbMelhoriaHabitacionalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbMelhoriaHabitacionalKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbMelhoriaHabitacionalKeyPressed
+
+    private void jtxtFonteMelhoriaHabitacionalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtFonteMelhoriaHabitacionalKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtFonteMelhoriaHabitacionalKeyPressed
+
+    private void jcbbAdequacaoInfraestruturaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbAdequacaoInfraestruturaKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbAdequacaoInfraestruturaKeyPressed
+
+    private void jtxtFonteAdequacaoInfraestruturaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtFonteAdequacaoInfraestruturaKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtFonteAdequacaoInfraestruturaKeyPressed
+
+    private void jcbbDesconstrucaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbDesconstrucaoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbDesconstrucaoKeyPressed
+
+    private void jtxtNumeroMoradiasDemolirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroMoradiasDemolirKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtNumeroMoradiasDemolirKeyPressed
+
+    private void jtxtaMotivoDemolicaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtaMotivoDemolicaoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtaMotivoDemolicaoKeyPressed
+
+    private void jtxtaProcessosDemolicaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtaProcessosDemolicaoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtaProcessosDemolicaoKeyPressed
+
+    private void jcbbRecuperacaoAmbientalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbRecuperacaoAmbientalKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbRecuperacaoAmbientalKeyPressed
+
+    private void jtxtPradKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPradKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtPradKeyPressed
+
+    private void jcbbAcoesOutrosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbAcoesOutrosKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbAcoesOutrosKeyPressed
+
+    private void jtxtDescOutrosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtDescOutrosKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtDescOutrosKeyPressed
+
+    private void jtxtAspAmbLatitudeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtAspAmbLatitudeKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtAspAmbLatitudeKeyPressed
+
+    private void jtxtAspAmbLongitudeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtAspAmbLongitudeKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtAspAmbLongitudeKeyPressed
+
+    private void jcbbAreaVerdeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbAreaVerdeKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbAreaVerdeKeyPressed
+
+    private void jcbbAreaAgricolaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbAreaAgricolaKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbAreaAgricolaKeyPressed
+
+    private void jcbbAspAmbOutrosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbAspAmbOutrosKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbAspAmbOutrosKeyPressed
+
+    private void jtxtAspAmbOutrosEspecifiqueKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtAspAmbOutrosEspecifiqueKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtAspAmbOutrosEspecifiqueKeyPressed
+
+    private void jcbbAppKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbAppKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbAppKeyPressed
+
+    private void jcbbCorpoDaguaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbCorpoDaguaKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbCorpoDaguaKeyPressed
+
+    private void jcbbBrejoCharcoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbBrejoCharcoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbBrejoCharcoKeyPressed
+
+    private void jcbbTopoMorroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbTopoMorroKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbTopoMorroKeyPressed
+
+    private void jcbbEncostaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbEncostaKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbEncostaKeyPressed
+
+    private void jcbbRestingaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbRestingaKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbRestingaKeyPressed
+
+    private void jcbbAppOutrosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbbAppOutrosKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jcbbAppOutrosKeyPressed
+
+    private void jtxtaAppOutrosEspecifiqueKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtaAppOutrosEspecifiqueKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtxtaAppOutrosEspecifiqueKeyPressed
+
+    private void jtblAreasRiscoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtblAreasRiscoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jtblAreasRiscoKeyPressed
+
+    private void jbtnNovoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbtnNovoKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jbtnNovoKeyPressed
+
+    private void jbtnSalvarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbtnSalvarKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jbtnSalvarKeyPressed
+
+    private void jbtnEditarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbtnEditarKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jbtnEditarKeyPressed
+
+    private void jbtnExcluirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbtnExcluirKeyPressed
+        
+        atalho(evt);
+        
+    }//GEN-LAST:event_jbtnExcluirKeyPressed
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        
+        preencherTabelaPesquisa();
+        preencherComboRecursoMobilidade();
+        preencherComboRecursoSocial();
+        
+    }//GEN-LAST:event_formInternalFrameOpened
+
+    private void jtblPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblPesquisaMouseClicked
+        
+        if (evt.getClickCount() == 2) {
+            
+            carregarDados();
+            
+        }
+        
+    }//GEN-LAST:event_jtblPesquisaMouseClicked
+
+    private void jbtnAdicionarViaPublicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAdicionarViaPublicaActionPerformed
+        
+        salvarViaPublica();
+        
+    }//GEN-LAST:event_jbtnAdicionarViaPublicaActionPerformed
+
+    private void jbtnEditarViaPublicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEditarViaPublicaActionPerformed
+        
+        editarViaPublica();
+        
+    }//GEN-LAST:event_jbtnEditarViaPublicaActionPerformed
+
+    private void jbtnExcluirViaPublicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnExcluirViaPublicaActionPerformed
+        
+        excluirViaPublica();
+        
+    }//GEN-LAST:event_jbtnExcluirViaPublicaActionPerformed
+
+    private void jbtnAdicionarInstitucionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAdicionarInstitucionalActionPerformed
+        
+        salvarInstitucionalSocial();
+        
+    }//GEN-LAST:event_jbtnAdicionarInstitucionalActionPerformed
+
+    private void jbtnEditarInstitucionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEditarInstitucionalActionPerformed
+        
+        editarInstitucionalSocial();
+        
+    }//GEN-LAST:event_jbtnEditarInstitucionalActionPerformed
+
+    private void jbtnExcluirInstitucionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnExcluirInstitucionalActionPerformed
+        
+        excluirInstitucionalSocial();
+        
+    }//GEN-LAST:event_jbtnExcluirInstitucionalActionPerformed
+
+    private void jcbbRecursoMobilidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbRecursoMobilidadeFocusLost
+        
+        checarCamposObrigatoriosViaPublica();
+        
+    }//GEN-LAST:event_jcbbRecursoMobilidadeFocusLost
+
+    private void jtxtaDescRecursoMobilidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtaDescRecursoMobilidadeFocusLost
+        
+        checarCamposObrigatoriosViaPublica();
+        
+    }//GEN-LAST:event_jtxtaDescRecursoMobilidadeFocusLost
+
+    private void jcbbRecursoSocialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbRecursoSocialFocusLost
+        
+        checarCamposObrigatoriosInstitucionalSocial();
+        
+    }//GEN-LAST:event_jcbbRecursoSocialFocusLost
+
+    private void jtxtaDescRecursoSocialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtaDescRecursoSocialFocusLost
+        
+        checarCamposObrigatoriosInstitucionalSocial();
+        
+    }//GEN-LAST:event_jtxtaDescRecursoSocialFocusLost
+
+    private void jtblViasPublicasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblViasPublicasMouseClicked
+        
+        if (evt.getClickCount() == 2) {
+            
+            carregarDadosViaPublica();
+            checarCamposObrigatoriosViaPublica();
+            
+        }
+        
+    }//GEN-LAST:event_jtblViasPublicasMouseClicked
+
+    private void jtblInstitucionalSocialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblInstitucionalSocialMouseClicked
+        
+        if (evt.getClickCount() == 2) {
+            
+            carregarDadosInstitucional();
+            checarCamposObrigatoriosInstitucionalSocial();
+            
+        }
+        
+    }//GEN-LAST:event_jtblInstitucionalSocialMouseClicked
     
     private void criarNovo() {
         
@@ -3352,15 +5048,29 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtxtAreaOcupada.setText("0,000");
         jtxtNumeroDomicilios.setText("0");
         jtxtPopulacaoEstimada.setText("0");
+        jtxtDestinacaoAreas.setText("0,000");
+        jtxtAspAmbLatitude.setText("0,0");
+        jtxtAspAmbLongitude.setText("0,0");
         checarCamposObrigatorios();
         habilitarCampos();
         desabilitarCamposViaPublica();
         desabilitarCamposInstitucional();
         desabilitarCamposAreaRisco();
+        jtxtaObsControleOcupacao.setEnabled(false);
         jtxtPopulacaoOutrasFontesDados.setEnabled(false);
+        jtxtAdensamentoFonteDados.setEnabled(false);
+        jtxtaObsAdensamento.setEnabled(false);
         jtxtProprietario.setEnabled(false);
         jtxtaObsPropriedade.setEnabled(false);
         jtxtNumeroMatricula.setEnabled(false);
+        jtxtNumeroProcesso.setEnabled(false);
+        jtxtNumeroOrdem.setEnabled(false);
+        jtxtVara.setEnabled(false);
+        jtxtFonteMelhoriaHabitacional.setEnabled(false);
+        jtxtFonteAdequacaoInfraestrutura.setEnabled(false);
+        jtxtPrad.setEnabled(false);
+        jtxtDescOutros.setEnabled(false);
+        jtxtAspAmbOutrosEspecifique.setEnabled(false);
         jtxtAnexosTransporteColetivo.setEnabled(false);
         jtxtAnexosZoneamento.setEnabled(false);
         jtxtAnexosJudiciais.setEnabled(false);
@@ -3370,6 +5080,8 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         desabilitarBotoes();
         jbtnNovo.setEnabled(true);
         jbtnSalvar.setEnabled(true);
+        jtbpPrincipal.setSelectedIndex(1);
+        jtbpFormulario.setSelectedIndex(0);
         acao = 'N';
         
     }
@@ -3413,58 +5125,50 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
                 String input = jsonMgr.parseJson(nucleo);
                 
-                java.lang.Object output = cadhab.conn.ConnectionManager.connect2("/nucleo/nome?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                java.lang.Object output = cadhab.conn.ConnectionManager.connect("/nucleo/nome?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
                 
-                if (output != null) {
+                if (output == null) {
                     
-                    if (output instanceof com.sys.urbano.Nucleo) {
-                        
-                        javax.swing.JOptionPane.showMessageDialog(this, "Já existe um núcleo com este nome cadastrado no sistema!", "CadHab", 2);
-                        
-                    } else {
-                    
-                        java.lang.Object[] options = { "Sim", "Não" };
-                        java.lang.Object opcao = javax.swing.JOptionPane.showOptionDialog(this, "Deseja realmente inserir o novo núcleo no sistema?", "CadHab",
-                                javax.swing.JOptionPane.DEFAULT_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null,
-                                options, options[1]);
+                    java.lang.Object[] options = { "Sim", "Não" };
+                    java.lang.Object opcao = javax.swing.JOptionPane.showOptionDialog(this, "Deseja realmente inserir o novo núcleo no sistema?", "CadHab",
+                            javax.swing.JOptionPane.DEFAULT_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null,
+                            options, options[1]);
 
-                        if (opcao.toString().equals("0")) {
+                    if (opcao.toString().equals("0")) {
 
-                            output = cadhab.conn.ConnectionManager.connect2("/nucleo/completo/salvar?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                        output = cadhab.conn.ConnectionManager.connect("/nucleo/completo/salvar?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
 
-                            if (output != null) {
+                        if (output != null) {
 
-                                if (output instanceof com.sys.Message) {
+                            if (output instanceof com.sys.Message) {
 
-                                    com.sys.Message mensagem = (com.sys.Message) output;
-                                    javax.swing.JOptionPane.showMessageDialog(this, mensagem.getMessage(), "CadHab", mensagem.getCode());
+                                com.sys.Message mensagem = (com.sys.Message) output;
+                                javax.swing.JOptionPane.showMessageDialog(this, mensagem.getMessage(), "CadHab", mensagem.getCode());
                                     
-                                    if (mensagem.getCode() == 1) {
+                                if (mensagem.getCode() == 1) {
                                         
-                                        limparCampos();
-                                        desabilitarTodosCampos();
-                                        desabilitarBotoes();
-                                        jbtnNovo.setEnabled(true);
-                                        preencherTabelaPesquisa();
-                                        acao = ' ';
+                                    limparCampos();
+                                    desabilitarTodosCampos();
+                                    desabilitarBotoes();
+                                    jbtnNovo.setEnabled(true);
+                                    preencherTabelaPesquisa();
+                                    acao = ' ';
                                     
-                                    }
-
                                 }
-
-                            } else {
-
-                                javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível fazer o cadastro do novo núcleo!", "CadHab", 0);
 
                             }
 
+                        } else {
+
+                            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível fazer o cadastro do novo núcleo!", "CadHab", 0);
+
                         }
-                    
+
                     }
                     
                 } else {
                     
-                    javax.swing.JOptionPane.showMessageDialog(this, "a");
+                    javax.swing.JOptionPane.showMessageDialog(this, "Já existe um núcleo com este nome cadastrado no sistema!", "CadHab", 2);
                     
                 }
                 
@@ -3487,7 +5191,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         } catch (java.io.IOException ex) {
             
             ex.printStackTrace();
-            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações para/do servidor!", "CadHab", 0);
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
          
         } catch (java.lang.NumberFormatException ex) {
             
@@ -3505,19 +5209,1552 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     
     private void editar() {
         
-        
+        try {
+            
+            if (checarCamposObrigatorios()) {
+                
+                if (jcbbRemanejamento.getSelectedIndex() == 1 && ! checarCamposObrigatoriosRemanejamento()) {
+                    
+                    javax.swing.JOptionPane.showMessageDialog(this, "Verifique se todos os campos obrigatórios se encontram preenchidos e/ou selecionados!", "CadHab", 2);
+                    return;
+                    
+                }
+                
+                if (jcbbReassentamento.getSelectedIndex() == 1 && ! checarCamposObrigatoriosReassentamento()) {
+                    
+                    javax.swing.JOptionPane.showMessageDialog(this, "Verifique se todos os campos obrigatórios se encontram preenchidos e/ou selecionados!", "CadHab", 2);
+                    return;
+                    
+                }
+                
+                if (jcbbDesconstrucao.getSelectedIndex() == 1 && ! checarCamposObrigatoriosDesconstrucao()) {
+                    
+                    javax.swing.JOptionPane.showMessageDialog(this, "Verifique se todos os campos obrigatórios se encontram preenchidos e/ou selecionados!", "CadHab", 2);
+                    return;
+                    
+                }
+                
+                if (jcbbApp.getSelectedIndex() == 1 && ! checarCamposObrigatoriosApp()) {
+                    
+                    javax.swing.JOptionPane.showMessageDialog(this, "Verifique se todos os campos obrigatórios se encontram preenchidos e/ou selecionados!", "CadHab", 2);
+                    return;
+                    
+                }
+                
+                com.sys.urbano.Nucleo nucleo = preencherDadosNucleo();
+                nucleo.setId(idNucleoAtual);
+                nucleo.getInfraestruturaUrbana().setId(idInfraestruturaAtual);
+                nucleo.getInfraestruturaUrbana().setIdNucleo(idNucleoAtual);
+                nucleo.getProgramaHabitacional().setId(idProgramaAtual);
+                nucleo.getProgramaHabitacional().setIdNucleo(idNucleoAtual);
+                nucleo.getSituacaoFundiaria().setId(idFundiariaAtual);
+                nucleo.getSituacaoFundiaria().setIdNucleo(idNucleoAtual);
+                nucleo.getAcaoNucleo().setId(idAcaoAtual);
+                nucleo.getAcaoNucleo().setIdNucleo(idNucleoAtual);
+                nucleo.getAcaoNucleo().getObjRemanejamento().setId(idRemanejamentoAtual);
+                nucleo.getAcaoNucleo().getObjRemanejamento().setIdAcao(idAcaoAtual);
+                nucleo.getAcaoNucleo().getObjReassentamento().setId(idReassentamentoAtual);
+                nucleo.getAcaoNucleo().getObjReassentamento().setIdAcao(idAcaoAtual);
+                nucleo.getAcaoNucleo().getObjDesconstrucao().setId(idDesconstrucaoAtual);
+                nucleo.getAcaoNucleo().getObjDesconstrucao().setIdAcao(idAcaoAtual);
+                nucleo.getAspectoAmbiental().setId(idAmbientalAtual);
+                nucleo.getAspectoAmbiental().setIdNucleo(idNucleoAtual);
+                nucleo.getAspectoAmbiental().getApp().setId(idAppAtual);
+                nucleo.getAspectoAmbiental().getApp().setIdAmbiental(idAmbientalAtual);
+                
+                com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+                String input = jsonMgr.parseJson(nucleo);
+                
+                java.lang.Object output = cadhab.conn.ConnectionManager.connect("/nucleo/existente/nome?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                
+                if (output == null) {
+                    
+                    java.lang.Object[] options = { "Sim", "Não" };
+                    java.lang.Object opcao = javax.swing.JOptionPane.showOptionDialog(this, "Deseja realmente atualizar os dados do núcleo no sistema?", "CadHab",
+                            javax.swing.JOptionPane.DEFAULT_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null,
+                            options, options[1]);
+
+                    if (opcao.toString().equals("0")) {
+                        
+                        output = cadhab.conn.ConnectionManager.connect("/nucleo/completo/atualizar?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+
+                        if (output != null) {
+
+                            if (output instanceof com.sys.Message) {
+
+                                com.sys.Message mensagem = (com.sys.Message) output;
+                                javax.swing.JOptionPane.showMessageDialog(this, mensagem.getMessage(), "CadHab", mensagem.getCode());
+                                    
+                                if (mensagem.getCode() == 1) {
+                                        
+                                    limparCampos();
+                                    desabilitarTodosCampos();
+                                    desabilitarBotoes();
+                                    jbtnNovo.setEnabled(true);
+                                    preencherTabelaPesquisa();
+                                    acao = ' ';
+                                    
+                                }
+
+                            }
+
+                        } else {
+
+                            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível atualizar os dados do núcleo!", "CadHab", 0);
+
+                        }
+                        
+                    }
+                    
+                } else {
+                    
+                    javax.swing.JOptionPane.showMessageDialog(this, "Já existe um outro núcleo com este nome cadastrado no sistema!", "CadHab", 2);
+                    
+                }
+                
+            } else {
+                
+                javax.swing.JOptionPane.showMessageDialog(this, "Verifique se todos os campos obrigatórios se encontram preenchidos e/ou selecionados!", "CadHab", 2);
+                
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+         
+        } catch (java.lang.NumberFormatException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Algum(ns) campo(s) numérico(s) possui(em) valor(es) inválido(s)!", "CadHab", 0);
+            
+        } catch (java.lang.Exception ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
         
     }
     
     private void excluir() {
         
+        try {
+            
+            if (idNucleoAtual > 0) {
+                
+                java.lang.Object[] options = { "Sim", "Não" };
+                java.lang.Object opcao = javax.swing.JOptionPane.showOptionDialog(this, "Esta ação é irreversível após ter sido executada!\nDeseja realmente excluir os dados do núcleo no sistema?", "CadHab",
+                        javax.swing.JOptionPane.DEFAULT_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null,
+                        options, options[1]);
+
+                if (opcao.toString().equals("0")) {
+                
+                    com.sys.urbano.Nucleo nucleo = new com.sys.urbano.Nucleo();
+                    nucleo.setId(idNucleoAtual);
+
+                    com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+                    String input = jsonMgr.parseJson(nucleo);
+
+                    java.lang.Object output = cadhab.conn.ConnectionManager.connect("/nucleo/excluir?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                    
+                    if (output != null) {
+                        
+                        if (output instanceof com.sys.Message) {
+
+                            com.sys.Message mensagem = (com.sys.Message) output;
+                            javax.swing.JOptionPane.showMessageDialog(this, mensagem.getMessage(), "CadHab", mensagem.getCode());
+                                    
+                            if (mensagem.getCode() == 1) {
+                                        
+                                limparCampos();
+                                desabilitarTodosCampos();
+                                desabilitarBotoes();
+                                jbtnNovo.setEnabled(true);
+                                preencherTabelaPesquisa();
+                                acao = ' ';
+                                    
+                            }
+
+                        }
+                        
+                    }
+                
+                }
+                
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+         
+        } catch (java.lang.Exception ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
         
+    }
+    
+    private void salvarViaPublica() {
+        
+        try {
+            
+            if (checarCamposObrigatoriosViaPublica()) {
+                
+                com.sys.urbano.RecursoMobilidade recurso = new com.sys.urbano.RecursoMobilidade();
+                recurso.setNome(jcbbRecursoMobilidade.getSelectedItem().toString());
+                
+                com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+                String input = jsonMgr.parseJson(recurso);
+                
+                java.lang.Object output = cadhab.conn.ConnectionManager.connect("/recurso_mobilidade/nome?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                
+                if (output != null) {
+                    
+                    if (output instanceof com.sys.urbano.RecursoMobilidade) {
+                        
+                        java.lang.Object[] options = { "Sim", "Não" };
+                        java.lang.Object opcao = javax.swing.JOptionPane.showOptionDialog(this, "Deseja realmente inserir a nova via pública neste núcleo?", "CadHab",
+                                javax.swing.JOptionPane.DEFAULT_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null,
+                                options, options[1]);
+
+                        if (opcao.toString().equals("0")) {
+                        
+                            recurso = (com.sys.urbano.RecursoMobilidade) output;
+
+                            com.sys.urbano.ViaPublica via = new com.sys.urbano.ViaPublica();
+                            via.setIdNucleo(idNucleoAtual);
+                            via.setMobilidade(recurso);
+                            via.setDescricao(jtxtaDescRecursoMobilidade.getText());
+
+                            input = jsonMgr.parseJson(via);
+
+                            output = cadhab.conn.ConnectionManager.connect("/via_publica/salvar?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+
+                            if (output != null) {
+
+                                if (output instanceof com.sys.Message) {
+                                    
+                                    com.sys.Message mensagem = (com.sys.Message) output;
+                                    javax.swing.JOptionPane.showMessageDialog(this, mensagem.getMessage(), "CadHab", mensagem.getCode());
+
+                                    if (mensagem.getCode() == 1) {
+                                        
+                                        limparCamposViaPublica();
+                                        preencherTabelaViasPublicas();
+                                        jbtnEditarViaPublica.setEnabled(false);
+                                        jbtnExcluirViaPublica.setEnabled(false);
+                                        
+                                    }
+                                    
+                                }
+
+                            } else {
+
+                                javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível fazer o cadastro da nova via pública para este núcleo!", "CadHab", 0);
+
+                            }
+                        
+                        }
+                        
+                    }
+                    
+                } else {
+                
+                    javax.swing.JOptionPane.showMessageDialog(this, "Ocorreu um erro durante o cadastro da nova via pública!", "CadHab", 0);
+
+                }
+                
+            } else {
+                
+                javax.swing.JOptionPane.showMessageDialog(this, "Verifique se todos os campos obrigatórios se encontram preenchidos e/ou selecionados!", "CadHab", 2);
+                
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+         
+        } catch (java.lang.Exception ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
+        
+    }
+    
+    private void editarViaPublica() {
+        
+        try {
+            
+            if (idViaPublicaAtual > 0) {
+            
+                if (checarCamposObrigatoriosViaPublica()) {
+
+                    com.sys.urbano.RecursoMobilidade recurso = new com.sys.urbano.RecursoMobilidade();
+                    recurso.setNome(jcbbRecursoMobilidade.getSelectedItem().toString());
+
+                    com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+                    String input = jsonMgr.parseJson(recurso);
+
+                    java.lang.Object output = cadhab.conn.ConnectionManager.connect("/recurso_mobilidade/nome?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+
+                    if (output != null) {
+
+                        if (output instanceof com.sys.urbano.RecursoMobilidade) {
+                            
+                            recurso = (com.sys.urbano.RecursoMobilidade) output;
+
+                            com.sys.urbano.ViaPublica via = new com.sys.urbano.ViaPublica();
+                            via.setId(idViaPublicaAtual);
+
+                            input = jsonMgr.parseJson(via);
+
+                            output = cadhab.conn.ConnectionManager.connect("/via_publica/id?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+
+                            if (output != null) {
+
+                                if (output instanceof com.sys.urbano.ViaPublica) {
+
+                                    java.lang.Object[] options = { "Sim", "Não" };
+                                    java.lang.Object opcao = javax.swing.JOptionPane.showOptionDialog(this, "Deseja realmente atualizar os dados da via pública selecionada?", "CadHab",
+                                            javax.swing.JOptionPane.DEFAULT_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null,
+                                            options, options[1]);
+
+                                    if (opcao.toString().equals("0")) {
+
+                                        via.setIdNucleo(idNucleoAtual);
+                                        via.setMobilidade(recurso);
+                                        via.setDescricao(jtxtaDescRecursoMobilidade.getText());
+
+                                        input = jsonMgr.parseJson(via);
+
+                                        output = cadhab.conn.ConnectionManager.connect("/via_publica/atualizar?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+
+                                        if (output != null) {
+
+                                            if (output instanceof com.sys.Message) {
+
+                                                com.sys.Message mensagem = (com.sys.Message) output;
+                                                javax.swing.JOptionPane.showMessageDialog(this, mensagem.getMessage(), "CadHab", mensagem.getCode());
+
+                                                if (mensagem.getCode() == 1) {
+
+                                                    limparCamposViaPublica();
+                                                    preencherTabelaViasPublicas();
+                                                    idViaPublicaAtual = 0;
+
+                                                }
+
+                                            }
+
+                                        } else {
+
+                                            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível fazer a atualização dos dados via pública para este núcleo!", "CadHab", 0);
+
+                                        }
+
+                                    }
+
+                                } else if (output instanceof com.sys.Message) {
+                            
+                                    com.sys.Message mensagem = (com.sys.Message) output;
+                                    javax.swing.JOptionPane.showMessageDialog(this, mensagem.getMessage(), "CadHab", mensagem.getCode());
+
+                                }
+
+                            } else {
+
+                                javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar os dados da via pública para atualizá-los!", "CadHab", 0);
+
+                            }
+
+                        } else {
+                            
+                            System.out.println("cast Recusro Mobilidade");
+                            
+                        }
+
+                    } else {
+
+                        javax.swing.JOptionPane.showMessageDialog(this, "Ocorreu um erro durante a atualização dos dados da via pública!", "CadHab", 0);
+
+                    }
+
+                } else {
+
+                    javax.swing.JOptionPane.showMessageDialog(this, "Verifique se todos os campos obrigatórios se encontram preenchidos e/ou selecionados!", "CadHab", 2);
+
+                }
+            
+            } else {
+
+                javax.swing.JOptionPane.showMessageDialog(this, "Dê duplo-clique em uma via pública na tabela acima para selecioná-la!", "CadHab", 2);
+
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+         
+        } catch (java.lang.Exception ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
+        
+    }
+    
+    private void excluirViaPublica() {
+        
+        try {
+            
+            if (idViaPublicaAtual > 0) {
+                
+                com.sys.urbano.ViaPublica via = new com.sys.urbano.ViaPublica();
+                via.setId(idViaPublicaAtual);
+
+                com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+                String input = jsonMgr.parseJson(via);
+
+                java.lang.Object output = cadhab.conn.ConnectionManager.connect("/via_publica/id?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+
+                if (output != null) {
+                                
+                    java.lang.Object[] options = {"Sim", "Não"};
+                    java.lang.Object opcao = javax.swing.JOptionPane.showOptionDialog(this, "Deseja realmente excluir os dados da via pública do sistema?", "CadHab",
+                            javax.swing.JOptionPane.DEFAULT_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null,
+                            options, options[1]);
+
+                    if (opcao.toString().equals("0")) {
+                        
+                        output = cadhab.conn.ConnectionManager.connect("/via_publica/excluir?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);   
+
+                        if (output != null) {
+
+                            if (output instanceof com.sys.Message) {
+
+                                com.sys.Message mensagem = (com.sys.Message) output;
+                                javax.swing.JOptionPane.showMessageDialog(this, mensagem.getMessage(), "CadHab", mensagem.getCode());
+                                limparCamposViaPublica();
+                                preencherTabelaViasPublicas();
+                                idViaPublicaAtual = 0;
+
+                            }
+
+                        } else {
+
+                            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível excluir os dados da via pública!", "CadHab", 0);
+
+                        }
+                        
+                    }
+                                
+                } else {
+                        
+                    javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar os dados da via pública no sistema!", "CadHab", 0);
+                        
+                }
+                
+            } else {
+
+                javax.swing.JOptionPane.showMessageDialog(this, "Dê duplo-clique em uma via pública na tabela acima para selecioná-la!", "CadHab", 2);
+
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+         
+        } catch (java.lang.Exception ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
+        
+    }
+    
+    private void salvarInstitucionalSocial() {
+        
+        try {
+            
+            if (checarCamposObrigatoriosInstitucionalSocial()) {
+                
+                com.sys.urbano.RecursoSocial recurso = new com.sys.urbano.RecursoSocial();
+                recurso.setNome(jcbbRecursoSocial.getSelectedItem().toString());
+                
+                com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+                String input = jsonMgr.parseJson(recurso);
+                
+                java.lang.Object output = cadhab.conn.ConnectionManager.connect("/recurso_social/nome?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                
+                if (output != null) {
+                    
+                    if (output instanceof com.sys.urbano.RecursoSocial) {
+                        
+                        java.lang.Object[] options = { "Sim", "Não" };
+                        java.lang.Object opcao = javax.swing.JOptionPane.showOptionDialog(this, "Deseja realmente inserir o novo recurso social neste núcleo?", "CadHab",
+                                javax.swing.JOptionPane.DEFAULT_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null,
+                                options, options[1]);
+
+                        if (opcao.toString().equals("0")) {
+                        
+                            recurso = (com.sys.urbano.RecursoSocial) output;
+
+                            com.sys.urbano.InstitucionalSocial institucional = new com.sys.urbano.InstitucionalSocial();
+                            institucional.setIdNucleo(idNucleoAtual);
+                            institucional.setSocial(recurso);
+                            institucional.setNome(jtxtaDescRecursoSocial.getText());
+
+                            input = jsonMgr.parseJson(institucional);
+
+                            output = cadhab.conn.ConnectionManager.connect("/institucional_social/salvar?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+
+                            if (output != null) {
+
+                                if (output instanceof com.sys.Message) {
+                                    
+                                    com.sys.Message mensagem = (com.sys.Message) output;
+                                    javax.swing.JOptionPane.showMessageDialog(this, mensagem.getMessage(), "CadHab", mensagem.getCode());
+
+                                    if (mensagem.getCode() == 1) {
+                                        
+                                        limparCamposInstitucionalSocial();
+                                        preencherTabelaInstitucionalSocial();
+                                        jbtnEditarInstitucional.setEnabled(false);
+                                        jbtnExcluirInstitucional.setEnabled(false);
+                                        
+                                    }
+                                    
+                                }
+
+                            } else {
+
+                                javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível fazer o cadastro do novo recurso social para este núcleo!", "CadHab", 0);
+
+                            }
+                        
+                        }
+                        
+                    }
+                    
+                } else {
+                
+                    javax.swing.JOptionPane.showMessageDialog(this, "Ocorreu um erro durante o cadastro do novo recurso social!", "CadHab", 0);
+
+                }
+                
+            } else {
+                
+                javax.swing.JOptionPane.showMessageDialog(this, "Verifique se todos os campos obrigatórios se encontram preenchidos e/ou selecionados!", "CadHab", 2);
+                
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+         
+        } catch (java.lang.Exception ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
+        
+    }
+    
+    private void editarInstitucionalSocial() {
+        
+        try {
+            
+            if (idInstitucionalAtual > 0) {
+            
+                if (checarCamposObrigatoriosInstitucionalSocial()) {
+
+                    com.sys.urbano.RecursoSocial recurso = new com.sys.urbano.RecursoSocial();
+                    recurso.setNome(jcbbRecursoSocial.getSelectedItem().toString());
+
+                    com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+                    String input = jsonMgr.parseJson(recurso);
+
+                    java.lang.Object output = cadhab.conn.ConnectionManager.connect("/recurso_social/nome?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+
+                    if (output != null) {
+
+                        if (output instanceof com.sys.urbano.RecursoSocial) {
+                            
+                            recurso = (com.sys.urbano.RecursoSocial) output;
+
+                            com.sys.urbano.InstitucionalSocial institucional = new com.sys.urbano.InstitucionalSocial();
+                            institucional.setId(idInstitucionalAtual);
+
+                            input = jsonMgr.parseJson(institucional);
+
+                            output = cadhab.conn.ConnectionManager.connect("/institucional_social/id?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+
+                            if (output != null) {
+
+                                if (output instanceof com.sys.urbano.InstitucionalSocial) {
+
+                                    java.lang.Object[] options = { "Sim", "Não" };
+                                    java.lang.Object opcao = javax.swing.JOptionPane.showOptionDialog(this, "Deseja realmente atualizar os dados do recurso social selecionado?", "CadHab",
+                                            javax.swing.JOptionPane.DEFAULT_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null,
+                                            options, options[1]);
+
+                                    if (opcao.toString().equals("0")) {
+
+                                        institucional.setIdNucleo(idNucleoAtual);
+                                        institucional.setSocial(recurso);
+                                        institucional.setNome(jtxtaDescRecursoSocial.getText());
+
+                                        input = jsonMgr.parseJson(institucional);
+
+                                        output = cadhab.conn.ConnectionManager.connect("/institucional_social/atualizar?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+
+                                        if (output != null) {
+
+                                            if (output instanceof com.sys.Message) {
+
+                                                com.sys.Message mensagem = (com.sys.Message) output;
+                                                javax.swing.JOptionPane.showMessageDialog(this, mensagem.getMessage(), "CadHab", mensagem.getCode());
+
+                                                if (mensagem.getCode() == 1) {
+
+                                                    limparCamposInstitucionalSocial();
+                                                    preencherTabelaInstitucionalSocial();
+                                                    idInstitucionalAtual = 0;
+
+                                                }
+
+                                            }
+
+                                        } else {
+
+                                            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível fazer a atualização dos dados do recurso social selecionado!", "CadHab", 0);
+
+                                        }
+
+                                    }
+
+                                } else if (output instanceof com.sys.Message) {
+                            
+                                    com.sys.Message mensagem = (com.sys.Message) output;
+                                    javax.swing.JOptionPane.showMessageDialog(this, mensagem.getMessage(), "CadHab", mensagem.getCode());
+
+                                }
+
+                            } else {
+
+                                javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar os dados do recurso social para atualizá-los!", "CadHab", 0);
+
+                            }
+
+                        }
+
+                    } else {
+
+                        javax.swing.JOptionPane.showMessageDialog(this, "Ocorreu um erro durante a atualização dos dados do recurso social!", "CadHab", 0);
+
+                    }
+
+                } else {
+
+                    javax.swing.JOptionPane.showMessageDialog(this, "Verifique se todos os campos obrigatórios se encontram preenchidos e/ou selecionados!", "CadHab", 2);
+
+                }
+            
+            } else {
+
+                javax.swing.JOptionPane.showMessageDialog(this, "Dê duplo-clique em um recurso social na tabela acima para selecioná-lo!", "CadHab", 2);
+
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+         
+        } catch (java.lang.Exception ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
+        
+    }
+    
+    private void excluirInstitucionalSocial() {
+        
+        try {
+            
+            if (idInstitucionalAtual > 0) {
+                
+                com.sys.urbano.InstitucionalSocial institucional = new com.sys.urbano.InstitucionalSocial();
+                institucional.setId(idInstitucionalAtual);
+
+                com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+                String input = jsonMgr.parseJson(institucional);
+
+                java.lang.Object output = cadhab.conn.ConnectionManager.connect("/institucional_social/id?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+
+                if (output != null) {
+                                
+                    java.lang.Object[] options = {"Sim", "Não"};
+                    java.lang.Object opcao = javax.swing.JOptionPane.showOptionDialog(this, "Deseja realmente excluir os dados do recurso social do sistema?", "CadHab",
+                            javax.swing.JOptionPane.DEFAULT_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null,
+                            options, options[1]);
+
+                    if (opcao.toString().equals("0")) {
+                        
+                        output = cadhab.conn.ConnectionManager.connect("/institucional_social/excluir?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);   
+
+                        if (output != null) {
+
+                            if (output instanceof com.sys.Message) {
+
+                                com.sys.Message mensagem = (com.sys.Message) output;
+                                javax.swing.JOptionPane.showMessageDialog(this, mensagem.getMessage(), "CadHab", mensagem.getCode());
+                                limparCamposInstitucionalSocial();
+                                preencherTabelaInstitucionalSocial();
+                                idInstitucionalAtual = 0;
+
+                            }
+
+                        } else {
+
+                            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível excluir os dados do recurso social!", "CadHab", 0);
+
+                        }
+                        
+                    }
+                                
+                } else {
+                        
+                    javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar os dados do recurso social no sistema!", "CadHab", 0);
+                        
+                }
+                
+            } else {
+
+                javax.swing.JOptionPane.showMessageDialog(this, "Dê duplo-clique em um recurso social na tabela acima para selecioná-la!", "CadHab", 2);
+
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+         
+        } catch (java.lang.Exception ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
+        
+    }
+    
+    private void anexarDocumentoTransporte() {
+        
+        try {
+            
+            javax.swing.JFileChooser fc;
+            fc = new javax.swing.JFileChooser();
+            fc.setMultiSelectionEnabled(true);
+            int returnVal = fc.showOpenDialog(this);
+            if (returnVal == javax.swing.JFileChooser.APPROVE_OPTION) {
+                java.io.File[] file = fc.getSelectedFiles();
+                //edtPath.setText(file.getPath());
+                
+                for (int i = 0; i < file.length; i++)
+                    cadhab.conn.ConnectionManager.upload("/nucleo/documento/transporte/anexar?id_nucleo=" + idNucleoAtual + "&auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), file[i].getAbsolutePath());
+                
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+         
+        } catch (java.lang.Exception ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
+        
+    }
+    
+    private void preencherTabelaPesquisa() {
+        
+        try {
+            
+            javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jtblPesquisa.getModel();
+            modelo.setNumRows(0);
+            
+            java.lang.Object output = cadhab.conn.ConnectionManager.connect("/nucleos?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), "");
+            
+            if (output != null) {
+                
+                if (output instanceof java.util.List) {
+                    
+                    java.util.List<com.sys.urbano.Nucleo> nucleos = (java.util.List<com.sys.urbano.Nucleo>) output;
+                    
+                    for (com.sys.urbano.Nucleo cursor : nucleos) {
+                        
+                        modelo.addRow(new java.lang.Object[] { cursor.getId(), cursor.getNome(), cursor.getSetorCadastral(), cursor.getZona(), cursor.getOrigem(), com.data.NumberManager.formatIntegerPtbr(cursor.getNumeroDomicilios()), com.data.NumberManager.formatIntegerPtbr(cursor.getPopulacaoEstimada()), com.data.NumberManager.formatDecimalPtbr(cursor.getAreaTotal()), com.data.NumberManager.formatDecimalPtbr(cursor.getAreaOcupada()), cursor.getOcupacao(), cursor.getInicioOcupacao() });
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+            
+        } catch (java.lang.Exception ex) {
+            
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
+        
+    }
+    
+    private void preencherTabelaViasPublicas() {
+        
+        try {
+            
+            javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jtblViasPublicas.getModel();
+            modelo.setNumRows(0);
+            
+            com.sys.urbano.ViaPublica via = new com.sys.urbano.ViaPublica();
+            via.setIdNucleo(idNucleoAtual);
+                
+            com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+            String input = jsonMgr.parseJson(via);
+            
+            java.lang.Object output = cadhab.conn.ConnectionManager.connect("/via_publica/nucleo?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+            
+            if (output != null) {
+                
+                if (output instanceof java.util.List) {
+                    
+                    java.util.List<com.sys.urbano.ViaPublica> vias = (java.util.List<com.sys.urbano.ViaPublica>) output;
+                    
+                    for (com.sys.urbano.ViaPublica cursor : vias) {
+                        
+                        modelo.addRow(new java.lang.Object[] { cursor.getId(), cursor.getMobilidade().getNome(), cursor.getDescricao() });
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+            
+        } catch (java.lang.Exception ex) {
+            
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
+        
+    }
+    
+    private void preencherTabelaInstitucionalSocial() {
+        
+        try {
+            
+            javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jtblInstitucionalSocial.getModel();
+            modelo.setNumRows(0);
+            
+            com.sys.urbano.InstitucionalSocial institucional = new com.sys.urbano.InstitucionalSocial();
+            institucional.setIdNucleo(idNucleoAtual);
+                
+            com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+            String input = jsonMgr.parseJson(institucional);
+            
+            java.lang.Object output = cadhab.conn.ConnectionManager.connect("/institucional_social/nucleo?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+            
+            if (output != null) {
+                
+                if (output instanceof java.util.List) {
+                    
+                    java.util.List<com.sys.urbano.InstitucionalSocial> institucionais = (java.util.List<com.sys.urbano.InstitucionalSocial>) output;
+                    
+                    for (com.sys.urbano.InstitucionalSocial cursor : institucionais) {
+                        
+                        modelo.addRow(new java.lang.Object[] { cursor.getId(), cursor.getSocial().getNome(), cursor.getNome() });
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+            
+        } catch (java.lang.Exception ex) {
+            
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
+        
+    }
+    
+    public void preencherComboRecursoMobilidade() {
+        
+        try {
+            
+            java.lang.Object output = cadhab.conn.ConnectionManager.connect("/recurso_mobilidades?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), "");
+            
+            if (output != null) {
+                
+                if (output instanceof java.util.List) {
+                    
+                    java.util.List<com.sys.urbano.RecursoMobilidade> recursos = (java.util.List<com.sys.urbano.RecursoMobilidade>) output;
+                    
+                    jcbbRecursoMobilidade.removeAllItems();
+                    jcbbRecursoMobilidade.addItem("Selecione uma opção");
+                    for (com.sys.urbano.RecursoMobilidade cursor : recursos) {
+                        
+                        jcbbRecursoMobilidade.addItem(cursor.getNome());
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+            
+        } catch (java.lang.Exception ex) {
+            
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
+        
+    }
+    
+    public void preencherComboRecursoSocial() {
+        
+        try {
+            
+            java.lang.Object output = cadhab.conn.ConnectionManager.connect("/recurso_sociais?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), "");
+            
+            if (output != null) {
+                
+                if (output instanceof java.util.List) {
+                    
+                    java.util.List<com.sys.urbano.RecursoSocial> recursos = (java.util.List<com.sys.urbano.RecursoSocial>) output;
+                    
+                    jcbbRecursoSocial.removeAllItems();
+                    jcbbRecursoSocial.addItem("Selecione uma opção");
+                    for (com.sys.urbano.RecursoSocial cursor : recursos) {
+                        
+                        jcbbRecursoSocial.addItem(cursor.getNome());
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+            
+        } catch (java.lang.Exception ex) {
+            
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
         
     }
     
     private void carregarDados() {
         
+        try {
+            
+            if (jtblPesquisa.getSelectedRow() >= 0) {
+                
+                habilitarTodosCampos();
+                
+                carregarDadosNucleo();
+                carregarDadosInfraestruturaUrbana();
+                carregarDadosProgramasHabitacionais();
+                carregarDadosSituacaoFundiaria();
+                carregarDadosAcoes();
+                carregarDadosAspectosAmbientais();
+                carregarDadosRemanejamento();
+                carregarDadosReassentamento();
+                carregarDadosDesconstrucao();
+                carregarDadosApp();
+                preencherTabelaViasPublicas();
+                preencherTabelaInstitucionalSocial();
+                
+                habilitarBotoes();
+                jbtnSalvar.setEnabled(false);
+                
+                jtbpFormulario.setSelectedIndex(0);
+                jtbpPrincipal.setSelectedIndex(1);
+                acao = 'U';
+                
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações para/do servidor!", "CadHab", 0);
+         
+        } catch (java.lang.Exception ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
         
+    }
+    
+    private void carregarDadosNucleo() 
+            throws java.net.MalformedURLException, java.net.ConnectException, java.io.IOException {
+        
+        com.sys.urbano.Nucleo nucleo = new com.sys.urbano.Nucleo();
+        nucleo.setId(Long.parseLong(jtblPesquisa.getModel().getValueAt(jtblPesquisa.getSelectedRow(), 0).toString()));
+                
+        com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+        String input = jsonMgr.parseJson(nucleo);
+        
+        java.lang.Object output = cadhab.conn.ConnectionManager.connect("/nucleo/id?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+        
+        if (output != null) {
+            
+            if (output instanceof com.sys.urbano.Nucleo) {
+            
+                nucleo = (com.sys.urbano.Nucleo) output;
+
+                idNucleoAtual = nucleo.getId();
+                jtxtNome.setText(nucleo.getNome());
+                jtxtSetorCadastral.setText(nucleo.getSetorCadastral());
+                jtxtAreaTotal.setText(com.data.NumberManager.formatDecimalPtbr(nucleo.getAreaTotal()));
+                jtxtAreaOcupada.setText(com.data.NumberManager.formatDecimalPtbr(nucleo.getAreaOcupada()));
+                jtxtInicioOcupacao.setText(nucleo.getInicioOcupacao());
+                jtxtNumeroDomicilios.setText(com.data.NumberManager.formatIntegerPtbr(nucleo.getNumeroDomicilios()));
+                jtxtPopulacaoEstimada.setText(com.data.NumberManager.formatIntegerPtbr(nucleo.getPopulacaoEstimada()));
+                jtxtPopulacaoOutrasFontesDados.setText(nucleo.getPopOutrasFontesDados());
+                jtxtUsoIncompativel.setText(nucleo.getUsoIncompativel());
+                jtxtAdensamentoFonteDados.setText(nucleo.getAdensFonteDados());
+                jtxtaObsControleOcupacao.setText(nucleo.getObsControleOcupacao());
+                jtxtaObsAdensamento.setText(nucleo.getObsAdensamento());
+                jcbbZona.setSelectedItem(nucleo.getZona());
+                jcbbOrigem.setSelectedItem(nucleo.getOrigem());
+                jcbbOcupacao.setSelectedItem(nucleo.getOcupacao());
+                jcbbControleOcupacao.setSelectedItem(nucleo.getControleOcupacao());
+                jcbbPadraoConstrutivo.setSelectedItem(nucleo.getPadraoConstrutivo());
+                jcbbPopulacaoFonteDados.setSelectedItem(nucleo.getPopFonteDados());
+                jcbbRendaPopulacao.setSelectedItem(nucleo.getRendaPopulacao());
+                jcbbAdensamento.setSelectedItem(nucleo.getAdensamento());
+                jcbbTransporteColetivo.setSelectedItem(nucleo.getTransportePublico());
+            
+            }
+            
+        }
+        
+    }
+    
+    private void carregarDadosInfraestruturaUrbana() 
+            throws java.net.MalformedURLException, java.net.ConnectException, java.io.IOException {
+        
+        com.sys.urbano.InfraestruturaUrbana infraestrutura = new com.sys.urbano.InfraestruturaUrbana();
+        infraestrutura.setIdNucleo(Long.parseLong(jtblPesquisa.getModel().getValueAt(jtblPesquisa.getSelectedRow(), 0).toString()));
+                
+        com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+        String input = jsonMgr.parseJson(infraestrutura);
+        
+        java.lang.Object output = cadhab.conn.ConnectionManager.connect("/infraestrutura_urbana/nucleo?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+        
+        if (output != null) {
+            
+            if (output instanceof com.sys.urbano.InfraestruturaUrbana) {
+            
+                infraestrutura = (com.sys.urbano.InfraestruturaUrbana) output;
+
+                idInfraestruturaAtual = infraestrutura.getId();
+                jcbbAbastecimentoAgua.setSelectedItem(infraestrutura.getAbastecimentoAgua());
+                jcbbColetaEsgoto.setSelectedItem(infraestrutura.getColetaEsgoto());
+                jcbbEnergiaEletrica.setSelectedItem(infraestrutura.getEnergiaEletrica());
+                jcbbIluminacaoPublica.setSelectedItem(infraestrutura.getIluminacaoPublica());
+                jcbbServicosLimpeza.setSelectedItem(infraestrutura.getServicosLimpeza());
+                jcbbAguasPluviaisSuperficial.setSelectedItem(infraestrutura.getAguasPluviaisSuperficial());
+                jcbbAguasPluviaisRede.setSelectedItem(infraestrutura.getAguasPluviaisRede());
+            
+            }
+            
+        }
+        
+    }
+    
+    private void carregarDadosProgramasHabitacionais() 
+            throws java.net.MalformedURLException, java.net.ConnectException, java.io.IOException {
+        
+        com.sys.urbano.ProgramaHabitacional programa = new com.sys.urbano.ProgramaHabitacional();
+        programa.setIdNucleo(Long.parseLong(jtblPesquisa.getModel().getValueAt(jtblPesquisa.getSelectedRow(), 0).toString()));
+                
+        com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+        String input = jsonMgr.parseJson(programa);
+        
+        java.lang.Object output = cadhab.conn.ConnectionManager.connect("/programa_habitacional/nucleo?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+        
+        if (output != null) {
+            
+            if (output instanceof com.sys.urbano.ProgramaHabitacional) {
+            
+                programa = (com.sys.urbano.ProgramaHabitacional) output;
+
+                idProgramaAtual = programa.getId();
+                jcbbMaterialConstrucao.setSelectedItem(programa.getMaterialConstrucao());
+                jcbbProducaoMoradias.setSelectedItem(programa.getProducaoMoradias());
+                jcbbAssistenciaTecnica.setSelectedItem(programa.getAssistenciaTecnica());
+                jcbbUrbAssentamentosPrecarios.setSelectedItem(programa.getUrbAssentamentosPrecarios());
+                jcbbComplementacaoInfraestrutura.setSelectedItem(programa.getComplemInfraestrutura());
+                jcbbRegularizacaoFundiaria.setSelectedItem(programa.getRegularizacaoFundiaria());
+                jcbbCdhu.setSelectedItem(programa.getCdhu());
+                jcbbPmcmv.setSelectedItem(programa.getPmcmv());
+            
+            }
+            
+        }
+        
+    }
+    
+    private void carregarDadosSituacaoFundiaria() 
+            throws java.net.MalformedURLException, java.net.ConnectException, java.io.IOException {
+        
+        com.sys.urbano.SituacaoFundiaria fundiaria = new com.sys.urbano.SituacaoFundiaria();
+        fundiaria.setIdNucleo(Long.parseLong(jtblPesquisa.getModel().getValueAt(jtblPesquisa.getSelectedRow(), 0).toString()));
+                
+        com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+        String input = jsonMgr.parseJson(fundiaria);
+        
+        java.lang.Object output = cadhab.conn.ConnectionManager.connect("/situacao_fundiaria/nucleo?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+        
+        if (output != null) {
+            
+            if (output instanceof com.sys.urbano.SituacaoFundiaria) {
+            
+                fundiaria = (com.sys.urbano.SituacaoFundiaria) output;
+
+                idFundiariaAtual = fundiaria.getId();
+                jtxtProprietario.setText(fundiaria.getProprietario());
+                jtxtDecretoAprovacao.setText(fundiaria.getDecretoAprovacao());
+                jtxtNumeroMatricula.setText(fundiaria.getNumeroMatricula());
+                jtxtDestinacaoAreas.setText(com.data.NumberManager.formatDecimalPtbr(fundiaria.getDestinacaoAreas()));
+                jtxtNumeroProcesso.setText(fundiaria.getNumeroProcesso());
+                jtxtNumeroOrdem.setText(fundiaria.getNumeroOrdem());
+                jtxtVara.setText(fundiaria.getVara());
+                jtxtaObsPropriedade.setText(fundiaria.getObsPropriedade());
+                jtxtaDescDestinacaoAreas.setText(fundiaria.getDescDestinacaoAreas());
+                jtxtaDescEcologicoEconomico.setText(fundiaria.getDescEcologicoEconomico());
+                jtxtaDescZonasSolo.setText(fundiaria.getDescZonasSolo());
+                jtxtaObsJudiciais.setText(fundiaria.getObsJudiciais());
+                jcbbPropriedade.setSelectedItem(fundiaria.getPropriedade());
+                jcbbDecretoRegistrado.setSelectedItem(fundiaria.getRegistrado());
+                jcbbProcessosJudiciais.setSelectedItem(fundiaria.getProcessosJudiciais());
+                jcbbExistenciaEmbargos.setSelectedItem(fundiaria.getExistenciaEmbargos());
+            
+            }
+            
+        }
+        
+    }
+    
+    private void carregarDadosAcoes() 
+            throws java.net.MalformedURLException, java.net.ConnectException, java.io.IOException {
+        
+        com.sys.urbano.AcaoNucleo acaoNucleo = new com.sys.urbano.AcaoNucleo();
+        acaoNucleo.setIdNucleo(Long.parseLong(jtblPesquisa.getModel().getValueAt(jtblPesquisa.getSelectedRow(), 0).toString()));
+                
+        com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+        String input = jsonMgr.parseJson(acaoNucleo);
+        
+        java.lang.Object output = cadhab.conn.ConnectionManager.connect("/acao_nucleo/nucleo?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+        
+        if (output != null) {
+            
+            if (output instanceof com.sys.urbano.AcaoNucleo) {
+                
+                acaoNucleo = (com.sys.urbano.AcaoNucleo) output;
+                
+                idAcaoAtual = acaoNucleo.getId();
+                jtxtFonteMelhoriaHabitacional.setText(acaoNucleo.getFonteMelhoria());
+                jtxtFonteAdequacaoInfraestrutura.setText(acaoNucleo.getFonteAdequacao());
+                jtxtPrad.setText(acaoNucleo.getPrad());
+                jtxtDescOutros.setText(acaoNucleo.getDescricaoOutros());
+                jcbbMelhoriaHabitacional.setSelectedItem(acaoNucleo.getMelhoriaHabitacional());
+                jcbbAdequacaoInfraestrutura.setSelectedItem(acaoNucleo.getAdequacaoInfraestrutura());
+                jcbbRecuperacaoAmbiental.setSelectedItem(acaoNucleo.getRecuperacaoAmbiental());
+                jcbbAcoesOutros.setSelectedItem(acaoNucleo.getOutros());
+                jcbbRemanejamento.setSelectedItem(acaoNucleo.getRemanejamento());
+                jcbbReassentamento.setSelectedItem(acaoNucleo.getReassentamento());
+                jcbbDesconstrucao.setSelectedItem(acaoNucleo.getDesconstrucao());
+                
+            }
+            
+        }
+        
+    }
+    
+    private void carregarDadosAspectosAmbientais() 
+            throws java.net.MalformedURLException, java.net.ConnectException, java.io.IOException {
+        
+        com.sys.urbano.AspectoAmbiental aspecto = new com.sys.urbano.AspectoAmbiental();
+        aspecto.setIdNucleo(Long.parseLong(jtblPesquisa.getModel().getValueAt(jtblPesquisa.getSelectedRow(), 0).toString()));
+                
+        com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+        String input = jsonMgr.parseJson(aspecto);
+        
+        java.lang.Object output = cadhab.conn.ConnectionManager.connect("/aspecto_ambiental/nucleo?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+        
+        if (output != null) {
+            
+            if (output instanceof com.sys.urbano.AspectoAmbiental) {
+                
+                aspecto = (com.sys.urbano.AspectoAmbiental) output;
+                
+                idAmbientalAtual = aspecto.getId();
+                jtxtAspAmbLatitude.setText(com.data.NumberManager.formatGeoCordinatePtbr(aspecto.getLatitude()));
+                jtxtAspAmbLongitude.setText(com.data.NumberManager.formatGeoCordinatePtbr(aspecto.getLongitude()));
+                jtxtAspAmbOutrosEspecifique.setText(aspecto.getOutrosEspecifique());
+                jcbbAreaVerde.setSelectedItem(aspecto.getAreaVerde());
+                jcbbAreaAgricola.setSelectedItem(aspecto.getAreaAgricola());
+                jcbbAspAmbOutros.setSelectedItem(aspecto.getOutros());
+                
+            }
+            
+        }
+        
+    }
+    
+    private void carregarDadosRemanejamento() 
+            throws java.net.MalformedURLException, java.net.ConnectException, java.io.IOException {
+        
+        com.sys.urbano.Remanejamento remanejamento = new com.sys.urbano.Remanejamento();
+        remanejamento.setIdAcao(idAcaoAtual);
+                
+        com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+        String input = jsonMgr.parseJson(remanejamento);
+        
+        java.lang.Object output = cadhab.conn.ConnectionManager.connect("/remanejamento/acao?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+        
+        if (output != null) {
+            
+            if (output instanceof com.sys.urbano.Remanejamento) {
+                
+                remanejamento = (com.sys.urbano.Remanejamento) output;
+                
+                idRemanejamentoAtual = remanejamento.getId();
+                jtxtNumeroRemocaoDefinitiva.setText(com.data.NumberManager.formatIntegerPtbr(remanejamento.getNumeroRemocaoDefinitiva()));
+                jtxtNumeroRemocaoProvisoria.setText(com.data.NumberManager.formatIntegerPtbr(remanejamento.getNumeroRemocaoProvisoria()));
+                jcbbEstimativaRelocacao.setSelectedItem(remanejamento.getEstimativaRelocacao());
+                
+            }
+            
+        }
+        
+    }
+    
+    private void carregarDadosReassentamento() 
+            throws java.net.MalformedURLException, java.net.ConnectException, java.io.IOException {
+        
+        com.sys.urbano.Reassentamento reassentamento = new com.sys.urbano.Reassentamento();
+        reassentamento.setIdAcao(idAcaoAtual);
+                
+        com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+        String input = jsonMgr.parseJson(reassentamento);
+        
+        java.lang.Object output = cadhab.conn.ConnectionManager.connect("/reassentamento/acao?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+        
+        if (output != null) {
+            
+            if (output instanceof com.sys.urbano.Reassentamento) {
+                
+                reassentamento = (com.sys.urbano.Reassentamento) output;
+                
+                idReassentamentoAtual = reassentamento.getId();
+                jtxtNumeroMoradiasConstruir.setText(com.data.NumberManager.formatIntegerPtbr(reassentamento.getNumeroAConstruir()));
+                jtxtNumeroMoradiasProvisorias.setText(com.data.NumberManager.formatIntegerPtbr(reassentamento.getNumeroProvisorias()));
+                jtxtLocalDefinitivo.setText(reassentamento.getLocalDefinitivo());
+                jcbbEstimativaRemocao.setSelectedItem(reassentamento.getEstimativaRemocao());
+                
+            }
+            
+        }
+        
+    }
+    
+    private void carregarDadosDesconstrucao() 
+            throws java.net.MalformedURLException, java.net.ConnectException, java.io.IOException {
+        
+        com.sys.urbano.Desconstrucao desconstrucao = new com.sys.urbano.Desconstrucao();
+        desconstrucao.setIdAcao(idAcaoAtual);
+                
+        com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+        String input = jsonMgr.parseJson(desconstrucao);
+        
+        java.lang.Object output = cadhab.conn.ConnectionManager.connect("/desconstrucao/acao?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+        
+        if (output != null) {
+            
+            if (output instanceof com.sys.urbano.Desconstrucao) {
+                
+                desconstrucao = (com.sys.urbano.Desconstrucao) output;
+                
+                idDesconstrucaoAtual = desconstrucao.getId();
+                jtxtNumeroMoradiasDemolir.setText(com.data.NumberManager.formatIntegerPtbr(desconstrucao.getNumeroADemolir()));
+                jtxtaMotivoDemolicao.setText(desconstrucao.getMotivo());
+                jtxtaProcessosDemolicao.setText(desconstrucao.getProcessos());
+                
+            }
+            
+        }
+        
+    }
+    
+    private void carregarDadosApp() 
+            throws java.net.MalformedURLException, java.net.ConnectException, java.io.IOException {
+        
+        com.sys.urbano.App app = new com.sys.urbano.App();
+        app.setIdAmbiental(idAmbientalAtual);
+                
+        com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+        String input = jsonMgr.parseJson(app);
+        
+        java.lang.Object output = cadhab.conn.ConnectionManager.connect("/app/aspecto_ambiental?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+        
+        if (output != null) {
+            
+            if (output instanceof com.sys.urbano.App) {
+                
+                app = (com.sys.urbano.App) output;
+                
+                jcbbApp.setSelectedItem("Sim");
+                idAppAtual = app.getId();
+                jtxtaAppOutrosEspecifique.setText(app.getEspecifiqueOutros());
+                jcbbCorpoDagua.setSelectedItem(app.getCorpoDagua());
+                jcbbBrejoCharco.setSelectedItem(app.getBrejoCharco());
+                jcbbTopoMorro.setSelectedItem(app.getTopoMorro());
+                jcbbEncosta.setSelectedItem(app.getEncosta());
+                jcbbRestinga.setSelectedItem(app.getRestinga());
+                jcbbAppOutros.setSelectedItem(app.getOutros());
+                
+            } else {
+                
+                jcbbApp.setSelectedItem("Não");
+                
+            }
+            
+        } else {
+            
+            jcbbApp.setSelectedItem("Não");
+            
+        }
+        
+    }
+    
+    private void carregarDadosViaPublica() {
+        
+        if (jtblViasPublicas.getSelectedRow() >= 0) {
+            
+            idViaPublicaAtual = Long.parseLong(jtblViasPublicas.getModel().getValueAt(jtblViasPublicas.getSelectedRow(), 0).toString());
+            jcbbRecursoMobilidade.setSelectedItem(jtblViasPublicas.getModel().getValueAt(jtblViasPublicas.getSelectedRow(), 1));
+            jtxtaDescRecursoMobilidade.setText(jtblViasPublicas.getModel().getValueAt(jtblViasPublicas.getSelectedRow(), 2).toString());
+        
+        }
+        
+    }
+    
+    private void carregarDadosInstitucional() {
+        
+        if (jtblInstitucionalSocial.getSelectedRow() >= 0) {
+            
+            idInstitucionalAtual = Long.parseLong(jtblInstitucionalSocial.getModel().getValueAt(jtblInstitucionalSocial.getSelectedRow(), 0).toString());
+            jcbbRecursoSocial.setSelectedItem(jtblInstitucionalSocial.getModel().getValueAt(jtblInstitucionalSocial.getSelectedRow(), 1));
+            jtxtaDescRecursoSocial.setText(jtblInstitucionalSocial.getModel().getValueAt(jtblInstitucionalSocial.getSelectedRow(), 2).toString());
+        
+        }
         
     }
     
@@ -3695,6 +6932,34 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         if (com.data.FieldManager.checkEmptyField(jtxtDecretoAprovacao) & com.data.FieldManager.checkEmptyField(jtxtaDescEcologicoEconomico) 
                 & com.data.FieldManager.checkEmptyField(jcbbDecretoRegistrado, jlblDecretoRegistrado) & com.data.FieldManager.checkEmptyField(jcbbPropriedade, jlblPropriedade) 
                 & com.data.FieldManager.checkEmptyField(jcbbProcessosJudiciais, jlblProcessosJudiciais) & com.data.FieldManager.checkEmptyField(jcbbExistenciaEmbargos, jlblExistenciaEmbargos)) {
+            
+            return true;
+            
+        } else {
+            
+            return false;
+            
+        }
+        
+    }
+    
+    private boolean checarCamposObrigatoriosViaPublica() {
+        
+        if (com.data.FieldManager.checkEmptyField(jtxtaDescRecursoMobilidade) & com.data.FieldManager.checkEmptyField(jcbbRecursoMobilidade, jlblRecursoMobilidadeNome)) {
+            
+            return true;
+            
+        } else {
+            
+            return false;
+            
+        }
+        
+    }
+    
+    private boolean checarCamposObrigatoriosInstitucionalSocial() {
+        
+        if (com.data.FieldManager.checkEmptyField(jtxtaDescRecursoSocial) & com.data.FieldManager.checkEmptyField(jcbbRecursoSocial, jlblRecursoSocialNome)) {
             
             return true;
             
@@ -3990,7 +7255,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         limparCamposProgramaHabitacional();
         limparCamposSituacaoFundiaria();
         limparCamposViaPublica();
-        limparCamposInstitucional();
+        limparCamposInstitucionalSocial();
         limparCamposAcaoNucleo();
         limparCamposRemanejamento();
         limparCamposReassentamento();
@@ -4079,16 +7344,16 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     private void limparCamposViaPublica() {
         
         jtxtaDescRecursoMobilidade.setText("");
-        jcbbRecursoMobilidadeNome.setSelectedIndex(0);
+        jcbbRecursoMobilidade.setSelectedIndex(0);
         javax.swing.table.DefaultTableModel modeloAreaRisco = (javax.swing.table.DefaultTableModel) jtblViasPublicas.getModel();
         modeloAreaRisco.setNumRows(0);
         
     }
     
-    private void limparCamposInstitucional() {
+    private void limparCamposInstitucionalSocial() {
         
         jtxtaDescRecursoSocial.setText("");
-        jcbbRecursoSocialNome.setSelectedIndex(0);
+        jcbbRecursoSocial.setSelectedIndex(0);
         javax.swing.table.DefaultTableModel modeloAreaRisco = (javax.swing.table.DefaultTableModel) jtblInstitucionalSocial.getModel();
         modeloAreaRisco.setNumRows(0);
         
@@ -4279,18 +7544,24 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     private void habilitarCamposViaPublica() {
         
         jtxtaDescRecursoMobilidade.setEnabled(true);
-        jcbbRecursoMobilidadeNome.setEnabled(true);
+        jcbbRecursoMobilidade.setEnabled(true);
         jtblViasPublicas.setEnabled(true);
         jbtnGerenciarRecursoMobilidade.setEnabled(true);
+        jbtnAdicionarViaPublica.setEnabled(true);
+        jbtnEditarViaPublica.setEnabled(true);
+        jbtnExcluirViaPublica.setEnabled(true);
         
     }
     
     private void habilitarCamposInstitucional() {
         
         jtxtaDescRecursoSocial.setEnabled(true);
-        jcbbRecursoSocialNome.setEnabled(true);
+        jcbbRecursoSocial.setEnabled(true);
         jtblInstitucionalSocial.setEnabled(true);
         jbtnGerenciarRecursoSocial.setEnabled(true);
+        jbtnAdicionarInstitucional.setEnabled(true);
+        jbtnEditarInstitucional.setEnabled(true);
+        jbtnExcluirInstitucional.setEnabled(true);
         
     }
     
@@ -4478,18 +7749,24 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     private void desabilitarCamposViaPublica() {
         
         jtxtaDescRecursoMobilidade.setEnabled(false);
-        jcbbRecursoMobilidadeNome.setEnabled(false);
+        jcbbRecursoMobilidade.setEnabled(false);
         jtblViasPublicas.setEnabled(false);
         jbtnGerenciarRecursoMobilidade.setEnabled(false);
+        jbtnAdicionarViaPublica.setEnabled(false);
+        jbtnEditarViaPublica.setEnabled(false);
+        jbtnExcluirViaPublica.setEnabled(false);
         
     }
     
     private void desabilitarCamposInstitucional() {
         
         jtxtaDescRecursoSocial.setEnabled(false);
-        jcbbRecursoSocialNome.setEnabled(false);
+        jcbbRecursoSocial.setEnabled(false);
         jtblInstitucionalSocial.setEnabled(false);
         jbtnGerenciarRecursoSocial.setEnabled(false);
+        jbtnAdicionarInstitucional.setEnabled(false);
+        jbtnEditarInstitucional.setEnabled(false);
+        jbtnExcluirInstitucional.setEnabled(false);
         
     }
     
@@ -4595,11 +7872,17 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jbtnAdicionarInstitucional;
+    private javax.swing.JButton jbtnAdicionarViaPublica;
     private javax.swing.JButton jbtnAnexosJudiciais;
     private javax.swing.JButton jbtnAnexosTransporteColetivo;
     private javax.swing.JButton jbtnAnexosZoneamento;
     private javax.swing.JButton jbtnEditar;
+    private javax.swing.JButton jbtnEditarInstitucional;
+    private javax.swing.JButton jbtnEditarViaPublica;
     private javax.swing.JButton jbtnExcluir;
+    private javax.swing.JButton jbtnExcluirInstitucional;
+    private javax.swing.JButton jbtnExcluirViaPublica;
     private javax.swing.JButton jbtnGerenciarRecursoMobilidade;
     private javax.swing.JButton jbtnGerenciarRecursoSocial;
     private javax.swing.JButton jbtnLimpar;
@@ -4645,8 +7928,8 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jcbbPropriedade;
     private javax.swing.JComboBox jcbbReassentamento;
     private javax.swing.JComboBox jcbbRecuperacaoAmbiental;
-    private javax.swing.JComboBox jcbbRecursoMobilidadeNome;
-    private javax.swing.JComboBox jcbbRecursoSocialNome;
+    private javax.swing.JComboBox jcbbRecursoMobilidade;
+    private javax.swing.JComboBox jcbbRecursoSocial;
     private javax.swing.JComboBox jcbbRegularizacaoFundiaria;
     private javax.swing.JComboBox jcbbRemanejamento;
     private javax.swing.JComboBox jcbbRendaPopulacao;

@@ -1004,6 +1004,26 @@
         <servlet-name>jInserirNucleoCompleto</servlet-name>
         <servlet-class>com.control.json.urbano.JsonInserirNucleoCompleto</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>jSelecionarInstitucionalSocial</servlet-name>
+        <servlet-class>com.control.json.urbano.JsonSelecionarInstitucionalSocial</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jSelecionarViaPublica</servlet-name>
+        <servlet-class>com.control.json.urbano.JsonSelecionarViaPublica</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jAtualizarNucleoCompleto</servlet-name>
+        <servlet-class>com.control.json.urbano.JsonAtualizarNucleoCompleto</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jProcurarNucleoExistentePorNome</servlet-name>
+        <servlet-class>com.control.json.urbano.JsonProcurarNucleoExistentePorNome</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>oAnexarDocumentoTransporte</servlet-name>
+        <servlet-class>com.control.object.access.ObjectAnexarDocumentoTransporte</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>jInserirPermissao</servlet-name>
         <url-pattern>/permissao/salvar</url-pattern>
@@ -2007,6 +2027,26 @@
     <servlet-mapping>
         <servlet-name>jInserirNucleoCompleto</servlet-name>
         <url-pattern>/nucleo/completo/salvar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jSelecionarInstitucionalSocial</servlet-name>
+        <url-pattern>/institucional_social/id</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jSelecionarViaPublica</servlet-name>
+        <url-pattern>/via_publica/id</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jAtualizarNucleoCompleto</servlet-name>
+        <url-pattern>/nucleo/completo/atualizar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jProcurarNucleoExistentePorNome</servlet-name>
+        <url-pattern>/nucleo/existente/nome</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>oAnexarDocumentoTransporte</servlet-name>
+        <url-pattern>/nucleo/documento/transporte/anexar</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

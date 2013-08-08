@@ -99,8 +99,8 @@ public class InfraestruturaUrbanaDAO {
         
         if (rs.next()) {
             com.sys.urbano.InfraestruturaUrbana infraestrutura = new com.sys.urbano.InfraestruturaUrbana();
-            infraestrutura.setIdNucleo(rs.getLong("id_nucleo"));
             infraestrutura.setId(rs.getLong("id"));
+            infraestrutura.setIdNucleo(rs.getLong("id_nucleo"));
             infraestrutura.setAbastecimentoAgua(rs.getString("abastecimento_agua"));
             infraestrutura.setColetaEsgoto(rs.getString("coleta_esgoto"));
             infraestrutura.setServicosLimpeza(rs.getString("servicos_limpeza"));

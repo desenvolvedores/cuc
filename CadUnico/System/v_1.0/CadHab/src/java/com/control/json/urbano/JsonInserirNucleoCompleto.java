@@ -24,6 +24,7 @@ public class JsonInserirNucleoCompleto extends javax.servlet.http.HttpServlet {
     protected void processRequest(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response)
             throws javax.servlet.ServletException, java.io.IOException {
         
+        request.setCharacterEncoding("UTF-8");
         java.io.PrintWriter out = response.getWriter();
         
         try {
@@ -35,32 +36,52 @@ public class JsonInserirNucleoCompleto extends javax.servlet.http.HttpServlet {
                 
                 com.settings.Configuracao.iniciarConfiguracoes();
                 String json = request.getReader().readLine();
-                json = com.data.TextManager.removeSimpleSpecialCharacters(json);
 
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
                 System.out.println(json);
                 com.sys.urbano.Nucleo nucleo = jsonMgr.parseNucleo(json);
                 
-                if (! nucleo.getNome().isEmpty() && ! nucleo.getOrigem().isEmpty() && ! nucleo.getOcupacao().isEmpty() 
-                        && ! String.valueOf(nucleo.getNumeroDomicilios()).isEmpty() && ! String.valueOf(nucleo.getPopulacaoEstimada()).isEmpty() 
-                        && ! nucleo.getControleOcupacao().isEmpty() && ! nucleo.getRendaPopulacao().isEmpty() 
-                        && ! nucleo.getPadraoConstrutivo().isEmpty() && ! nucleo.getTransportePublico().isEmpty() 
-                        && ! nucleo.getAdensamento().isEmpty() && ! nucleo.getInfraestruturaUrbana().getAbastecimentoAgua().isEmpty() 
-                        && ! nucleo.getInfraestruturaUrbana().getColetaEsgoto().isEmpty() && ! nucleo.getInfraestruturaUrbana().getServicosLimpeza().isEmpty() 
-                        && ! nucleo.getInfraestruturaUrbana().getEnergiaEletrica().isEmpty() && ! nucleo.getInfraestruturaUrbana().getIluminacaoPublica().isEmpty() 
-                        && ! nucleo.getInfraestruturaUrbana().getAguasPluviaisSuperficial().isEmpty() && ! nucleo.getInfraestruturaUrbana().getAguasPluviaisRede().isEmpty() 
-                        && ! nucleo.getProgramaHabitacional().getMaterialConstrucao().isEmpty() && ! nucleo.getProgramaHabitacional().getProducaoMoradias().isEmpty() 
-                        && ! nucleo.getProgramaHabitacional().getAssistenciaTecnica().isEmpty() && ! nucleo.getProgramaHabitacional().getUrbAssentamentosPrecarios().isEmpty() 
-                        && ! nucleo.getProgramaHabitacional().getComplemInfraestrutura().isEmpty() && ! nucleo.getProgramaHabitacional().getRegularizacaoFundiaria().isEmpty() 
-                        && ! nucleo.getProgramaHabitacional().getCdhu().isEmpty() && ! nucleo.getProgramaHabitacional().getPmcmv().isEmpty() 
-                        && ! nucleo.getSituacaoFundiaria().getPropriedade().isEmpty() && ! nucleo.getSituacaoFundiaria().getDecretoAprovacao().isEmpty() 
-                        && ! nucleo.getSituacaoFundiaria().getRegistrado().isEmpty() && ! nucleo.getSituacaoFundiaria().getDescEcologicoEconomico().isEmpty() 
-                        && ! nucleo.getSituacaoFundiaria().getProcessosJudiciais().isEmpty() && ! nucleo.getSituacaoFundiaria().getExistenciaEmbargos().isEmpty() 
-                        && ! nucleo.getAcaoNucleo().getRemanejamento().isEmpty() && ! nucleo.getAcaoNucleo().getReassentamento().isEmpty() 
-                        && ! nucleo.getAcaoNucleo().getDesconstrucao().isEmpty() && ! nucleo.getAcaoNucleo().getMelhoriaHabitacional().isEmpty() 
-                        && ! nucleo.getAcaoNucleo().getRecuperacaoAmbiental().isEmpty() && ! nucleo.getAcaoNucleo().getAdequacaoInfraestrutura().isEmpty() 
-                        && ! nucleo.getAcaoNucleo().getOutros().isEmpty() && ! nucleo.getAspectoAmbiental().getAreaRisco().isEmpty() 
-                        && ! nucleo.getAspectoAmbiental().getAreaVerde().isEmpty() && ! nucleo.getAspectoAmbiental().getAreaAgricola().isEmpty() 
+                if (! nucleo.getNome().isEmpty() 
+                        && ! nucleo.getOrigem().isEmpty() 
+                        && ! nucleo.getOcupacao().isEmpty() 
+                        && ! String.valueOf(nucleo.getNumeroDomicilios()).isEmpty() 
+                        && ! String.valueOf(nucleo.getPopulacaoEstimada()).isEmpty() 
+                        && ! nucleo.getControleOcupacao().isEmpty() 
+                        && ! nucleo.getRendaPopulacao().isEmpty() 
+                        && ! nucleo.getPadraoConstrutivo().isEmpty() 
+                        && ! nucleo.getTransportePublico().isEmpty() 
+                        && ! nucleo.getPopFonteDados().isEmpty() 
+                        && ! nucleo.getAdensamento().isEmpty() 
+                        && ! nucleo.getInfraestruturaUrbana().getAbastecimentoAgua().isEmpty() 
+                        && ! nucleo.getInfraestruturaUrbana().getColetaEsgoto().isEmpty() 
+                        && ! nucleo.getInfraestruturaUrbana().getServicosLimpeza().isEmpty() 
+                        && ! nucleo.getInfraestruturaUrbana().getEnergiaEletrica().isEmpty() 
+                        && ! nucleo.getInfraestruturaUrbana().getIluminacaoPublica().isEmpty() 
+                        && ! nucleo.getInfraestruturaUrbana().getAguasPluviaisSuperficial().isEmpty() 
+                        && ! nucleo.getInfraestruturaUrbana().getAguasPluviaisRede().isEmpty() 
+                        && ! nucleo.getProgramaHabitacional().getMaterialConstrucao().isEmpty() 
+                        && ! nucleo.getProgramaHabitacional().getProducaoMoradias().isEmpty() 
+                        && ! nucleo.getProgramaHabitacional().getAssistenciaTecnica().isEmpty() 
+                        && ! nucleo.getProgramaHabitacional().getUrbAssentamentosPrecarios().isEmpty() 
+                        && ! nucleo.getProgramaHabitacional().getComplemInfraestrutura().isEmpty() 
+                        && ! nucleo.getProgramaHabitacional().getRegularizacaoFundiaria().isEmpty() 
+                        && ! nucleo.getProgramaHabitacional().getCdhu().isEmpty() 
+                        && ! nucleo.getProgramaHabitacional().getPmcmv().isEmpty() 
+                        && ! nucleo.getSituacaoFundiaria().getPropriedade().isEmpty() 
+                        && ! nucleo.getSituacaoFundiaria().getDecretoAprovacao().isEmpty() 
+                        && ! nucleo.getSituacaoFundiaria().getRegistrado().isEmpty() 
+                        && ! nucleo.getSituacaoFundiaria().getDescEcologicoEconomico().isEmpty() 
+                        && ! nucleo.getSituacaoFundiaria().getProcessosJudiciais().isEmpty() 
+                        && ! nucleo.getSituacaoFundiaria().getExistenciaEmbargos().isEmpty() 
+                        && ! nucleo.getAcaoNucleo().getRemanejamento().isEmpty() 
+                        && ! nucleo.getAcaoNucleo().getReassentamento().isEmpty() 
+                        && ! nucleo.getAcaoNucleo().getDesconstrucao().isEmpty() 
+                        && ! nucleo.getAcaoNucleo().getMelhoriaHabitacional().isEmpty() 
+                        && ! nucleo.getAcaoNucleo().getRecuperacaoAmbiental().isEmpty() 
+                        && ! nucleo.getAcaoNucleo().getAdequacaoInfraestrutura().isEmpty() 
+                        && ! nucleo.getAcaoNucleo().getOutros().isEmpty()  
+                        && ! nucleo.getAspectoAmbiental().getAreaVerde().isEmpty() 
+                        && ! nucleo.getAspectoAmbiental().getAreaAgricola().isEmpty() 
                         && ! nucleo.getAspectoAmbiental().getOutros().isEmpty()) {
                     
                     pgsql.sys.urbano.NucleoDAO nucleoDAO = new pgsql.sys.urbano.NucleoDAO();
@@ -98,7 +119,9 @@ public class JsonInserirNucleoCompleto extends javax.servlet.http.HttpServlet {
                                             
                                             if (acaoTemp != null) {
                                                 
-                                                if (! nucleo.getAcaoNucleo().getObjRemanejamento().getEstimativaRelocacao().isEmpty()) {
+                                                if (! nucleo.getAcaoNucleo().getObjRemanejamento().getEstimativaRelocacao().isEmpty() 
+                                                        && ! String.valueOf(nucleo.getAcaoNucleo().getObjRemanejamento().getNumeroRemocaoDefinitiva()).isEmpty()
+                                                        && ! String.valueOf(nucleo.getAcaoNucleo().getObjRemanejamento().getNumeroRemocaoProvisoria()).isEmpty()) {
                                                 
                                                     nucleo.getAcaoNucleo().getObjRemanejamento().setIdAcao(acaoTemp.getId());
                                                     
@@ -118,7 +141,10 @@ public class JsonInserirNucleoCompleto extends javax.servlet.http.HttpServlet {
                                                 
                                                 }
                                                 
-                                                if (! nucleo.getAcaoNucleo().getObjReassentamento().getEstimativaRemocao().isEmpty() && ! nucleo.getAcaoNucleo().getObjReassentamento().getLocalDefinitivo().isEmpty()) {
+                                                if (! nucleo.getAcaoNucleo().getObjReassentamento().getEstimativaRemocao().isEmpty() 
+                                                        && ! nucleo.getAcaoNucleo().getObjReassentamento().getLocalDefinitivo().isEmpty() 
+                                                        && ! String.valueOf(nucleo.getAcaoNucleo().getObjReassentamento().getNumeroAConstruir()).isEmpty() 
+                                                        && ! String.valueOf(nucleo.getAcaoNucleo().getObjReassentamento().getNumeroProvisorias()).isEmpty()) {
                                                     
                                                     nucleo.getAcaoNucleo().getObjReassentamento().setIdAcao(acaoTemp.getId());
                                                     
@@ -138,7 +164,9 @@ public class JsonInserirNucleoCompleto extends javax.servlet.http.HttpServlet {
                                                     
                                                 }
                                                 
-                                                if (! nucleo.getAcaoNucleo().getObjDesconstrucao().getMotivo().isEmpty() && ! nucleo.getAcaoNucleo().getObjDesconstrucao().getProcessos().isEmpty()) {
+                                                if (! nucleo.getAcaoNucleo().getObjDesconstrucao().getMotivo().isEmpty() 
+                                                        && ! nucleo.getAcaoNucleo().getObjDesconstrucao().getProcessos().isEmpty() 
+                                                        && ! String.valueOf(nucleo.getAcaoNucleo().getObjDesconstrucao().getNumeroADemolir()).isEmpty()) {
                                                     
                                                     nucleo.getAcaoNucleo().getObjDesconstrucao().setIdAcao(acaoTemp.getId());
                                                     
@@ -317,6 +345,7 @@ public class JsonInserirNucleoCompleto extends javax.servlet.http.HttpServlet {
         } catch (java.io.IOException ex) {
             
             ex.printStackTrace();
+            com.settings.Configuracao.releaseDatabase();
             com.sys.Message message = new com.sys.Message();
             message.setCode(0);
             message.setMessage("O servidor não pôde obter os dados do núcleo para efetuar o cadastro!");
@@ -326,18 +355,30 @@ public class JsonInserirNucleoCompleto extends javax.servlet.http.HttpServlet {
         } catch (java.lang.ClassNotFoundException ex) {
             
             ex.printStackTrace();
+            com.settings.Configuracao.releaseDatabase();
             com.sys.Message message = new com.sys.Message();
             message.setCode(0);
-            message.setMessage("Não foi possível encontrar as configurações do banco de dados do CadÚnico.<br />Contate o administrador do sistema!");
+            message.setMessage("Não foi possível encontrar as configurações do banco de dados do CadHab.<br />Contate o administrador do sistema!");
             com.data.MessageManager messMgr = new com.data.MessageManager();
             out.print(messMgr.parseJson(message));
             
         } catch (java.sql.SQLException ex) {
             
             ex.printStackTrace();
+            com.settings.Configuracao.releaseDatabase();
             com.sys.Message message = new com.sys.Message();
             message.setCode(0);
             message.setMessage("O banco de dados retornou um erro durante o cadastro dos dados do núcleo.<br />Contate o administrador do sistema!");
+            com.data.MessageManager messMgr = new com.data.MessageManager();
+            out.print(messMgr.parseJson(message));
+            
+        } catch (java.lang.NullPointerException ex) {
+            
+            ex.printStackTrace();
+            com.settings.Configuracao.releaseDatabase();
+            com.sys.Message message = new com.sys.Message();
+            message.setCode(0);
+            message.setMessage(ex.getMessage());
             com.data.MessageManager messMgr = new com.data.MessageManager();
             out.print(messMgr.parseJson(message));
             

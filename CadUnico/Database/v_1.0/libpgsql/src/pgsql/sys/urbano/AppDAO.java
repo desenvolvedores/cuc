@@ -100,7 +100,7 @@ public class AppDAO {
         if (rs.next()) {            
             com.sys.urbano.App app = new com.sys.urbano.App();
             app.setId(rs.getLong("id"));
-            app.setIdAmbiental(rs.getLong("id_aspecto_ambiental"));
+            app.setIdAmbiental(rs.getLong("id_ambiental"));
             app.setCorpoDagua(rs.getString("corpo_dagua"));
             app.setBrejoCharco(rs.getString("brejo_charco"));
             app.setTopoMorro(rs.getString("topo_morro"));

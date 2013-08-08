@@ -16,7 +16,6 @@ public class AspectoAmbiental {
     private String type;
     private long id;
     private long idNucleo;
-    private String areaRisco;
     private String areaVerde;
     private String areaAgricola;
     private String outros;
@@ -30,7 +29,6 @@ public class AspectoAmbiental {
         this.type = "aspectoambiental";
         this.id = 0l;
         this.idNucleo = 0l;
-        this.areaRisco = "";
         this.areaVerde = "";
         this.areaAgricola = "";
         this.outros = "";
@@ -59,14 +57,6 @@ public class AspectoAmbiental {
 
     public void setIdNucleo(long idNucleo) {
         this.idNucleo = idNucleo;
-    }
-
-    public String getAreaRisco() {
-        return areaRisco;
-    }
-
-    public void setAreaRisco(String areaRisco) {
-        this.areaRisco = areaRisco;
     }
 
     public String getAreaVerde() {

@@ -82,6 +82,7 @@ public class JsonAutenticarUsuario extends javax.servlet.http.HttpServlet {
         } catch (java.io.IOException ex) {
             
             ex.printStackTrace();
+            com.settings.Configuracao.releaseDatabase();
             com.sys.Message message = new com.sys.Message();
             message.setCode(0);
             message.setMessage("O servidor não pôde obter os dados do usuário para efetuar o acesso ao sistema!");
@@ -91,15 +92,17 @@ public class JsonAutenticarUsuario extends javax.servlet.http.HttpServlet {
         } catch (java.lang.ClassNotFoundException ex) {
             
             ex.printStackTrace();
+            com.settings.Configuracao.releaseDatabase();
             com.sys.Message message = new com.sys.Message();
             message.setCode(0);
-            message.setMessage("Não foi possível encontrar as configurações do banco de dados do CadUnico.<br />Contate o administrador do sistema!");
+            message.setMessage("Não foi possível encontrar as configurações do banco de dados do CadHab.<br />Contate o administrador do sistema!");
             com.data.MessageManager messMgr = new com.data.MessageManager();
             out.print(messMgr.parseJson(message));
             
         } catch (java.sql.SQLException ex) {
             
             ex.printStackTrace();
+            com.settings.Configuracao.releaseDatabase();
             com.sys.Message message = new com.sys.Message();
             message.setCode(0);
             message.setMessage("O banco de dados retornou um erro durante o acesso do usuário ao sistema.<br />Contate o administrador do sistema!");
@@ -109,6 +112,7 @@ public class JsonAutenticarUsuario extends javax.servlet.http.HttpServlet {
         } catch (java.lang.NullPointerException ex) {
             
             ex.printStackTrace();
+            com.settings.Configuracao.releaseDatabase();
             com.sys.Message message = new com.sys.Message();
             message.setCode(0);
             message.setMessage("O servidor não pode encontrar valores necessários para realizar a operação.<br />Contate o administrador do sistema!");
@@ -118,6 +122,7 @@ public class JsonAutenticarUsuario extends javax.servlet.http.HttpServlet {
         } catch (java.security.NoSuchAlgorithmException ex) {
             
             ex.printStackTrace();
+            com.settings.Configuracao.releaseDatabase();
             com.sys.Message message = new com.sys.Message();
             message.setCode(0);
             message.setMessage("Não foi possível fazer a autenticação do usuário no sistema.<br />Contate o administrador do sistema!");

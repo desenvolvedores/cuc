@@ -24,6 +24,7 @@ public class JsonInserirAspectoAmbiental extends javax.servlet.http.HttpServlet 
     protected void processRequest(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response)
             throws javax.servlet.ServletException, java.io.IOException {
         
+        request.setCharacterEncoding("UTF-8");
         java.io.PrintWriter out = response.getWriter();
         
         try {
@@ -39,8 +40,8 @@ public class JsonInserirAspectoAmbiental extends javax.servlet.http.HttpServlet 
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
                 com.sys.urbano.AspectoAmbiental aspecto = jsonMgr.parseAspectoAmbiental(json);
 
-                if (! aspecto.getAreaRisco().isEmpty() && ! aspecto.getAreaVerde().isEmpty() && ! aspecto.getAreaAgricola().isEmpty() 
-                        && ! aspecto.getOutros().isEmpty() && aspecto.getIdNucleo() > 0) {
+                if (! aspecto.getAreaVerde().isEmpty() && ! aspecto.getAreaAgricola().isEmpty() && ! aspecto.getOutros().isEmpty() 
+                        && aspecto.getIdNucleo() > 0) {
 
                     pgsql.sys.urbano.AspectoAmbientalDAO aspectoDAO = new pgsql.sys.urbano.AspectoAmbientalDAO();
 
@@ -87,6 +88,7 @@ public class JsonInserirAspectoAmbiental extends javax.servlet.http.HttpServlet 
         } catch (java.io.IOException ex) {
             
             ex.printStackTrace();
+            com.settings.Configuracao.releaseDatabase();
             com.sys.Message message = new com.sys.Message();
             message.setCode(0);
             message.setMessage("O servidor não pôde obter os dados do aspecto ambiental para efetuar o cadastro!");
@@ -96,15 +98,17 @@ public class JsonInserirAspectoAmbiental extends javax.servlet.http.HttpServlet 
         } catch (java.lang.ClassNotFoundException ex) {
             
             ex.printStackTrace();
+            com.settings.Configuracao.releaseDatabase();
             com.sys.Message message = new com.sys.Message();
             message.setCode(0);
-            message.setMessage("Não foi possível encontrar as configurações do banco de dados do CadÚnico.<br />Contate o administrador do sistema!");
+            message.setMessage("Não foi possível encontrar as configurações do banco de dados do CadHab.<br />Contate o administrador do sistema!");
             com.data.MessageManager messMgr = new com.data.MessageManager();
             out.print(messMgr.parseJson(message));
             
         } catch (java.sql.SQLException ex) {
             
             ex.printStackTrace();
+            com.settings.Configuracao.releaseDatabase();
             com.sys.Message message = new com.sys.Message();
             message.setCode(0);
             message.setMessage("O banco de dados retornou um erro durante o cadastro dos dados do aspecto ambiental.<br />Contate o administrador do sistema!");
