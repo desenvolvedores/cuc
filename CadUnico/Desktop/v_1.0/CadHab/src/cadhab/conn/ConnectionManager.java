@@ -11,7 +11,7 @@ package cadhab.conn;
  */
 public class ConnectionManager {
     
-    private static  com.sys.Message mensagem;
+    private static com.sys.Message mensagem;
     private static com.data.MessageManager mensMgr = new com.data.MessageManager();
     private static com.util.JsonManager jMgr = new com.util.JsonManager();
     private static com.utils.JsonManager jsonMgr = new com.utils.JsonManager();

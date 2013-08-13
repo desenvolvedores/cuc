@@ -12,6 +12,7 @@ package cadhab.ui;
 public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     
     private char acao = ' ';
+    private boolean uploadDisponivel = true;
     private long idNucleoAtual = 0;
     private long idInfraestruturaAtual = 0;
     private long idProgramaAtual = 0;
@@ -3478,6 +3479,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     private void jbtnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnLimparActionPerformed
 
         limparCampos();
+        limparDicaCampos();
         
     }//GEN-LAST:event_jbtnLimparActionPerformed
 
@@ -3513,16 +3515,20 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
 
     private void jbtnAnexosTransporteColetivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAnexosTransporteColetivoActionPerformed
         
-        anexarDocumentoTransporte();
+        abrirSelecionadorAnexoTransporte();
         
     }//GEN-LAST:event_jbtnAnexosTransporteColetivoActionPerformed
 
     private void jbtnAnexosZoneamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAnexosZoneamentoActionPerformed
-        // TODO add your handling code here:
+        
+        abrirSelecionadorAnexoZoneamento();
+        
     }//GEN-LAST:event_jbtnAnexosZoneamentoActionPerformed
 
     private void jbtnAnexosJudiciaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAnexosJudiciaisActionPerformed
-        // TODO add your handling code here:
+        
+        abrirSelecionadorAnexoJudicial();
+        
     }//GEN-LAST:event_jbtnAnexosJudiciaisActionPerformed
 
     private void jbtnGerenciarRecursoMobilidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGerenciarRecursoMobilidadeActionPerformed
@@ -6044,41 +6050,324 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         
     }
     
-    private void anexarDocumentoTransporte() {
+    private void abrirSelecionadorAnexoTransporte() {
+        
+        final java.io.File[] FILES = com.swing.FileChooserManager.documentOpenerChooser(this, jtxtAnexosTransporteColetivo);
+        
+        if (FILES != null) {
+            
+            new java.lang.Thread() {
+
+                @Override
+                public void run() {
+
+                    anexarDocumentoTransporte(FILES);
+
+                }
+
+            }.start();
+        
+        }
+        
+    }
+    
+    private synchronized void anexarDocumentoTransporte(java.io.File[] files) {
         
         try {
             
-            javax.swing.JFileChooser fc;
-            fc = new javax.swing.JFileChooser();
-            fc.setMultiSelectionEnabled(true);
-            int returnVal = fc.showOpenDialog(this);
-            if (returnVal == javax.swing.JFileChooser.APPROVE_OPTION) {
-                java.io.File[] file = fc.getSelectedFiles();
-                //edtPath.setText(file.getPath());
-                
-                for (int i = 0; i < file.length; i++)
-                    cadhab.conn.ConnectionManager.upload("/nucleo/documento/transporte/anexar?id_nucleo=" + idNucleoAtual + "&auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), file[i].getAbsolutePath());
-                
+            while (! uploadDisponivel)
+                wait();
+            
+            uploadDisponivel = false;
+            
+            cadhab.ui.FormPrincipal.jpgbProgresso.setMinimum(1);
+            cadhab.ui.FormPrincipal.jpgbProgresso.setMaximum(files.length);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Enviando anexos de transporte...");
+            
+            for (int i = 0; i < files.length; i++) {
+                    
+                cadhab.conn.ConnectionManager.upload("/nucleo/documento/transporte/anexar?id_nucleo=" + idNucleoAtual + "&auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), files[i].getAbsolutePath());
+                cadhab.ui.FormPrincipal.jpgbProgresso.setValue(i + 1);
+                cadhab.ui.FormPrincipal.jlblTarefa.setText("Enviando anexos de transporte... " + (i + 1) + " de " + files.length);
+                    
             }
+            
+            cadhab.ui.FormPrincipal.jpgbProgresso.setValue(1);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessage("Os anexos de transporte do núcleo foram enviados com sucesso!");
+            uploadDisponivel = true;
+            notifyAll();
             
         } catch (java.net.MalformedURLException ex) {
             
             ex.printStackTrace();
+            cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos de transporte do núcleo para o servidor!");
+            uploadDisponivel = true;
+            notifyAll();
             javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
             
         } catch (java.net.ConnectException ex) {
             
             ex.printStackTrace();
+            cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos de transporte do núcleo para o servidor!");
+            uploadDisponivel = true;
+            notifyAll();
             javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
             
         } catch (java.io.IOException ex) {
             
             ex.printStackTrace();
+            cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos de transporte do núcleo para o servidor!");
+            uploadDisponivel = true;
+            notifyAll();
             javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
          
+        } catch (java.lang.InterruptedException ex) {
+            
+            ex.printStackTrace();
+            cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos de transporte do núcleo para o servidor!");
+            uploadDisponivel = true;
+            notifyAll();
+            javax.swing.JOptionPane.showMessageDialog(this, "Ocorreu um erro inesperado no processo de controle de upload!", "CadHab", 0);
+            
         } catch (java.lang.Exception ex) {
             
             ex.printStackTrace();
+            cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos de transporte do núcleo para o servidor!");
+            uploadDisponivel = true;
+            notifyAll();
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
+        
+    }
+    
+    private void abrirSelecionadorAnexoZoneamento() {
+        
+        final java.io.File[] FILES = com.swing.FileChooserManager.documentOpenerChooser(this, jtxtAnexosZoneamento);
+        
+        if (FILES != null) {
+            
+            new java.lang.Thread() {
+
+                @Override
+                public void run() {
+
+                    anexarDocumentoZoneamento(FILES);
+
+                }
+
+            }.start();
+        
+        }
+        
+    }
+    
+    private synchronized void anexarDocumentoZoneamento(java.io.File[] files) {
+        
+        try {
+            
+            while (! uploadDisponivel)
+                wait();
+            
+            uploadDisponivel = false;
+            
+            cadhab.ui.FormPrincipal.jpgbProgresso.setMinimum(1);
+            cadhab.ui.FormPrincipal.jpgbProgresso.setMaximum(files.length);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Enviando anexos de zoneamento...");
+            
+            for (int i = 0; i < files.length; i++) {
+                    
+                cadhab.conn.ConnectionManager.upload("/nucleo/documento/zoneamento/anexar?id_fundiaria=" + idFundiariaAtual + "&auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), files[i].getAbsolutePath());
+                cadhab.ui.FormPrincipal.jpgbProgresso.setValue(i + 1);
+                cadhab.ui.FormPrincipal.jlblTarefa.setText("Enviando anexos de zoneamento... " + (i + 1) + " de " + files.length);
+                    
+            }
+            
+            cadhab.ui.FormPrincipal.jpgbProgresso.setValue(1);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessage("Os anexos de zoneamento do núcleo foram enviados com sucesso!");
+            uploadDisponivel = true;
+            notifyAll();
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos de zoneamento do núcleo para o servidor!");
+            uploadDisponivel = true;
+            notifyAll();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos de zoneamento do núcleo para o servidor!");
+            uploadDisponivel = true;
+            notifyAll();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos de zoneamento do núcleo para o servidor!");
+            uploadDisponivel = true;
+            notifyAll();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+         
+        } catch (java.lang.InterruptedException ex) {
+            
+            ex.printStackTrace();
+            cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos de zoneamento do núcleo para o servidor!");
+            uploadDisponivel = true;
+            notifyAll();
+            javax.swing.JOptionPane.showMessageDialog(this, "Ocorreu um erro inesperado no processo de controle de upload!", "CadHab", 0);
+            
+        } catch (java.lang.Exception ex) {
+            
+            ex.printStackTrace();
+            cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos de zoneamento do núcleo para o servidor!");
+            uploadDisponivel = true;
+            notifyAll();
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
+        
+    }
+    
+    private void abrirSelecionadorAnexoJudicial() {
+        
+        final java.io.File[] FILES = com.swing.FileChooserManager.documentOpenerChooser(this, jtxtAnexosJudiciais);
+        
+        if (FILES != null) {
+            
+            new java.lang.Thread() {
+
+                @Override
+                public void run() {
+
+                    anexarDocumentoJudicial(FILES);
+
+                }
+
+            }.start();
+        
+        }
+        
+    }
+    
+    private synchronized void anexarDocumentoJudicial(java.io.File[] files) {
+        
+        try {
+            
+            while (! uploadDisponivel)
+                wait();
+            
+            uploadDisponivel = false;
+            
+            cadhab.ui.FormPrincipal.jpgbProgresso.setMinimum(1);
+            cadhab.ui.FormPrincipal.jpgbProgresso.setMaximum(files.length);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Enviando anexos judiciais...");
+            
+            for (int i = 0; i < files.length; i++) {
+                    
+                cadhab.conn.ConnectionManager.upload("/nucleo/documento/judicial/anexar?id_fundiaria=" + idFundiariaAtual + "&auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), files[i].getAbsolutePath());
+                cadhab.ui.FormPrincipal.jpgbProgresso.setValue(i + 1);
+                cadhab.ui.FormPrincipal.jlblTarefa.setText("Enviando anexos judiciais... " + (i + 1) + " de " + files.length);
+                    
+            }
+            
+            cadhab.ui.FormPrincipal.jpgbProgresso.setValue(1);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessage("Os anexos judiciais do núcleo foram enviados com sucesso!");
+            uploadDisponivel = true;
+            notifyAll();
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos judiciais do núcleo para o servidor!");
+            uploadDisponivel = true;
+            notifyAll();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos judiciais do núcleo para o servidor!");
+            uploadDisponivel = true;
+            notifyAll();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos judiciais do núcleo para o servidor!");
+            uploadDisponivel = true;
+            notifyAll();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+         
+        } catch (java.lang.InterruptedException ex) {
+            
+            ex.printStackTrace();
+            cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos judiciais do núcleo para o servidor!");
+            uploadDisponivel = true;
+            notifyAll();
+            javax.swing.JOptionPane.showMessageDialog(this, "Ocorreu um erro inesperado no processo de controle de upload!", "CadHab", 0);
+            
+        } catch (java.lang.Exception ex) {
+            
+            ex.printStackTrace();
+            cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos judiciais do núcleo para o servidor!");
+            uploadDisponivel = true;
+            notifyAll();
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
             
         }
@@ -7345,8 +7634,8 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         
         jtxtaDescRecursoMobilidade.setText("");
         jcbbRecursoMobilidade.setSelectedIndex(0);
-        javax.swing.table.DefaultTableModel modeloAreaRisco = (javax.swing.table.DefaultTableModel) jtblViasPublicas.getModel();
-        modeloAreaRisco.setNumRows(0);
+        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jtblViasPublicas.getModel();
+        modelo.setNumRows(0);
         
     }
     
@@ -7354,8 +7643,8 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         
         jtxtaDescRecursoSocial.setText("");
         jcbbRecursoSocial.setSelectedIndex(0);
-        javax.swing.table.DefaultTableModel modeloAreaRisco = (javax.swing.table.DefaultTableModel) jtblInstitucionalSocial.getModel();
-        modeloAreaRisco.setNumRows(0);
+        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jtblInstitucionalSocial.getModel();
+        modelo.setNumRows(0);
         
     }
     
@@ -7426,8 +7715,179 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     
     private void limparCamposAreaRisco() {
         
-        javax.swing.table.DefaultTableModel modeloAreaRisco = (javax.swing.table.DefaultTableModel) jtblAreasRisco.getModel();
-        modeloAreaRisco.setNumRows(0);
+        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jtblAreasRisco.getModel();
+        modelo.setNumRows(0);
+        
+    }
+    
+    private void limparDicaCampos() {
+        
+        limparDicaCamposNucleo();
+        limparDicaCamposInfraestrutura();
+        limparDicaCamposProgramaHabitacional();
+        limparDicaCamposSituacaoFundiaria();
+        limparDicaCamposViaPublica();
+        limparDicaCamposInstitucionalSocial();
+        limparDicaCamposAcaoNucleo();
+        limparDicaCamposRemanejamento();
+        limparDicaCamposReassentamento();
+        limparDicaCamposDesconstrucao();
+        limparDicaCamposAspectoAmbiental();
+        limparDicaCamposApp();
+        
+    }
+    
+    private void limparDicaCamposNucleo() {
+        
+        jtxtNome.setToolTipText("");
+        jtxtSetorCadastral.setToolTipText("");
+        jtxtAreaTotal.setToolTipText("");
+        jtxtAreaOcupada.setToolTipText("");
+        jtxtInicioOcupacao.setToolTipText("");
+        jtxtNumeroDomicilios.setToolTipText("");
+        jtxtPopulacaoEstimada.setToolTipText("");
+        jtxtPopulacaoOutrasFontesDados.setToolTipText("");
+        jtxtUsoIncompativel.setToolTipText("");
+        jtxtAdensamentoFonteDados.setToolTipText("");
+        jtxtaObsControleOcupacao.setToolTipText("");
+        jtxtaObsAdensamento.setToolTipText("");
+        jtxtAnexosTransporteColetivo.setToolTipText("");
+        jcbbZona.setToolTipText("");
+        jcbbOrigem.setToolTipText("");
+        jcbbOcupacao.setToolTipText("");
+        jcbbControleOcupacao.setToolTipText("");
+        jcbbTransporteColetivo.setToolTipText("");
+        jcbbPadraoConstrutivo.setToolTipText("");
+        jcbbPopulacaoFonteDados.setToolTipText("");
+        jcbbRendaPopulacao.setToolTipText("");
+        jcbbAdensamento.setToolTipText("");
+        
+    }
+    
+    private void limparDicaCamposInfraestrutura() {
+        
+        jcbbAbastecimentoAgua.setToolTipText("");
+        jcbbColetaEsgoto.setToolTipText("");
+        jcbbEnergiaEletrica.setToolTipText("");
+        jcbbIluminacaoPublica.setToolTipText("");
+        jcbbServicosLimpeza.setToolTipText("");
+        jcbbAguasPluviaisSuperficial.setToolTipText("");
+        jcbbAguasPluviaisRede.setToolTipText("");
+        
+    }
+    
+    private void limparDicaCamposProgramaHabitacional() {
+        
+        jcbbMaterialConstrucao.setToolTipText("");
+        jcbbProducaoMoradias.setToolTipText("");
+        jcbbAssistenciaTecnica.setToolTipText("");
+        jcbbUrbAssentamentosPrecarios.setToolTipText("");
+        jcbbComplementacaoInfraestrutura.setToolTipText("");
+        jcbbRegularizacaoFundiaria.setToolTipText("");
+        jcbbCdhu.setToolTipText("");
+        jcbbPmcmv.setToolTipText("");
+        
+    }
+    
+    private void limparDicaCamposSituacaoFundiaria() {
+        
+        jtxtProprietario.setToolTipText("");
+        jtxtDecretoAprovacao.setToolTipText("");
+        jtxtNumeroMatricula.setToolTipText("");
+        jtxtDestinacaoAreas.setToolTipText("");
+        jtxtAnexosZoneamento.setToolTipText("");
+        jtxtNumeroProcesso.setToolTipText("");
+        jtxtNumeroOrdem.setToolTipText("");
+        jtxtVara.setToolTipText("");
+        jtxtAnexosJudiciais.setToolTipText("");
+        jtxtaObsPropriedade.setToolTipText("");
+        jtxtaDescDestinacaoAreas.setToolTipText("");
+        jtxtaDescEcologicoEconomico.setToolTipText("");
+        jtxtaDescZonasSolo.setToolTipText("");
+        jtxtaObsJudiciais.setToolTipText("");
+        jcbbPropriedade.setToolTipText("");
+        jcbbDecretoRegistrado.setToolTipText("");
+        jcbbProcessosJudiciais.setToolTipText("");
+        jcbbExistenciaEmbargos.setToolTipText("");
+        
+    }
+    
+    private void limparDicaCamposViaPublica() {
+        
+        jtxtaDescRecursoMobilidade.setToolTipText("");
+        jcbbRecursoMobilidade.setToolTipText("");
+        
+    }
+    
+    private void limparDicaCamposInstitucionalSocial() {
+        
+        jtxtaDescRecursoSocial.setToolTipText("");
+        jcbbRecursoSocial.setToolTipText("");
+        
+    }
+    
+    private void limparDicaCamposAcaoNucleo() {
+        
+        jtxtFonteMelhoriaHabitacional.setToolTipText("");
+        jtxtFonteAdequacaoInfraestrutura.setToolTipText("");
+        jtxtPrad.setToolTipText("");
+        jtxtDescOutros.setToolTipText("");
+        jcbbRemanejamento.setToolTipText("");
+        jcbbReassentamento.setToolTipText("");
+        jcbbMelhoriaHabitacional.setToolTipText("");
+        jcbbAdequacaoInfraestrutura.setToolTipText("");
+        jcbbDesconstrucao.setToolTipText("");
+        jcbbRecuperacaoAmbiental.setToolTipText("");
+        jcbbAcoesOutros.setToolTipText("");
+        
+    }
+    
+    private void limparDicaCamposRemanejamento() {
+        
+        jtxtNumeroRemocaoDefinitiva.setToolTipText("");
+        jtxtNumeroRemocaoProvisoria.setToolTipText("");
+        jcbbEstimativaRelocacao.setToolTipText("");
+        
+    }
+    
+    private void limparDicaCamposReassentamento() {
+        
+        jtxtNumeroMoradiasConstruir.setToolTipText("");
+        jtxtNumeroMoradiasProvisorias.setToolTipText("");
+        jtxtLocalDefinitivo.setToolTipText("");
+        jcbbEstimativaRemocao.setToolTipText("");
+        
+    }
+    
+    private void limparDicaCamposDesconstrucao() {
+        
+        jtxtNumeroMoradiasDemolir.setToolTipText("");
+        jtxtaMotivoDemolicao.setToolTipText("");
+        jtxtaProcessosDemolicao.setToolTipText("");
+        
+    }
+    
+    private void limparDicaCamposAspectoAmbiental() {
+        
+        jtxtAspAmbLatitude.setToolTipText("");
+        jtxtAspAmbLongitude.setToolTipText("");
+        jtxtAspAmbOutrosEspecifique.setToolTipText("");
+        jcbbAreaVerde.setToolTipText("");
+        jcbbAreaAgricola.setToolTipText("");
+        jcbbAspAmbOutros.setToolTipText("");
+        jcbbApp.setToolTipText("");
+        
+    }
+    
+    private void limparDicaCamposApp() {
+        
+        jtxtaAppOutrosEspecifique.setToolTipText("");
+        jcbbCorpoDagua.setToolTipText("");
+        jcbbBrejoCharco.setToolTipText("");
+        jcbbTopoMorro.setToolTipText("");
+        jcbbEncosta.setToolTipText("");
+        jcbbRestinga.setToolTipText("");
+        jcbbAppOutros.setToolTipText("");
         
     }
     

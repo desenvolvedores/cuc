@@ -22,6 +22,8 @@ public class FormPrincipal extends javax.swing.JFrame {
     private FormGerenciarRecursoSocial fGerenciarRecursoSocial;
     private FormGerenciarDepartamento fGerenciarSecretaria;
     private FormFerramentaConfigurarServidor fFerramentaConfigurarServidor;
+    
+    public static com.sys.Notification notificacao = com.sys.Notification.getInstance();
 
     /**
      * Creates new form FormPrincipal
@@ -52,6 +54,11 @@ public class FormPrincipal extends javax.swing.JFrame {
             
         }
         
+        notificacao.setIcon(java.awt.Toolkit.getDefaultToolkit().createImage(getClass().getResource("/cadhab/ui/icon/cadhab.png")));
+        notificacao.createSystemTray();
+        java.lang.Thread thread = new java.lang.Thread(notificacao);
+        thread.start();
+        
     }
 
     /**
@@ -65,8 +72,21 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jdktDesktop = new javax.swing.JDesktopPane();
         jpnlBarraStatus = new javax.swing.JPanel();
+        jpnlBarraStatusWrapper = new javax.swing.JPanel();
         jsepStatusServidor = new javax.swing.JSeparator();
         jlblStatusServidor = new javax.swing.JLabel();
+        jsepUsuario = new javax.swing.JSeparator();
+        jlblUsuario = new javax.swing.JLabel();
+        jsepTarefa = new javax.swing.JSeparator();
+        jlblTarefa = new javax.swing.JLabel();
+        jsepBarraProgresso = new javax.swing.JSeparator();
+        jpgbProgresso = new javax.swing.JProgressBar();
+        jsepNUM = new javax.swing.JSeparator();
+        jlblNUM = new javax.swing.JLabel();
+        jsepCAP = new javax.swing.JSeparator();
+        jlblCAP = new javax.swing.JLabel();
+        jsepINS = new javax.swing.JSeparator();
+        jlblINS = new javax.swing.JLabel();
         jmbarSuperior = new javax.swing.JMenuBar();
         jmenPrincipal = new javax.swing.JMenu();
         jmitPrincipalTrocarSenha = new javax.swing.JMenuItem();
@@ -102,18 +122,92 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jdktDesktop.setBackground(new java.awt.Color(240, 240, 240));
 
-        jpnlBarraStatus.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jpnlBarraStatus.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jpnlBarraStatus.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jpnlBarraStatusComponentResized(evt);
+            }
+        });
         jpnlBarraStatus.setLayout(null);
+
+        jpnlBarraStatusWrapper.setLayout(null);
 
         jsepStatusServidor.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jsepStatusServidor.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jpnlBarraStatus.add(jsepStatusServidor);
-        jsepStatusServidor.setBounds(0, 0, 25, 25);
+        jpnlBarraStatusWrapper.add(jsepStatusServidor);
+        jsepStatusServidor.setBounds(3, 0, 25, 25);
 
         jlblStatusServidor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/server.png"))); // NOI18N
-        jpnlBarraStatus.add(jlblStatusServidor);
-        jlblStatusServidor.setBounds(2, 2, 20, 20);
+        jpnlBarraStatusWrapper.add(jlblStatusServidor);
+        jlblStatusServidor.setBounds(5, 2, 20, 20);
+
+        jsepUsuario.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jsepUsuario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jpnlBarraStatusWrapper.add(jsepUsuario);
+        jsepUsuario.setBounds(29, 0, 400, 25);
+
+        jlblUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlblUsuario.setText("Usuário");
+        jpnlBarraStatusWrapper.add(jlblUsuario);
+        jlblUsuario.setBounds(33, 0, 390, 25);
+
+        jsepTarefa.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jsepTarefa.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jpnlBarraStatusWrapper.add(jsepTarefa);
+        jsepTarefa.setBounds(430, 0, 332, 25);
+
+        jlblTarefa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlblTarefa.setText("Pronto.");
+        jpnlBarraStatusWrapper.add(jlblTarefa);
+        jlblTarefa.setBounds(434, 0, 323, 25);
+
+        jsepBarraProgresso.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jsepBarraProgresso.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jpnlBarraStatusWrapper.add(jsepBarraProgresso);
+        jsepBarraProgresso.setBounds(763, 0, 150, 25);
+
+        jpgbProgresso.setFocusable(false);
+        jpnlBarraStatusWrapper.add(jpgbProgresso);
+        jpgbProgresso.setBounds(768, 5, 140, 15);
+
+        jsepNUM.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jsepNUM.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jpnlBarraStatusWrapper.add(jsepNUM);
+        jsepNUM.setBounds(914, 0, 35, 25);
+
+        jlblNUM.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlblNUM.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlblNUM.setText("NUM");
+        jlblNUM.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jpnlBarraStatusWrapper.add(jlblNUM);
+        jlblNUM.setBounds(919, 0, 25, 25);
+
+        jsepCAP.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jsepCAP.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jpnlBarraStatusWrapper.add(jsepCAP);
+        jsepCAP.setBounds(950, 0, 35, 25);
+
+        jlblCAP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlblCAP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlblCAP.setText("CAP");
+        jlblCAP.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jpnlBarraStatusWrapper.add(jlblCAP);
+        jlblCAP.setBounds(955, 0, 25, 25);
+
+        jsepINS.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jsepINS.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jpnlBarraStatusWrapper.add(jsepINS);
+        jsepINS.setBounds(986, 0, 35, 25);
+
+        jlblINS.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlblINS.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlblINS.setText("INS");
+        jlblINS.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jpnlBarraStatusWrapper.add(jlblINS);
+        jlblINS.setBounds(990, 0, 25, 25);
+
+        jpnlBarraStatus.add(jpnlBarraStatusWrapper);
+        jpnlBarraStatusWrapper.setBounds(0, 0, 1021, 25);
 
         jmbarSuperior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -558,9 +652,24 @@ public class FormPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jmitJanelaFecharTodasActionPerformed
 
+    private void jpnlBarraStatusComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jpnlBarraStatusComponentResized
+        
+        jpnlBarraStatusWrapper.setSize(1020, 25);
+        int parentWidth = jpnlBarraStatus.getWidth();
+        int childWidth = jpnlBarraStatusWrapper.getWidth();
+        int newLocation = java.lang.Math.round((parentWidth - childWidth) / 2);
+        jpnlBarraStatusWrapper.setBounds(newLocation, 0, 1020, jpnlBarraStatusWrapper.getHeight());
+        
+    }//GEN-LAST:event_jpnlBarraStatusComponentResized
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jdktDesktop;
+    private javax.swing.JLabel jlblCAP;
+    private javax.swing.JLabel jlblINS;
+    private javax.swing.JLabel jlblNUM;
     private javax.swing.JLabel jlblStatusServidor;
+    public static javax.swing.JLabel jlblTarefa;
+    private javax.swing.JLabel jlblUsuario;
     private javax.swing.JMenuBar jmbarSuperior;
     private javax.swing.JMenu jmenAjuda;
     private javax.swing.JMenu jmenFerramenta;
@@ -588,9 +697,17 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmitRecursoMobilidade;
     private javax.swing.JMenuItem jmitRecursoSecretaria;
     private javax.swing.JMenuItem jmitRecursoSocial;
+    public static javax.swing.JProgressBar jpgbProgresso;
     private javax.swing.JPanel jpnlBarraStatus;
+    private javax.swing.JPanel jpnlBarraStatusWrapper;
+    private javax.swing.JSeparator jsepBarraProgresso;
+    private javax.swing.JSeparator jsepCAP;
+    private javax.swing.JSeparator jsepINS;
     private javax.swing.JPopupMenu.Separator jsepJanelas;
+    private javax.swing.JSeparator jsepNUM;
     private javax.swing.JPopupMenu.Separator jsepPrincipal;
     private javax.swing.JSeparator jsepStatusServidor;
+    private javax.swing.JSeparator jsepTarefa;
+    private javax.swing.JSeparator jsepUsuario;
     // End of variables declaration//GEN-END:variables
 }

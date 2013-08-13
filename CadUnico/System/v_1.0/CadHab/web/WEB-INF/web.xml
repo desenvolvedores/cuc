@@ -1022,7 +1022,15 @@
     </servlet>
     <servlet>
         <servlet-name>oAnexarDocumentoTransporte</servlet-name>
-        <servlet-class>com.control.object.access.ObjectAnexarDocumentoTransporte</servlet-class>
+        <servlet-class>com.control.object.doc.ObjectAnexarDocumentoTransporte</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>oAnexarDocumentoFundiariaZoneamento</servlet-name>
+        <servlet-class>com.control.object.doc.ObjectAnexarDocumentoZoneamento</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>oAnexarDocumentoJudicial</servlet-name>
+        <servlet-class>com.control.object.doc.ObjectAnexarDocumentoJudicial</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>jInserirPermissao</servlet-name>
@@ -2047,6 +2055,14 @@
     <servlet-mapping>
         <servlet-name>oAnexarDocumentoTransporte</servlet-name>
         <url-pattern>/nucleo/documento/transporte/anexar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>oAnexarDocumentoFundiariaZoneamento</servlet-name>
+        <url-pattern>/nucleo/documento/zoneamento/anexar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>oAnexarDocumentoJudicial</servlet-name>
+        <url-pattern>/nucleo/documento/judicial/anexar</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

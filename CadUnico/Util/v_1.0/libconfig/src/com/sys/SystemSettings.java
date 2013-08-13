@@ -14,6 +14,7 @@ public class SystemSettings {
     public static java.lang.String systemPath = "";
     public static java.lang.String attachmentPath = "";
     public static java.lang.String systemName = "";
+    public static java.lang.String systemFullName = "";
     public static java.lang.String url = "";
     public static java.lang.String theme = "";
     public static final java.awt.Color EMPTY_REQUIRED_TEXTBOX = new java.awt.Color(156, 193, 243);

@@ -19,7 +19,8 @@ public class CadHab {
     public static void main(String[] args) {
         
         com.sys.SystemSettings.systemPath = "C:\\Arquivos de Programas\\CadHab";
-        com.sys.SystemSettings.systemName = "cadhab";
+        com.sys.SystemSettings.systemName = "Cadhab 2.0";
+        com.sys.SystemSettings.systemFullName = "Cadhab 2.0 - Cadastro Habitacional";
         usuario = null;
         
         java.lang.Thread thread = new java.lang.Thread(new cadhab.ui.FormSplash());
