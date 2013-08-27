@@ -37,11 +37,11 @@ public class JsonInserirTelefoneIndividuo extends javax.servlet.http.HttpServlet
                 String json = request.getReader().readLine();
 
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
-                com.common.TelefoneIndividuo telefone = jsonMgr.parseTelefoneIndividuo(json);
+                com.sys.social.TelefoneIndividuo telefone = jsonMgr.parseTelefoneIndividuo(json);
 
                 if (! telefone.getTipo().isEmpty() && ! telefone.getNumero().isEmpty() && telefone.getIdIndividuo() > 0) {
 
-                    pgsql.common.TelefoneIndividuoDAO telefoneDAO = new pgsql.common.TelefoneIndividuoDAO();
+                    pgsql.sys.social.TelefoneIndividuoDAO telefoneDAO = new pgsql.sys.social.TelefoneIndividuoDAO();
 
                     if (telefoneDAO.inserirTelefone(telefone) > 0) {
 

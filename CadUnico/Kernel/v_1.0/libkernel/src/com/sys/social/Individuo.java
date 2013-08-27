@@ -35,7 +35,7 @@ public class Individuo {
     private com.sys.social.EscolaridadeIndividuo escolaridade;
     private com.sys.social.ProfissionalIndividuo profissional;
     private com.sys.social.DeficienteIndividuo deficiente;
-    private java.util.List<com.common.TelefoneIndividuo> telefones;
+    private java.util.List<com.sys.social.TelefoneIndividuo> telefones;
     private java.util.List<com.sys.habitacional.Imovel> imoveis;
     
     public Individuo() {
@@ -96,7 +96,7 @@ public class Individuo {
         
     }
     
-    public Individuo(java.util.List<com.sys.habitacional.Imovel> imoveis, java.util.List<com.common.TelefoneIndividuo> telefones) {
+    public Individuo(java.util.List<com.sys.habitacional.Imovel> imoveis, java.util.List<com.sys.social.TelefoneIndividuo> telefones) {
         
         this.type = "individuo";
         this.id = 0l;
@@ -297,11 +297,11 @@ public class Individuo {
         this.deficiente = deficiente;
     }
 
-    public java.util.List<com.common.TelefoneIndividuo> getTelefones() {
+    public java.util.List<com.sys.social.TelefoneIndividuo> getTelefones() {
         return telefones;
     }
 
-    public void setTelefones(java.util.List<com.common.TelefoneIndividuo> telefones) {
+    public void setTelefones(java.util.List<com.sys.social.TelefoneIndividuo> telefones) {
         this.telefones = telefones;
     }
 

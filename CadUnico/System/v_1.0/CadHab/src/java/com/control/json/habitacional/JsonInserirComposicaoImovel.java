@@ -40,7 +40,7 @@ public class JsonInserirComposicaoImovel extends javax.servlet.http.HttpServlet 
                 com.sys.habitacional.ComposicaoImovel composicao = jsonMgr.parseComposicaoImovel(json);
 
                 if (! composicao.getMaterialParede().isEmpty() && ! composicao.getMaterialPiso().isEmpty() && ! composicao.getMaterialCobertura().isEmpty() 
-                        && composicao.getImovel().getId() > 0) {
+                        && composicao.getIdImovel() > 0) {
 
                     pgsql.sys.habitacional.ComposicaoImovelDAO composicaoDAO = new pgsql.sys.habitacional.ComposicaoImovelDAO();
 

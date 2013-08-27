@@ -39,7 +39,7 @@ public class JsonInserirDemolicaoImovel extends javax.servlet.http.HttpServlet {
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
                 com.sys.habitacional.DemolicaoImovel demolicao = jsonMgr.parseDemolicaoImovel(json);
 
-                if (demolicao.getImovel().getId() > 0) {
+                if (demolicao.getIdImovel() > 0) {
 
                     pgsql.sys.habitacional.DemolicaoImovelDAO demolicaoDAO = new pgsql.sys.habitacional.DemolicaoImovelDAO();
 

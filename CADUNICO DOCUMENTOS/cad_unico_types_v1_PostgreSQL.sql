@@ -173,25 +173,25 @@ CREATE TYPE tp_imovel AS (
     id BIGINT,
 	id_nucleo BIGINT,
 	tipo_imovel VARCHAR(60),
-	situacao_imovel VARCHAR(45),
 	valor_aluguel DECIMAL(10,2),
 	tipo_propriedade VARCHAR(45),
 	doc_propriedade VARCHAR(60),
 	num_doc_propriedade VARCHAR(45),
-	construcao VARCHAR(20),
 	localidade VARCHAR(255),
 	paga_iptu CHAR(3),
 	ic VARCHAR(20),
 	selagem VARCHAR(20),
 	atendente VARCHAR(100),
 	atendente_atualizacao VARCHAR(100),
-	dt_atualizacao DATE
+	dt_atualizacao DATE,
+	ativo CHAR(1)
 );
 
 
 CREATE TYPE tp_composicao_imovel AS (
     id BIGINT,
 	id_imovel BIGINT,
+	construcao VARCHAR(20),
 	material_parede VARCHAR(100),
 	especifique_parede TEXT,
 	material_piso VARCHAR(100),
@@ -206,24 +206,25 @@ CREATE TYPE tp_composicao_imovel AS (
 	num_areas_servicos INTEGER,
 	num_anexos INTEGER,
 	num_outros_comodos INTEGER,
-	num_servem_dormitorio INTEGER
+	num_servem_dormitorio INTEGER,
+	ativo CHAR(1)
 );
 
 
 CREATE TYPE tp_endereco_imovel AS (
     id BIGINT,
 	id_imovel BIGINT,
+	id_municipio BIGINT,
 	tipo_logradouro VARCHAR(50),
 	logradouro VARCHAR(255),
 	numero VARCHAR(20),
 	complemento VARCHAR(255),
 	cep CHAR(10),
 	bairro VARCHAR(80),
-	municipio VARCHAR(80),
-	uf CHAR(2),
 	tipo_area VARCHAR(20),
-	latitude DOUBLE PRECISION,
-	longitude DOUBLE PRECISION
+	latitude VARCHAR(100),
+	longitude VARCHAR(100),
+	ativo CHAR(1)
 );
 
 
@@ -240,7 +241,14 @@ CREATE TYPE tp_servico_imovel AS (
 	existe_banheiro CHAR(3),
 	escoamento_sanitario VARCHAR(45),
 	tratamento_lixo VARCHAR(45),
-	presenca_animais VARCHAR(45)
+	caes CHAR(3),
+	gatos CHAR(3),
+	aves CHAR(3),
+	suinos CHAR(3),
+	insetos CHAR(3),
+	ratos CHAR(3),
+	cobras CHAR(3),
+	ativo CHAR(1)
 );
 
 
@@ -248,10 +256,11 @@ CREATE TYPE tp_demolicao_imovel AS (
     id BIGINT,
 	id_imovel BIGINT,
 	dt_demolicao DATE,
-	horario_demolicao CHAR(5),
+	horario_demolicao TIME,
 	num_processo VARCHAR(20),
 	motivo TEXT,
-	executada_por VARCHAR(255)
+	executada_por VARCHAR(255),
+	ativo CHAR(1)
 );
 
 
@@ -259,7 +268,8 @@ CREATE TYPE tp_anexo_demolicao AS (
     id BIGINT,
 	id_demolicao BIGINT,
 	caminho TEXT,
-	tipo CHAR(1)
+	tipo CHAR(1),
+	ativo CHAR(1)
 );
 
 
@@ -267,7 +277,8 @@ CREATE TYPE tp_anexo_imovel AS (
     id BIGINT,
 	id_imovel BIGINT,
 	caminho TEXT,
-	tipo CHAR(1)
+	tipo CHAR(1),
+	ativo CHAR(1)
 );
 
 
@@ -293,7 +304,8 @@ CREATE TYPE tp_nucleo AS (
 	adensamento CHAR(3),
 	adens_fonte_dados VARCHAR(255),
 	obs_adensamento TEXT,
-	uso_incompativel VARCHAR(500)
+	uso_incompativel VARCHAR(500),
+	ativo CHAR(1)
 );
 
 
@@ -306,7 +318,8 @@ CREATE TYPE tp_infraestrutura_urbana AS (
 	aguas_pluviais_superficial CHAR(3),
 	aguas_pluviais_rede CHAR(3),
 	energia_eletrica CHAR(3),
-	iluminacao_publica CHAR(3)
+	iluminacao_publica CHAR(3),
+	ativo CHAR(1)
 );
 
 
@@ -328,7 +341,8 @@ CREATE TYPE tp_situacao_fundiaria AS (
 	num_ordem VARCHAR(45),
 	vara VARCHAR(255),
 	existencia_embargos CHAR(3),
-	obs_judiciais TEXT
+	obs_judiciais TEXT,
+	ativo CHAR(1)
 );
 
 
@@ -336,7 +350,8 @@ CREATE TYPE tp_anexo_zoneamento AS (
     id BIGINT,
 	id_fundiaria BIGINT,
 	caminho TEXT,
-	tipo CHAR(1)
+	tipo CHAR(1),
+	ativo CHAR(1)
 );
 
 
@@ -344,7 +359,8 @@ CREATE TYPE tp_anexo_judicial AS (
     id BIGINT,
 	id_fundiaria BIGINT,
 	caminho TEXT,
-	tipo CHAR(1)
+	tipo CHAR(1),
+	ativo CHAR(1)
 );
 
 
@@ -361,7 +377,8 @@ CREATE TYPE tp_acao_nucleo AS (
 	adequacao_infraestrutura CHAR(3),
 	fonte_adequacao VARCHAR(255),
 	outros CHAR(3),
-	desc_outros VARCHAR(255)
+	desc_outros VARCHAR(255),
+	ativo CHAR(1)
 );
 
 
@@ -370,7 +387,8 @@ CREATE TYPE tp_remanejamento AS (
 	id_acao BIGINT,
 	estimativa_relocacao CHAR(3),
 	num_remocao_definitiva INTEGER,
-	num_remocao_provisoria INTEGER
+	num_remocao_provisoria INTEGER,
+	ativo CHAR(1)
 );
 
 
@@ -380,7 +398,8 @@ CREATE TYPE tp_reassentamento AS (
 	estimativa_remocao CHAR(3),
 	num_a_construir INTEGER,
 	num_provisorias INTEGER,
-	local_definitivo VARCHAR(255)
+	local_definitivo VARCHAR(255),
+	ativo CHAR(1)
 );
 
 
@@ -389,20 +408,21 @@ CREATE TYPE tp_desconstrucao AS (
 	id_acao BIGINT,
 	num_a_demolir INTEGER,
 	motivo TEXT,
-	processos TEXT
+	processos TEXT,
+	ativo CHAR(1)
 );
 
 
 CREATE TYPE tp_aspecto_ambiental AS (
     id BIGINT,
 	id_nucleo BIGINT,
-	area_risco CHAR(3),
 	area_verde CHAR(3),
 	area_agricola CHAR(3),
 	outros CHAR(3),
 	outros_especifique TEXT,
 	latitude DOUBLE PRECISION,
-	longitude DOUBLE PRECISION
+	longitude DOUBLE PRECISION,
+	ativo CHAR(1)
 );
 
 
@@ -415,7 +435,8 @@ CREATE TYPE tp_app AS (
 	enconsta CHAR(3),
 	restinga CHAR(3),
 	outros CHAR(3),
-	especifique_outros TEXT
+	especifique_outros TEXT,
+	ativo CHAR(1)
 );
 
 
@@ -429,7 +450,8 @@ CREATE TYPE tp_area_risco AS (
 	existe_pavimentacao VARCHAR(20),
 	obs_pavimentacao VARCHAR(255),
 	latitude DOUBLE PRECISION,
-	longitude DOUBLE PRECISION
+	longitude DOUBLE PRECISION,
+	ativo CHAR(1)
 );
 
 
@@ -443,13 +465,24 @@ CREATE TYPE tp_programa_habitacional AS (
 	complementacao_infraestrutura CHAR(3),
 	regularizacao_fundiaria CHAR(3),
 	cdhu CHAR(3),
-	pmcmv CHAR(3)
+	pmcmv CHAR(3),
+	ativo CHAR(1)
 );
 
 
 CREATE TYPE tp_via_publica AS (
+	id BIGINT,
 	id_nucleo BIGINT,
 	id_recurso INTEGER,
+	descricao VARCHAR(255)
+);
+
+
+CREATE TYPE tp_via_publica_completa AS (
+	id BIGINT,
+	id_nucleo BIGINT,
+	id_recurso INTEGER,
+	nome_recurso VARCHAR(255),
 	descricao VARCHAR(255)
 );
 
@@ -461,8 +494,18 @@ CREATE TYPE tp_recurso_mobilidade AS (
 
 
 CREATE TYPE tp_institucional_social AS (
+	id BIGINT,
 	id_nucleo BIGINT,
 	id_recurso INTEGER,
+	nome VARCHAR(255)
+);
+
+
+CREATE TYPE tp_institucional_social_completo AS (
+	id BIGINT,
+	id_nucleo BIGINT,
+	id_recurso INTEGER,
+	nome_recurso VARCHAR(255),
 	nome VARCHAR(255)
 );
 
@@ -477,7 +520,8 @@ CREATE TYPE tp_anexo_transporte AS (
     id BIGINT,
 	id_nucleo BIGINT,
 	caminho TEXT,
-	tipo CHAR(1)
+	tipo CHAR(1),
+	ativo CHAR(1)
 );
 
 
@@ -515,5 +559,27 @@ CREATE TYPE tp_usuario AS (
 	nome VARCHAR(255),
 	email VARCHAR(255),
 	ativo CHAR(3)
+);
+
+
+CREATE TYPE tp_pais AS (
+    id INTEGER,
+	sigla VARCHAR(5),
+	nome VARCHAR(255)
+);
+
+
+CREATE TYPE tp_estado AS (
+    id BIGINT,
+	id_pais INTEGER,
+	sigla VARCHAR(5),
+	nome VARCHAR(255)
+);
+
+
+CREATE TYPE tp_municipio AS (
+    id BIGINT,
+	id_estado BIGINT,
+	nome VARCHAR(255)
 );
 

@@ -41,6 +41,7 @@ public class FormGerenciarIndividuo extends javax.swing.JInternalFrame {
 
         jbtgDeficienciaVisual = new javax.swing.ButtonGroup();
         jbtgDeficienciaAuditiva = new javax.swing.ButtonGroup();
+        jsepPrincipal = new javax.swing.JScrollPane();
         jtbpPrincipal = new javax.swing.JTabbedPane();
         jpnlPesquisa = new javax.swing.JPanel();
         jscpTabelaPesquisa = new javax.swing.JScrollPane();
@@ -213,6 +214,10 @@ public class FormGerenciarIndividuo extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("CadHab - Gerenciamento de Indivíduos");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/subject.png"))); // NOI18N
+        setMinimumSize(new java.awt.Dimension(0, 0));
+
+        jsepPrincipal.setAutoscrolls(true);
+        jsepPrincipal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jtbpPrincipal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -277,7 +282,7 @@ public class FormGerenciarIndividuo extends javax.swing.JInternalFrame {
                 .addGap(10, 10, 10)
                 .addComponent(jpnlPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jscpTabelaPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
+                .addComponent(jscpTabelaPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1276,22 +1281,30 @@ public class FormGerenciarIndividuo extends javax.swing.JInternalFrame {
         jpnlFormularioLayout.setVerticalGroup(
             jpnlFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnlFormularioLayout.createSequentialGroup()
-                .addComponent(jtbpFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
+                .addComponent(jtbpFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpnlRodape, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jtbpPrincipal.addTab("Indivíduo", null, jpnlFormulario, "Dados do Indivíduo");
 
+        jsepPrincipal.setViewportView(jtbpPrincipal);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtbpPrincipal)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jsepPrincipal)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtbpPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 2, Short.MAX_VALUE)
+                .addComponent(jsepPrincipal)
+                .addGap(0, 3, Short.MAX_VALUE))
         );
 
         pack();
@@ -1475,6 +1488,7 @@ public class FormGerenciarIndividuo extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jscpTextAreaObsSituacao;
     private javax.swing.JScrollPane jscpTextAreaObsTipo;
     private javax.swing.JScrollPane jscpTextAreaObsTipoDeficiencia;
+    private javax.swing.JScrollPane jsepPrincipal;
     private javax.swing.JTable jtblDocumentos;
     private javax.swing.JTable jtblPesquisa;
     private javax.swing.JTabbedPane jtbpFormulario;

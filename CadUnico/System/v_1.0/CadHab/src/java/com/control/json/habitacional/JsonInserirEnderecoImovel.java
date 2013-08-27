@@ -37,11 +37,11 @@ public class JsonInserirEnderecoImovel extends javax.servlet.http.HttpServlet {
                 String json = request.getReader().readLine();
 
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
-                com.common.EnderecoImovel endereco = jsonMgr.parseEnderecoImovel(json);
+                com.sys.habitacional.EnderecoImovel endereco = jsonMgr.parseEnderecoImovel(json);
 
-                if (! endereco.getTipoLogradouro().isEmpty() && ! endereco.getLogradouro().isEmpty() && ! endereco.getNumero().isEmpty() 
-                        && ! endereco.getBairro().isEmpty() && ! endereco.getMunicipio().isEmpty() && ! endereco.getUF().isEmpty()
-                        && ! endereco.getTipoArea().isEmpty() && endereco.getImovel().getId() > 0) {
+                if (endereco.getIdMunicipio() > 0 && ! endereco.getTipoLogradouro().isEmpty() && ! endereco.getLogradouro().isEmpty() 
+                        && ! endereco.getNumero().isEmpty() && ! endereco.getBairro().isEmpty() && ! endereco.getTipoArea().isEmpty() 
+                        && endereco.getIdImovel() > 0) {
 
                     pgsql.sys.habitacional.EnderecoImovelDAO enderecoDAO = new pgsql.sys.habitacional.EnderecoImovelDAO();
 

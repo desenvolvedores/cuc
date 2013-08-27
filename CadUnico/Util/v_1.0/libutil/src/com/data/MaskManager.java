@@ -15,7 +15,7 @@ public class MaskManager {
 
     }
 
-    public javax.swing.text.MaskFormatter setDateMask() {
+    public static javax.swing.text.MaskFormatter setDateMask() {
         try {
             javax.swing.text.MaskFormatter dateMask = new javax.swing.text.MaskFormatter("##/##/####");
             dateMask.setPlaceholderCharacter('_');
@@ -26,8 +26,20 @@ public class MaskManager {
             return null;
         }
     }
+    
+    public static javax.swing.text.MaskFormatter setTimeMask() {
+        try {
+            javax.swing.text.MaskFormatter dateMask = new javax.swing.text.MaskFormatter("##:##:##");
+            dateMask.setPlaceholderCharacter('_');
+            return dateMask;
+        }
+        catch(java.text.ParseException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
 
-    public javax.swing.text.MaskFormatter setCpfMask() {
+    public static javax.swing.text.MaskFormatter setCpfMask() {
         try {
             javax.swing.text.MaskFormatter cpfMask = new javax.swing.text.MaskFormatter("###.###.###-##");
             cpfMask.setPlaceholderCharacter('_');
@@ -39,7 +51,7 @@ public class MaskManager {
         }
     }
 
-    public javax.swing.text.MaskFormatter setZipMask() {
+    public static javax.swing.text.MaskFormatter setZipMask() {
         try {
             javax.swing.text.MaskFormatter zipMask = new javax.swing.text.MaskFormatter("##.###-###");
             zipMask.setPlaceholderCharacter('_');
@@ -51,7 +63,7 @@ public class MaskManager {
         }
     }
 
-    public javax.swing.text.MaskFormatter setPhoneMask() {
+    public static javax.swing.text.MaskFormatter setPhoneMask() {
         try {
             javax.swing.text.MaskFormatter phoneMask = new javax.swing.text.MaskFormatter("(##) ####-####");
             phoneMask.setPlaceholderCharacter('_');
@@ -63,7 +75,7 @@ public class MaskManager {
         }
     }
     
-    public javax.swing.text.MaskFormatter setMunicipalRegistrationMask() {
+    public static javax.swing.text.MaskFormatter setMunicipalRegistrationMask() {
         try {
             javax.swing.text.MaskFormatter munRegMask = new javax.swing.text.MaskFormatter("##.###.###");
             munRegMask.setPlaceholderCharacter('_');
@@ -75,7 +87,7 @@ public class MaskManager {
         }
     }
     
-    public javax.swing.text.MaskFormatter setMoneyMask() {
+    public static javax.swing.text.MaskFormatter setMoneyMask() {
         try {
             javax.swing.text.MaskFormatter munRegMask = new javax.swing.text.MaskFormatter("###.###,##");
             munRegMask.setPlaceholderCharacter(' ');

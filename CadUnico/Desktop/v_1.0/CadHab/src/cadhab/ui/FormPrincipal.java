@@ -11,19 +11,20 @@ package cadhab.ui;
  */
 public class FormPrincipal extends javax.swing.JFrame {
     
-    private FormGerenciarGrupo fGerenciarGrupo;
-    private FormGerenciarUsuario fGerenciarUsuario;
-    private FormGerenciarEmpresa fGerenciarEmpresa;
-    private FormGerenciarFamilia fGerenciarFamilia;
-    private FormGerenciarIndividuo fGerenciarIndividuo;
-    private FormGerenciarImovel fGerenciarImovel;
-    private FormGerenciarNucleo fGerenciarNucleo;
-    private FormGerenciarRecursoMobilidade fGerenciarRecursoMobilidade;
-    private FormGerenciarRecursoSocial fGerenciarRecursoSocial;
-    private FormGerenciarDepartamento fGerenciarSecretaria;
-    private FormFerramentaConfigurarServidor fFerramentaConfigurarServidor;
-    
+    public static boolean uploadDisponivel = true;
     public static com.sys.Notification notificacao = com.sys.Notification.getInstance();
+    
+    public static FormGerenciarGrupo fGerenciarGrupo = new FormGerenciarGrupo();
+    public static FormGerenciarUsuario fGerenciarUsuario = new FormGerenciarUsuario();
+    public static FormGerenciarEmpresa fGerenciarEmpresa = new FormGerenciarEmpresa();
+    public static FormGerenciarFamilia fGerenciarFamilia = new FormGerenciarFamilia();
+    public static FormGerenciarIndividuo fGerenciarIndividuo = new FormGerenciarIndividuo();
+    public static FormGerenciarImovel fGerenciarImovel = new FormGerenciarImovel();
+    public static FormGerenciarNucleo fGerenciarNucleo = new FormGerenciarNucleo();
+    public static FormGerenciarRecursoMobilidade fGerenciarRecursoMobilidade = new FormGerenciarRecursoMobilidade();
+    public static FormGerenciarRecursoSocial fGerenciarRecursoSocial = new FormGerenciarRecursoSocial();
+    public static FormGerenciarDepartamento fGerenciarSecretaria = new FormGerenciarDepartamento();
+    public static FormFerramentaConfigurarServidor fFerramentaConfigurarServidor = new FormFerramentaConfigurarServidor();
 
     /**
      * Creates new form FormPrincipal
@@ -53,6 +54,9 @@ public class FormPrincipal extends javax.swing.JFrame {
             logon.setVisible(true);
             
         }
+        
+        if (cadhab.CadHab.usuario != null)
+            jlblUsuario.setText(cadhab.CadHab.usuario.getUsuario() + " - " + cadhab.CadHab.usuario.getNome());
         
         notificacao.setIcon(java.awt.Toolkit.getDefaultToolkit().createImage(getClass().getResource("/cadhab/ui/icon/cadhab.png")));
         notificacao.createSystemTray();
@@ -111,6 +115,8 @@ public class FormPrincipal extends javax.swing.JFrame {
         jmenFerramenta = new javax.swing.JMenu();
         jmitFerramentaConfigurarServidor = new javax.swing.JMenuItem();
         jmenJanela = new javax.swing.JMenu();
+        jmitJanelaHorizontalmente = new javax.swing.JMenuItem();
+        jmitJanelaVerticalmente = new javax.swing.JMenuItem();
         jmitJanelaCascata = new javax.swing.JMenuItem();
         jsepJanelas = new javax.swing.JPopupMenu.Separator();
         jmitJanelaFecharTodas = new javax.swing.JMenuItem();
@@ -396,8 +402,28 @@ public class FormPrincipal extends javax.swing.JFrame {
         jmenJanela.setText("Janelas");
         jmenJanela.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
+        jmitJanelaHorizontalmente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jmitJanelaHorizontalmente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/windowhorizontal.png"))); // NOI18N
+        jmitJanelaHorizontalmente.setText("Organizar Horizontalmente");
+        jmitJanelaHorizontalmente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmitJanelaHorizontalmenteActionPerformed(evt);
+            }
+        });
+        jmenJanela.add(jmitJanelaHorizontalmente);
+
+        jmitJanelaVerticalmente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jmitJanelaVerticalmente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/windowvertical.png"))); // NOI18N
+        jmitJanelaVerticalmente.setText("Organizar Verticalmente");
+        jmitJanelaVerticalmente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmitJanelaVerticalmenteActionPerformed(evt);
+            }
+        });
+        jmenJanela.add(jmitJanelaVerticalmente);
+
         jmitJanelaCascata.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jmitJanelaCascata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/cascade.png"))); // NOI18N
+        jmitJanelaCascata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/windowcascade.png"))); // NOI18N
         jmitJanelaCascata.setText("Organizar em Cascata");
         jmitJanelaCascata.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -449,84 +475,77 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private void jmitCadHabNucleoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmitCadHabNucleoActionPerformed
         
-        if (fGerenciarNucleo == null)
-            fGerenciarNucleo = new FormGerenciarNucleo();
-        
         if (fGerenciarNucleo.getDesktopPane() == null) {
+            
             jdktDesktop.add(fGerenciarNucleo);
             fGerenciarNucleo.setVisible(true);
+            
         }
         
     }//GEN-LAST:event_jmitCadHabNucleoActionPerformed
 
     private void jmitCadHabImovelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmitCadHabImovelActionPerformed
         
-        if (fGerenciarImovel == null)
-            fGerenciarImovel = new FormGerenciarImovel();
-        
         if (fGerenciarImovel.getDesktopPane() == null) {
+            
             jdktDesktop.add(fGerenciarImovel);
             fGerenciarImovel.setVisible(true);
+            
         }
         
     }//GEN-LAST:event_jmitCadHabImovelActionPerformed
 
     private void jmitCadHabIndividuoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmitCadHabIndividuoActionPerformed
         
-        if (fGerenciarIndividuo == null)
-            fGerenciarIndividuo = new FormGerenciarIndividuo();
-        
         if (fGerenciarIndividuo.getDesktopPane() == null) {
+            
             jdktDesktop.add(fGerenciarIndividuo);
             fGerenciarIndividuo.setVisible(true);
+            
         }
         
     }//GEN-LAST:event_jmitCadHabIndividuoActionPerformed
 
     private void jmitRecursoMobilidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmitRecursoMobilidadeActionPerformed
         
-        if (fGerenciarRecursoMobilidade == null)
-            fGerenciarRecursoMobilidade = new FormGerenciarRecursoMobilidade();
-        
         if (fGerenciarRecursoMobilidade.getDesktopPane() == null) {
+            
             jdktDesktop.add(fGerenciarRecursoMobilidade);
             fGerenciarRecursoMobilidade.setVisible(true);
+            
         }
         
     }//GEN-LAST:event_jmitRecursoMobilidadeActionPerformed
 
     private void jmitRecursoSocialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmitRecursoSocialActionPerformed
         
-        if (fGerenciarRecursoSocial == null)
-            fGerenciarRecursoSocial = new FormGerenciarRecursoSocial();
-        
         if (fGerenciarRecursoSocial.getDesktopPane() == null) {
+            
             jdktDesktop.add(fGerenciarRecursoSocial);
             fGerenciarRecursoSocial.setVisible(true);
+            
         }
         
     }//GEN-LAST:event_jmitRecursoSocialActionPerformed
 
     private void jmitCadHabFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmitCadHabFamiliaActionPerformed
         
-        if (fGerenciarFamilia == null)
-            fGerenciarFamilia = new FormGerenciarFamilia();
-        
         if (fGerenciarFamilia.getDesktopPane() == null) {
+            
             jdktDesktop.add(fGerenciarFamilia);
             fGerenciarFamilia.setVisible(true);
+            
         }
         
     }//GEN-LAST:event_jmitCadHabFamiliaActionPerformed
 
     private void jmitCadHabEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmitCadHabEmpresaActionPerformed
         
-        if (fGerenciarEmpresa == null)
-            fGerenciarEmpresa = new FormGerenciarEmpresa();
-        
         if (fGerenciarEmpresa.getDesktopPane() == null) {
+            
             jdktDesktop.add(fGerenciarEmpresa);
             fGerenciarEmpresa.setVisible(true);
+            
         }
         
     }//GEN-LAST:event_jmitCadHabEmpresaActionPerformed
@@ -538,13 +557,18 @@ public class FormPrincipal extends javax.swing.JFrame {
             javax.swing.JInternalFrame[] frames = jdktDesktop.getAllFrames();
             int width = 0;
             int height = 0;
+            java.awt.Dimension dimension = null;
 
             for (short i = 0; i < frames.length; i++) {
+                
                 if (frames[i].isIcon())
                     frames[i].setIcon(false);
-                frames[i].setBounds(width, height, frames[i].getWidth(), frames[i].getHeight());
+                
+                dimension = frames[i].getPreferredSize();
+                frames[i].setBounds(width, height, (int) java.lang.Math.round(dimension.getWidth()), (int) java.lang.Math.round(dimension.getHeight()));
                 frames[i].moveToFront();
                 width = height += 25;
+                
             }
         
         } catch (java.lang.Exception ex) {
@@ -557,48 +581,44 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private void jmitAcessoGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmitAcessoGrupoActionPerformed
         
-        if (fGerenciarGrupo == null)
-            fGerenciarGrupo = new FormGerenciarGrupo();
-        
         if (fGerenciarGrupo.getDesktopPane() == null) {
+            
             jdktDesktop.add(fGerenciarGrupo);
             fGerenciarGrupo.setVisible(true);
+            
         }
         
     }//GEN-LAST:event_jmitAcessoGrupoActionPerformed
 
     private void jmitAcessoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmitAcessoUsuarioActionPerformed
         
-        if (fGerenciarUsuario == null)
-            fGerenciarUsuario = new FormGerenciarUsuario();
-        
         if (fGerenciarUsuario.getDesktopPane() == null) {
+            
             jdktDesktop.add(fGerenciarUsuario);
             fGerenciarUsuario.setVisible(true);
+            
         }
         
     }//GEN-LAST:event_jmitAcessoUsuarioActionPerformed
 
     private void jmitRecursoSecretariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmitRecursoSecretariaActionPerformed
         
-        if (fGerenciarSecretaria == null)
-            fGerenciarSecretaria = new FormGerenciarDepartamento();
-        
         if (fGerenciarSecretaria.getDesktopPane() == null) {
+            
             jdktDesktop.add(fGerenciarSecretaria);
             fGerenciarSecretaria.setVisible(true);
+            
         }
         
     }//GEN-LAST:event_jmitRecursoSecretariaActionPerformed
 
     private void jmitFerramentaConfigurarServidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmitFerramentaConfigurarServidorActionPerformed
         
-        if (fFerramentaConfigurarServidor == null)
-            fFerramentaConfigurarServidor = new FormFerramentaConfigurarServidor();
-        
         if (fFerramentaConfigurarServidor.getDesktopPane() == null) {
+            
             jdktDesktop.add(fFerramentaConfigurarServidor);
             fFerramentaConfigurarServidor.setVisible(true);
+            
         }
         
     }//GEN-LAST:event_jmitFerramentaConfigurarServidorActionPerformed
@@ -662,6 +682,62 @@ public class FormPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jpnlBarraStatusComponentResized
 
+    private void jmitJanelaHorizontalmenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmitJanelaHorizontalmenteActionPerformed
+        
+        try {
+            
+            javax.swing.JInternalFrame[] frames = jdktDesktop.getAllFrames();
+            int mainWidth = jdktDesktop.getWidth();
+            int windowWidth = mainWidth / frames.length;
+
+            int width = 0;
+
+            for (short i = 0; i < frames.length; i++) {
+                
+                if (frames[i].isIcon())
+                    frames[i].setIcon(false);
+                
+                frames[i].setBounds(width, 0, windowWidth, jdktDesktop.getHeight());
+                width += windowWidth;
+                
+            }
+        
+        } catch (java.lang.Exception ex) {
+            
+            ex.printStackTrace();
+            
+        }
+        
+    }//GEN-LAST:event_jmitJanelaHorizontalmenteActionPerformed
+
+    private void jmitJanelaVerticalmenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmitJanelaVerticalmenteActionPerformed
+        
+        try {
+            
+            javax.swing.JInternalFrame[] frames = jdktDesktop.getAllFrames();
+            int mainHeight = jdktDesktop.getHeight();
+            int windowHeight = mainHeight / frames.length;
+
+            int height = 0;
+
+            for (short i = 0; i < frames.length; i++) {
+                
+                if (frames[i].isIcon())
+                    frames[i].setIcon(false);
+                
+                frames[i].setBounds(0, height, jdktDesktop.getWidth(), windowHeight);
+                height += windowHeight;
+                
+            }
+        
+        } catch (java.lang.Exception ex) {
+            
+            ex.printStackTrace();
+            
+        }
+        
+    }//GEN-LAST:event_jmitJanelaVerticalmenteActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jdktDesktop;
     private javax.swing.JLabel jlblCAP;
@@ -691,6 +767,8 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmitFerramentaConfigurarServidor;
     private javax.swing.JMenuItem jmitJanelaCascata;
     private javax.swing.JMenuItem jmitJanelaFecharTodas;
+    private javax.swing.JMenuItem jmitJanelaHorizontalmente;
+    private javax.swing.JMenuItem jmitJanelaVerticalmente;
     private javax.swing.JMenuItem jmitPrincipalLogoff;
     private javax.swing.JMenuItem jmitPrincipalSair;
     private javax.swing.JMenuItem jmitPrincipalTrocarSenha;

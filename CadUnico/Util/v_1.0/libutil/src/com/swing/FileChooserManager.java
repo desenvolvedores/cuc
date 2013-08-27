@@ -41,8 +41,13 @@ public class FileChooserManager {
                     selectedFiles += jfcSelectFiles.getSelectedFiles()[i].getName();
                     
             }
-            field.setText(selectedFiles);
-            field.setToolTipText(selectedFiles);
+            
+            if (field != null) {
+                
+                field.setText(selectedFiles);
+                field.setToolTipText(selectedFiles);
+            
+            }
             
             return jfcSelectFiles.getSelectedFiles();
             
@@ -76,7 +81,13 @@ public class FileChooserManager {
                     selectedFiles += jfcSelectFiles.getSelectedFiles()[i].getName();
                     
             }
-            field.setText(selectedFiles);
+            
+            if (field != null) {
+                
+                field.setText(selectedFiles);
+                field.setToolTipText(selectedFiles);
+            
+            }
             
             return jfcSelectFiles.getSelectedFiles();
             

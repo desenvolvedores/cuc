@@ -24,8 +24,8 @@ public class DemolicaoImovelDAO {
         java.lang.String sql = "{ ? = CALL fn_inserir_demolicao_imovel(?, ?, ?, ?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, demolicao.getImovel().getId());
-        stmt.setDate(3, dateMgr.parseDateToSQL(demolicao.getDataDemolicao()));
+        stmt.setLong(2, demolicao.getIdImovel());
+        stmt.setString(3, dateMgr.parseDateToSQL(demolicao.getDataDemolicao()));
         stmt.setString(4, txtMgr.addSlashes(demolicao.getHorarioDemolicao()));
         stmt.setString(5, txtMgr.addSlashes(demolicao.getNumeroProcesso()));
         stmt.setString(6, txtMgr.addSlashes(demolicao.getMotivo()));
@@ -47,12 +47,12 @@ public class DemolicaoImovelDAO {
         
     }
     
-    public com.sys.habitacional.DemolicaoImovel selecionarDemolicaoImovelPorIDImovel(com.sys.habitacional.Imovel imovel) 
+    public com.sys.habitacional.DemolicaoImovel selecionarDemolicaoImovelPorIDImovel(long idImovel) 
             throws java.lang.ClassNotFoundException, java.sql.SQLException {
         
         java.lang.String sql = "SELECT * FROM fn_selecionar_demolicao_imovel_por_id_imovel(?)";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
-        stmt.setLong(1, imovel.getId());
+        stmt.setLong(1, idImovel);
         java.sql.ResultSet rs = stmt.executeQuery();
         
         return selecionar(rs);
@@ -68,8 +68,8 @@ public class DemolicaoImovelDAO {
         java.lang.String sql = "{ ? = CALL fn_alterar_demolicao_imovel(?, ?, ?, ?, ?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, demolicao.getImovel().getId());
-        stmt.setDate(3, dateMgr.parseDateToSQL(demolicao.getDataDemolicao()));
+        stmt.setLong(2, demolicao.getIdImovel());
+        stmt.setString(3, dateMgr.parseDateToSQL(demolicao.getDataDemolicao()));
         stmt.setString(4, txtMgr.addSlashes(demolicao.getHorarioDemolicao()));
         stmt.setString(5, txtMgr.addSlashes(demolicao.getNumeroProcesso()));
         stmt.setString(6, txtMgr.addSlashes(demolicao.getMotivo()));
@@ -96,18 +96,19 @@ public class DemolicaoImovelDAO {
             throws java.sql.SQLException {
         
         if (rs.next()) {
-            com.data.DateManager dateMgr = new com.data.DateManager();
-            com.sys.habitacional.Imovel imovel = new com.sys.habitacional.Imovel();
-            imovel.setId(rs.getLong("id_imovel"));
             
-            com.sys.habitacional.DemolicaoImovel demolicao = new com.sys.habitacional.DemolicaoImovel(imovel);
+            com.data.DateManager dateMgr = new com.data.DateManager();
+            
+            com.sys.habitacional.DemolicaoImovel demolicao = new com.sys.habitacional.DemolicaoImovel();
             demolicao.setId(rs.getLong("id"));
-            demolicao.setDataDemolicao(dateMgr.parseDate(rs.getDate("dt_demolicao")));
+            demolicao.setIdImovel(rs.getLong("id_imovel"));
+            demolicao.setDataDemolicao(dateMgr.parseDate(rs.getString("dt_demolicao")));
             demolicao.setHorarioDemolicao(rs.getString("horario_demolicao"));
             demolicao.setNumeroProcesso(rs.getString("num_processo"));
             demolicao.setMotivo(rs.getString("motivo"));
             demolicao.setExecutadoPor(rs.getString("executada_por"));
             return demolicao;
+            
         } else {
             return null;
         }

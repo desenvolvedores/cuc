@@ -10,6 +10,14 @@ package cadhab.ui;
  * @version 1.0
  */
 public class FormGerenciarImovel extends javax.swing.JInternalFrame {
+    
+    private char acao = ' ';
+    private long idImovelAtual = 0;
+    private long idComposicaoAtual = 0;
+    private long idEnderecoAtual = 0;
+    private long idServicoAtual = 0;
+    private long idDemolicaoAtual = 0;
+    private long idEstadoAtual = 0;
 
     /**
      * Creates new form FormGerenciarImovel
@@ -28,6 +36,12 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
             
         }
         
+        limparCampos();
+        //liberarTodosCamposObrigatorios();
+        desabilitarTodosCampos();
+        desabilitarBotoes();
+        jbtnNovo.setEnabled(true);
+        
     }
 
     /**
@@ -39,6 +53,7 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jsepPrincipal = new javax.swing.JScrollPane();
         jtbpPrincipal = new javax.swing.JTabbedPane();
         jpnlPesquisa = new javax.swing.JPanel();
         jpnlPesquisar = new javax.swing.JPanel();
@@ -57,12 +72,14 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         jcbbNucleo = new javax.swing.JComboBox();
         jlblTipoImovel = new javax.swing.JLabel();
         jcbbTipoImovel = new javax.swing.JComboBox();
-        jlblSituacaoImovel = new javax.swing.JLabel();
-        jcbbSituacaoImovel = new javax.swing.JComboBox();
+        jlblTipoPropriedade = new javax.swing.JLabel();
+        jcbbTipoPropriedade = new javax.swing.JComboBox();
+        jlblDocumentoPropriedade = new javax.swing.JLabel();
+        jcbbDocumentoPropriedade = new javax.swing.JComboBox();
+        jlblNumeroDocumento = new javax.swing.JLabel();
+        jtxtNumeroDocumento = new javax.swing.JTextField();
         jlblValorAluguel = new javax.swing.JLabel();
-        jtxtValorAluguel = new javax.swing.JTextField();
-        jlblConstrucao = new javax.swing.JLabel();
-        jtxtConstrucao = new javax.swing.JTextField();
+        jtxtValorAluguel = new com.swing.NumberField();
         jlblLocalidade = new javax.swing.JLabel();
         jtxtLocalidade = new javax.swing.JTextField();
         jlblPagaIptu = new javax.swing.JLabel();
@@ -76,7 +93,10 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         jlblAtualizadoPor = new javax.swing.JLabel();
         jtxtAtualizadoPor = new javax.swing.JTextField();
         jlblDataAtualizacao = new javax.swing.JLabel();
-        jtxtDataAtualizacao = new javax.swing.JTextField();
+        jtxtDataAtualizacao = new javax.swing.JFormattedTextField(com.data.MaskManager.setDateMask());
+        jlblAnexosImovel = new javax.swing.JLabel();
+        jtxtAnexosImovel = new javax.swing.JTextField();
+        jbtnAnexosImovel = new javax.swing.JButton();
         jpnlComposicao = new javax.swing.JPanel();
         jpnlComposicaoWrapper = new javax.swing.JPanel();
         jlblMaterialParede = new javax.swing.JLabel();
@@ -98,24 +118,26 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         jscpTextAreaEspecifiqueCobertura = new javax.swing.JScrollPane();
         jtxtaEspecifiqueCobertura = new javax.swing.JTextArea();
         jlblNumeroComodos = new javax.swing.JLabel();
-        jtxtNumeroComodos = new javax.swing.JTextField();
+        jtxtNumeroComodos = new com.swing.NumberField();
         jlblNumeroSalas = new javax.swing.JLabel();
-        jtxtNumeroSalas = new javax.swing.JTextField();
+        jtxtNumeroSalas = new com.swing.NumberField();
         jlblNumeroCozinhas = new javax.swing.JLabel();
-        jtxtNumeroCozinhas = new javax.swing.JTextField();
+        jtxtNumeroCozinhas = new com.swing.NumberField();
         jlblNumeroQuartos = new javax.swing.JLabel();
-        jtxtNumeroQuartos = new javax.swing.JTextField();
+        jtxtNumeroQuartos = new com.swing.NumberField();
         jlblNumeroBanheiros = new javax.swing.JLabel();
-        jtxtNumeroBanheiros = new javax.swing.JTextField();
+        jtxtNumeroBanheiros = new com.swing.NumberField();
         jlblNumeroAreasServicos = new javax.swing.JLabel();
-        jtxtNumeroAreasServicos = new javax.swing.JTextField();
+        jtxtNumeroAreasServicos = new com.swing.NumberField();
         jlblNumeroAnexos = new javax.swing.JLabel();
-        jtxtNumeroAnexos = new javax.swing.JTextField();
+        jtxtNumeroAnexos = new com.swing.NumberField();
         jlblNumeroOutros = new javax.swing.JLabel();
-        jtxtNumeroOutros = new javax.swing.JTextField();
+        jtxtNumeroOutros = new com.swing.NumberField();
         jlblNumeroServemDormitorio = new javax.swing.JLabel();
-        jtxtNumeroServemDormitorio = new javax.swing.JTextField();
+        jtxtNumeroServemDormitorio = new com.swing.NumberField();
         jsepComposicaoRodape = new javax.swing.JSeparator();
+        jlblConstrucao = new javax.swing.JLabel();
+        jcbbConstrucao = new javax.swing.JComboBox();
         jpnlEndereco = new javax.swing.JPanel();
         jpnlEnderecoWrapper = new javax.swing.JPanel();
         jlblTipoLogradouro = new javax.swing.JLabel();
@@ -127,19 +149,19 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         jlblComplemento = new javax.swing.JLabel();
         jtxtComplemento = new javax.swing.JTextField();
         jlblCep = new javax.swing.JLabel();
-        jtxtCep = new javax.swing.JTextField();
+        jtxtCep = new javax.swing.JFormattedTextField(com.data.MaskManager.setZipMask());
         jlblBairro = new javax.swing.JLabel();
         jtxtBairro = new javax.swing.JTextField();
         jlblMunicipio = new javax.swing.JLabel();
-        jtxtMunicipio = new javax.swing.JTextField();
+        jcbbMunicipio = new javax.swing.JComboBox();
         jlblUf = new javax.swing.JLabel();
         jcbbUf = new javax.swing.JComboBox();
         jlblTipoArea = new javax.swing.JLabel();
         jcbbTipoArea = new javax.swing.JComboBox();
         jlblLatitude = new javax.swing.JLabel();
-        jtxtLatitude = new javax.swing.JTextField();
+        jtxtLatitude = new com.swing.NumberField();
         jlblLongitude = new javax.swing.JLabel();
-        jtxtLongitude = new javax.swing.JTextField();
+        jtxtLongitude = new com.swing.NumberField();
         jsepEnderecoRodape = new javax.swing.JSeparator();
         jpnlServicoDemolicao = new javax.swing.JPanel();
         jpnlServicoDemolicaoWrapper = new javax.swing.JPanel();
@@ -173,9 +195,9 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         jckbCobras = new javax.swing.JCheckBox();
         jpnlDemolicao = new javax.swing.JPanel();
         jlblDataDemolicao = new javax.swing.JLabel();
-        jtxtDataDemolicao = new javax.swing.JFormattedTextField();
+        jtxtDataDemolicao = new javax.swing.JFormattedTextField(com.data.MaskManager.setDateMask());
         jlblHorarioDemolicao = new javax.swing.JLabel();
-        jtxtHorarioDemolicao = new javax.swing.JFormattedTextField();
+        jtxtHorarioDemolicao = new javax.swing.JFormattedTextField(com.data.MaskManager.setTimeMask());
         jlblNumeroProcessoDemolicao = new javax.swing.JLabel();
         jtxtNumeroProcessoDemolicao = new javax.swing.JTextField();
         jlblMotivoDemolicao = new javax.swing.JLabel();
@@ -193,6 +215,7 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         jbtnNovo = new javax.swing.JButton();
         jbtnSalvar = new javax.swing.JButton();
         jbtnEditar = new javax.swing.JButton();
+        jbtnLimpar = new javax.swing.JButton();
         jbtnExcluir = new javax.swing.JButton();
 
         setClosable(true);
@@ -201,6 +224,27 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("CadHab - Gerenciamento de Imóveis");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/house.png"))); // NOI18N
+        setMinimumSize(new java.awt.Dimension(0, 0));
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+        });
+
+        jsepPrincipal.setAutoscrolls(true);
+        jsepPrincipal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jtbpPrincipal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -214,6 +258,7 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         jlblPesquisa.setBounds(0, 10, 70, 25);
 
         jtxtPesquisa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtPesquisa.setNextFocusableComponent(jcbbFiltro);
         jpnlPesquisar.add(jtxtPesquisa);
         jtxtPesquisa.setBounds(70, 10, 480, 25);
 
@@ -224,12 +269,19 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
 
         jcbbFiltro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbFiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sem filtro" }));
+        jcbbFiltro.setNextFocusableComponent(jbtnPesquisar);
         jpnlPesquisar.add(jcbbFiltro);
         jcbbFiltro.setBounds(640, 10, 200, 25);
 
         jbtnPesquisar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jbtnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/search.png"))); // NOI18N
         jbtnPesquisar.setText("Pesquisar");
+        jbtnPesquisar.setNextFocusableComponent(jtblPesquisa);
+        jbtnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnPesquisarActionPerformed(evt);
+            }
+        });
         jpnlPesquisar.add(jbtnPesquisar);
         jbtnPesquisar.setBounds(850, 10, 120, 30);
 
@@ -245,6 +297,7 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jtblPesquisa.setNextFocusableComponent(jpnlFormulario);
         jscpTabelaPesquisa.setViewportView(jtblPesquisa);
 
         javax.swing.GroupLayout jpnlPesquisaLayout = new javax.swing.GroupLayout(jpnlPesquisa);
@@ -264,12 +317,13 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jpnlPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jscpTabelaPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
+                .addComponent(jscpTabelaPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jtbpPrincipal.addTab("Pesquisa", jpnlPesquisa);
+        jtbpPrincipal.addTab("Pesquisa", null, jpnlPesquisa, "Pesquisa de imóveis");
 
+        jpnlFormulario.setNextFocusableComponent(jpnlDadosImovel);
         jpnlFormulario.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 jpnlFormularioComponentResized(evt);
@@ -279,6 +333,7 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         jtbpFormulario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jpnlDadosImovel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jpnlDadosImovel.setNextFocusableComponent(jcbbNucleo);
         jpnlDadosImovel.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 jpnlDadosImovelComponentResized(evt);
@@ -291,132 +346,229 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         jlblNucleo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblNucleo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblNucleo.setText("Núcleo:");
+        jlblNucleo.setToolTipText("Núcleo onde o imóvel se localiza");
         jpnlDadosImovelWrapper.add(jlblNucleo);
         jlblNucleo.setBounds(10, 10, 120, 25);
 
         jcbbNucleo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbNucleo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbNucleo.setNextFocusableComponent(jcbbTipoImovel);
+        jcbbNucleo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbNucleoFocusLost(evt);
+            }
+        });
         jpnlDadosImovelWrapper.add(jcbbNucleo);
         jcbbNucleo.setBounds(140, 10, 840, 25);
 
         jlblTipoImovel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblTipoImovel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblTipoImovel.setText("Tipo Imóvel:");
+        jlblTipoImovel.setToolTipText("Tipo de habitação ao qual o imóvel é utilizado");
         jpnlDadosImovelWrapper.add(jlblTipoImovel);
         jlblTipoImovel.setBounds(10, 40, 120, 25);
 
         jcbbTipoImovel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbTipoImovel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Casa", "Casa de vila ou em condomínio", "Apartamento", "Habitação em : casa de cômodos, cortiço ou cabeça de porco", "Oca ou maloca", "Tenda ou barraca", "Dentro do estabelecimento", "Outro (vagão, trailer, gruta, etc.)", "Asilo, orfanato e similares com morador", "Hotel, pensão e similares com morador", "Alojamento de trabalhadores com morador", "Penitenciária, presídio ou casa de detenção com morador", "Outro morador" }));
+        jcbbTipoImovel.setNextFocusableComponent(jcbbTipoPropriedade);
+        jcbbTipoImovel.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbTipoImovelFocusLost(evt);
+            }
+        });
         jpnlDadosImovelWrapper.add(jcbbTipoImovel);
         jcbbTipoImovel.setBounds(140, 40, 840, 25);
 
-        jlblSituacaoImovel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jlblSituacaoImovel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jlblSituacaoImovel.setText("Situação Imóvel:");
-        jpnlDadosImovelWrapper.add(jlblSituacaoImovel);
-        jlblSituacaoImovel.setBounds(10, 70, 120, 25);
+        jlblTipoPropriedade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlblTipoPropriedade.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jlblTipoPropriedade.setText("Tipo Propriedade");
+        jlblTipoPropriedade.setToolTipText("Situação da propriedade do imóvel");
+        jpnlDadosImovelWrapper.add(jlblTipoPropriedade);
+        jlblTipoPropriedade.setBounds(10, 70, 120, 25);
 
-        jcbbSituacaoImovel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jcbbSituacaoImovel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Próprio - Já pago", "Próprio - Ainda pagando", "Alugado", "Cedido por empregador", "Cedido de outra forma", "Outra condição" }));
-        jpnlDadosImovelWrapper.add(jcbbSituacaoImovel);
-        jcbbSituacaoImovel.setBounds(140, 70, 840, 25);
+        jcbbTipoPropriedade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcbbTipoPropriedade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Próprio - Já pago", "Próprio - Ainda pagando", "Alugado", "Cedido por empregador", "Cedido de outra forma", "Outra condição" }));
+        jcbbTipoPropriedade.setNextFocusableComponent(jcbbDocumentoPropriedade);
+        jcbbTipoPropriedade.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbTipoPropriedadeFocusLost(evt);
+            }
+        });
+        jpnlDadosImovelWrapper.add(jcbbTipoPropriedade);
+        jcbbTipoPropriedade.setBounds(140, 70, 840, 25);
+
+        jlblDocumentoPropriedade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlblDocumentoPropriedade.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jlblDocumentoPropriedade.setText("Doc. Propriedade:");
+        jlblDocumentoPropriedade.setToolTipText("Situação da propriedade do imóvel");
+        jpnlDadosImovelWrapper.add(jlblDocumentoPropriedade);
+        jlblDocumentoPropriedade.setBounds(10, 100, 120, 25);
+
+        jcbbDocumentoPropriedade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcbbDocumentoPropriedade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Escritura de posse (Direitos possessórios)", "Escritura Definitiva (Inscrição)", "Escritura Definitiva (Transcrição)", "Escritura Definitiva (Matrícula)", "Contrato de compra e venda", "Recibo" }));
+        jcbbDocumentoPropriedade.setNextFocusableComponent(jtxtNumeroDocumento);
+        jcbbDocumentoPropriedade.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbbDocumentoPropriedadeItemStateChanged(evt);
+            }
+        });
+        jcbbDocumentoPropriedade.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbDocumentoPropriedadeFocusLost(evt);
+            }
+        });
+        jpnlDadosImovelWrapper.add(jcbbDocumentoPropriedade);
+        jcbbDocumentoPropriedade.setBounds(140, 100, 840, 25);
+
+        jlblNumeroDocumento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlblNumeroDocumento.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jlblNumeroDocumento.setText("Núm. Documento:");
+        jlblNumeroDocumento.setToolTipText("Valor do aluguel do imóvel");
+        jpnlDadosImovelWrapper.add(jlblNumeroDocumento);
+        jlblNumeroDocumento.setBounds(10, 130, 120, 25);
+
+        jtxtNumeroDocumento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtNumeroDocumento.setNextFocusableComponent(jtxtValorAluguel);
+        jpnlDadosImovelWrapper.add(jtxtNumeroDocumento);
+        jtxtNumeroDocumento.setBounds(140, 130, 840, 25);
 
         jlblValorAluguel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblValorAluguel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblValorAluguel.setText("Valor Aluguel:");
+        jlblValorAluguel.setToolTipText("Valor do aluguel do imóvel");
         jpnlDadosImovelWrapper.add(jlblValorAluguel);
-        jlblValorAluguel.setBounds(10, 100, 120, 25);
+        jlblValorAluguel.setBounds(10, 160, 120, 25);
 
         jtxtValorAluguel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtValorAluguel.setNextFocusableComponent(jtxtLocalidade);
+        jtxtValorAluguel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtValorAluguelKeyReleased(evt);
+            }
+        });
         jpnlDadosImovelWrapper.add(jtxtValorAluguel);
-        jtxtValorAluguel.setBounds(140, 100, 840, 25);
-
-        jlblConstrucao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jlblConstrucao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jlblConstrucao.setText("Construção:");
-        jpnlDadosImovelWrapper.add(jlblConstrucao);
-        jlblConstrucao.setBounds(10, 130, 120, 25);
-
-        jtxtConstrucao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jpnlDadosImovelWrapper.add(jtxtConstrucao);
-        jtxtConstrucao.setBounds(140, 130, 840, 25);
+        jtxtValorAluguel.setBounds(140, 160, 840, 25);
 
         jlblLocalidade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblLocalidade.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblLocalidade.setText("Localidade:");
+        jlblLocalidade.setToolTipText("Local onde o imóvel está situado");
         jpnlDadosImovelWrapper.add(jlblLocalidade);
-        jlblLocalidade.setBounds(10, 160, 120, 25);
+        jlblLocalidade.setBounds(10, 190, 120, 25);
 
         jtxtLocalidade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtLocalidade.setNextFocusableComponent(jcbbPagaIptu);
         jpnlDadosImovelWrapper.add(jtxtLocalidade);
-        jtxtLocalidade.setBounds(140, 160, 840, 25);
+        jtxtLocalidade.setBounds(140, 190, 840, 25);
 
         jlblPagaIptu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblPagaIptu.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblPagaIptu.setText("Paga IPTU:");
+        jlblPagaIptu.setToolTipText("O imóvel está cadastrado junto ao IPTU");
         jpnlDadosImovelWrapper.add(jlblPagaIptu);
-        jlblPagaIptu.setBounds(10, 190, 120, 25);
+        jlblPagaIptu.setBounds(10, 220, 120, 25);
 
         jcbbPagaIptu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbPagaIptu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbPagaIptu.setNextFocusableComponent(jtxtIc);
+        jcbbPagaIptu.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbPagaIptuFocusLost(evt);
+            }
+        });
         jpnlDadosImovelWrapper.add(jcbbPagaIptu);
-        jcbbPagaIptu.setBounds(140, 190, 840, 25);
+        jcbbPagaIptu.setBounds(140, 220, 840, 25);
 
         jlblIc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblIc.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblIc.setText("I.C.:");
+        jlblIc.setToolTipText("I.C.");
         jpnlDadosImovelWrapper.add(jlblIc);
-        jlblIc.setBounds(10, 220, 120, 25);
+        jlblIc.setBounds(10, 250, 120, 25);
 
         jtxtIc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtIc.setNextFocusableComponent(jtxtSelagem);
         jpnlDadosImovelWrapper.add(jtxtIc);
-        jtxtIc.setBounds(140, 220, 840, 25);
+        jtxtIc.setBounds(140, 250, 840, 25);
 
         jlblSelagem.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblSelagem.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblSelagem.setText("Selagem:");
+        jlblSelagem.setToolTipText("Número da selagem do imóvel");
         jpnlDadosImovelWrapper.add(jlblSelagem);
-        jlblSelagem.setBounds(10, 250, 120, 25);
+        jlblSelagem.setBounds(10, 280, 120, 25);
 
         jtxtSelagem.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtSelagem.setNextFocusableComponent(jtxtAtendidoPor);
         jpnlDadosImovelWrapper.add(jtxtSelagem);
-        jtxtSelagem.setBounds(140, 250, 840, 25);
+        jtxtSelagem.setBounds(140, 280, 840, 25);
 
         jlblAtendidoPor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAtendidoPor.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAtendidoPor.setText("Atendido por:");
+        jlblAtendidoPor.setToolTipText("Usuário fez o atendimento no imóvel");
         jpnlDadosImovelWrapper.add(jlblAtendidoPor);
-        jlblAtendidoPor.setBounds(10, 280, 120, 25);
+        jlblAtendidoPor.setBounds(10, 310, 120, 25);
 
         jtxtAtendidoPor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtAtendidoPor.setNextFocusableComponent(jtxtAtualizadoPor);
         jpnlDadosImovelWrapper.add(jtxtAtendidoPor);
-        jtxtAtendidoPor.setBounds(140, 280, 840, 25);
+        jtxtAtendidoPor.setBounds(140, 310, 840, 25);
 
         jlblAtualizadoPor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAtualizadoPor.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAtualizadoPor.setText("Atualizado por:");
+        jlblAtualizadoPor.setToolTipText("Último usuário que atualizou as informações relativas ao imóvel");
         jpnlDadosImovelWrapper.add(jlblAtualizadoPor);
-        jlblAtualizadoPor.setBounds(10, 310, 120, 25);
+        jlblAtualizadoPor.setBounds(10, 340, 120, 25);
 
+        jtxtAtualizadoPor.setEditable(false);
         jtxtAtualizadoPor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtAtualizadoPor.setNextFocusableComponent(jtxtDataAtualizacao);
         jpnlDadosImovelWrapper.add(jtxtAtualizadoPor);
-        jtxtAtualizadoPor.setBounds(140, 310, 840, 25);
+        jtxtAtualizadoPor.setBounds(140, 340, 840, 25);
 
         jlblDataAtualizacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblDataAtualizacao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblDataAtualizacao.setText("Última Atualização:");
+        jlblDataAtualizacao.setToolTipText("Data em que a última atualização dos dados do imóvel foi realizada");
         jpnlDadosImovelWrapper.add(jlblDataAtualizacao);
-        jlblDataAtualizacao.setBounds(10, 340, 120, 25);
+        jlblDataAtualizacao.setBounds(10, 370, 120, 25);
 
+        jtxtDataAtualizacao.setEditable(false);
+        jtxtDataAtualizacao.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
         jtxtDataAtualizacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtDataAtualizacao.setNextFocusableComponent(jtxtAnexosImovel);
         jpnlDadosImovelWrapper.add(jtxtDataAtualizacao);
-        jtxtDataAtualizacao.setBounds(140, 340, 840, 25);
+        jtxtDataAtualizacao.setBounds(140, 370, 840, 25);
+
+        jlblAnexosImovel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlblAnexosImovel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jlblAnexosImovel.setText("Anexos:");
+        jlblAnexosImovel.setToolTipText("Documentos anexos referentes ao imóvel");
+        jpnlDadosImovelWrapper.add(jlblAnexosImovel);
+        jlblAnexosImovel.setBounds(10, 400, 120, 25);
+
+        jtxtAnexosImovel.setEditable(false);
+        jtxtAnexosImovel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtAnexosImovel.setNextFocusableComponent(jbtnAnexosImovel);
+        jpnlDadosImovelWrapper.add(jtxtAnexosImovel);
+        jtxtAnexosImovel.setBounds(140, 400, 710, 25);
+
+        jbtnAnexosImovel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jbtnAnexosImovel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/attach.png"))); // NOI18N
+        jbtnAnexosImovel.setText("Anexos");
+        jbtnAnexosImovel.setIconTextGap(10);
+        jbtnAnexosImovel.setNextFocusableComponent(jpnlComposicao);
+        jpnlDadosImovelWrapper.add(jbtnAnexosImovel);
+        jbtnAnexosImovel.setBounds(860, 400, 120, 30);
 
         jpnlDadosImovel.add(jpnlDadosImovelWrapper);
         jpnlDadosImovelWrapper.setBounds(0, 0, 990, 500);
 
-        jtbpFormulario.addTab("Dados do Imóvel", jpnlDadosImovel);
+        jtbpFormulario.addTab("Dados do Imóvel", null, jpnlDadosImovel, "Dados comuns referentes ao imóvel");
 
+        jpnlComposicao.setNextFocusableComponent(jcbbMaterialParede);
         jpnlComposicao.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 jpnlComposicaoComponentResized(evt);
@@ -429,23 +581,32 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         jlblMaterialParede.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblMaterialParede.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblMaterialParede.setText("Material Parede:");
+        jlblMaterialParede.setToolTipText("Material padrão das paredes do imóvel");
         jpnlComposicaoWrapper.add(jlblMaterialParede);
         jlblMaterialParede.setBounds(10, 10, 120, 25);
 
         jcbbMaterialParede.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbMaterialParede.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Alvenaria/tijolo com revestimento", "Alvenaria/tijolo sem revestimento", "Madeira aparelhada", "Taipa revestida", "Taipa não revestida", "Madeira aproveitada", "Palha", "Outro material" }));
+        jcbbMaterialParede.setNextFocusableComponent(jtxtaEspecifiqueParede);
+        jcbbMaterialParede.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbMaterialParedeFocusLost(evt);
+            }
+        });
         jpnlComposicaoWrapper.add(jcbbMaterialParede);
         jcbbMaterialParede.setBounds(140, 10, 340, 25);
 
         jlblEspecifiqueParede.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblEspecifiqueParede.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblEspecifiqueParede.setText("Especifique:");
+        jlblEspecifiqueParede.setToolTipText("Especifique os materiais utilizados na composição das paredes do imóvel");
         jpnlComposicaoWrapper.add(jlblEspecifiqueParede);
         jlblEspecifiqueParede.setBounds(10, 40, 120, 25);
 
         jtxtaEspecifiqueParede.setColumns(20);
         jtxtaEspecifiqueParede.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtaEspecifiqueParede.setRows(5);
+        jtxtaEspecifiqueParede.setNextFocusableComponent(jcbbMaterialPiso);
         jscpTextAreaEspecifiqueParede.setViewportView(jtxtaEspecifiqueParede);
 
         javax.swing.GroupLayout jpnlTextAreaEspecifiqueParedeLayout = new javax.swing.GroupLayout(jpnlTextAreaEspecifiqueParede);
@@ -465,23 +626,32 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         jlblMaterialPiso.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblMaterialPiso.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblMaterialPiso.setText("Material Piso:");
+        jlblMaterialPiso.setToolTipText("Material padrão do piso do imóvel");
         jpnlComposicaoWrapper.add(jlblMaterialPiso);
         jlblMaterialPiso.setBounds(10, 145, 120, 25);
 
         jcbbMaterialPiso.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbMaterialPiso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Terra", "Cimento", "Madeira aproveitada", "Madeira aparelhada", "Cerâmica, lajota ou pedra", "Carpete", "Outro material" }));
+        jcbbMaterialPiso.setNextFocusableComponent(jtxtaEspecifiquePiso);
+        jcbbMaterialPiso.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbMaterialPisoFocusLost(evt);
+            }
+        });
         jpnlComposicaoWrapper.add(jcbbMaterialPiso);
         jcbbMaterialPiso.setBounds(140, 145, 340, 25);
 
         jlblEspecifiquePiso.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblEspecifiquePiso.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblEspecifiquePiso.setText("Especifique:");
+        jlblEspecifiquePiso.setToolTipText("Especifique os materiais utilizados na composição do piso do imóvel");
         jpnlComposicaoWrapper.add(jlblEspecifiquePiso);
         jlblEspecifiquePiso.setBounds(10, 175, 120, 25);
 
         jtxtaEspecifiquePiso.setColumns(20);
         jtxtaEspecifiquePiso.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtaEspecifiquePiso.setRows(5);
+        jtxtaEspecifiquePiso.setNextFocusableComponent(jcbbMaterialCobertura);
         jscpTextAreaEspecifiquePiso.setViewportView(jtxtaEspecifiquePiso);
 
         javax.swing.GroupLayout jpnlTextAreaEspecifiquePisoLayout = new javax.swing.GroupLayout(jpnlTextAreaEspecifiquePiso);
@@ -496,28 +666,37 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         );
 
         jpnlComposicaoWrapper.add(jpnlTextAreaEspecifiquePiso);
-        jpnlTextAreaEspecifiquePiso.setBounds(140, 175, 340, 0);
+        jpnlTextAreaEspecifiquePiso.setBounds(140, 175, 340, 100);
 
         jlblMaterialCobertura.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblMaterialCobertura.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblMaterialCobertura.setText("Material Cobertura:");
+        jlblMaterialCobertura.setToolTipText("Material padrão da cobertura do imóvel");
         jpnlComposicaoWrapper.add(jlblMaterialCobertura);
         jlblMaterialCobertura.setBounds(10, 280, 120, 25);
 
         jcbbMaterialCobertura.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbMaterialCobertura.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Telha cerâmica", "Telha fibrocimento", "Laje", "Sapê/piaçava", "Lona", "Mista", "Material aproveitado/reciclado" }));
+        jcbbMaterialCobertura.setNextFocusableComponent(jtxtaEspecifiqueCobertura);
+        jcbbMaterialCobertura.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbMaterialCoberturaFocusLost(evt);
+            }
+        });
         jpnlComposicaoWrapper.add(jcbbMaterialCobertura);
         jcbbMaterialCobertura.setBounds(140, 280, 340, 25);
 
         jlblEspecifiqueCobertura.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblEspecifiqueCobertura.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblEspecifiqueCobertura.setText("Especifique:");
+        jlblEspecifiqueCobertura.setToolTipText("Especifique os materiais utilizados na composição da cobertura do imóvel");
         jpnlComposicaoWrapper.add(jlblEspecifiqueCobertura);
         jlblEspecifiqueCobertura.setBounds(10, 310, 120, 25);
 
         jtxtaEspecifiqueCobertura.setColumns(20);
         jtxtaEspecifiqueCobertura.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtaEspecifiqueCobertura.setRows(5);
+        jtxtaEspecifiqueCobertura.setNextFocusableComponent(jtxtNumeroComodos);
         jscpTextAreaEspecifiqueCobertura.setViewportView(jtxtaEspecifiqueCobertura);
 
         javax.swing.GroupLayout jpnlTextAreaEspecifiqueCoberturaLayout = new javax.swing.GroupLayout(jpnlTextAreaEspecifiqueCobertura);
@@ -528,7 +707,7 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         );
         jpnlTextAreaEspecifiqueCoberturaLayout.setVerticalGroup(
             jpnlTextAreaEspecifiqueCoberturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jscpTextAreaEspecifiqueCobertura, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+            .addComponent(jscpTextAreaEspecifiqueCobertura, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
 
         jpnlComposicaoWrapper.add(jpnlTextAreaEspecifiqueCobertura);
@@ -537,100 +716,227 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         jlblNumeroComodos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblNumeroComodos.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblNumeroComodos.setText("Núm. Cômodos:");
+        jlblNumeroComodos.setToolTipText("Quantidade de cômodos do imóvel");
         jpnlComposicaoWrapper.add(jlblNumeroComodos);
-        jlblNumeroComodos.setBounds(490, 10, 140, 25);
+        jlblNumeroComodos.setBounds(490, 40, 140, 25);
 
         jtxtNumeroComodos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtNumeroComodos.setNextFocusableComponent(jtxtNumeroSalas);
+        jtxtNumeroComodos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtNumeroComodosFocusLost(evt);
+            }
+        });
+        jtxtNumeroComodos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtNumeroComodosKeyReleased(evt);
+            }
+        });
         jpnlComposicaoWrapper.add(jtxtNumeroComodos);
-        jtxtNumeroComodos.setBounds(640, 10, 340, 25);
+        jtxtNumeroComodos.setBounds(640, 40, 340, 25);
 
         jlblNumeroSalas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblNumeroSalas.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblNumeroSalas.setText("Núm. Salas:");
+        jlblNumeroSalas.setToolTipText("Quantidade de salas do imóvel");
         jpnlComposicaoWrapper.add(jlblNumeroSalas);
-        jlblNumeroSalas.setBounds(490, 40, 140, 25);
+        jlblNumeroSalas.setBounds(490, 70, 140, 25);
 
         jtxtNumeroSalas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtNumeroSalas.setNextFocusableComponent(jtxtNumeroCozinhas);
+        jtxtNumeroSalas.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtNumeroSalasFocusLost(evt);
+            }
+        });
+        jtxtNumeroSalas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtNumeroSalasKeyReleased(evt);
+            }
+        });
         jpnlComposicaoWrapper.add(jtxtNumeroSalas);
-        jtxtNumeroSalas.setBounds(640, 40, 340, 25);
+        jtxtNumeroSalas.setBounds(640, 70, 340, 25);
 
         jlblNumeroCozinhas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblNumeroCozinhas.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblNumeroCozinhas.setText("Núm. Cozinhas:");
+        jlblNumeroCozinhas.setToolTipText("Quantidade de cozinhas do imóvel");
         jpnlComposicaoWrapper.add(jlblNumeroCozinhas);
-        jlblNumeroCozinhas.setBounds(490, 70, 140, 25);
+        jlblNumeroCozinhas.setBounds(490, 100, 140, 25);
 
         jtxtNumeroCozinhas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtNumeroCozinhas.setNextFocusableComponent(jtxtNumeroQuartos);
+        jtxtNumeroCozinhas.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtNumeroCozinhasFocusLost(evt);
+            }
+        });
+        jtxtNumeroCozinhas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtNumeroCozinhasKeyReleased(evt);
+            }
+        });
         jpnlComposicaoWrapper.add(jtxtNumeroCozinhas);
-        jtxtNumeroCozinhas.setBounds(640, 70, 340, 25);
+        jtxtNumeroCozinhas.setBounds(640, 100, 340, 25);
 
         jlblNumeroQuartos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblNumeroQuartos.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblNumeroQuartos.setText("Núm. Quartos:");
+        jlblNumeroQuartos.setToolTipText("Quantidade de quartos do imóvel");
         jpnlComposicaoWrapper.add(jlblNumeroQuartos);
-        jlblNumeroQuartos.setBounds(490, 100, 140, 25);
+        jlblNumeroQuartos.setBounds(490, 130, 140, 25);
 
         jtxtNumeroQuartos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtNumeroQuartos.setNextFocusableComponent(jtxtNumeroBanheiros);
+        jtxtNumeroQuartos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtNumeroQuartosFocusLost(evt);
+            }
+        });
+        jtxtNumeroQuartos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtNumeroQuartosKeyReleased(evt);
+            }
+        });
         jpnlComposicaoWrapper.add(jtxtNumeroQuartos);
-        jtxtNumeroQuartos.setBounds(640, 100, 340, 25);
+        jtxtNumeroQuartos.setBounds(640, 130, 340, 25);
 
         jlblNumeroBanheiros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblNumeroBanheiros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblNumeroBanheiros.setText("Núm. Banheiros:");
+        jlblNumeroBanheiros.setToolTipText("Quantidade de banheiros do imóvel");
         jpnlComposicaoWrapper.add(jlblNumeroBanheiros);
-        jlblNumeroBanheiros.setBounds(490, 130, 140, 25);
+        jlblNumeroBanheiros.setBounds(490, 160, 140, 25);
 
         jtxtNumeroBanheiros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtNumeroBanheiros.setNextFocusableComponent(jtxtNumeroAreasServicos);
+        jtxtNumeroBanheiros.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtNumeroBanheirosFocusLost(evt);
+            }
+        });
+        jtxtNumeroBanheiros.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtNumeroBanheirosKeyReleased(evt);
+            }
+        });
         jpnlComposicaoWrapper.add(jtxtNumeroBanheiros);
-        jtxtNumeroBanheiros.setBounds(640, 130, 340, 25);
+        jtxtNumeroBanheiros.setBounds(640, 160, 340, 25);
 
         jlblNumeroAreasServicos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblNumeroAreasServicos.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblNumeroAreasServicos.setText("Núm. Áreas Serviços:");
+        jlblNumeroAreasServicos.setToolTipText("Quantidade de áreas de serviço do imóvel");
         jpnlComposicaoWrapper.add(jlblNumeroAreasServicos);
-        jlblNumeroAreasServicos.setBounds(490, 160, 140, 25);
+        jlblNumeroAreasServicos.setBounds(490, 190, 140, 25);
 
         jtxtNumeroAreasServicos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtNumeroAreasServicos.setNextFocusableComponent(jtxtNumeroAnexos);
+        jtxtNumeroAreasServicos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtNumeroAreasServicosFocusLost(evt);
+            }
+        });
+        jtxtNumeroAreasServicos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtNumeroAreasServicosKeyReleased(evt);
+            }
+        });
         jpnlComposicaoWrapper.add(jtxtNumeroAreasServicos);
-        jtxtNumeroAreasServicos.setBounds(640, 160, 340, 25);
+        jtxtNumeroAreasServicos.setBounds(640, 190, 340, 25);
 
         jlblNumeroAnexos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblNumeroAnexos.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblNumeroAnexos.setText("Núm Anexos:");
+        jlblNumeroAnexos.setToolTipText("Quantidade de cômodos anexos ao imóvel");
         jpnlComposicaoWrapper.add(jlblNumeroAnexos);
-        jlblNumeroAnexos.setBounds(490, 190, 140, 25);
+        jlblNumeroAnexos.setBounds(490, 220, 140, 25);
 
         jtxtNumeroAnexos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtNumeroAnexos.setNextFocusableComponent(jtxtNumeroOutros);
+        jtxtNumeroAnexos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtNumeroAnexosFocusLost(evt);
+            }
+        });
+        jtxtNumeroAnexos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtNumeroAnexosKeyReleased(evt);
+            }
+        });
         jpnlComposicaoWrapper.add(jtxtNumeroAnexos);
-        jtxtNumeroAnexos.setBounds(640, 190, 340, 25);
+        jtxtNumeroAnexos.setBounds(640, 220, 340, 25);
 
         jlblNumeroOutros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblNumeroOutros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblNumeroOutros.setText("Núm. Outros:");
+        jlblNumeroOutros.setToolTipText("Quantidade de outros cômodos do imóvel que não se enquadram nos descritos acima");
         jpnlComposicaoWrapper.add(jlblNumeroOutros);
-        jlblNumeroOutros.setBounds(490, 220, 140, 25);
+        jlblNumeroOutros.setBounds(490, 250, 140, 25);
 
         jtxtNumeroOutros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtNumeroOutros.setNextFocusableComponent(jtxtNumeroServemDormitorio);
+        jtxtNumeroOutros.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtNumeroOutrosFocusLost(evt);
+            }
+        });
+        jtxtNumeroOutros.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtNumeroOutrosKeyReleased(evt);
+            }
+        });
         jpnlComposicaoWrapper.add(jtxtNumeroOutros);
-        jtxtNumeroOutros.setBounds(640, 220, 340, 25);
+        jtxtNumeroOutros.setBounds(640, 250, 340, 25);
 
         jlblNumeroServemDormitorio.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblNumeroServemDormitorio.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblNumeroServemDormitorio.setText("Nº Servem Dormitório:");
+        jlblNumeroServemDormitorio.setToolTipText("Quantidade de cômodos do imóvel que são utilizados como dormitório");
         jpnlComposicaoWrapper.add(jlblNumeroServemDormitorio);
-        jlblNumeroServemDormitorio.setBounds(490, 250, 140, 25);
+        jlblNumeroServemDormitorio.setBounds(490, 280, 140, 25);
 
         jtxtNumeroServemDormitorio.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtNumeroServemDormitorio.setNextFocusableComponent(jcbbConstrucao);
+        jtxtNumeroServemDormitorio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtNumeroServemDormitorioFocusLost(evt);
+            }
+        });
+        jtxtNumeroServemDormitorio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtNumeroServemDormitorioKeyReleased(evt);
+            }
+        });
         jpnlComposicaoWrapper.add(jtxtNumeroServemDormitorio);
-        jtxtNumeroServemDormitorio.setBounds(640, 250, 340, 25);
+        jtxtNumeroServemDormitorio.setBounds(640, 280, 340, 25);
         jpnlComposicaoWrapper.add(jsepComposicaoRodape);
         jsepComposicaoRodape.setBounds(10, 530, 970, 2);
+
+        jlblConstrucao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlblConstrucao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jlblConstrucao.setText("Tipo Construção:");
+        jlblConstrucao.setToolTipText("Tipo de construção do imóvel");
+        jpnlComposicaoWrapper.add(jlblConstrucao);
+        jlblConstrucao.setBounds(490, 10, 140, 25);
+
+        jcbbConstrucao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcbbConstrucao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Principal", "Secundária" }));
+        jcbbConstrucao.setNextFocusableComponent(jpnlEndereco);
+        jcbbConstrucao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbConstrucaoFocusLost(evt);
+            }
+        });
+        jpnlComposicaoWrapper.add(jcbbConstrucao);
+        jcbbConstrucao.setBounds(640, 10, 340, 25);
 
         jpnlComposicao.add(jpnlComposicaoWrapper);
         jpnlComposicaoWrapper.setBounds(0, 0, 990, 500);
 
-        jtbpFormulario.addTab("Composição", jpnlComposicao);
+        jtbpFormulario.addTab("Composição", null, jpnlComposicao, "Dados referentes à composição do imóvel");
 
+        jpnlEndereco.setNextFocusableComponent(jcbbTipoLogradouro);
         jpnlEndereco.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 jpnlEnderecoComponentResized(evt);
@@ -643,113 +949,177 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         jlblTipoLogradouro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblTipoLogradouro.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblTipoLogradouro.setText("Tipo Logradouro:");
+        jlblTipoLogradouro.setToolTipText("Tipo do logradouro do endereço do imóvel");
         jpnlEnderecoWrapper.add(jlblTipoLogradouro);
         jlblTipoLogradouro.setBounds(10, 10, 120, 25);
 
         jcbbTipoLogradouro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbTipoLogradouro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Aeroporto", "Alameda", "Apartamento", "Avenida", "Beco", "Bloco", "Caminho", "Escadinha", "Estrada", "Fazenda", "Fortaleza", "Galeria", "Ladeira", "Largo", "Parque", "Praça", "Praia", "Quadra", "Quilômetro", "Quinta", "Rodovia", "Rua", "Super quadra", "Travessa", "Viaduto", "Vila" }));
+        jcbbTipoLogradouro.setNextFocusableComponent(jtxtLogradouro);
+        jcbbTipoLogradouro.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbTipoLogradouroFocusLost(evt);
+            }
+        });
         jpnlEnderecoWrapper.add(jcbbTipoLogradouro);
         jcbbTipoLogradouro.setBounds(140, 10, 840, 25);
 
         jlblLogradouro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblLogradouro.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblLogradouro.setText("Logradouro:");
+        jlblLogradouro.setToolTipText("Nome do logradouro do endereço do imóvel");
         jpnlEnderecoWrapper.add(jlblLogradouro);
         jlblLogradouro.setBounds(10, 40, 120, 25);
 
         jtxtLogradouro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtLogradouro.setNextFocusableComponent(jtxtNumero);
+        jtxtLogradouro.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtLogradouroFocusLost(evt);
+            }
+        });
         jpnlEnderecoWrapper.add(jtxtLogradouro);
         jtxtLogradouro.setBounds(140, 40, 840, 25);
 
         jlblNumero.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblNumero.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblNumero.setText("Número:");
+        jlblNumero.setToolTipText("Número do imóvel");
         jpnlEnderecoWrapper.add(jlblNumero);
         jlblNumero.setBounds(10, 70, 120, 25);
 
         jtxtNumero.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtNumero.setNextFocusableComponent(jtxtComplemento);
+        jtxtNumero.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtNumeroFocusLost(evt);
+            }
+        });
         jpnlEnderecoWrapper.add(jtxtNumero);
         jtxtNumero.setBounds(140, 70, 840, 25);
 
         jlblComplemento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblComplemento.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblComplemento.setText("Complemento:");
+        jlblComplemento.setToolTipText("Complemento do endereço do imóvel");
         jpnlEnderecoWrapper.add(jlblComplemento);
         jlblComplemento.setBounds(10, 100, 120, 25);
 
         jtxtComplemento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtComplemento.setNextFocusableComponent(jtxtCep);
         jpnlEnderecoWrapper.add(jtxtComplemento);
         jtxtComplemento.setBounds(140, 100, 840, 25);
 
         jlblCep.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblCep.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblCep.setText("CEP:");
+        jlblCep.setToolTipText("Código postal do endereço do imóvel");
         jpnlEnderecoWrapper.add(jlblCep);
         jlblCep.setBounds(10, 130, 120, 25);
 
+        jtxtCep.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
         jtxtCep.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtCep.setNextFocusableComponent(jtxtBairro);
         jpnlEnderecoWrapper.add(jtxtCep);
         jtxtCep.setBounds(140, 130, 840, 25);
 
         jlblBairro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblBairro.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblBairro.setText("Bairro:");
+        jlblBairro.setToolTipText("Bairrro onde o imóvel se localiza");
         jpnlEnderecoWrapper.add(jlblBairro);
         jlblBairro.setBounds(10, 160, 120, 25);
 
         jtxtBairro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtBairro.setNextFocusableComponent(jcbbMunicipio);
+        jtxtBairro.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtxtBairroFocusLost(evt);
+            }
+        });
         jpnlEnderecoWrapper.add(jtxtBairro);
         jtxtBairro.setBounds(140, 160, 840, 25);
 
         jlblMunicipio.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblMunicipio.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblMunicipio.setText("Município:");
+        jlblMunicipio.setToolTipText("Município onde o imóvel se localiza");
         jpnlEnderecoWrapper.add(jlblMunicipio);
         jlblMunicipio.setBounds(10, 190, 120, 25);
 
-        jtxtMunicipio.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jpnlEnderecoWrapper.add(jtxtMunicipio);
-        jtxtMunicipio.setBounds(140, 190, 840, 25);
+        jcbbMunicipio.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcbbMunicipio.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Primeiro selecione uma UF" }));
+        jcbbMunicipio.setNextFocusableComponent(jcbbUf);
+        jcbbMunicipio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbMunicipioFocusLost(evt);
+            }
+        });
+        jpnlEnderecoWrapper.add(jcbbMunicipio);
+        jcbbMunicipio.setBounds(140, 190, 840, 25);
 
         jlblUf.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblUf.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblUf.setText("UF:");
+        jlblUf.setToolTipText("Unidade federativa onde o imóvel se localiza");
         jpnlEnderecoWrapper.add(jlblUf);
         jlblUf.setBounds(10, 220, 120, 25);
 
         jcbbUf.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jcbbUf.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO" }));
+        jcbbUf.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção" }));
+        jcbbUf.setNextFocusableComponent(jcbbTipoArea);
+        jcbbUf.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbbUfItemStateChanged(evt);
+            }
+        });
+        jcbbUf.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbUfFocusLost(evt);
+            }
+        });
         jpnlEnderecoWrapper.add(jcbbUf);
         jcbbUf.setBounds(140, 220, 840, 25);
 
         jlblTipoArea.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblTipoArea.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblTipoArea.setText("Tipo Área:");
+        jlblTipoArea.setToolTipText("Tipo da área onde o imóvel se localiza");
         jpnlEnderecoWrapper.add(jlblTipoArea);
         jlblTipoArea.setBounds(10, 250, 120, 25);
 
         jcbbTipoArea.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbTipoArea.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Urbana", "Rural" }));
+        jcbbTipoArea.setNextFocusableComponent(jtxtLatitude);
+        jcbbTipoArea.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbTipoAreaFocusLost(evt);
+            }
+        });
         jpnlEnderecoWrapper.add(jcbbTipoArea);
         jcbbTipoArea.setBounds(140, 250, 840, 25);
 
         jlblLatitude.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblLatitude.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblLatitude.setText("Latitude:");
+        jlblLatitude.setToolTipText("Latitude do endereço do imóvel");
         jpnlEnderecoWrapper.add(jlblLatitude);
         jlblLatitude.setBounds(10, 280, 120, 25);
 
         jtxtLatitude.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtLatitude.setNextFocusableComponent(jtxtLongitude);
         jpnlEnderecoWrapper.add(jtxtLatitude);
         jtxtLatitude.setBounds(140, 280, 840, 25);
 
         jlblLongitude.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblLongitude.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblLongitude.setText("Longitude:");
+        jlblLongitude.setToolTipText("Longitude do endereço do imóvel");
         jpnlEnderecoWrapper.add(jlblLongitude);
         jlblLongitude.setBounds(10, 310, 120, 25);
 
         jtxtLongitude.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtLongitude.setNextFocusableComponent(jpnlServicoDemolicao);
         jpnlEnderecoWrapper.add(jtxtLongitude);
         jtxtLongitude.setBounds(140, 310, 840, 25);
         jpnlEnderecoWrapper.add(jsepEnderecoRodape);
@@ -758,8 +1128,9 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         jpnlEndereco.add(jpnlEnderecoWrapper);
         jpnlEnderecoWrapper.setBounds(0, 0, 990, 500);
 
-        jtbpFormulario.addTab("Endereço", jpnlEndereco);
+        jtbpFormulario.addTab("Endereço", null, jpnlEndereco, "Dados relativos ao endereço do imóvel");
 
+        jpnlServicoDemolicao.setNextFocusableComponent(jcbbPavimentacao);
         jpnlServicoDemolicao.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 jpnlServicoDemolicaoComponentResized(evt);
@@ -772,109 +1143,179 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         jlblPavimentacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblPavimentacao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblPavimentacao.setText("Pavimentação:");
+        jlblPavimentacao.setToolTipText("Existe pavimentação na frente do imóvel?");
         jpnlServicoDemolicaoWrapper.add(jlblPavimentacao);
         jlblPavimentacao.setBounds(10, 10, 120, 25);
 
         jcbbPavimentacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbPavimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Total", "Parcial", "Não existe" }));
+        jcbbPavimentacao.setNextFocusableComponent(jcbbQualPavimentacao);
+        jcbbPavimentacao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbPavimentacaoFocusLost(evt);
+            }
+        });
         jpnlServicoDemolicaoWrapper.add(jcbbPavimentacao);
         jcbbPavimentacao.setBounds(140, 10, 340, 25);
 
         jlblQualPavimentacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblQualPavimentacao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblQualPavimentacao.setText("Qual Paviment.:");
+        jlblQualPavimentacao.setToolTipText("Especifique o tipo de pavimentação");
         jpnlServicoDemolicaoWrapper.add(jlblQualPavimentacao);
         jlblQualPavimentacao.setBounds(10, 40, 120, 25);
 
         jcbbQualPavimentacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbQualPavimentacao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Asfalto", "Blocos sextavados", "Perenizada" }));
+        jcbbQualPavimentacao.setNextFocusableComponent(jcbbIluminacaoUtilizada);
+        jcbbQualPavimentacao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbQualPavimentacaoFocusLost(evt);
+            }
+        });
         jpnlServicoDemolicaoWrapper.add(jcbbQualPavimentacao);
         jcbbQualPavimentacao.setBounds(140, 40, 340, 25);
 
         jlblIluminacaoUtilizada.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblIluminacaoUtilizada.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblIluminacaoUtilizada.setText("Iluminação Utilizada:");
+        jlblIluminacaoUtilizada.setToolTipText("Qual o tipo de iluminação utilizada no imóvel?");
         jpnlServicoDemolicaoWrapper.add(jlblIluminacaoUtilizada);
         jlblIluminacaoUtilizada.setBounds(10, 70, 120, 25);
 
         jcbbIluminacaoUtilizada.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbIluminacaoUtilizada.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Elétrica com medidor próprio", "Elétrica com medidor comunitário", "Elétrica sem medidor", "Óleo, querosene ou gás", "Vela", "Outra forma" }));
+        jcbbIluminacaoUtilizada.setNextFocusableComponent(jtxtEspecifiqueIluminacao);
+        jcbbIluminacaoUtilizada.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbbIluminacaoUtilizadaItemStateChanged(evt);
+            }
+        });
+        jcbbIluminacaoUtilizada.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbIluminacaoUtilizadaFocusLost(evt);
+            }
+        });
         jpnlServicoDemolicaoWrapper.add(jcbbIluminacaoUtilizada);
         jcbbIluminacaoUtilizada.setBounds(140, 70, 340, 25);
 
         jlblEspecifiqueIluminacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblEspecifiqueIluminacao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblEspecifiqueIluminacao.setText("Especifique Ilumin.:");
+        jlblEspecifiqueIluminacao.setToolTipText("Especifique o tipo de iluminação utilizada");
         jpnlServicoDemolicaoWrapper.add(jlblEspecifiqueIluminacao);
         jlblEspecifiqueIluminacao.setBounds(10, 100, 120, 25);
 
         jtxtEspecifiqueIluminacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtEspecifiqueIluminacao.setNextFocusableComponent(jcbbAbastecimentoAgua);
         jpnlServicoDemolicaoWrapper.add(jtxtEspecifiqueIluminacao);
         jtxtEspecifiqueIluminacao.setBounds(140, 100, 340, 25);
 
         jlblAbastecimentoAgua.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAbastecimentoAgua.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAbastecimentoAgua.setText("Abastec. Água:");
+        jlblAbastecimentoAgua.setToolTipText("Qual o tipo de abastecimento de água utilizada no imóvel?");
         jpnlServicoDemolicaoWrapper.add(jlblAbastecimentoAgua);
         jlblAbastecimentoAgua.setBounds(10, 130, 120, 25);
 
         jcbbAbastecimentoAgua.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbAbastecimentoAgua.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Rede geral de distribuição", "Poço ou nascente na propriedade", "Poço ou nascente fora da propriedade", "Carro-pipa", "Água da chuva armazenada em cisterna", "Água da chuva armazenada de outra forma", "Rios, açudes, lagos e igarapés", "Poço ou nascente na aldeia", "Poço ou nascente fora da aldeia", "Outra" }));
+        jcbbAbastecimentoAgua.setNextFocusableComponent(jcbbTratamentoAgua);
+        jcbbAbastecimentoAgua.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbAbastecimentoAguaFocusLost(evt);
+            }
+        });
         jpnlServicoDemolicaoWrapper.add(jcbbAbastecimentoAgua);
         jcbbAbastecimentoAgua.setBounds(140, 130, 340, 25);
 
         jlblTratamentoAgua.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblTratamentoAgua.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblTratamentoAgua.setText("Tratamento Água:");
+        jlblTratamentoAgua.setToolTipText("Existe tratamento de água no imóvel?");
         jpnlServicoDemolicaoWrapper.add(jlblTratamentoAgua);
         jlblTratamentoAgua.setBounds(10, 160, 120, 25);
 
         jcbbTratamentoAgua.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbTratamentoAgua.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Por filtração", "Por fervura", "Por cloração", "Sem tratamento" }));
+        jcbbTratamentoAgua.setNextFocusableComponent(jcbbAguaEncanada);
+        jcbbTratamentoAgua.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbTratamentoAguaFocusLost(evt);
+            }
+        });
         jpnlServicoDemolicaoWrapper.add(jcbbTratamentoAgua);
         jcbbTratamentoAgua.setBounds(140, 160, 340, 25);
 
         jlblAguaEncanada.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAguaEncanada.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAguaEncanada.setText("Água Encanada:");
+        jlblAguaEncanada.setToolTipText("Existe água encanada no imóvel?");
         jpnlServicoDemolicaoWrapper.add(jlblAguaEncanada);
         jlblAguaEncanada.setBounds(10, 190, 120, 25);
 
         jcbbAguaEncanada.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbAguaEncanada.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim, em pelo menos um cômodo", "Sim, só na propriedade ou terreno", "Não" }));
+        jcbbAguaEncanada.setNextFocusableComponent(jcbbExisteBanheiro);
+        jcbbAguaEncanada.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbAguaEncanadaFocusLost(evt);
+            }
+        });
         jpnlServicoDemolicaoWrapper.add(jcbbAguaEncanada);
         jcbbAguaEncanada.setBounds(140, 190, 340, 25);
 
         jlblExisteBanheiro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblExisteBanheiro.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblExisteBanheiro.setText("Existe Banheiro:");
+        jlblExisteBanheiro.setToolTipText("Existe banheiro no imóvel?");
         jpnlServicoDemolicaoWrapper.add(jlblExisteBanheiro);
         jlblExisteBanheiro.setBounds(10, 220, 120, 25);
 
         jcbbExisteBanheiro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbExisteBanheiro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbExisteBanheiro.setNextFocusableComponent(jcbbEscoamentoSanitario);
+        jcbbExisteBanheiro.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbExisteBanheiroFocusLost(evt);
+            }
+        });
         jpnlServicoDemolicaoWrapper.add(jcbbExisteBanheiro);
         jcbbExisteBanheiro.setBounds(140, 220, 340, 25);
 
         jlblEscoamentoSanitario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblEscoamentoSanitario.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblEscoamentoSanitario.setText("Escoam. Sanitário:");
+        jlblEscoamentoSanitario.setToolTipText("De que forma é feito o escoamento sanitário no imóvel?");
         jpnlServicoDemolicaoWrapper.add(jlblEscoamentoSanitario);
         jlblEscoamentoSanitario.setBounds(10, 250, 120, 25);
 
         jcbbEscoamentoSanitario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbEscoamentoSanitario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Rede coletora de esgoto ou pluvial", "Fossa séptica", "Fossa rudimentar", "Sumidouro", "Sarjeta", "Vala a céu aberto", "Direto para um rio, lago ou mar", "Outra forma/Não sabe informar" }));
+        jcbbEscoamentoSanitario.setNextFocusableComponent(jcbbTratamentoLixo);
+        jcbbEscoamentoSanitario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbEscoamentoSanitarioFocusLost(evt);
+            }
+        });
         jpnlServicoDemolicaoWrapper.add(jcbbEscoamentoSanitario);
         jcbbEscoamentoSanitario.setBounds(140, 250, 340, 25);
 
         jlblTratamentoLixo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblTratamentoLixo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblTratamentoLixo.setText("Tratamento Lixo:");
+        jlblTratamentoLixo.setToolTipText("Existe tratamento de lixo no imóvel?");
         jpnlServicoDemolicaoWrapper.add(jlblTratamentoLixo);
         jlblTratamentoLixo.setBounds(10, 280, 120, 25);
 
         jcbbTratamentoLixo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jcbbTratamentoLixo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "É coletado diretamente", "É coletado indiretamente", "É queimado ou enterrado na propriedade", "É jogado em terreno baldio ou logradouro (rua, avenida, etc.)", "É jogado em rio, lago ou mar", "Tem outro destino" }));
+        jcbbTratamentoLixo.setNextFocusableComponent(jckbCachorros);
+        jcbbTratamentoLixo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbTratamentoLixoFocusLost(evt);
+            }
+        });
         jpnlServicoDemolicaoWrapper.add(jcbbTratamentoLixo);
         jcbbTratamentoLixo.setBounds(140, 280, 340, 25);
 
@@ -884,21 +1325,29 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
 
         jckbCachorros.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jckbCachorros.setText("Cachorros");
+        jckbCachorros.setToolTipText("Presença de cães");
+        jckbCachorros.setNextFocusableComponent(jckbGatos);
         jpnlPresencaAnimais.add(jckbCachorros);
         jckbCachorros.setBounds(10, 20, 100, 25);
 
         jckbGatos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jckbGatos.setText("Gatos");
+        jckbGatos.setToolTipText("Presença de gatos");
+        jckbGatos.setNextFocusableComponent(jckbAves);
         jpnlPresencaAnimais.add(jckbGatos);
         jckbGatos.setBounds(130, 20, 100, 25);
 
         jckbAves.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jckbAves.setText("Aves");
+        jckbAves.setToolTipText("Presença de aves");
+        jckbAves.setNextFocusableComponent(jckbSuinos);
         jpnlPresencaAnimais.add(jckbAves);
         jckbAves.setBounds(250, 20, 100, 25);
 
         jckbSuinos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jckbSuinos.setText("Suínos");
+        jckbSuinos.setToolTipText("Presença de suínos");
+        jckbSuinos.setNextFocusableComponent(jckbInsetos);
         jckbSuinos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jckbSuinosActionPerformed(evt);
@@ -909,16 +1358,22 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
 
         jckbInsetos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jckbInsetos.setText("Insetos");
+        jckbInsetos.setToolTipText("Presença de insetos");
+        jckbInsetos.setNextFocusableComponent(jckbRatos);
         jpnlPresencaAnimais.add(jckbInsetos);
         jckbInsetos.setBounds(10, 50, 100, 25);
 
         jckbRatos.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jckbRatos.setText("Ratos");
+        jckbRatos.setToolTipText("Presença de ratos");
+        jckbRatos.setNextFocusableComponent(jckbCobras);
         jpnlPresencaAnimais.add(jckbRatos);
         jckbRatos.setBounds(130, 50, 100, 25);
 
         jckbCobras.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jckbCobras.setText("Cobras");
+        jckbCobras.setToolTipText("Presença de cobras");
+        jckbCobras.setNextFocusableComponent(jtxtDataDemolicao);
         jpnlPresencaAnimais.add(jckbCobras);
         jckbCobras.setBounds(250, 50, 100, 25);
 
@@ -932,44 +1387,52 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         jlblDataDemolicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblDataDemolicao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblDataDemolicao.setText("Data:");
+        jlblDataDemolicao.setToolTipText("Data da demolição");
         jpnlDemolicao.add(jlblDataDemolicao);
         jlblDataDemolicao.setBounds(10, 20, 100, 25);
 
         jtxtDataDemolicao.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
         jtxtDataDemolicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtDataDemolicao.setNextFocusableComponent(jtxtHorarioDemolicao);
         jpnlDemolicao.add(jtxtDataDemolicao);
         jtxtDataDemolicao.setBounds(120, 20, 360, 25);
 
         jlblHorarioDemolicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblHorarioDemolicao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblHorarioDemolicao.setText("Horário:");
+        jlblHorarioDemolicao.setToolTipText("Horário da demolição");
         jpnlDemolicao.add(jlblHorarioDemolicao);
         jlblHorarioDemolicao.setBounds(10, 50, 100, 25);
 
         jtxtHorarioDemolicao.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
         jtxtHorarioDemolicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtHorarioDemolicao.setNextFocusableComponent(jtxtNumeroProcessoDemolicao);
         jpnlDemolicao.add(jtxtHorarioDemolicao);
         jtxtHorarioDemolicao.setBounds(120, 50, 360, 25);
 
         jlblNumeroProcessoDemolicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblNumeroProcessoDemolicao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblNumeroProcessoDemolicao.setText("Nº Processo:");
+        jlblNumeroProcessoDemolicao.setToolTipText("Número do processo vinculado à demolição");
         jpnlDemolicao.add(jlblNumeroProcessoDemolicao);
         jlblNumeroProcessoDemolicao.setBounds(10, 80, 100, 25);
 
         jtxtNumeroProcessoDemolicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtNumeroProcessoDemolicao.setNextFocusableComponent(jtxtaMotivoDemolicao);
         jpnlDemolicao.add(jtxtNumeroProcessoDemolicao);
         jtxtNumeroProcessoDemolicao.setBounds(120, 80, 360, 25);
 
         jlblMotivoDemolicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblMotivoDemolicao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblMotivoDemolicao.setText("Motivo:");
+        jlblMotivoDemolicao.setToolTipText("Especifique o motivo da demolição do imóvel");
         jpnlDemolicao.add(jlblMotivoDemolicao);
         jlblMotivoDemolicao.setBounds(10, 110, 100, 25);
 
         jtxtaMotivoDemolicao.setColumns(20);
         jtxtaMotivoDemolicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtaMotivoDemolicao.setRows(5);
+        jtxtaMotivoDemolicao.setNextFocusableComponent(jtxtExecutadaPor);
         jscpTextAreaMotivoDemolicao.setViewportView(jtxtaMotivoDemolicao);
 
         javax.swing.GroupLayout jpnlTextAreaMotivoDemolicaoLayout = new javax.swing.GroupLayout(jpnlTextAreaMotivoDemolicao);
@@ -989,21 +1452,25 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         jlblExecutadaPor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblExecutadaPor.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblExecutadaPor.setText("Executada Por:");
+        jlblExecutadaPor.setToolTipText("Entidade que executou/executará a demolição do imóvel");
         jpnlDemolicao.add(jlblExecutadaPor);
         jlblExecutadaPor.setBounds(10, 305, 100, 25);
 
         jtxtExecutadaPor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtExecutadaPor.setNextFocusableComponent(jtxtAnexosDemolicao);
         jpnlDemolicao.add(jtxtExecutadaPor);
         jtxtExecutadaPor.setBounds(120, 305, 360, 25);
 
         jlblAnexosDemolicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblAnexosDemolicao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblAnexosDemolicao.setText("Anexos:");
+        jlblAnexosDemolicao.setToolTipText("Documentos anexos referentes à demolição do imóvel");
         jpnlDemolicao.add(jlblAnexosDemolicao);
         jlblAnexosDemolicao.setBounds(10, 335, 100, 25);
 
         jtxtAnexosDemolicao.setEditable(false);
         jtxtAnexosDemolicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtAnexosDemolicao.setNextFocusableComponent(jbtnAnexosDemolicao);
         jpnlDemolicao.add(jtxtAnexosDemolicao);
         jtxtAnexosDemolicao.setBounds(120, 335, 360, 25);
 
@@ -1011,6 +1478,7 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         jbtnAnexosDemolicao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/attach.png"))); // NOI18N
         jbtnAnexosDemolicao.setText("Anexos");
         jbtnAnexosDemolicao.setIconTextGap(10);
+        jbtnAnexosDemolicao.setNextFocusableComponent(jbtnNovo);
         jpnlDemolicao.add(jbtnAnexosDemolicao);
         jbtnAnexosDemolicao.setBounds(360, 365, 120, 30);
 
@@ -1022,7 +1490,7 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         jpnlServicoDemolicao.add(jpnlServicoDemolicaoWrapper);
         jpnlServicoDemolicaoWrapper.setBounds(0, 0, 990, 500);
 
-        jtbpFormulario.addTab("Serviços/Demolição", jpnlServicoDemolicao);
+        jtbpFormulario.addTab("Serviços/Demolição", null, jpnlServicoDemolicao, "Dados referentes à serviços e/ou demolição do imóvel");
 
         jpnlRodape.setLayout(null);
 
@@ -1032,27 +1500,64 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         jbtnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/new.png"))); // NOI18N
         jbtnNovo.setText("Novo");
         jbtnNovo.setIconTextGap(10);
+        jbtnNovo.setNextFocusableComponent(jbtnSalvar);
+        jbtnNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnNovoActionPerformed(evt);
+            }
+        });
         jpnlRodapeWrapper.add(jbtnNovo);
-        jbtnNovo.setBounds(470, 10, 120, 30);
+        jbtnNovo.setBounds(340, 10, 120, 30);
 
         jbtnSalvar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jbtnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/save.png"))); // NOI18N
         jbtnSalvar.setText("Salvar");
         jbtnSalvar.setIconTextGap(10);
+        jbtnSalvar.setNextFocusableComponent(jbtnEditar);
+        jbtnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnSalvarActionPerformed(evt);
+            }
+        });
         jpnlRodapeWrapper.add(jbtnSalvar);
-        jbtnSalvar.setBounds(600, 10, 120, 30);
+        jbtnSalvar.setBounds(470, 10, 120, 30);
 
         jbtnEditar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jbtnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/edit.png"))); // NOI18N
         jbtnEditar.setText("Editar");
         jbtnEditar.setIconTextGap(10);
+        jbtnEditar.setNextFocusableComponent(jbtnLimpar);
+        jbtnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnEditarActionPerformed(evt);
+            }
+        });
         jpnlRodapeWrapper.add(jbtnEditar);
-        jbtnEditar.setBounds(730, 10, 120, 30);
+        jbtnEditar.setBounds(600, 10, 120, 30);
+
+        jbtnLimpar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jbtnLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/clear.png"))); // NOI18N
+        jbtnLimpar.setText("Limpar");
+        jbtnLimpar.setIconTextGap(10);
+        jbtnLimpar.setNextFocusableComponent(jbtnExcluir);
+        jbtnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnLimparActionPerformed(evt);
+            }
+        });
+        jpnlRodapeWrapper.add(jbtnLimpar);
+        jbtnLimpar.setBounds(730, 10, 120, 30);
 
         jbtnExcluir.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jbtnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/delete.png"))); // NOI18N
         jbtnExcluir.setText("Excluir");
         jbtnExcluir.setIconTextGap(10);
+        jbtnExcluir.setNextFocusableComponent(jpnlDadosImovel);
+        jbtnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnExcluirActionPerformed(evt);
+            }
+        });
         jpnlRodapeWrapper.add(jbtnExcluir);
         jbtnExcluir.setBounds(860, 10, 120, 30);
 
@@ -1069,22 +1574,30 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         jpnlFormularioLayout.setVerticalGroup(
             jpnlFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnlFormularioLayout.createSequentialGroup()
-                .addComponent(jtbpFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
+                .addComponent(jtbpFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpnlRodape, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jtbpPrincipal.addTab("Imóvel", jpnlFormulario);
+        jtbpPrincipal.addTab("Imóvel", null, jpnlFormulario, "Dados comuns sobre o imóvel");
+
+        jsepPrincipal.setViewportView(jtbpPrincipal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtbpPrincipal)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jsepPrincipal)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtbpPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 11, Short.MAX_VALUE)
+                .addComponent(jsepPrincipal)
+                .addGap(0, 12, Short.MAX_VALUE))
         );
 
         pack();
@@ -1144,15 +1657,1442 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jpnlFormularioComponentResized
 
+    private void jbtnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNovoActionPerformed
+        
+        criarNovo();
+        
+    }//GEN-LAST:event_jbtnNovoActionPerformed
+
+    private void jbtnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSalvarActionPerformed
+        
+        salvar();
+        
+    }//GEN-LAST:event_jbtnSalvarActionPerformed
+
+    private void jbtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEditarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtnEditarActionPerformed
+
+    private void jbtnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnLimparActionPerformed
+        
+        limparCampos();
+        limparDicaCampos();
+        
+    }//GEN-LAST:event_jbtnLimparActionPerformed
+
+    private void jbtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnExcluirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtnExcluirActionPerformed
+
+    private void jbtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPesquisarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtnPesquisarActionPerformed
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        
+        preencherComboNucleo();
+        preencherComboEstado();
+        
+    }//GEN-LAST:event_formInternalFrameOpened
+
+    private void jcbbUfItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbbUfItemStateChanged
+        
+        try {
+        
+            if (jcbbUf.getSelectedIndex() > 0) {
+                
+                com.common.Estado estado = new com.common.Estado();
+                estado.setNome(jcbbUf.getSelectedItem().toString());
+
+                com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+                String input = jsonMgr.parseJson(estado);
+
+                java.lang.Object output = cadhab.conn.ConnectionManager.connect("/estado_id/nome?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                
+                if (output != null) {
+
+                    if (output instanceof com.common.Estado) {
+
+                        estado = (com.common.Estado) output;
+                        
+                        if (estado.getId() > 0) {
+                            
+                            preencherComboMunicipioPorIDEstado(estado.getId());
+                            idEstadoAtual = estado.getId();
+                            
+                        }
+
+                    }
+
+                }
+
+            }
+        
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+            
+        } catch (java.lang.Exception ex) {
+            
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
+        
+    }//GEN-LAST:event_jcbbUfItemStateChanged
+
+    private void jcbbNucleoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbNucleoFocusLost
+        
+        checarCamposObrigatoriosImovel();
+        
+    }//GEN-LAST:event_jcbbNucleoFocusLost
+
+    private void jcbbTipoImovelFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbTipoImovelFocusLost
+        
+        checarCamposObrigatoriosImovel();
+        
+    }//GEN-LAST:event_jcbbTipoImovelFocusLost
+
+    private void jcbbTipoPropriedadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbTipoPropriedadeFocusLost
+        
+        checarCamposObrigatoriosImovel();
+        
+    }//GEN-LAST:event_jcbbTipoPropriedadeFocusLost
+
+    private void jcbbDocumentoPropriedadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbDocumentoPropriedadeFocusLost
+        
+        checarCamposObrigatoriosImovel();
+        
+    }//GEN-LAST:event_jcbbDocumentoPropriedadeFocusLost
+
+    private void jcbbPagaIptuFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbPagaIptuFocusLost
+        
+        checarCamposObrigatoriosImovel();
+        
+    }//GEN-LAST:event_jcbbPagaIptuFocusLost
+
+    private void jcbbMaterialParedeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbMaterialParedeFocusLost
+        
+        checarCamposObrigatoriosComposicao();
+        
+    }//GEN-LAST:event_jcbbMaterialParedeFocusLost
+
+    private void jcbbMaterialPisoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbMaterialPisoFocusLost
+        
+        checarCamposObrigatoriosComposicao();
+        
+    }//GEN-LAST:event_jcbbMaterialPisoFocusLost
+
+    private void jcbbMaterialCoberturaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbMaterialCoberturaFocusLost
+        
+        checarCamposObrigatoriosComposicao();
+        
+    }//GEN-LAST:event_jcbbMaterialCoberturaFocusLost
+
+    private void jtxtNumeroComodosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtNumeroComodosFocusLost
+        
+        checarCamposObrigatoriosComposicao();
+        
+    }//GEN-LAST:event_jtxtNumeroComodosFocusLost
+
+    private void jtxtNumeroSalasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtNumeroSalasFocusLost
+        
+        checarCamposObrigatoriosComposicao();
+        
+    }//GEN-LAST:event_jtxtNumeroSalasFocusLost
+
+    private void jtxtNumeroCozinhasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtNumeroCozinhasFocusLost
+        
+        checarCamposObrigatoriosComposicao();
+        
+    }//GEN-LAST:event_jtxtNumeroCozinhasFocusLost
+
+    private void jtxtNumeroQuartosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtNumeroQuartosFocusLost
+        
+        checarCamposObrigatoriosComposicao();
+        
+    }//GEN-LAST:event_jtxtNumeroQuartosFocusLost
+
+    private void jtxtNumeroBanheirosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtNumeroBanheirosFocusLost
+        
+        checarCamposObrigatoriosComposicao();
+        
+    }//GEN-LAST:event_jtxtNumeroBanheirosFocusLost
+
+    private void jtxtNumeroAreasServicosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtNumeroAreasServicosFocusLost
+        
+        checarCamposObrigatoriosComposicao();
+        
+    }//GEN-LAST:event_jtxtNumeroAreasServicosFocusLost
+
+    private void jtxtNumeroAnexosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtNumeroAnexosFocusLost
+        
+        checarCamposObrigatoriosComposicao();
+        
+    }//GEN-LAST:event_jtxtNumeroAnexosFocusLost
+
+    private void jtxtNumeroOutrosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtNumeroOutrosFocusLost
+        
+        checarCamposObrigatoriosComposicao();
+        
+    }//GEN-LAST:event_jtxtNumeroOutrosFocusLost
+
+    private void jtxtNumeroServemDormitorioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtNumeroServemDormitorioFocusLost
+        
+        checarCamposObrigatoriosComposicao();
+        
+    }//GEN-LAST:event_jtxtNumeroServemDormitorioFocusLost
+
+    private void jcbbConstrucaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbConstrucaoFocusLost
+        
+        checarCamposObrigatoriosComposicao();
+        
+    }//GEN-LAST:event_jcbbConstrucaoFocusLost
+
+    private void jcbbTipoLogradouroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbTipoLogradouroFocusLost
+        
+        checarCamposObrigatoriosEndereco();
+        
+    }//GEN-LAST:event_jcbbTipoLogradouroFocusLost
+
+    private void jtxtLogradouroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtLogradouroFocusLost
+        
+        checarCamposObrigatoriosEndereco();
+        
+    }//GEN-LAST:event_jtxtLogradouroFocusLost
+
+    private void jtxtNumeroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtNumeroFocusLost
+        
+        checarCamposObrigatoriosEndereco();
+        
+    }//GEN-LAST:event_jtxtNumeroFocusLost
+
+    private void jtxtBairroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtBairroFocusLost
+        
+        checarCamposObrigatoriosEndereco();
+        
+    }//GEN-LAST:event_jtxtBairroFocusLost
+
+    private void jcbbMunicipioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbMunicipioFocusLost
+        
+        checarCamposObrigatoriosEndereco();
+        
+    }//GEN-LAST:event_jcbbMunicipioFocusLost
+
+    private void jcbbUfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbUfFocusLost
+        
+        checarCamposObrigatoriosEndereco();
+        
+    }//GEN-LAST:event_jcbbUfFocusLost
+
+    private void jcbbTipoAreaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbTipoAreaFocusLost
+        
+        checarCamposObrigatoriosEndereco();
+        
+    }//GEN-LAST:event_jcbbTipoAreaFocusLost
+
+    private void jcbbPavimentacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbPavimentacaoFocusLost
+        
+        checarCamposObrigatoriosServicos();
+        
+    }//GEN-LAST:event_jcbbPavimentacaoFocusLost
+
+    private void jcbbQualPavimentacaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbQualPavimentacaoFocusLost
+        
+        checarCamposObrigatoriosServicos();
+        
+    }//GEN-LAST:event_jcbbQualPavimentacaoFocusLost
+
+    private void jcbbIluminacaoUtilizadaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbIluminacaoUtilizadaFocusLost
+        
+        checarCamposObrigatoriosServicos();
+        
+    }//GEN-LAST:event_jcbbIluminacaoUtilizadaFocusLost
+
+    private void jcbbAbastecimentoAguaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbAbastecimentoAguaFocusLost
+        
+        checarCamposObrigatoriosServicos();
+        
+    }//GEN-LAST:event_jcbbAbastecimentoAguaFocusLost
+
+    private void jcbbTratamentoAguaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbTratamentoAguaFocusLost
+        
+        checarCamposObrigatoriosServicos();
+        
+    }//GEN-LAST:event_jcbbTratamentoAguaFocusLost
+
+    private void jcbbAguaEncanadaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbAguaEncanadaFocusLost
+        
+        checarCamposObrigatoriosServicos();
+        
+    }//GEN-LAST:event_jcbbAguaEncanadaFocusLost
+
+    private void jcbbExisteBanheiroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbExisteBanheiroFocusLost
+        
+        checarCamposObrigatoriosServicos();
+        
+    }//GEN-LAST:event_jcbbExisteBanheiroFocusLost
+
+    private void jcbbEscoamentoSanitarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbEscoamentoSanitarioFocusLost
+        
+        checarCamposObrigatoriosServicos();
+        
+    }//GEN-LAST:event_jcbbEscoamentoSanitarioFocusLost
+
+    private void jcbbTratamentoLixoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbTratamentoLixoFocusLost
+        
+        checarCamposObrigatoriosServicos();
+        
+    }//GEN-LAST:event_jcbbTratamentoLixoFocusLost
+
+    private void jtxtValorAluguelKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtValorAluguelKeyReleased
+        
+        com.data.NumberManager.formatMoneyPtbr(jtxtValorAluguel);
+        
+    }//GEN-LAST:event_jtxtValorAluguelKeyReleased
+
+    private void jtxtNumeroComodosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroComodosKeyReleased
+        
+        com.data.NumberManager.formatIntegerPtbr(jtxtNumeroComodos);
+        
+    }//GEN-LAST:event_jtxtNumeroComodosKeyReleased
+
+    private void jtxtNumeroSalasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroSalasKeyReleased
+        
+        com.data.NumberManager.formatIntegerPtbr(jtxtNumeroSalas);
+        
+    }//GEN-LAST:event_jtxtNumeroSalasKeyReleased
+
+    private void jtxtNumeroCozinhasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroCozinhasKeyReleased
+        
+        com.data.NumberManager.formatIntegerPtbr(jtxtNumeroCozinhas);
+        
+    }//GEN-LAST:event_jtxtNumeroCozinhasKeyReleased
+
+    private void jtxtNumeroQuartosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroQuartosKeyReleased
+        
+        com.data.NumberManager.formatIntegerPtbr(jtxtNumeroQuartos);
+        
+    }//GEN-LAST:event_jtxtNumeroQuartosKeyReleased
+
+    private void jtxtNumeroBanheirosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroBanheirosKeyReleased
+        
+        com.data.NumberManager.formatIntegerPtbr(jtxtNumeroBanheiros);
+        
+    }//GEN-LAST:event_jtxtNumeroBanheirosKeyReleased
+
+    private void jtxtNumeroAreasServicosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroAreasServicosKeyReleased
+        
+        com.data.NumberManager.formatIntegerPtbr(jtxtNumeroAreasServicos);
+        
+    }//GEN-LAST:event_jtxtNumeroAreasServicosKeyReleased
+
+    private void jtxtNumeroAnexosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroAnexosKeyReleased
+        
+        com.data.NumberManager.formatIntegerPtbr(jtxtNumeroAnexos);
+        
+    }//GEN-LAST:event_jtxtNumeroAnexosKeyReleased
+
+    private void jtxtNumeroOutrosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroOutrosKeyReleased
+        
+        com.data.NumberManager.formatIntegerPtbr(jtxtNumeroOutros);
+        
+    }//GEN-LAST:event_jtxtNumeroOutrosKeyReleased
+
+    private void jtxtNumeroServemDormitorioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroServemDormitorioKeyReleased
+        
+        com.data.NumberManager.formatIntegerPtbr(jtxtNumeroServemDormitorio);
+        
+    }//GEN-LAST:event_jtxtNumeroServemDormitorioKeyReleased
+
+    private void jcbbDocumentoPropriedadeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbbDocumentoPropriedadeItemStateChanged
+        
+        switch (jcbbDocumentoPropriedade.getSelectedItem().toString()) {
+            
+            case "Escritura Definitiva (Inscrição)": {
+                jtxtNumeroDocumento.setEnabled(true);
+            }
+                break;
+                
+            case "Escritura Definitiva (Transcrição)": {
+                jtxtNumeroDocumento.setEnabled(true);
+            }
+                break;
+                
+            case "Escritura Definitiva (Matrícula)": {
+                jtxtNumeroDocumento.setEnabled(true);
+            }
+                break;
+                
+            default: {
+                jtxtNumeroDocumento.setEnabled(false);
+            }
+                break;
+            
+        }
+        
+    }//GEN-LAST:event_jcbbDocumentoPropriedadeItemStateChanged
+
+    private void jcbbIluminacaoUtilizadaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbbIluminacaoUtilizadaItemStateChanged
+        
+        switch (jcbbIluminacaoUtilizada.getSelectedItem().toString()) {
+            
+            case "Outra forma": {
+                jtxtEspecifiqueIluminacao.setEnabled(true);
+            }
+                break;
+                
+            default: {
+                jtxtEspecifiqueIluminacao.setEnabled(false);
+            }
+                break;
+            
+        }
+        
+    }//GEN-LAST:event_jcbbIluminacaoUtilizadaItemStateChanged
+
+    private void criarNovo() {
+        
+        com.data.DateManager dateMgr = new com.data.DateManager();
+        
+        limparCampos();
+        checarCamposObrigatorios();
+        habilitarTodosCampos();
+        jtxtNumeroDocumento.setEnabled(false);
+        jtxtEspecifiqueIluminacao.setEnabled(false);
+        jtxtDataAtualizacao.setText(dateMgr.getCurrentDate());
+        desabilitarBotoes();
+        jbtnNovo.setEnabled(true);
+        jbtnSalvar.setEnabled(true);
+        jtbpPrincipal.setSelectedIndex(1);
+        jtbpFormulario.setSelectedIndex(0);
+        acao = 'N';
+        
+    }
+    
+    private void salvar() {
+        
+        try {
+            
+            if (checarCamposObrigatorios()) {
+                
+                com.sys.habitacional.Imovel imovel = preencherDadosImovel();
+                
+                com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+                String input = jsonMgr.parseJson(imovel);
+                
+                java.lang.Object[] options = { "Sim", "Não" };
+                java.lang.Object opcao = javax.swing.JOptionPane.showOptionDialog(this, "Deseja realmente inserir o novo imóvel no sistema?", "CadHab",
+                        javax.swing.JOptionPane.DEFAULT_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null,
+                        options, options[1]);
+
+                if (opcao.toString().equals("0")) {
+                    
+                    java.lang.Object output = cadhab.conn.ConnectionManager.connect("/imovel/completo/salvar?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                    
+                    if (output != null) {
+                        
+                        if (output instanceof com.sys.Message) {
+                            
+                            com.sys.Message mensagem = (com.sys.Message) output;
+                            javax.swing.JOptionPane.showMessageDialog(this, mensagem.getMessage(), "CadHab", mensagem.getCode());
+                                    
+                            if (mensagem.getCode() == 1) {
+                                        
+                                limparCampos();
+                                desabilitarTodosCampos();
+                                desabilitarBotoes();
+                                jbtnNovo.setEnabled(true);
+                                preencherTabelaPesquisa();
+                                acao = ' ';
+                                    
+                            }
+                            
+                        }
+                        
+                    } else {
+
+                        javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível fazer o cadastro do novo imóvel!", "CadHab", 0);
+
+                    }
+                    
+                }
+                
+            } else {
+                
+                javax.swing.JOptionPane.showMessageDialog(this, "Verifique se todos os campos obrigatórios se encontram preenchidos e/ou selecionados!", "CadHab", 2);
+                
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+         
+        } catch (java.lang.NumberFormatException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Algum(ns) campo(s) numérico(s) possui(em) valor(es) inválido(s)!", "CadHab", 0);
+            
+        } catch (java.lang.Exception ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
+        
+    }
+    
+    private void preencherTabelaPesquisa() {
+        
+        
+        
+    }
+    
+    public void preencherComboNucleo() {
+        
+        try {
+            
+            java.lang.Object output = cadhab.conn.ConnectionManager.connect("/nucleos?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), "");
+            
+            if (output != null) {
+                
+                if (output instanceof java.util.List) {
+                    
+                    java.util.List<com.sys.urbano.Nucleo> nucleos = (java.util.List<com.sys.urbano.Nucleo>) output;
+                    
+                    jcbbNucleo.removeAllItems();
+                    jcbbNucleo.addItem("Selecione uma opção");
+                    for (com.sys.urbano.Nucleo cursor : nucleos) {
+                        
+                        jcbbNucleo.addItem(cursor.getNome());
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+            
+        } catch (java.lang.Exception ex) {
+            
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
+        
+    }
+    
+    public void preencherComboEstado() {
+        
+        try {
+            
+            java.lang.Object output = cadhab.conn.ConnectionManager.connect("/estados?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), "");
+            
+            if (output != null) {
+                
+                if (output instanceof java.util.List) {
+                    
+                    java.util.List<com.common.Estado> estados = (java.util.List<com.common.Estado>) output;
+                    
+                    jcbbUf.removeAllItems();
+                    jcbbUf.addItem("Selecione uma opção");
+                    for (com.common.Estado cursor : estados) {
+                        
+                        jcbbUf.addItem(cursor.getNome());
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+            
+        } catch (java.lang.Exception ex) {
+            
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
+        
+    }
+    
+    public void preencherComboMunicipioPorIDEstado(long idEstado) {
+        
+        try {
+            
+            com.common.Municipio municipio = new com.common.Municipio();
+            municipio.setIdEstado(idEstado);
+            
+            com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+            String input = jsonMgr.parseJson(municipio);
+            
+            java.lang.Object output = cadhab.conn.ConnectionManager.connect("/municipio/estado?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+            
+            if (output != null) {
+                
+                if (output instanceof java.util.List) {
+                    
+                    java.util.List<com.common.Municipio> municipios = (java.util.List<com.common.Municipio>) output;
+                    
+                    jcbbMunicipio.removeAllItems();
+                    jcbbMunicipio.addItem("Selecione uma opção");
+                    for (com.common.Municipio cursor : municipios) {
+                        
+                        jcbbMunicipio.addItem(cursor.getNome());
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+            
+        } catch (java.lang.Exception ex) {
+            
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
+        
+    }
+    
+    private long obterIdNucleo() {
+        
+        try {
+            
+            com.sys.urbano.Nucleo nucleo = new com.sys.urbano.Nucleo();
+            nucleo.setNome(jcbbNucleo.getSelectedItem().toString());
+            
+            com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+            String input = jsonMgr.parseJson(nucleo);
+            
+            java.lang.Object output = cadhab.conn.ConnectionManager.connect("/nucleo/nome?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+            
+            if (output != null) {
+                
+               if (output instanceof java.util.List) {
+                   
+                   java.util.List<com.sys.urbano.Nucleo> nucleos = (java.util.List<com.sys.urbano.Nucleo>) output;
+                   
+                   return nucleos.get(0).getId();
+                   
+               } else {
+                   
+                   return 0l;
+                   
+               }
+                
+            } else {
+                
+                return 0l;
+                
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            return 0l;
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            return 0l;
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+            return 0l;
+            
+        } catch (java.lang.Exception ex) {
+            
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            return 0l;
+            
+        }
+        
+    }
+    
+    private long obterIdMunicipio() {
+        
+        try {
+            
+            com.common.Municipio municipio = new com.common.Municipio();
+            municipio.setNome(jcbbMunicipio.getSelectedItem().toString());
+            municipio.setIdEstado(idEstadoAtual);
+            
+            com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+            String input = jsonMgr.parseJson(municipio);
+            
+            java.lang.Object output = cadhab.conn.ConnectionManager.connect("/municipio_id/nome?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+            
+            if (output != null) {
+                
+               if (output instanceof com.common.Municipio) {
+                   
+                   municipio = (com.common.Municipio) output;
+                   
+                   return municipio.getId();
+                   
+               } else {
+                   
+                   return 0l;
+                   
+               }
+                
+            } else {
+                
+                return 0l;
+                
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            return 0l;
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            return 0l;
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+            return 0l;
+            
+        } catch (java.lang.Exception ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            return 0l;
+            
+        }
+        
+    }
+    
+    private com.sys.habitacional.Imovel preencherDadosImovel() 
+            throws java.lang.NumberFormatException {
+        
+        com.sys.habitacional.DemolicaoImovel demolicao = new com.sys.habitacional.DemolicaoImovel();
+        demolicao.setDataDemolicao(jtxtDataDemolicao.getText());
+        demolicao.setHorarioDemolicao(jtxtHorarioDemolicao.getText());
+        demolicao.setNumeroProcesso(jtxtNumeroProcessoDemolicao.getText());
+        demolicao.setMotivo(jtxtaMotivoDemolicao.getText());
+        demolicao.setExecutadoPor(jtxtExecutadaPor.getText());
+        
+        com.sys.habitacional.ServicoImovel servico = new com.sys.habitacional.ServicoImovel();
+        servico.setExistePavimentacao(jcbbPavimentacao.getSelectedIndex() > 0 ? jcbbPavimentacao.getSelectedItem().toString() : "");
+        servico.setQualPavimentacao(jcbbQualPavimentacao.getSelectedIndex() > 0 ? jcbbQualPavimentacao.getSelectedItem().toString() : "");
+        servico.setIluminacaoUtilizada(jcbbIluminacaoUtilizada.getSelectedIndex() > 0 ? jcbbIluminacaoUtilizada.getSelectedItem().toString() : "");
+        servico.setEspecifiqueIluminacao(jtxtEspecifiqueIluminacao.getText());
+        servico.setAbastecimentoAgua(jcbbAbastecimentoAgua.getSelectedIndex() > 0 ? jcbbAbastecimentoAgua.getSelectedItem().toString() : "");
+        servico.setTratamentoAgua(jcbbTratamentoAgua.getSelectedIndex() > 0 ? jcbbTratamentoAgua.getSelectedItem().toString() : "");
+        servico.setAguaEncanada(jcbbAguaEncanada.getSelectedIndex() > 0 ? jcbbAguaEncanada.getSelectedItem().toString() : "");
+        servico.setExisteBanheiro(jcbbExisteBanheiro.getSelectedIndex() > 0 ? jcbbExisteBanheiro.getSelectedItem().toString() : "");
+        servico.setEscoamentoSanitario(jcbbEscoamentoSanitario.getSelectedIndex() > 0 ? jcbbEscoamentoSanitario.getSelectedItem().toString() : "");
+        servico.setTratamentoLixo(jcbbTratamentoLixo.getSelectedIndex() > 0 ? jcbbTratamentoLixo.getSelectedItem().toString() : "");
+        
+        if (jckbCachorros.isSelected())
+            servico.setCaes("Sim");
+        else
+            servico.setCaes("Não");
+        
+        if (jckbGatos.isSelected())
+            servico.setGatos("Sim");
+        else
+            servico.setGatos("Não");
+        
+        if (jckbAves.isSelected())
+            servico.setAves("Sim");
+        else
+            servico.setAves("Não");
+        
+        if (jckbSuinos.isSelected())
+            servico.setSuinos("Sim");
+        else
+            servico.setSuinos("Não");
+        
+        if (jckbInsetos.isSelected())
+            servico.setInsetos("Sim");
+        else
+            servico.setInsetos("Não");
+        
+        if (jckbRatos.isSelected())
+            servico.setRatos("Sim");
+        else
+            servico.setRatos("Não");
+        
+        if (jckbCobras.isSelected())
+            servico.setCobras("Sim");
+        else
+            servico.setCobras("Não");
+        
+        com.sys.habitacional.EnderecoImovel endereco = new com.sys.habitacional.EnderecoImovel();
+        endereco.setTipoLogradouro(jcbbTipoLogradouro.getSelectedIndex() > 0 ? jcbbTipoLogradouro.getSelectedItem().toString() : "");
+        endereco.setLogradouro(jtxtLogradouro.getText());
+        endereco.setNumero(jtxtNumero.getText());
+        endereco.setComplemento(jtxtComplemento.getText());
+        endereco.setCEP(jtxtCep.getText());
+        endereco.setBairro(jtxtBairro.getText());
+        endereco.setIdMunicipio(obterIdMunicipio());
+        endereco.setTipoArea(jcbbTipoArea.getSelectedIndex() > 0 ? jcbbTipoArea.getSelectedItem().toString() : "");
+        endereco.setLatitude(jtxtLatitude.getText());
+        endereco.setLongitude(jtxtLongitude.getText());
+        
+        com.sys.habitacional.ComposicaoImovel composicao = new com.sys.habitacional.ComposicaoImovel();
+        composicao.setConstrucao(jcbbConstrucao.getSelectedIndex() > 0 ? jcbbConstrucao.getSelectedItem().toString() : "");
+        composicao.setMaterialParede(jcbbMaterialParede.getSelectedIndex() > 0 ? jcbbMaterialParede.getSelectedItem().toString() : "");
+        composicao.setEspecifiqueParede(jtxtaEspecifiqueParede.getText());
+        composicao.setMaterialPiso(jcbbMaterialPiso.getSelectedIndex() > 0 ? jcbbMaterialPiso.getSelectedItem().toString() : "");
+        composicao.setEspecifiquePiso(jtxtaEspecifiquePiso.getText());
+        composicao.setMaterialCobertura(jcbbMaterialCobertura.getSelectedIndex() > 0 ? jcbbMaterialCobertura.getSelectedItem().toString() : "");
+        composicao.setEspecifiqueCobertura(jtxtaEspecifiqueCobertura.getText());
+        composicao.setNumeroComodos(com.data.NumberManager.formatRawInteger(jtxtNumeroComodos.getText()));
+        composicao.setNumeroSalas(com.data.NumberManager.formatRawInteger(jtxtNumeroSalas.getText()));
+        composicao.setNumeroCozinhas(com.data.NumberManager.formatRawInteger(jtxtNumeroCozinhas.getText()));
+        composicao.setNumeroQuartos(com.data.NumberManager.formatRawInteger(jtxtNumeroQuartos.getText()));
+        composicao.setNumeroBanheiros(com.data.NumberManager.formatRawInteger(jtxtNumeroBanheiros.getText()));
+        composicao.setNumeroAreasServicos(com.data.NumberManager.formatRawInteger(jtxtNumeroAreasServicos.getText()));
+        composicao.setNumeroAnexos(com.data.NumberManager.formatRawInteger(jtxtNumeroAnexos.getText()));
+        composicao.setNumeroOutrosComodos(com.data.NumberManager.formatRawInteger(jtxtNumeroOutros.getText()));
+        composicao.setNumeroServemDormitorio(com.data.NumberManager.formatRawInteger(jtxtNumeroServemDormitorio.getText()));
+        
+        com.sys.habitacional.Imovel imovel = new com.sys.habitacional.Imovel();
+        imovel.setIdNucleo(obterIdNucleo());
+        imovel.setTipo(jcbbTipoImovel.getSelectedIndex() > 0 ? jcbbTipoImovel.getSelectedItem().toString() : "");
+        imovel.setTipoPropriedade(jcbbTipoPropriedade.getSelectedIndex() > 0 ? jcbbTipoPropriedade.getSelectedItem().toString() : "");
+        imovel.setDocPropriedade(jcbbDocumentoPropriedade.getSelectedIndex() > 0 ? jcbbDocumentoPropriedade.getSelectedItem().toString() : "");
+        imovel.setNumDocPropriedade(jtxtNumeroDocumento.getText());
+        imovel.setValorAluguel(com.data.NumberManager.formatRawDouble(jtxtValorAluguel.getText()));
+        imovel.setLocalidade(jtxtLocalidade.getText());
+        imovel.setPagaIPTU(jcbbPagaIptu.getSelectedItem().toString());
+        imovel.setIc(jtxtIc.getText());
+        imovel.setSelagem(jtxtSelagem.getText());
+        imovel.setAtendente(jtxtAtendidoPor.getText());
+        imovel.setAtendenteAtualizacao(jtxtAtualizadoPor.getText());
+        imovel.setDataAtualizacao(jtxtDataAtualizacao.getText());
+        imovel.setComposicao(composicao);
+        imovel.setEndereco(endereco);
+        imovel.setServico(servico);
+        imovel.setDemolicao(demolicao);
+        
+        return imovel;
+        
+    }
+    
+    private boolean checarCamposObrigatorios() {
+        
+        return checarCamposObrigatoriosImovel() & checarCamposObrigatoriosComposicao() & checarCamposObrigatoriosEndereco()
+                & checarCamposObrigatoriosServicos();
+        
+    }
+    
+    private boolean checarCamposObrigatoriosImovel() {
+        
+        if (com.data.FieldManager.checkEmptyField(jcbbNucleo, jlblNucleo) & com.data.FieldManager.checkEmptyField(jcbbTipoImovel, jlblTipoImovel) 
+                & com.data.FieldManager.checkEmptyField(jcbbTipoPropriedade, jlblTipoPropriedade) & com.data.FieldManager.checkEmptyField(jcbbDocumentoPropriedade, jlblDocumentoPropriedade) 
+                & com.data.FieldManager.checkEmptyField(jcbbPagaIptu, jlblPagaIptu)) {
+            
+            return true;
+            
+        } else {
+         
+            return false;
+            
+        }
+        
+    }
+    
+    private boolean checarCamposObrigatoriosComposicao() {
+        
+        if (com.data.FieldManager.checkEmptyField(jtxtNumeroComodos) & com.data.FieldManager.checkEmptyField(jtxtNumeroSalas)
+                & com.data.FieldManager.checkEmptyField(jtxtNumeroCozinhas) & com.data.FieldManager.checkEmptyField(jtxtNumeroQuartos) 
+                & com.data.FieldManager.checkEmptyField(jtxtNumeroBanheiros) & com.data.FieldManager.checkEmptyField(jtxtNumeroAreasServicos) 
+                & com.data.FieldManager.checkEmptyField(jtxtNumeroAnexos) & com.data.FieldManager.checkEmptyField(jtxtNumeroOutros) 
+                & com.data.FieldManager.checkEmptyField(jtxtNumeroServemDormitorio) & com.data.FieldManager.checkEmptyField(jcbbMaterialParede, jlblMaterialParede) 
+                & com.data.FieldManager.checkEmptyField(jcbbMaterialPiso, jlblMaterialPiso) & com.data.FieldManager.checkEmptyField(jcbbMaterialCobertura, jlblMaterialCobertura) 
+                & com.data.FieldManager.checkEmptyField(jcbbConstrucao, jlblConstrucao)) {
+            
+            return true;
+            
+        } else {
+         
+            return false;
+            
+        }
+        
+    }
+    
+    private boolean checarCamposObrigatoriosEndereco() {
+        
+        if (com.data.FieldManager.checkEmptyField(jtxtLogradouro) & com.data.FieldManager.checkEmptyField(jtxtNumero)
+                & com.data.FieldManager.checkEmptyField(jtxtBairro) & com.data.FieldManager.checkEmptyField(jcbbTipoLogradouro, jlblTipoLogradouro) 
+                & com.data.FieldManager.checkEmptyField(jcbbMunicipio, jlblMunicipio) & com.data.FieldManager.checkEmptyField(jcbbUf, jlblUf) 
+                & com.data.FieldManager.checkEmptyField(jcbbTipoArea, jlblTipoArea)) {
+            
+            return true;
+            
+        } else {
+         
+            return false;
+            
+        }
+        
+    }
+    
+    private boolean checarCamposObrigatoriosServicos() {
+        
+        if (com.data.FieldManager.checkEmptyField(jcbbPavimentacao, jlblPavimentacao) & com.data.FieldManager.checkEmptyField(jcbbQualPavimentacao, jlblQualPavimentacao) 
+                & com.data.FieldManager.checkEmptyField(jcbbIluminacaoUtilizada, jlblIluminacaoUtilizada) & com.data.FieldManager.checkEmptyField(jcbbAbastecimentoAgua, jlblAbastecimentoAgua) 
+                & com.data.FieldManager.checkEmptyField(jcbbTratamentoAgua, jlblTratamentoAgua) & com.data.FieldManager.checkEmptyField(jcbbAguaEncanada, jlblAguaEncanada) 
+                & com.data.FieldManager.checkEmptyField(jcbbExisteBanheiro, jlblExisteBanheiro) & com.data.FieldManager.checkEmptyField(jcbbEscoamentoSanitario, jlblEscoamentoSanitario) 
+                & com.data.FieldManager.checkEmptyField(jcbbTratamentoLixo, jlblTratamentoLixo)) {
+            
+            return true;
+            
+        } else {
+         
+            return false;
+            
+        }
+        
+    }
+    
+    private void limparCampos() {
+        
+        limparCamposImovel();
+        limparCamposComposicao();
+        limparCamposEndereco();
+        limparCamposServicos();
+        limparCamposDemolicao();
+        desselecionarCamposPresencaAnimais();
+        
+    }
+    
+    private void limparCamposImovel() {
+        
+        jtxtNumeroDocumento.setText("");
+        jtxtValorAluguel.setText("0,00");
+        jtxtLocalidade.setText("");
+        jtxtIc.setText("");
+        jtxtSelagem.setText("");
+        jtxtAtendidoPor.setText("");
+        jtxtAtualizadoPor.setText("");
+        jtxtDataAtualizacao.setText("");
+        jtxtAnexosImovel.setText("");
+        jcbbNucleo.setSelectedIndex(0);
+        jcbbTipoImovel.setSelectedIndex(0);
+        jcbbTipoPropriedade.setSelectedIndex(0);
+        jcbbDocumentoPropriedade.setSelectedIndex(0);
+        jcbbPagaIptu.setSelectedIndex(0);
+        
+    }
+    
+    private void limparCamposComposicao() {
+        
+        jtxtNumeroComodos.setText("0");
+        jtxtNumeroSalas.setText("0");
+        jtxtNumeroCozinhas.setText("0");
+        jtxtNumeroQuartos.setText("0");
+        jtxtNumeroBanheiros.setText("0");
+        jtxtNumeroAreasServicos.setText("0");
+        jtxtNumeroAnexos.setText("0");
+        jtxtNumeroOutros.setText("0");
+        jtxtNumeroServemDormitorio.setText("0");
+        jtxtaEspecifiqueParede.setText("");
+        jtxtaEspecifiquePiso.setText("");
+        jtxtaEspecifiqueCobertura.setText("");
+        jcbbMaterialParede.setSelectedIndex(0);
+        jcbbMaterialPiso.setSelectedIndex(0);
+        jcbbMaterialCobertura.setSelectedIndex(0);
+        jcbbConstrucao.setSelectedIndex(0);
+        
+    }
+    
+    private void limparCamposEndereco() {
+        
+        jtxtLogradouro.setText("");
+        jtxtNumero.setText("");
+        jtxtComplemento.setText("");
+        jtxtCep.setText("");
+        jtxtBairro.setText("");
+        jtxtLatitude.setText("0,000");
+        jtxtLongitude.setText("0,000");
+        jcbbTipoLogradouro.setSelectedIndex(0);
+        jcbbMunicipio.setSelectedIndex(0);
+        jcbbUf.setSelectedIndex(0);
+        jcbbTipoArea.setSelectedIndex(0);
+        
+    }
+    
+    private void limparCamposServicos() {
+        
+        jtxtEspecifiqueIluminacao.setText("");
+        jcbbPavimentacao.setSelectedIndex(0);
+        jcbbQualPavimentacao.setSelectedIndex(0);
+        jcbbIluminacaoUtilizada.setSelectedIndex(0);
+        jcbbAbastecimentoAgua.setSelectedIndex(0);
+        jcbbTratamentoAgua.setSelectedIndex(0);
+        jcbbAguaEncanada.setSelectedIndex(0);
+        jcbbExisteBanheiro.setSelectedIndex(0);
+        jcbbEscoamentoSanitario.setSelectedIndex(0);
+        jcbbTratamentoLixo.setSelectedIndex(0);
+        
+    }
+    
+    private void limparCamposDemolicao() {
+        
+        jtxtDataDemolicao.setText("");
+        jtxtHorarioDemolicao.setText("");
+        jtxtNumeroProcessoDemolicao.setText("");
+        jtxtExecutadaPor.setText("");
+        jtxtAnexosDemolicao.setText("");
+        jtxtaMotivoDemolicao.setText("");
+        
+    }
+    
+    private void selecionarCamposPresencaAnimais() {
+        
+        jckbCachorros.setSelected(true);
+        jckbGatos.setSelected(true);
+        jckbAves.setSelected(true);
+        jckbSuinos.setSelected(true);
+        jckbInsetos.setSelected(true);
+        jckbRatos.setSelected(true);
+        jckbCobras.setSelected(true);
+        
+    }
+    
+    private void desselecionarCamposPresencaAnimais() {
+        
+        jckbCachorros.setSelected(false);
+        jckbGatos.setSelected(false);
+        jckbAves.setSelected(false);
+        jckbSuinos.setSelected(false);
+        jckbInsetos.setSelected(false);
+        jckbRatos.setSelected(false);
+        jckbCobras.setSelected(false);
+        
+    }
+    
+    private void limparDicaCampos() {
+        
+        limparDicaCamposImovel();
+        limparDicaCamposComposicao();
+        limparDicaCamposEndereco();
+        limparDicaCamposServicos();
+        limparDicaCamposDemolicao();
+        
+    }
+    
+    private void limparDicaCamposImovel() {
+        
+        jtxtNumeroDocumento.setToolTipText("");
+        jtxtValorAluguel.setToolTipText("");
+        jtxtLocalidade.setToolTipText("");
+        jtxtIc.setToolTipText("");
+        jtxtSelagem.setToolTipText("");
+        jtxtAtendidoPor.setToolTipText("");
+        jtxtAtualizadoPor.setToolTipText("");
+        jtxtDataAtualizacao.setToolTipText("");
+        jtxtAnexosImovel.setToolTipText("");
+        jcbbNucleo.setToolTipText("");
+        jcbbTipoImovel.setToolTipText("");
+        jcbbTipoPropriedade.setToolTipText("");
+        jcbbDocumentoPropriedade.setToolTipText("");
+        jcbbPagaIptu.setToolTipText("");
+        
+    }
+    
+    private void limparDicaCamposComposicao() {
+        
+        jtxtNumeroComodos.setToolTipText("");
+        jtxtNumeroSalas.setToolTipText("");
+        jtxtNumeroCozinhas.setToolTipText("");
+        jtxtNumeroQuartos.setToolTipText("");
+        jtxtNumeroBanheiros.setToolTipText("");
+        jtxtNumeroAreasServicos.setToolTipText("");
+        jtxtNumeroAnexos.setToolTipText("");
+        jtxtNumeroOutros.setToolTipText("");
+        jtxtNumeroServemDormitorio.setToolTipText("");
+        jtxtaEspecifiqueParede.setToolTipText("");
+        jtxtaEspecifiquePiso.setToolTipText("");
+        jtxtaEspecifiqueCobertura.setToolTipText("");
+        jcbbMaterialParede.setToolTipText("");
+        jcbbMaterialPiso.setToolTipText("");
+        jcbbMaterialCobertura.setToolTipText("");
+        jcbbConstrucao.setToolTipText("");
+        
+    }
+    
+    private void limparDicaCamposEndereco() {
+        
+        jtxtLogradouro.setToolTipText("");
+        jtxtNumero.setToolTipText("");
+        jtxtComplemento.setToolTipText("");
+        jtxtCep.setToolTipText("");
+        jtxtBairro.setToolTipText("");
+        jtxtLatitude.setToolTipText("");
+        jtxtLongitude.setToolTipText("");
+        jcbbTipoLogradouro.setToolTipText("");
+        jcbbMunicipio.setToolTipText("");
+        jcbbUf.setToolTipText("");
+        jcbbTipoArea.setToolTipText("");
+        
+    }
+    
+    private void limparDicaCamposServicos() {
+        
+        jtxtEspecifiqueIluminacao.setToolTipText("");
+        jcbbPavimentacao.setToolTipText("");
+        jcbbQualPavimentacao.setToolTipText("");
+        jcbbIluminacaoUtilizada.setToolTipText("");
+        jcbbAbastecimentoAgua.setToolTipText("");
+        jcbbTratamentoAgua.setToolTipText("");
+        jcbbAguaEncanada.setToolTipText("");
+        jcbbExisteBanheiro.setToolTipText("");
+        jcbbEscoamentoSanitario.setToolTipText("");
+        jcbbTratamentoLixo.setToolTipText("");
+        
+    }
+    
+    private void limparDicaCamposDemolicao() {
+        
+        jtxtDataDemolicao.setToolTipText("");
+        jtxtHorarioDemolicao.setToolTipText("");
+        jtxtNumeroProcessoDemolicao.setToolTipText("");
+        jtxtExecutadaPor.setToolTipText("");
+        jtxtAnexosDemolicao.setToolTipText("");
+        jtxtaMotivoDemolicao.setToolTipText("");
+        
+    }
+    
+    private void habilitarTodosCampos() {
+        
+        habilitarCamposImovel();
+        habilitarCamposComposicao();
+        habilitarCamposEndereco();
+        habilitarCamposServicos();
+        habilitarCamposDemolicao();
+        habilitarCamposPresencaAnimais();
+        
+    }
+    
+    private void habilitarCamposImovel() {
+        
+        jtxtNumeroDocumento.setEnabled(true);
+        jtxtValorAluguel.setEnabled(true);
+        jtxtLocalidade.setEnabled(true);
+        jtxtIc.setEnabled(true);
+        jtxtSelagem.setEnabled(true);
+        jtxtAtendidoPor.setEnabled(true);
+        jtxtAtualizadoPor.setEnabled(true);
+        jtxtDataAtualizacao.setEnabled(true);
+        jtxtAnexosImovel.setEnabled(true);
+        jcbbNucleo.setEnabled(true);
+        jcbbTipoImovel.setEnabled(true);
+        jcbbTipoPropriedade.setEnabled(true);
+        jcbbDocumentoPropriedade.setEnabled(true);
+        jcbbPagaIptu.setEnabled(true);
+        jtxtAnexosImovel.setEnabled(true);
+        jbtnAnexosImovel.setEnabled(true);
+        
+    }
+    
+    private void habilitarCamposComposicao() {
+        
+        jtxtNumeroComodos.setEnabled(true);
+        jtxtNumeroSalas.setEnabled(true);
+        jtxtNumeroCozinhas.setEnabled(true);
+        jtxtNumeroQuartos.setEnabled(true);
+        jtxtNumeroBanheiros.setEnabled(true);
+        jtxtNumeroAreasServicos.setEnabled(true);
+        jtxtNumeroAnexos.setEnabled(true);
+        jtxtNumeroOutros.setEnabled(true);
+        jtxtNumeroServemDormitorio.setEnabled(true);
+        jtxtaEspecifiqueParede.setEnabled(true);
+        jtxtaEspecifiquePiso.setEnabled(true);
+        jtxtaEspecifiqueCobertura.setEnabled(true);
+        jcbbMaterialParede.setEnabled(true);
+        jcbbMaterialPiso.setEnabled(true);
+        jcbbMaterialCobertura.setEnabled(true);
+        jcbbConstrucao.setEnabled(true);
+        
+    }
+    
+    private void habilitarCamposEndereco() {
+        
+        jtxtLogradouro.setEnabled(true);
+        jtxtNumero.setEnabled(true);
+        jtxtComplemento.setEnabled(true);
+        jtxtCep.setEnabled(true);
+        jtxtBairro.setEnabled(true);
+        jtxtLatitude.setEnabled(true);
+        jtxtLongitude.setEnabled(true);
+        jcbbTipoLogradouro.setEnabled(true);
+        jcbbMunicipio.setEnabled(true);
+        jcbbUf.setEnabled(true);
+        jcbbTipoArea.setEnabled(true);
+        
+    }
+    
+    private void habilitarCamposServicos() {
+        
+        jtxtEspecifiqueIluminacao.setEnabled(true);
+        jcbbPavimentacao.setEnabled(true);
+        jcbbQualPavimentacao.setEnabled(true);
+        jcbbIluminacaoUtilizada.setEnabled(true);
+        jcbbAbastecimentoAgua.setEnabled(true);
+        jcbbTratamentoAgua.setEnabled(true);
+        jcbbAguaEncanada.setEnabled(true);
+        jcbbExisteBanheiro.setEnabled(true);
+        jcbbEscoamentoSanitario.setEnabled(true);
+        jcbbTratamentoLixo.setEnabled(true);
+        
+    }
+    
+    private void habilitarCamposDemolicao() {
+        
+        jtxtDataDemolicao.setEnabled(true);
+        jtxtHorarioDemolicao.setEnabled(true);
+        jtxtNumeroProcessoDemolicao.setEnabled(true);
+        jtxtExecutadaPor.setEnabled(true);
+        jtxtAnexosDemolicao.setEnabled(true);
+        jtxtaMotivoDemolicao.setEnabled(true);
+        jtxtAnexosDemolicao.setEnabled(true);
+        jbtnAnexosDemolicao.setEnabled(true);
+        
+    }
+    
+    private void habilitarCamposPresencaAnimais() {
+        
+        jckbCachorros.setEnabled(true);
+        jckbGatos.setEnabled(true);
+        jckbAves.setEnabled(true);
+        jckbSuinos.setEnabled(true);
+        jckbInsetos.setEnabled(true);
+        jckbRatos.setEnabled(true);
+        jckbCobras.setEnabled(true);
+        
+    }
+    
+    private void desabilitarTodosCampos() {
+        
+        desabilitarCamposImovel();
+        desabilitarCamposComposicao();
+        desabilitarCamposEndereco();
+        desabilitarCamposServicos();
+        desabilitarCamposDemolicao();
+        desabilitarCamposPresencaAnimais();
+        
+    }
+    
+    private void desabilitarCamposImovel() {
+        
+        jtxtNumeroDocumento.setEnabled(false);
+        jtxtValorAluguel.setEnabled(false);
+        jtxtLocalidade.setEnabled(false);
+        jtxtIc.setEnabled(false);
+        jtxtSelagem.setEnabled(false);
+        jtxtAtendidoPor.setEnabled(false);
+        jtxtAtualizadoPor.setEnabled(false);
+        jtxtDataAtualizacao.setEnabled(false);
+        jtxtAnexosImovel.setEnabled(false);
+        jcbbNucleo.setEnabled(false);
+        jcbbTipoImovel.setEnabled(false);
+        jcbbTipoPropriedade.setEnabled(false);
+        jcbbDocumentoPropriedade.setEnabled(false);
+        jcbbPagaIptu.setEnabled(false);
+        jtxtAnexosImovel.setEnabled(false);
+        jbtnAnexosImovel.setEnabled(false);
+        
+    }
+    
+    private void desabilitarCamposComposicao() {
+        
+        jtxtNumeroComodos.setEnabled(false);
+        jtxtNumeroSalas.setEnabled(false);
+        jtxtNumeroCozinhas.setEnabled(false);
+        jtxtNumeroQuartos.setEnabled(false);
+        jtxtNumeroBanheiros.setEnabled(false);
+        jtxtNumeroAreasServicos.setEnabled(false);
+        jtxtNumeroAnexos.setEnabled(false);
+        jtxtNumeroOutros.setEnabled(false);
+        jtxtNumeroServemDormitorio.setEnabled(false);
+        jtxtaEspecifiqueParede.setEnabled(false);
+        jtxtaEspecifiquePiso.setEnabled(false);
+        jtxtaEspecifiqueCobertura.setEnabled(false);
+        jcbbMaterialParede.setEnabled(false);
+        jcbbMaterialPiso.setEnabled(false);
+        jcbbMaterialCobertura.setEnabled(false);
+        jcbbConstrucao.setEnabled(false);
+        
+    }
+    
+    private void desabilitarCamposEndereco() {
+        
+        jtxtLogradouro.setEnabled(false);
+        jtxtNumero.setEnabled(false);
+        jtxtComplemento.setEnabled(false);
+        jtxtCep.setEnabled(false);
+        jtxtBairro.setEnabled(false);
+        jtxtLatitude.setEnabled(false);
+        jtxtLongitude.setEnabled(false);
+        jcbbTipoLogradouro.setEnabled(false);
+        jcbbMunicipio.setEnabled(false);
+        jcbbUf.setEnabled(false);
+        jcbbTipoArea.setEnabled(false);
+        
+    }
+    
+    private void desabilitarCamposServicos() {
+        
+        jtxtEspecifiqueIluminacao.setEnabled(false);
+        jcbbPavimentacao.setEnabled(false);
+        jcbbQualPavimentacao.setEnabled(false);
+        jcbbIluminacaoUtilizada.setEnabled(false);
+        jcbbAbastecimentoAgua.setEnabled(false);
+        jcbbTratamentoAgua.setEnabled(false);
+        jcbbAguaEncanada.setEnabled(false);
+        jcbbExisteBanheiro.setEnabled(false);
+        jcbbEscoamentoSanitario.setEnabled(false);
+        jcbbTratamentoLixo.setEnabled(false);
+        
+    }
+    
+    private void desabilitarCamposDemolicao() {
+        
+        jtxtDataDemolicao.setEnabled(false);
+        jtxtHorarioDemolicao.setEnabled(false);
+        jtxtNumeroProcessoDemolicao.setEnabled(false);
+        jtxtExecutadaPor.setEnabled(false);
+        jtxtAnexosDemolicao.setEnabled(false);
+        jtxtaMotivoDemolicao.setEnabled(false);
+        jtxtAnexosDemolicao.setEnabled(false);
+        jbtnAnexosDemolicao.setEnabled(false);
+        
+    }
+    
+    private void desabilitarCamposPresencaAnimais() {
+        
+        jckbCachorros.setEnabled(false);
+        jckbGatos.setEnabled(false);
+        jckbAves.setEnabled(false);
+        jckbSuinos.setEnabled(false);
+        jckbInsetos.setEnabled(false);
+        jckbRatos.setEnabled(false);
+        jckbCobras.setEnabled(false);
+        
+    }
+    
+    private void habilitarBotoes() {
+        
+        jbtnNovo.setEnabled(true);
+        jbtnSalvar.setEnabled(true);
+        jbtnEditar.setEnabled(true);
+        jbtnLimpar.setEnabled(true);
+        jbtnExcluir.setEnabled(true);
+        
+    }
+    
+    private void desabilitarBotoes() {
+        
+        jbtnNovo.setEnabled(false);
+        jbtnSalvar.setEnabled(false);
+        jbtnEditar.setEnabled(false);
+        jbtnLimpar.setEnabled(false);
+        jbtnExcluir.setEnabled(false);
+        
+    }
+    
+    private void resetarForm() {
+        
+        limparCampos();
+        desabilitarTodosCampos();
+        desabilitarBotoes();
+        jbtnNovo.setEnabled(true);
+        
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbtnAnexosDemolicao;
+    private javax.swing.JButton jbtnAnexosImovel;
     private javax.swing.JButton jbtnEditar;
     private javax.swing.JButton jbtnExcluir;
+    private javax.swing.JButton jbtnLimpar;
     private javax.swing.JButton jbtnNovo;
     private javax.swing.JButton jbtnPesquisar;
     private javax.swing.JButton jbtnSalvar;
     private javax.swing.JComboBox jcbbAbastecimentoAgua;
     private javax.swing.JComboBox jcbbAguaEncanada;
+    private javax.swing.JComboBox jcbbConstrucao;
+    private javax.swing.JComboBox jcbbDocumentoPropriedade;
     private javax.swing.JComboBox jcbbEscoamentoSanitario;
     private javax.swing.JComboBox jcbbExisteBanheiro;
     private javax.swing.JComboBox jcbbFiltro;
@@ -1160,14 +3100,15 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jcbbMaterialCobertura;
     private javax.swing.JComboBox jcbbMaterialParede;
     private javax.swing.JComboBox jcbbMaterialPiso;
+    private javax.swing.JComboBox jcbbMunicipio;
     private javax.swing.JComboBox jcbbNucleo;
     private javax.swing.JComboBox jcbbPagaIptu;
     private javax.swing.JComboBox jcbbPavimentacao;
     private javax.swing.JComboBox jcbbQualPavimentacao;
-    private javax.swing.JComboBox jcbbSituacaoImovel;
     private javax.swing.JComboBox jcbbTipoArea;
     private javax.swing.JComboBox jcbbTipoImovel;
     private javax.swing.JComboBox jcbbTipoLogradouro;
+    private javax.swing.JComboBox jcbbTipoPropriedade;
     private javax.swing.JComboBox jcbbTratamentoAgua;
     private javax.swing.JComboBox jcbbTratamentoLixo;
     private javax.swing.JComboBox jcbbUf;
@@ -1181,6 +3122,7 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jlblAbastecimentoAgua;
     private javax.swing.JLabel jlblAguaEncanada;
     private javax.swing.JLabel jlblAnexosDemolicao;
+    private javax.swing.JLabel jlblAnexosImovel;
     private javax.swing.JLabel jlblAtendidoPor;
     private javax.swing.JLabel jlblAtualizadoPor;
     private javax.swing.JLabel jlblBairro;
@@ -1189,6 +3131,7 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jlblConstrucao;
     private javax.swing.JLabel jlblDataAtualizacao;
     private javax.swing.JLabel jlblDataDemolicao;
+    private javax.swing.JLabel jlblDocumentoPropriedade;
     private javax.swing.JLabel jlblEscoamentoSanitario;
     private javax.swing.JLabel jlblEspecifiqueCobertura;
     private javax.swing.JLabel jlblEspecifiqueIluminacao;
@@ -1216,6 +3159,7 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jlblNumeroBanheiros;
     private javax.swing.JLabel jlblNumeroComodos;
     private javax.swing.JLabel jlblNumeroCozinhas;
+    private javax.swing.JLabel jlblNumeroDocumento;
     private javax.swing.JLabel jlblNumeroOutros;
     private javax.swing.JLabel jlblNumeroProcessoDemolicao;
     private javax.swing.JLabel jlblNumeroQuartos;
@@ -1226,10 +3170,10 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jlblPesquisa;
     private javax.swing.JLabel jlblQualPavimentacao;
     private javax.swing.JLabel jlblSelagem;
-    private javax.swing.JLabel jlblSituacaoImovel;
     private javax.swing.JLabel jlblTipoArea;
     private javax.swing.JLabel jlblTipoImovel;
     private javax.swing.JLabel jlblTipoLogradouro;
+    private javax.swing.JLabel jlblTipoPropriedade;
     private javax.swing.JLabel jlblTratamentoAgua;
     private javax.swing.JLabel jlblTratamentoLixo;
     private javax.swing.JLabel jlblUf;
@@ -1260,18 +3204,19 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jscpTextAreaMotivoDemolicao;
     private javax.swing.JSeparator jsepComposicaoRodape;
     private javax.swing.JSeparator jsepEnderecoRodape;
+    private javax.swing.JScrollPane jsepPrincipal;
     private javax.swing.JSeparator jsepServicosDemolicaoRodape;
     private javax.swing.JTable jtblPesquisa;
     private javax.swing.JTabbedPane jtbpFormulario;
     private javax.swing.JTabbedPane jtbpPrincipal;
     private javax.swing.JTextField jtxtAnexosDemolicao;
+    private javax.swing.JTextField jtxtAnexosImovel;
     private javax.swing.JTextField jtxtAtendidoPor;
     private javax.swing.JTextField jtxtAtualizadoPor;
     private javax.swing.JTextField jtxtBairro;
-    private javax.swing.JTextField jtxtCep;
+    private javax.swing.JFormattedTextField jtxtCep;
     private javax.swing.JTextField jtxtComplemento;
-    private javax.swing.JTextField jtxtConstrucao;
-    private javax.swing.JTextField jtxtDataAtualizacao;
+    private javax.swing.JFormattedTextField jtxtDataAtualizacao;
     private javax.swing.JFormattedTextField jtxtDataDemolicao;
     private javax.swing.JTextField jtxtEspecifiqueIluminacao;
     private javax.swing.JTextField jtxtExecutadaPor;
@@ -1281,13 +3226,13 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtxtLocalidade;
     private javax.swing.JTextField jtxtLogradouro;
     private javax.swing.JTextField jtxtLongitude;
-    private javax.swing.JTextField jtxtMunicipio;
     private javax.swing.JTextField jtxtNumero;
     private javax.swing.JTextField jtxtNumeroAnexos;
     private javax.swing.JTextField jtxtNumeroAreasServicos;
     private javax.swing.JTextField jtxtNumeroBanheiros;
     private javax.swing.JTextField jtxtNumeroComodos;
     private javax.swing.JTextField jtxtNumeroCozinhas;
+    private javax.swing.JTextField jtxtNumeroDocumento;
     private javax.swing.JTextField jtxtNumeroOutros;
     private javax.swing.JTextField jtxtNumeroProcessoDemolicao;
     private javax.swing.JTextField jtxtNumeroQuartos;
@@ -1301,4 +3246,5 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea jtxtaEspecifiquePiso;
     private javax.swing.JTextArea jtxtaMotivoDemolicao;
     // End of variables declaration//GEN-END:variables
+
 }

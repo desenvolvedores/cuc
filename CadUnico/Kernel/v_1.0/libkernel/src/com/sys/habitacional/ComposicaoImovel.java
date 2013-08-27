@@ -13,14 +13,16 @@ package com.sys.habitacional;
  */
 public class ComposicaoImovel {
     
-    private String type;
+    private java.lang.String type;
     private long id;
-    private String materialParede;
-    private String especifiqueParede;
-    private String materialPiso;
-    private String especifiquePiso;
-    private String materialCobertura;
-    private String especifiqueCobertura;
+    private long idImovel;
+    private java.lang.String construcao;
+    private java.lang.String materialParede;
+    private java.lang.String especifiqueParede;
+    private java.lang.String materialPiso;
+    private java.lang.String especifiquePiso;
+    private java.lang.String materialCobertura;
+    private java.lang.String especifiqueCobertura;
     private int numeroComodos;
     private int numeroSalas;
     private int numeroCozinhas;
@@ -30,11 +32,12 @@ public class ComposicaoImovel {
     private int numeroAnexos;
     private int numeroOutrosComodos;
     private int numeroServemDormitorio;
-    private Imovel imovel;
     
     public ComposicaoImovel() {
         this.type = "composicaoimovel";
         this.id = 0l;
+        this.idImovel = 0l;
+        this.construcao = "";
         this.materialParede = "";
         this.especifiqueParede = "";
         this.materialPiso = "";
@@ -50,31 +53,9 @@ public class ComposicaoImovel {
         this.numeroAnexos = 0;
         this.numeroOutrosComodos = 0;
         this.numeroServemDormitorio = 0;
-        this.imovel = null;
     }
     
-    public ComposicaoImovel(Imovel imovel) {
-        this.type = "composicaoimovel";
-        this.id = 0l;
-        this.materialParede = "";
-        this.especifiqueParede = "";
-        this.materialPiso = "";
-        this.especifiquePiso = "";
-        this.materialCobertura = "";
-        this.especifiqueCobertura = "";
-        this.numeroComodos = 0;
-        this.numeroSalas = 0;
-        this.numeroCozinhas = 0;
-        this.numeroQuartos = 0;
-        this.numeroBanheiros = 0;
-        this.numeroAreasServicos = 0;
-        this.numeroAnexos = 0;
-        this.numeroOutrosComodos = 0;
-        this.numeroServemDormitorio = 0;
-        this.imovel = imovel;
-    }
-    
-    public String getType() {
+    public java.lang.String getType() {
         return type;
     }
 
@@ -85,52 +66,68 @@ public class ComposicaoImovel {
     public void setId(long id) {
         this.id = id;
     }
+    
+    public long getIdImovel() {
+        return idImovel;
+    }
 
-    public String getMaterialParede() {
+    public void setIdImovel(long idImovel) {
+        this.idImovel = idImovel;
+    }
+    
+    public java.lang.String getConstrucao() {
+        return construcao;
+    }
+
+    public void setConstrucao(java.lang.String construcao) {
+        this.construcao = construcao;
+    }
+
+    public java.lang.String getMaterialParede() {
         return materialParede;
     }
 
-    public void setMaterialParede(String materialParede) {
+    public void setMaterialParede(java.lang.String materialParede) {
         this.materialParede = materialParede;
     }
 
-    public String getEspecifiqueParede() {
+    public java.lang.String getEspecifiqueParede() {
         return especifiqueParede;
     }
 
-    public void setEspecifiqueParede(String especifiqueParede) {
+    public void setEspecifiqueParede(java.lang.String especifiqueParede) {
         this.especifiqueParede = especifiqueParede;
     }
 
-    public String getMaterialPiso() {
+    public java.lang.String getMaterialPiso() {
         return materialPiso;
     }
 
-    public void setMaterialPiso(String materialPiso) {
+    public void setMaterialPiso(java.lang.String materialPiso) {
         this.materialPiso = materialPiso;
     }
 
-    public String getEspecifiquePiso() {
+    public java.lang.String getEspecifiquePiso() {
         return especifiquePiso;
     }
 
-    public void setEspecifiquePiso(String especifiquePiso) {
+    public void setEspecifiquePiso(java.lang.String especifiquePiso) {
         this.especifiquePiso = especifiquePiso;
     }
 
-    public String getMaterialCobertura() {
+    public java.lang.String getMaterialCobertura() {
         return materialCobertura;
     }
 
-    public void setMaterialCobertura(String materialCobertura) {
+    public void setMaterialCobertura(java.lang.String materialCobertura) {
         this.materialCobertura = materialCobertura;
     }
 
-    public String getEspecifiqueCobertura() {
+    public java.lang.String getEspecifiqueCobertura() {
         return especifiqueCobertura;
     }
 
-    public void setEspecifiqueCobertura(String especifiqueCobertura) {
+    public void setEspecifiqueCobertura(java.lang.String especifiqueCobertura) {
         this.especifiqueCobertura = especifiqueCobertura;
     }
 
@@ -204,14 +201,6 @@ public class ComposicaoImovel {
 
     public void setNumeroServemDormitorio(int numeroServemDormitorio) {
         this.numeroServemDormitorio = numeroServemDormitorio;
-    }
-
-    public Imovel getImovel() {
-        return imovel;
-    }
-
-    public void setImovel(Imovel imovel) {
-        this.imovel = imovel;
     }
     
 }

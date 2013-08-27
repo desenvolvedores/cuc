@@ -39,6 +39,7 @@ public class FormGerenciarGrupo extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jsepPrincipal = new javax.swing.JScrollPane();
         jtbpPrincipal = new javax.swing.JTabbedPane();
         jpnlPesquisa = new javax.swing.JPanel();
         jpnlPesquisar = new javax.swing.JPanel();
@@ -72,9 +73,15 @@ public class FormGerenciarGrupo extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
+        setResizable(true);
         setTitle("CadHab - Gerenciamento de Grupos de Usuário");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/group.png"))); // NOI18N
+        setMaximumSize(new java.awt.Dimension(800, 600));
+        setMinimumSize(new java.awt.Dimension(0, 0));
         setPreferredSize(new java.awt.Dimension(800, 600));
+
+        jsepPrincipal.setAutoscrolls(true);
+        jsepPrincipal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jtbpPrincipal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -312,15 +319,23 @@ public class FormGerenciarGrupo extends javax.swing.JInternalFrame {
 
         jtbpPrincipal.addTab("Grupo", jpnlFormulario);
 
+        jsepPrincipal.setViewportView(jtbpPrincipal);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtbpPrincipal)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jsepPrincipal)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtbpPrincipal)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jsepPrincipal)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -446,6 +461,7 @@ public class FormGerenciarGrupo extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jpnlTextAreaDescricao;
     private javax.swing.JScrollPane jscpTabelaPesquisa;
     private javax.swing.JScrollPane jscpTextAreaDescricao;
+    private javax.swing.JScrollPane jsepPrincipal;
     private javax.swing.JTable jtblPesquisa;
     private javax.swing.JTabbedPane jtbpPermissoes;
     private javax.swing.JTabbedPane jtbpPrincipal;

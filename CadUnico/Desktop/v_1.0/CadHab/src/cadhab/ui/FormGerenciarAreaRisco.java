@@ -39,6 +39,7 @@ public class FormGerenciarAreaRisco extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jscpPrincipal = new javax.swing.JScrollPane();
         jtbpPrincipal = new javax.swing.JTabbedPane();
         jpnlPesquisa = new javax.swing.JPanel();
         jpnlAreaRisco = new javax.swing.JPanel();
@@ -50,7 +51,14 @@ public class FormGerenciarAreaRisco extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
+        setResizable(true);
         setTitle("CadHab - Gerenciamento de Áreas de Risco");
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/hazard.png"))); // NOI18N
+        setMaximumSize(new java.awt.Dimension(700, 495));
+        setMinimumSize(new java.awt.Dimension(0, 0));
+
+        jscpPrincipal.setAutoscrolls(true);
+        jscpPrincipal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jtbpPrincipal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -85,15 +93,17 @@ public class FormGerenciarAreaRisco extends javax.swing.JInternalFrame {
 
         jtbpPrincipal.addTab("Área de Risco", jpnlAreaRisco);
 
+        jscpPrincipal.setViewportView(jtbpPrincipal);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtbpPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
+            .addComponent(jscpPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtbpPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+            .addComponent(jscpPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
         );
 
         pack();
@@ -106,6 +116,7 @@ public class FormGerenciarAreaRisco extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jpnlAreaRisco;
     private javax.swing.JPanel jpnlAreaRiscoWrapper;
     private javax.swing.JPanel jpnlPesquisa;
+    private javax.swing.JScrollPane jscpPrincipal;
     private javax.swing.JTabbedPane jtbpPrincipal;
     // End of variables declaration//GEN-END:variables
 }

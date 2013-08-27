@@ -39,10 +39,10 @@ public class JsonSelecionarServicoImovelPorImovel extends javax.servlet.http.Htt
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
                 com.sys.habitacional.ServicoImovel servico = jsonMgr.parseServicoImovel(json);
                 
-                if (servico.getId() > 0) {
+                if (servico.getIdImovel() > 0) {
                     
                     pgsql.sys.habitacional.ServicoImovelDAO servicoDAO = new pgsql.sys.habitacional.ServicoImovelDAO();
-                    servico = servicoDAO.selecionarServicoImovelPorIDImovel(servico.getImovel());
+                    servico = servicoDAO.selecionarServicoImovelPorIDImovel(servico.getIdImovel());
                     out.print(jsonMgr.parseJson(servico));
                     
                 } else {

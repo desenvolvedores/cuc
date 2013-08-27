@@ -17,7 +17,7 @@ public class Configuracao {
         com.sys.SystemSettings.systemPath = "C:\\Arquivos de Programas\\CadHab";
         com.sys.SystemSettings.attachmentPath = "W:";
         com.sys.DBSettings.systemPath = "C:\\Arquivos de Programas\\CadHab";
-        com.sys.DBSettings.systemDatabase = "cadunico";
+        com.sys.DBSettings.systemDatabase = "cadhab";
         com.sys.DBSettings.systemUsernameDB = "postgres";
         com.sys.DBSettings.systemPasswordDB = "123";
         

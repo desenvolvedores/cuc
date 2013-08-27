@@ -40,7 +40,7 @@ public class JsonProcurarNucleoPorSetor extends javax.servlet.http.HttpServlet {
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
                 com.sys.urbano.Nucleo nucleo = jsonMgr.parseNucleo(json);
                 
-                if (! nucleo.getNome().isEmpty()) {
+                if (! nucleo.getSetorCadastral().isEmpty()) {
                     
                     pgsql.sys.urbano.NucleoDAO nucleoDAO = new pgsql.sys.urbano.NucleoDAO();
                     java.util.List<com.sys.urbano.Nucleo> nucleos = nucleoDAO.procurarNucleoPorSetor(nucleo.getSetorCadastral());

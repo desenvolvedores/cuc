@@ -73,6 +73,78 @@ public class NucleoDAO {
         
     }
     
+    public java.util.List<com.sys.urbano.Nucleo> procurarNucleoPorSetor(java.lang.String setor) 
+            throws java.lang.ClassNotFoundException, java.sql.SQLException {
+        
+        java.lang.String sql = "SELECT * FROM fn_procurar_nucleo_por_setor(?)";
+        java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
+        stmt.setString(1, setor);
+        java.sql.ResultSet rs = stmt.executeQuery();
+        
+        return listar(rs);
+        
+    }
+    
+    public java.util.List<com.sys.urbano.Nucleo> procurarNucleoPorZona(java.lang.String zona) 
+            throws java.lang.ClassNotFoundException, java.sql.SQLException {
+        
+        java.lang.String sql = "SELECT * FROM fn_procurar_nucleo_por_zona(?)";
+        java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
+        stmt.setString(1, zona);
+        java.sql.ResultSet rs = stmt.executeQuery();
+        
+        return listar(rs);
+        
+    }
+    
+    public java.util.List<com.sys.urbano.Nucleo> procurarNucleoPorOrigem(java.lang.String origem) 
+            throws java.lang.ClassNotFoundException, java.sql.SQLException {
+        
+        java.lang.String sql = "SELECT * FROM fn_procurar_nucleo_por_origem(?)";
+        java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
+        stmt.setString(1, origem);
+        java.sql.ResultSet rs = stmt.executeQuery();
+        
+        return listar(rs);
+        
+    }
+    
+    public java.util.List<com.sys.urbano.Nucleo> procurarNucleoPorOcupacao(java.lang.String ocupacao) 
+            throws java.lang.ClassNotFoundException, java.sql.SQLException {
+        
+        java.lang.String sql = "SELECT * FROM fn_procurar_nucleo_por_ocupacao(?)";
+        java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
+        stmt.setString(1, ocupacao);
+        java.sql.ResultSet rs = stmt.executeQuery();
+        
+        return listar(rs);
+        
+    }
+    
+    public java.util.List<com.sys.urbano.Nucleo> procurarNucleoPorPadraoConstrutivo(java.lang.String padraoConstrutivo) 
+            throws java.lang.ClassNotFoundException, java.sql.SQLException {
+        
+        java.lang.String sql = "SELECT * FROM fn_procurar_nucleo_por_padrao_construtivo(?)";
+        java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
+        stmt.setString(1, padraoConstrutivo);
+        java.sql.ResultSet rs = stmt.executeQuery();
+        
+        return listar(rs);
+        
+    }
+    
+    public java.util.List<com.sys.urbano.Nucleo> procurarNucleoPorRendaPopulacao(java.lang.String rendaPopulacao) 
+            throws java.lang.ClassNotFoundException, java.sql.SQLException {
+        
+        java.lang.String sql = "SELECT * FROM fn_procurar_nucleo_por_renda_populacao(?)";
+        java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
+        stmt.setString(1, rendaPopulacao);
+        java.sql.ResultSet rs = stmt.executeQuery();
+        
+        return listar(rs);
+        
+    }
+    
     public java.util.List<com.sys.urbano.Nucleo> procurarNucleoExistentePorNome(com.sys.urbano.Nucleo nucleo) 
             throws java.lang.ClassNotFoundException, java.sql.SQLException {
         
@@ -80,18 +152,6 @@ public class NucleoDAO {
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.setString(1, nucleo.getNome());
         stmt.setLong(2, nucleo.getId());
-        java.sql.ResultSet rs = stmt.executeQuery();
-        
-        return listar(rs);
-        
-    }
-    
-    public java.util.List<com.sys.urbano.Nucleo> procurarNucleoPorSetor(java.lang.String setor) 
-            throws java.lang.ClassNotFoundException, java.sql.SQLException {
-        
-        java.lang.String sql = "SELECT * FROM fn_procurar_nucleo_por_setor(?)";
-        java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
-        stmt.setString(1, setor);
         java.sql.ResultSet rs = stmt.executeQuery();
         
         return listar(rs);

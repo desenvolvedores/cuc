@@ -39,6 +39,7 @@ public class FormGerenciarEmpresa extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jsepPrincipal = new javax.swing.JScrollPane();
         jtbpPrincipal = new javax.swing.JTabbedPane();
         jpnlPesquisa = new javax.swing.JPanel();
         jpnlPesquisar = new javax.swing.JPanel();
@@ -87,6 +88,11 @@ public class FormGerenciarEmpresa extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("CadHab - Gerenciamento de Empresas");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/building.png"))); // NOI18N
+        setMaximumSize(new java.awt.Dimension(65355, 65355));
+        setMinimumSize(new java.awt.Dimension(0, 0));
+
+        jsepPrincipal.setAutoscrolls(true);
+        jsepPrincipal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jtbpPrincipal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -150,7 +156,7 @@ public class FormGerenciarEmpresa extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jpnlPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jscpTabelaPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                .addComponent(jscpTabelaPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -233,7 +239,7 @@ public class FormGerenciarEmpresa extends javax.swing.JInternalFrame {
         jbtnGerenciarTelefones.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jbtnGerenciarTelefones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/manage.png"))); // NOI18N
         jpnlTelefones.add(jbtnGerenciarTelefones);
-        jbtnGerenciarTelefones.setBounds(710, 20, 25, 9);
+        jbtnGerenciarTelefones.setBounds(710, 20, 25, 25);
 
         jscpListaTelefones.setViewportView(jlstTelefones);
 
@@ -357,22 +363,30 @@ public class FormGerenciarEmpresa extends javax.swing.JInternalFrame {
         jpnlFormularioLayout.setVerticalGroup(
             jpnlFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnlFormularioLayout.createSequentialGroup()
-                .addComponent(jtbpFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
+                .addComponent(jtbpFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpnlRodape, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jtbpPrincipal.addTab("Empresa", jpnlFormulario);
 
+        jsepPrincipal.setViewportView(jtbpPrincipal);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtbpPrincipal)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jsepPrincipal)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtbpPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 2, Short.MAX_VALUE)
+                .addComponent(jsepPrincipal)
+                .addGap(0, 2, Short.MAX_VALUE))
         );
 
         pack();
@@ -440,6 +454,7 @@ public class FormGerenciarEmpresa extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jscpListaTelefones;
     private javax.swing.JScrollPane jscpTabelaDocumentos;
     private javax.swing.JScrollPane jscpTabelaPesquisa;
+    private javax.swing.JScrollPane jsepPrincipal;
     private javax.swing.JTable jtblDocumentos;
     private javax.swing.JTable jtblPesquisa;
     private javax.swing.JTabbedPane jtbpFormulario;

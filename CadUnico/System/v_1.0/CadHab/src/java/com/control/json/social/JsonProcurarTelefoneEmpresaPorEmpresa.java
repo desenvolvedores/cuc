@@ -37,12 +37,12 @@ public class JsonProcurarTelefoneEmpresaPorEmpresa extends javax.servlet.http.Ht
                 String json = request.getReader().readLine();
 
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
-                com.common.TelefoneEmpresa telefone = jsonMgr.parseTelefoneEmpresa(json);
+                com.sys.social.TelefoneEmpresa telefone = jsonMgr.parseTelefoneEmpresa(json);
                 
                 if (telefone.getIdEmpresa() > 0) {
                     
-                    pgsql.common.TelefoneEmpresaDAO telefoneDAO = new pgsql.common.TelefoneEmpresaDAO();
-                    java.util.List<com.common.TelefoneEmpresa> telefones = telefoneDAO.procurarTelefonesPorIDEmpresa(telefone.getIdEmpresa());
+                    pgsql.sys.social.TelefoneEmpresaDAO telefoneDAO = new pgsql.sys.social.TelefoneEmpresaDAO();
+                    java.util.List<com.sys.social.TelefoneEmpresa> telefones = telefoneDAO.procurarTelefonesPorIDEmpresa(telefone.getIdEmpresa());
                     out.print(jsonMgr.parseJsonListaTelefoneEmpresa(telefones));
                     
                 } else {

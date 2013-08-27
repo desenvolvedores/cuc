@@ -33,108 +33,45 @@ public class ObjectAtualizarFotoUsuario extends javax.servlet.http.HttpServlet {
             
             if (com.settings.GerenciadorAcesso.checkAuthentication(token, userKey)) {
                 
-                String id = request.getParameter("id");
-                
                 com.settings.Configuracao.iniciarConfiguracoes();
+                int idUsuario = Integer.parseInt(request.getParameter("id_usuario"));
                 
-                boolean multipart = org.apache.commons.fileupload.servlet.ServletFileUpload.isMultipartContent(request);
-                
-                if(multipart) {
+                if (idUsuario > 0) {
                     
-                    org.apache.commons.fileupload.FileItemFactory factory = new org.apache.commons.fileupload.disk.DiskFileItemFactory();
-                    org.apache.commons.fileupload.servlet.ServletFileUpload upload = new org.apache.commons.fileupload.servlet.ServletFileUpload(factory);
-                    java.util.List<org.apache.commons.fileupload.FileItem> items = (java.util.List<org.apache.commons.fileupload.FileItem>) upload.parseRequest(request);
+                    String pathDir = com.sys.SystemSettings.attachmentPath + "\\usuarios\\" + idUsuario;
+                    com.upload.FileManager fileMgr = new com.upload.FileManager();
+                    String fileName = fileMgr.salvar(pathDir, new java.io.BufferedInputStream(request.getInputStream()));
                     
-                    String target = com.sys.SystemSettings.systemPath + "\\usuarios\\" + id + "\\" + new java.util.Date().getTime() + "_" + items.get(0).getName();
-                    java.io.File uploadedFile = new java.io.File(target);
-                    items.get(0).write(uploadedFile);
-                    
-                    com.access.Usuario usuario = new com.access.Usuario();
-                    usuario.setId(Integer.parseInt(id));
-                    usuario.setFoto(target);
-                    
-                    pgsql.access.UsuarioDAO dao = new pgsql.access.UsuarioDAO();
+                    if (! fileName.isEmpty()) {
                         
-                    if (dao.alterarFotoUsuario(usuario) > 0) {
-                    
-                        com.db.DBConnection.getInstance().getConnection().commit();
-                        com.sys.Message message = new com.sys.Message();
-                        message.setCode(1);
-                        message.setMessage("A foto do usuário foi alterada com sucesso!");
-                        com.data.MessageManager messMgr = new com.data.MessageManager();
-                        out.print(messMgr.parseJson(message));
+                        String[] array = fileName.split("\\.");
                         
-                    } else {
+                        if (array[array.length - 1].toUpperCase().equals("JPG") || array[array.length - 1].toUpperCase().equals("JPEG")
+                                || array[array.length - 1].toUpperCase().equals("BMP") || array[array.length - 1].toUpperCase().equals("GIF")
+                                || array[array.length - 1].toUpperCase().equals("PNG")) {
                             
-                        com.db.DBConnection.getInstance().getConnection().rollback();
-                        com.sys.Message message = new com.sys.Message();
-                        message.setCode(2);
-                        message.setMessage("Não foi possível alterar a foto do usuário!");
-                        com.data.MessageManager messMgr = new com.data.MessageManager();
-                        out.print(messMgr.parseJson(message));
+                            com.access.Usuario usuario = new com.access.Usuario();
+                            usuario.setId(idUsuario);
+                            usuario.setFoto(fileName);
+
+                            com.util.JsonManager jsonMgr = new com.util.JsonManager();
+                            String input = jsonMgr.parseJson(usuario);
+
+                            com.conn.ConnectionManager.connect("/usuario/foto/alterar?auth_token=" + token + "&auth_key=" + userKey, input);
                             
+                        }
+                        
                     }
-                    
-                } else {
-                    out.println("Não");
+                
                 }
-                
-            } else {
-                
-                com.sys.Message message = new com.sys.Message();
-                message.setCode(0);
-                message.setMessage("O servidor não pôde obter os dados da autenticação do usuário para completar a requisição!");
-                com.data.MessageManager messMgr = new com.data.MessageManager();
-                out.print(messMgr.parseJson(message));
-                
+            
             }
             
         } catch (java.io.IOException ex) {
             
             ex.printStackTrace();
-            com.sys.Message message = new com.sys.Message();
-            message.setCode(0);
-            message.setMessage("O servidor não pôde obter os dados do usuário para efetuar o cadastro!");
-            com.data.MessageManager messMgr = new com.data.MessageManager();
-            out.print(messMgr.parseJson(message));
             
-        } catch (java.lang.ClassNotFoundException ex) {
-            
-            ex.printStackTrace();
-            com.sys.Message message = new com.sys.Message();
-            message.setCode(0);
-            message.setMessage("Não foi possível encontrar as configurações do banco de dados do CadUnico.<br />Contate o administrador do sistema!");
-            com.data.MessageManager messMgr = new com.data.MessageManager();
-            out.print(messMgr.parseJson(message));
-            
-        } catch (java.sql.SQLException ex) {
-            
-            ex.printStackTrace();
-            com.sys.Message message = new com.sys.Message();
-            message.setCode(0);
-            message.setMessage("O banco de dados retornou um erro durante o cadastro dos dados do usuário.<br />Contate o administrador do sistema!");
-            com.data.MessageManager messMgr = new com.data.MessageManager();
-            out.print(messMgr.parseJson(message));
-            
-        } catch (org.apache.commons.fileupload.FileUploadException ex) {
-            
-            ex.printStackTrace();
-            com.sys.Message message = new com.sys.Message();
-            message.setCode(0);
-            message.setMessage("Não foi possível processar as informações da foto.<br />Contate o administrador do sistema!");
-            com.data.MessageManager messMgr = new com.data.MessageManager();
-            out.print(messMgr.parseJson(message));
-            
-        } catch (java.lang.Exception ex) {
-            
-            ex.printStackTrace();
-            com.sys.Message message = new com.sys.Message();
-            message.setCode(0);
-            message.setMessage("Não foi possível salvar a foto no servidor.<br />Contate o administrador do sistema!");
-            com.data.MessageManager messMgr = new com.data.MessageManager();
-            out.print(messMgr.parseJson(message));
-            
-        } finally {            
+        } finally {       
             
             out.close();
             

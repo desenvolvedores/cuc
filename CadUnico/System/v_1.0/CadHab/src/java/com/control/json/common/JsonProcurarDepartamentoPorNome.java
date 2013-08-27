@@ -24,6 +24,7 @@ public class JsonProcurarDepartamentoPorNome extends javax.servlet.http.HttpServ
     protected void processRequest(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response)
             throws javax.servlet.ServletException, java.io.IOException {
         
+        request.setCharacterEncoding("UTF-8");
         java.io.PrintWriter out = response.getWriter();
         
         try {

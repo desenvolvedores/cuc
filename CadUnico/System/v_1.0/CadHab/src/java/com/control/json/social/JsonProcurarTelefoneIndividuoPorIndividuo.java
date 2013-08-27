@@ -37,12 +37,12 @@ public class JsonProcurarTelefoneIndividuoPorIndividuo extends javax.servlet.htt
                 String json = request.getReader().readLine();
 
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
-                com.common.TelefoneIndividuo telefone = jsonMgr.parseTelefoneIndividuo(json);
+                com.sys.social.TelefoneIndividuo telefone = jsonMgr.parseTelefoneIndividuo(json);
                 
                 if (telefone.getIdIndividuo() > 0) {
                     
-                    pgsql.common.TelefoneIndividuoDAO telefoneDAO = new pgsql.common.TelefoneIndividuoDAO();
-                    java.util.List<com.common.TelefoneIndividuo> telefones = telefoneDAO.procurarTelefonesPorIDIndividuo(telefone.getIdIndividuo());
+                    pgsql.sys.social.TelefoneIndividuoDAO telefoneDAO = new pgsql.sys.social.TelefoneIndividuoDAO();
+                    java.util.List<com.sys.social.TelefoneIndividuo> telefones = telefoneDAO.procurarTelefonesPorIDIndividuo(telefone.getIdIndividuo());
                     out.print(jsonMgr.parseJsonListaTelefoneIndividuo(telefones));
                     
                 } else {

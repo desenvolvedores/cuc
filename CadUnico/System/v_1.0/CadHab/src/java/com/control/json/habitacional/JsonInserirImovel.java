@@ -39,8 +39,7 @@ public class JsonInserirImovel extends javax.servlet.http.HttpServlet {
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
                 com.sys.habitacional.Imovel imovel = jsonMgr.parseImovel(json);
 
-                if (! imovel.getTipo().isEmpty() && imovel.getSituacao().isEmpty() && imovel.getPagaIPTU().isEmpty() 
-                        && imovel.getNucleo().getId() > 0) {
+                if (! imovel.getTipo().isEmpty() && imovel.getPagaIPTU().isEmpty() && imovel.getIdNucleo() > 0) {
 
                     pgsql.sys.habitacional.ImovelDAO imovelDAO = new pgsql.sys.habitacional.ImovelDAO();
 

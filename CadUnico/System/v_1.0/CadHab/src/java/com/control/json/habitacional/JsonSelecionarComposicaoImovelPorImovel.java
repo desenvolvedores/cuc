@@ -39,10 +39,10 @@ public class JsonSelecionarComposicaoImovelPorImovel extends javax.servlet.http.
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
                 com.sys.habitacional.ComposicaoImovel composicao = jsonMgr.parseComposicaoImovel(json);
                 
-                if (composicao.getId() > 0) {
+                if (composicao.getIdImovel() > 0) {
                     
                     pgsql.sys.habitacional.ComposicaoImovelDAO composicaoDAO = new pgsql.sys.habitacional.ComposicaoImovelDAO();
-                    composicao = composicaoDAO.selecionarComposicaoImovelPorIDImovel(composicao.getImovel());
+                    composicao = composicaoDAO.selecionarComposicaoImovelPorIDImovel(composicao.getIdImovel());
                     out.print(jsonMgr.parseJson(composicao));
                     
                 } else {

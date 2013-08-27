@@ -12,7 +12,6 @@ package cadhab.ui;
 public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     
     private char acao = ' ';
-    private boolean uploadDisponivel = true;
     private long idNucleoAtual = 0;
     private long idInfraestruturaAtual = 0;
     private long idProgramaAtual = 0;
@@ -60,6 +59,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jsepPrincipal = new javax.swing.JScrollPane();
         jtbpPrincipal = new javax.swing.JTabbedPane();
         jpnlPesquisa = new javax.swing.JPanel();
         jscpTabelaPesquisa = new javax.swing.JScrollPane();
@@ -81,9 +81,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblZona = new javax.swing.JLabel();
         jcbbZona = new javax.swing.JComboBox();
         jlblAreaTotal = new javax.swing.JLabel();
-        jtxtAreaTotal = new com.data.NumberField();
+        jtxtAreaTotal = new com.swing.NumberField();
         jlblAreaOcupada = new javax.swing.JLabel();
-        jtxtAreaOcupada = new com.data.NumberField();
+        jtxtAreaOcupada = new com.swing.NumberField();
         jlblOrigem = new javax.swing.JLabel();
         jcbbOrigem = new javax.swing.JComboBox();
         jlblOcupacao = new javax.swing.JLabel();
@@ -99,9 +99,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblPadraoConstrutivo = new javax.swing.JLabel();
         jcbbPadraoConstrutivo = new javax.swing.JComboBox();
         jlblNumeroDomicilios = new javax.swing.JLabel();
-        jtxtNumeroDomicilios = new com.data.NumberField();
+        jtxtNumeroDomicilios = new com.swing.NumberField();
         jlblPopulacaoEstimada = new javax.swing.JLabel();
-        jtxtPopulacaoEstimada = new com.data.NumberField();
+        jtxtPopulacaoEstimada = new com.swing.NumberField();
         jlblPopulacaoFonteDados = new javax.swing.JLabel();
         jcbbPopulacaoFonteDados = new javax.swing.JComboBox();
         jlblPopulacaoOutrasFontesDados = new javax.swing.JLabel();
@@ -172,7 +172,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblNumeroMatricula = new javax.swing.JLabel();
         jtxtNumeroMatricula = new javax.swing.JTextField();
         jlblDestinacaoAreas = new javax.swing.JLabel();
-        jtxtDestinacaoAreas = new com.data.NumberField();
+        jtxtDestinacaoAreas = new com.swing.NumberField();
         jlblDescDestinacaoAreas = new javax.swing.JLabel();
         jpnlTextAreaDescDestinacaoAreas = new javax.swing.JPanel();
         jscpTextAreaDescDestinacaoAreas = new javax.swing.JScrollPane();
@@ -244,17 +244,17 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblEstimativaRelocacao = new javax.swing.JLabel();
         jcbbEstimativaRelocacao = new javax.swing.JComboBox();
         jlblNumeroRemocaoDefinitiva = new javax.swing.JLabel();
-        jtxtNumeroRemocaoDefinitiva = new com.data.NumberField();
+        jtxtNumeroRemocaoDefinitiva = new com.swing.NumberField();
         jlblNumeroRemocaoProvisoria = new javax.swing.JLabel();
-        jtxtNumeroRemocaoProvisoria = new com.data.NumberField();
+        jtxtNumeroRemocaoProvisoria = new com.swing.NumberField();
         jlblReassentamento = new javax.swing.JLabel();
         jcbbReassentamento = new javax.swing.JComboBox();
         jlblEstimativaRemocao = new javax.swing.JLabel();
         jcbbEstimativaRemocao = new javax.swing.JComboBox();
         jlblNumeroMoradiasConstruir = new javax.swing.JLabel();
-        jtxtNumeroMoradiasConstruir = new com.data.NumberField();
+        jtxtNumeroMoradiasConstruir = new com.swing.NumberField();
         jlblNumeroMoradiasProvisorias = new javax.swing.JLabel();
-        jtxtNumeroMoradiasProvisorias = new com.data.NumberField();
+        jtxtNumeroMoradiasProvisorias = new com.swing.NumberField();
         jlblLocalDefinitivo = new javax.swing.JLabel();
         jtxtLocalDefinitivo = new javax.swing.JTextField();
         jlblMelhoriaHabitacional = new javax.swing.JLabel();
@@ -268,7 +268,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblDesconstrucao = new javax.swing.JLabel();
         jcbbDesconstrucao = new javax.swing.JComboBox();
         jlblNumeroMoradiasDemolir = new javax.swing.JLabel();
-        jtxtNumeroMoradiasDemolir = new com.data.NumberField();
+        jtxtNumeroMoradiasDemolir = new com.swing.NumberField();
         jlblMotivoDemolicao = new javax.swing.JLabel();
         jpnlTextAreaMotivoDemolicao = new javax.swing.JPanel();
         jscpTextAreaMotivoDemolicao = new javax.swing.JScrollPane();
@@ -288,9 +288,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jpnlAspectosAmbientais = new javax.swing.JPanel();
         jpnlAspectosAmbientaisWrapper = new javax.swing.JPanel();
         jlblAspAmbLatitude = new javax.swing.JLabel();
-        jtxtAspAmbLatitude = new com.data.NumberField();
+        jtxtAspAmbLatitude = new com.swing.NumberField();
         jlblAspAmbLongitude = new javax.swing.JLabel();
-        jtxtAspAmbLongitude = new com.data.NumberField();
+        jtxtAspAmbLongitude = new com.swing.NumberField();
         jlblAreaVerde = new javax.swing.JLabel();
         jcbbAreaVerde = new javax.swing.JComboBox();
         jlblAreaAgricola = new javax.swing.JLabel();
@@ -321,6 +321,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jpnlTabelaAreasRisco = new javax.swing.JPanel();
         jscpTabelaAreasRisco = new javax.swing.JScrollPane();
         jtblAreasRisco = new javax.swing.JTable();
+        jbtnGerenciarAreaRisco = new javax.swing.JButton();
         jpnlRodape = new javax.swing.JPanel();
         jpnlRodapeWrapper = new javax.swing.JPanel();
         jbtnNovo = new javax.swing.JButton();
@@ -335,6 +336,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("CadHab - Gerenciamento de Núcleos");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/centre.png"))); // NOI18N
+        setMinimumSize(new java.awt.Dimension(0, 0));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -352,6 +354,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 formInternalFrameOpened(evt);
             }
         });
+
+        jsepPrincipal.setAutoscrolls(true);
+        jsepPrincipal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jtbpPrincipal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtbpPrincipal.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -448,7 +453,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblFiltro.setBounds(570, 10, 70, 25);
 
         jcbbFiltro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jcbbFiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sem filtro", "Nome", "Setor cadastral", "Zona", "Origem" }));
+        jcbbFiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sem Filtro", "Nome", "Setor Cadastral", "Zona", "Origem", "Ocupação", "Padrão Construtivo", "Renda Populacional" }));
         jcbbFiltro.setNextFocusableComponent(jbtnPesquisar);
         jcbbFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -462,6 +467,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jbtnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/search.png"))); // NOI18N
         jbtnPesquisar.setText("Pesquisar");
         jbtnPesquisar.setNextFocusableComponent(jtblPesquisa);
+        jbtnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnPesquisarActionPerformed(evt);
+            }
+        });
         jbtnPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jbtnPesquisarKeyPressed(evt);
@@ -489,11 +499,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 .addGap(10, 10, 10)
                 .addComponent(jpnlPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jscpTabelaPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
+                .addComponent(jscpTabelaPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jtbpPrincipal.addTab("Pesquisa", null, jpnlPesquisa, "Pesquisa de Núcleos");
+        jtbpPrincipal.addTab("Pesquisa", null, jpnlPesquisa, "Pesquisa de núcleos");
 
         jpnlFormulario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jpnlFormulario.setNextFocusableComponent(jpnlDadosAssentamento);
@@ -1572,6 +1582,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jlblDestinacaoAreas.setBounds(10, 265, 120, 25);
 
         jtxtDestinacaoAreas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jtxtDestinacaoAreas.setText("0");
         jtxtDestinacaoAreas.setNextFocusableComponent(jtxtaDescDestinacaoAreas);
         jtxtDestinacaoAreas.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -3212,16 +3223,24 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtblAreasRisco.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtblAreasRisco.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "", "Código Setor", "Grau Risco", "Vegetação", "Processo de Instabilização", "Condições do Solo", "Existe Pavimentação", "Observações da Pavimentação", "Latitude", "Longitude"
             }
-        ));
-        jtblAreasRisco.setNextFocusableComponent(jbtnNovo);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtblAreasRisco.setNextFocusableComponent(jbtnGerenciarAreaRisco);
         jtblAreasRisco.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jtblAreasRiscoKeyPressed(evt);
@@ -3229,19 +3248,34 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         });
         jscpTabelaAreasRisco.setViewportView(jtblAreasRisco);
 
+        jbtnGerenciarAreaRisco.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jbtnGerenciarAreaRisco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/manage.png"))); // NOI18N
+        jbtnGerenciarAreaRisco.setNextFocusableComponent(jbtnNovo);
+        jbtnGerenciarAreaRisco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnGerenciarAreaRiscoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpnlTabelaAreasRiscoLayout = new javax.swing.GroupLayout(jpnlTabelaAreasRisco);
         jpnlTabelaAreasRisco.setLayout(jpnlTabelaAreasRiscoLayout);
         jpnlTabelaAreasRiscoLayout.setHorizontalGroup(
             jpnlTabelaAreasRiscoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnlTabelaAreasRiscoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jscpTabelaAreasRisco, javax.swing.GroupLayout.DEFAULT_SIZE, 928, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jscpTabelaAreasRisco, javax.swing.GroupLayout.PREFERRED_SIZE, 903, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbtnGerenciarAreaRisco, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpnlTabelaAreasRiscoLayout.setVerticalGroup(
             jpnlTabelaAreasRiscoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnlTabelaAreasRiscoLayout.createSequentialGroup()
-                .addComponent(jscpTabelaAreasRisco, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                .addGroup(jpnlTabelaAreasRiscoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jscpTabelaAreasRisco, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                    .addGroup(jpnlTabelaAreasRiscoLayout.createSequentialGroup()
+                        .addComponent(jbtnGerenciarAreaRisco)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -3373,20 +3407,28 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                 .addComponent(jtbpFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpnlRodape, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
-        jtbpPrincipal.addTab("Núcleo", null, jpnlFormulario, "Dados do Núcleo");
+        jtbpPrincipal.addTab("Núcleo", null, jpnlFormulario, "Dados do núcleo");
+
+        jsepPrincipal.setViewportView(jtbpPrincipal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtbpPrincipal)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jsepPrincipal)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtbpPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 3, Short.MAX_VALUE)
+                .addComponent(jsepPrincipal)
+                .addGap(0, 3, Short.MAX_VALUE))
         );
 
         pack();
@@ -3532,23 +3574,57 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbtnAnexosJudiciaisActionPerformed
 
     private void jbtnGerenciarRecursoMobilidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGerenciarRecursoMobilidadeActionPerformed
-        // TODO add your handling code here:
+        
+        if (FormPrincipal.fGerenciarRecursoMobilidade.getDesktopPane() == null) {
+            
+            this.getDesktopPane().add(FormPrincipal.fGerenciarRecursoMobilidade);
+            FormPrincipal.fGerenciarRecursoMobilidade.setVisible(true);
+            
+        } else {
+            
+            FormPrincipal.fGerenciarRecursoMobilidade.moveToFront();
+            
+        }
+        
     }//GEN-LAST:event_jbtnGerenciarRecursoMobilidadeActionPerformed
 
     private void jbtnGerenciarRecursoSocialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGerenciarRecursoSocialActionPerformed
-        // TODO add your handling code here:
+        
+        if (FormPrincipal.fGerenciarRecursoSocial.getDesktopPane() == null) {
+            
+            this.getDesktopPane().add(FormPrincipal.fGerenciarRecursoSocial);
+            FormPrincipal.fGerenciarRecursoSocial.setVisible(true);
+            
+        } else {
+            
+            FormPrincipal.fGerenciarRecursoSocial.moveToFront();
+            
+        }
+        
     }//GEN-LAST:event_jbtnGerenciarRecursoSocialActionPerformed
 
     private void jtxtAnexosTransporteColetivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtxtAnexosTransporteColetivoMouseClicked
-        // TODO add your handling code here:
+        
+        if (jtxtAnexosTransporteColetivo.isEnabled())
+            if (evt.getClickCount() == 2)
+                abrirSelecionadorAnexoTransporte();
+        
     }//GEN-LAST:event_jtxtAnexosTransporteColetivoMouseClicked
 
     private void jtxtAnexosZoneamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtxtAnexosZoneamentoMouseClicked
-        // TODO add your handling code here:
+        
+        if (jtxtAnexosZoneamento.isEnabled())
+            if (evt.getClickCount() == 2)
+                abrirSelecionadorAnexoZoneamento();
+        
     }//GEN-LAST:event_jtxtAnexosZoneamentoMouseClicked
 
     private void jtxtAnexosJudiciaisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtxtAnexosJudiciaisMouseClicked
-        // TODO add your handling code here:
+        
+        if (jtxtAnexosJudiciais.isEnabled())
+            if (evt.getClickCount() == 2)
+                abrirSelecionadorAnexoJudicial();
+        
     }//GEN-LAST:event_jtxtAnexosJudiciaisMouseClicked
 
     private void jtxtNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtxtNomeFocusLost
@@ -5046,6 +5122,140 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_jtblInstitucionalSocialMouseClicked
+
+    private void jbtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPesquisarActionPerformed
+        
+        pesquisar();
+        
+    }//GEN-LAST:event_jbtnPesquisarActionPerformed
+
+    private void jbtnGerenciarAreaRiscoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGerenciarAreaRiscoActionPerformed
+        
+        
+        
+    }//GEN-LAST:event_jbtnGerenciarAreaRiscoActionPerformed
+    
+    private void pesquisar() {
+        
+        try {
+            
+            String pesquisa = jtxtPesquisa.getText();
+            
+            if (jtxtPesquisa.getText().isEmpty()) {
+                
+                preencherTabelaPesquisa();
+                
+            } else {
+                
+                javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jtblPesquisa.getModel();
+                modelo.setNumRows(0);
+                
+                com.sys.urbano.Nucleo nucleo = new com.sys.urbano.Nucleo();
+                com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+                String input = "";
+                java.lang.Object output = null;
+                
+                switch (jcbbFiltro.getSelectedItem().toString()) {
+                    
+                    case "Sem Filtro": {
+                        nucleo.setNome("%" + pesquisa + "%");
+                        input = jsonMgr.parseJson(nucleo);
+                        output = cadhab.conn.ConnectionManager.connect("/nucleo/nome?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                    }
+                        break;
+                        
+                    case "Nome": {
+                        nucleo.setNome("%" + pesquisa + "%");
+                        input = jsonMgr.parseJson(nucleo);
+                        output = cadhab.conn.ConnectionManager.connect("/nucleo/nome?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                    }
+                        break;
+                        
+                    case "Setor Cadastral": {
+                        nucleo.setSetorCadastral("%" + pesquisa + "%");
+                        input = jsonMgr.parseJson(nucleo);
+                        output = cadhab.conn.ConnectionManager.connect("/nucleo/setor?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                    }
+                        break;
+                        
+                    case "Zona": {
+                        nucleo.setZona("%" + pesquisa + "%");
+                        input = jsonMgr.parseJson(nucleo);
+                        output = cadhab.conn.ConnectionManager.connect("/nucleo/zona?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                    }
+                        break;
+                        
+                    case "Origem": {
+                        nucleo.setOrigem("%" + pesquisa + "%");
+                        input = jsonMgr.parseJson(nucleo);
+                        output = cadhab.conn.ConnectionManager.connect("/nucleo/origem?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                    }
+                        break;
+                        
+                    case "Ocupação": {
+                        nucleo.setOcupacao("%" + pesquisa + "%");
+                        input = jsonMgr.parseJson(nucleo);
+                        output = cadhab.conn.ConnectionManager.connect("/nucleo/ocupacao?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                    }
+                        break;
+                        
+                    case "Padrão Construtivo": {
+                        nucleo.setPadraoConstrutivo("%" + pesquisa + "%");
+                        input = jsonMgr.parseJson(nucleo);
+                        output = cadhab.conn.ConnectionManager.connect("/nucleo/padrao_construtivo?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                    }
+                        break;
+                        
+                    case "Renda Populacional": {
+                        nucleo.setRendaPopulacao("%" + pesquisa + "%");
+                        input = jsonMgr.parseJson(nucleo);
+                        output = cadhab.conn.ConnectionManager.connect("/nucleo/renda_populacao?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                    }
+                        break;
+                    
+                }
+                
+                if (output != null) {
+                
+                    if (output instanceof java.util.List) {
+
+                        java.util.List<com.sys.urbano.Nucleo> nucleos = (java.util.List<com.sys.urbano.Nucleo>) output;
+
+                        for (com.sys.urbano.Nucleo cursor : nucleos) {
+
+                            modelo.addRow(new java.lang.Object[] { cursor.getId(), cursor.getNome(), cursor.getSetorCadastral(), cursor.getZona(), cursor.getOrigem(), com.data.NumberManager.formatIntegerPtbr(cursor.getNumeroDomicilios()), com.data.NumberManager.formatIntegerPtbr(cursor.getPopulacaoEstimada()), com.data.NumberManager.formatDecimalPtbr(cursor.getAreaTotal()), com.data.NumberManager.formatDecimalPtbr(cursor.getAreaOcupada()), cursor.getOcupacao(), cursor.getInicioOcupacao() });
+
+                        }
+
+                    }
+
+                }
+                
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+         
+        } catch (java.lang.Exception ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
+        
+    }
     
     private void criarNovo() {
         
@@ -5054,6 +5264,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtxtAreaOcupada.setText("0,000");
         jtxtNumeroDomicilios.setText("0");
         jtxtPopulacaoEstimada.setText("0");
+        jtxtDestinacaoAreas.setText("0");
         jtxtDestinacaoAreas.setText("0,000");
         jtxtAspAmbLatitude.setText("0,0");
         jtxtAspAmbLongitude.setText("0,0");
@@ -6075,10 +6286,10 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         
         try {
             
-            while (! uploadDisponivel)
+            while (! FormPrincipal.uploadDisponivel)
                 wait();
             
-            uploadDisponivel = false;
+            FormPrincipal.uploadDisponivel = false;
             
             cadhab.ui.FormPrincipal.jpgbProgresso.setMinimum(1);
             cadhab.ui.FormPrincipal.jpgbProgresso.setMaximum(files.length);
@@ -6096,7 +6307,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
             cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
             cadhab.ui.FormPrincipal.notificacao.setMessage("Os anexos de transporte do núcleo foram enviados com sucesso!");
-            uploadDisponivel = true;
+            FormPrincipal.uploadDisponivel = true;
             notifyAll();
             
         } catch (java.net.MalformedURLException ex) {
@@ -6104,9 +6315,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             ex.printStackTrace();
             cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
             cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
-            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 0);
             cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos de transporte do núcleo para o servidor!");
-            uploadDisponivel = true;
+            FormPrincipal.uploadDisponivel = true;
             notifyAll();
             javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
             
@@ -6115,9 +6326,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             ex.printStackTrace();
             cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
             cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
-            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 0);
             cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos de transporte do núcleo para o servidor!");
-            uploadDisponivel = true;
+            FormPrincipal.uploadDisponivel = true;
             notifyAll();
             javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
             
@@ -6126,9 +6337,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             ex.printStackTrace();
             cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
             cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
-            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 0);
             cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos de transporte do núcleo para o servidor!");
-            uploadDisponivel = true;
+            FormPrincipal.uploadDisponivel = true;
             notifyAll();
             javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
          
@@ -6137,9 +6348,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             ex.printStackTrace();
             cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
             cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
-            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 0);
             cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos de transporte do núcleo para o servidor!");
-            uploadDisponivel = true;
+            FormPrincipal.uploadDisponivel = true;
             notifyAll();
             javax.swing.JOptionPane.showMessageDialog(this, "Ocorreu um erro inesperado no processo de controle de upload!", "CadHab", 0);
             
@@ -6148,9 +6359,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             ex.printStackTrace();
             cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
             cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
-            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 0);
             cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos de transporte do núcleo para o servidor!");
-            uploadDisponivel = true;
+            FormPrincipal.uploadDisponivel = true;
             notifyAll();
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
             
@@ -6183,10 +6394,10 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         
         try {
             
-            while (! uploadDisponivel)
+            while (! FormPrincipal.uploadDisponivel)
                 wait();
             
-            uploadDisponivel = false;
+            FormPrincipal.uploadDisponivel = false;
             
             cadhab.ui.FormPrincipal.jpgbProgresso.setMinimum(1);
             cadhab.ui.FormPrincipal.jpgbProgresso.setMaximum(files.length);
@@ -6204,7 +6415,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
             cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
             cadhab.ui.FormPrincipal.notificacao.setMessage("Os anexos de zoneamento do núcleo foram enviados com sucesso!");
-            uploadDisponivel = true;
+            FormPrincipal.uploadDisponivel = true;
             notifyAll();
             
         } catch (java.net.MalformedURLException ex) {
@@ -6212,9 +6423,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             ex.printStackTrace();
             cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
             cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
-            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 0);
             cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos de zoneamento do núcleo para o servidor!");
-            uploadDisponivel = true;
+            FormPrincipal.uploadDisponivel = true;
             notifyAll();
             javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
             
@@ -6223,9 +6434,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             ex.printStackTrace();
             cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
             cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
-            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 0);
             cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos de zoneamento do núcleo para o servidor!");
-            uploadDisponivel = true;
+            FormPrincipal.uploadDisponivel = true;
             notifyAll();
             javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
             
@@ -6234,9 +6445,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             ex.printStackTrace();
             cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
             cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
-            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 0);
             cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos de zoneamento do núcleo para o servidor!");
-            uploadDisponivel = true;
+            FormPrincipal.uploadDisponivel = true;
             notifyAll();
             javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
          
@@ -6245,9 +6456,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             ex.printStackTrace();
             cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
             cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
-            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 0);
             cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos de zoneamento do núcleo para o servidor!");
-            uploadDisponivel = true;
+            FormPrincipal.uploadDisponivel = true;
             notifyAll();
             javax.swing.JOptionPane.showMessageDialog(this, "Ocorreu um erro inesperado no processo de controle de upload!", "CadHab", 0);
             
@@ -6256,9 +6467,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             ex.printStackTrace();
             cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
             cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
-            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 0);
             cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos de zoneamento do núcleo para o servidor!");
-            uploadDisponivel = true;
+            FormPrincipal.uploadDisponivel = true;
             notifyAll();
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
             
@@ -6291,10 +6502,10 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         
         try {
             
-            while (! uploadDisponivel)
+            while (! FormPrincipal.uploadDisponivel)
                 wait();
             
-            uploadDisponivel = false;
+            FormPrincipal.uploadDisponivel = false;
             
             cadhab.ui.FormPrincipal.jpgbProgresso.setMinimum(1);
             cadhab.ui.FormPrincipal.jpgbProgresso.setMaximum(files.length);
@@ -6312,7 +6523,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
             cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
             cadhab.ui.FormPrincipal.notificacao.setMessage("Os anexos judiciais do núcleo foram enviados com sucesso!");
-            uploadDisponivel = true;
+            FormPrincipal.uploadDisponivel = true;
             notifyAll();
             
         } catch (java.net.MalformedURLException ex) {
@@ -6320,9 +6531,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             ex.printStackTrace();
             cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
             cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
-            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 0);
             cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos judiciais do núcleo para o servidor!");
-            uploadDisponivel = true;
+            FormPrincipal.uploadDisponivel = true;
             notifyAll();
             javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
             
@@ -6331,9 +6542,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             ex.printStackTrace();
             cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
             cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
-            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 0);
             cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos judiciais do núcleo para o servidor!");
-            uploadDisponivel = true;
+            FormPrincipal.uploadDisponivel = true;
             notifyAll();
             javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
             
@@ -6342,9 +6553,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             ex.printStackTrace();
             cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
             cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
-            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 0);
             cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos judiciais do núcleo para o servidor!");
-            uploadDisponivel = true;
+            FormPrincipal.uploadDisponivel = true;
             notifyAll();
             javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
          
@@ -6353,9 +6564,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             ex.printStackTrace();
             cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
             cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
-            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 0);
             cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos judiciais do núcleo para o servidor!");
-            uploadDisponivel = true;
+            FormPrincipal.uploadDisponivel = true;
             notifyAll();
             javax.swing.JOptionPane.showMessageDialog(this, "Ocorreu um erro inesperado no processo de controle de upload!", "CadHab", 0);
             
@@ -6364,9 +6575,9 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
             ex.printStackTrace();
             cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
             cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
-            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 0);
             cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar todos os anexos judiciais do núcleo para o servidor!");
-            uploadDisponivel = true;
+            FormPrincipal.uploadDisponivel = true;
             notifyAll();
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
             
@@ -7520,6 +7731,11 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
                     this.doDefaultCloseAction();
                 }
                     break;
+                    
+                case java.awt.event.KeyEvent.VK_F2: {
+                    pesquisar();
+                }
+                    break;
                 
                 case java.awt.event.KeyEvent.VK_F5: {
                     preencherTabelaPesquisa();
@@ -7612,7 +7828,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
         jtxtProprietario.setText("");
         jtxtDecretoAprovacao.setText("");
         jtxtNumeroMatricula.setText("");
-        jtxtDestinacaoAreas.setText("");
+        jtxtDestinacaoAreas.setText("0");
         jtxtAnexosZoneamento.setText("");
         jtxtNumeroProcesso.setText("");
         jtxtNumeroOrdem.setText("");
@@ -8343,6 +8559,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbtnExcluir;
     private javax.swing.JButton jbtnExcluirInstitucional;
     private javax.swing.JButton jbtnExcluirViaPublica;
+    private javax.swing.JButton jbtnGerenciarAreaRisco;
     private javax.swing.JButton jbtnGerenciarRecursoMobilidade;
     private javax.swing.JButton jbtnGerenciarRecursoSocial;
     private javax.swing.JButton jbtnLimpar;
@@ -8548,6 +8765,7 @@ public class FormGerenciarNucleo extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jscpTextAreaObsJudiciais;
     private javax.swing.JScrollPane jscpTextAreaObsPropriedade;
     private javax.swing.JScrollPane jscpTextAreaProcessosDemolicao;
+    private javax.swing.JScrollPane jsepPrincipal;
     private javax.swing.JTable jtblAreasRisco;
     private javax.swing.JTable jtblInstitucionalSocial;
     private javax.swing.JTable jtblPesquisa;

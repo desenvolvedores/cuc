@@ -39,6 +39,7 @@ public class FormGerenciarFamilia extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jsepPrincipal = new javax.swing.JScrollPane();
         jpnlPrincipal = new javax.swing.JPanel();
         jpnlTabelaPesquisa = new javax.swing.JPanel();
         jscpTabelaPesquisa = new javax.swing.JScrollPane();
@@ -65,8 +66,12 @@ public class FormGerenciarFamilia extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
+        setResizable(true);
         setTitle("CadHab - Gerenciamento de Famílias");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/family.png"))); // NOI18N
+        setMinimumSize(new java.awt.Dimension(0, 0));
+
+        jsepPrincipal.setAutoscrolls(true);
 
         jpnlPrincipal.setLayout(null);
 
@@ -192,15 +197,17 @@ public class FormGerenciarFamilia extends javax.swing.JInternalFrame {
         jpnlPrincipal.add(jbtnExcluir);
         jbtnExcluir.setBounds(650, 450, 120, 30);
 
+        jsepPrincipal.setViewportView(jpnlPrincipal);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnlPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 784, Short.MAX_VALUE)
+            .addComponent(jsepPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 784, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnlPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
+            .addComponent(jsepPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
         );
 
         pack();
@@ -221,6 +228,7 @@ public class FormGerenciarFamilia extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jpnlPrincipal;
     private javax.swing.JPanel jpnlTabelaPesquisa;
     private javax.swing.JScrollPane jscpTabelaPesquisa;
+    private javax.swing.JScrollPane jsepPrincipal;
     private javax.swing.JSeparator jsepRodape;
     private javax.swing.JTable jtblPesquisa;
     private javax.swing.JTextField jtxtAtendente;

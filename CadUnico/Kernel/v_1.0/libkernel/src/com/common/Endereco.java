@@ -14,29 +14,27 @@ package com.common;
 public class Endereco {
     
     protected long id;
+    protected long idMunicipio;
     protected String tipoLogradouro;
     protected String logradouro;
     protected String numero;
     protected String complemento;
     protected String cep;
     protected String bairro;
-    protected String municipio;
-    protected String uf;
-    private double latitude;
-    private double longitude;
+    protected String latitude;
+    protected String longitude;
     
     public Endereco() {
         this.id = 0l;
+        this.idMunicipio = 0l;
         this.tipoLogradouro = "";
         this.logradouro = "";
         this.numero = "";
         this.complemento = "";
         this.cep = "";
         this.bairro = "";
-        this.municipio = "";
-        this.uf = "";
-        this.latitude = 0.00d;
-        this.longitude = 0.00d;
+        this.latitude = "";
+        this.longitude = "";
     }
 
     public long getId() {
@@ -45,6 +43,14 @@ public class Endereco {
 
     public void setId(long id) {
         this.id = id;
+    }
+    
+    public long getIdMunicipio() {
+        return idMunicipio;
+    }
+
+    public void setIdMunicipio(long idMunicipio) {
+        this.idMunicipio = idMunicipio;
     }
 
     public String getTipoLogradouro() {
@@ -95,35 +101,19 @@ public class Endereco {
         this.bairro = bairro;
     }
 
-    public String getMunicipio() {
-        return municipio;
-    }
-
-    public void setMunicipio(String municipio) {
-        this.municipio = municipio;
-    }
-
-    public String getUF() {
-        return uf;
-    }
-
-    public void setUF(String uf) {
-        this.uf = uf;
-    }
-
-    public double getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
-    public double getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
     

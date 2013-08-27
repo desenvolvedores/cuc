@@ -52,6 +52,14 @@ public class DateManager {
         d.setDate(date.getDate());
         return d;
     }
+    
+    public java.util.Date parseStringDate(String date) {
+        java.util.Date d = new java.util.Date();
+        d.setYear(Integer.parseInt(date.substring(8, 10)));
+        d.setMonth(Integer.parseInt(date.substring(3, 5)));
+        d.setDate(Integer.parseInt(date.substring(0, 2)));
+        return d;
+    }
 
     public String parseDateToSQL(String date) {
         return date.substring(6, 10) + "-" + date.substring(3, 5) + "-" + date.substring(0, 2);

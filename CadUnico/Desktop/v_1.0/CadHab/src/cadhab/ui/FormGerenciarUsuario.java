@@ -12,6 +12,7 @@ package cadhab.ui;
 public class FormGerenciarUsuario extends javax.swing.JInternalFrame {
     
     private char acao = ' ';
+    private int idUsuarioAtual = 0;
 
     /**
      * Creates new form FormGerenciarUsuario
@@ -46,6 +47,7 @@ public class FormGerenciarUsuario extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jsepPrincipal = new javax.swing.JScrollPane();
         jpnlPrincipal = new javax.swing.JPanel();
         jlblPesquisa = new javax.swing.JLabel();
         jtxtPesquisa = new javax.swing.JTextField();
@@ -82,8 +84,11 @@ public class FormGerenciarUsuario extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
+        setResizable(true);
         setTitle("CadHab - Gerenciamento de Usuários");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/user.png"))); // NOI18N
+        setMaximumSize(new java.awt.Dimension(800, 613));
+        setMinimumSize(new java.awt.Dimension(0, 0));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -102,6 +107,8 @@ public class FormGerenciarUsuario extends javax.swing.JInternalFrame {
                 formInternalFrameOpened(evt);
             }
         });
+
+        jsepPrincipal.setAutoscrolls(true);
 
         jpnlPrincipal.setLayout(null);
 
@@ -127,7 +134,7 @@ public class FormGerenciarUsuario extends javax.swing.JInternalFrame {
         jlblFiltro.setBounds(410, 10, 70, 25);
 
         jcbbFiltro.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jcbbFiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sem filtro", "Usuário", "Nome", "E-mail" }));
+        jcbbFiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sem Filtro", "Usuário", "Nome", "E-mail" }));
         jcbbFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jcbbFiltroKeyPressed(evt);
@@ -457,15 +464,17 @@ public class FormGerenciarUsuario extends javax.swing.JInternalFrame {
         jpnlPrincipal.add(jbtnExcluir);
         jbtnExcluir.setBounds(650, 530, 120, 30);
 
+        jsepPrincipal.setViewportView(jpnlPrincipal);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnlPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 784, Short.MAX_VALUE)
+            .addComponent(jsepPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 784, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnlPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jsepPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
         );
 
         pack();
@@ -658,10 +667,14 @@ public class FormGerenciarUsuario extends javax.swing.JInternalFrame {
 
     private void jlblFotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblFotoMouseClicked
         
-        if (evt.getClickCount() == 2) {
-            
-            alterarFoto();
-            
+        if (jlblFoto.isEnabled()) {
+        
+            if (evt.getClickCount() == 2) {
+
+                abrirSelecionadorFoto();
+
+            }
+        
         }
         
     }//GEN-LAST:event_jlblFotoMouseClicked
@@ -770,10 +783,13 @@ public class FormGerenciarUsuario extends javax.swing.JInternalFrame {
         
         try {
             
-            java.lang.Object output = null;
             String pesquisa = jtxtPesquisa.getText();
             
             if (! pesquisa.isEmpty()) {
+                
+                preencherTabelaPesquisa();
+                
+            } else {
                 
                 javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jtblPesquisa.getModel();
                 modelo.setNumRows(0);
@@ -781,10 +797,11 @@ public class FormGerenciarUsuario extends javax.swing.JInternalFrame {
                 com.access.Usuario usuario = new com.access.Usuario();
                 com.util.JsonManager jsonMgr = new com.util.JsonManager();
                 String input = "";
+                java.lang.Object output = null;
                 
                 switch (jcbbFiltro.getSelectedItem().toString()) {
                     
-                    case "Sem filtro": {
+                    case "Sem Filtro": {
                         usuario.setNome(pesquisa);
                         input = jsonMgr.parseJson(usuario);
                         output = cadhab.conn.ConnectionManager.connect("/usuarios/completo/nome?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
@@ -830,10 +847,6 @@ public class FormGerenciarUsuario extends javax.swing.JInternalFrame {
 
                 }
             
-            } else {
-                
-                javax.swing.JOptionPane.showMessageDialog(this, "Digite alguma palavra para efetuar a pesquisa no sistema!", "CadHab", 2);
-                
             }
             
         } catch (java.net.MalformedURLException ex) {
@@ -950,6 +963,7 @@ public class FormGerenciarUsuario extends javax.swing.JInternalFrame {
                                                     desabilitarBotoes();
                                                     jbtnNovo.setEnabled(true);
                                                     preencherTabelaPesquisa();
+                                                    idUsuarioAtual = 0;
                                                     acao = ' ';
 
                                                 }
@@ -1102,6 +1116,7 @@ public class FormGerenciarUsuario extends javax.swing.JInternalFrame {
                                                 desabilitarBotoes();
                                                 jbtnNovo.setEnabled(true);
                                                 preencherTabelaPesquisa();
+                                                idUsuarioAtual = 0;
                                                 acao = ' ';
 
                                             }
@@ -1204,6 +1219,7 @@ public class FormGerenciarUsuario extends javax.swing.JInternalFrame {
                                     desabilitarBotoes();
                                     jbtnNovo.setEnabled(true);
                                     preencherTabelaPesquisa();
+                                    idUsuarioAtual = 0;
                                     acao = ' ';
 
                                 }
@@ -1274,6 +1290,7 @@ public class FormGerenciarUsuario extends javax.swing.JInternalFrame {
                     if (output instanceof com.access.Usuario) {
                          
                         user = (com.access.Usuario) output;
+                        idUsuarioAtual = user.getId();
                         jtxtUsuario.setText(user.getUsuario());
                         jpwdSenha.setText(user.getSenha());
                         jpwdConfirmeSenha.setText(user.getSenha());
@@ -1282,6 +1299,11 @@ public class FormGerenciarUsuario extends javax.swing.JInternalFrame {
                         jcbbDepartamento.setSelectedItem(user.getDepartamento().getSigla() + " - " + user.getDepartamento().getNome());
                         jcbbGrupo.setSelectedItem(user.getGrupo().getNome());
                         jcbbAtivo.setSelectedItem(user.getAtivo());
+                        
+                        System.out.println(user.getFoto());
+                        java.awt.Image imagem = java.awt.Toolkit.getDefaultToolkit().getImage(getClass().getResource(user.getFoto()));
+                        javax.swing.ImageIcon foto = new javax.swing.ImageIcon(rescaleByWidth(imagem, 140));
+                        jlblFoto.setIcon(foto);
                             
                         if (user.getUsuario().equals("root") && ! cadhab.CadHab.usuario.getUsuario().equals("root")) {
                                 
@@ -1336,40 +1358,125 @@ public class FormGerenciarUsuario extends javax.swing.JInternalFrame {
         
     }
     
-    private void alterarFoto() {
+    private void abrirSelecionadorFoto() {
+        
+        final java.io.File[] FILES = com.swing.FileChooserManager.documentOpenerChooser(this, null);
+        
+        if (FILES != null) {
+            
+            new java.lang.Thread() {
+
+                @Override
+                public void run() {
+
+                    alterarFoto(FILES);
+
+                }
+
+            }.start();
+        
+        }
+        
+    }
+    
+    private synchronized void alterarFoto(java.io.File[] files) {
         
         try {
             
-            if (jlblFoto.isEnabled()) {
+            while (! FormPrincipal.uploadDisponivel)
+                wait();
             
-                FormBrowser form = new FormBrowser(null, true);
-                form.carregarPagina(com.sys.SystemSettings.url + "/web/object" + "/upload_foto_usuario.jsp?id=" + jtblPesquisa.getModel().getValueAt(jtblPesquisa.getSelectedRow(), 0).toString() + "&auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey());
-                form.setVisible(true);
-                
-            }
+            FormPrincipal.uploadDisponivel = false;
+            
+            cadhab.ui.FormPrincipal.jpgbProgresso.setMinimum(1);
+            cadhab.ui.FormPrincipal.jpgbProgresso.setMaximum(1);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Enviando foto de usuário...");
+            
+            cadhab.conn.ConnectionManager.upload("/usuario/foto/atualizar?id_usuario=" + idUsuarioAtual + "&auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), files[0].getAbsolutePath());
+            
+            cadhab.ui.FormPrincipal.jpgbProgresso.setValue(1);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 1);
+            cadhab.ui.FormPrincipal.notificacao.setMessage("A foto do usuário foi enviada com sucesso!");
+            FormPrincipal.uploadDisponivel = true;
+            notifyAll();
             
         } catch (java.net.MalformedURLException ex) {
             
             ex.printStackTrace();
+            cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 0);
+            cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar a foto do usuário para o servidor!");
+            FormPrincipal.uploadDisponivel = true;
+            notifyAll();
             javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
             
         } catch (java.net.ConnectException ex) {
             
             ex.printStackTrace();
+            cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 0);
+            cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar a foto do usuário para o servidor!");
+            FormPrincipal.uploadDisponivel = true;
+            notifyAll();
             javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
             
         } catch (java.io.IOException ex) {
             
             ex.printStackTrace();
-            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações para/do servidor!", "CadHab", 0);
+            cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 0);
+            cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar a foto do usuário para o servidor!");
+            FormPrincipal.uploadDisponivel = true;
+            notifyAll();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+         
+        } catch (java.lang.InterruptedException ex) {
+            
+            ex.printStackTrace();
+            cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 0);
+            cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar a foto do usuário para o servidor!");
+            FormPrincipal.uploadDisponivel = true;
+            notifyAll();
+            javax.swing.JOptionPane.showMessageDialog(this, "Ocorreu um erro inesperado no processo de controle de upload!", "CadHab", 0);
             
         } catch (java.lang.Exception ex) {
             
+            ex.printStackTrace();
+            cadhab.ui.FormPrincipal.jpgbProgresso.setValue(0);
+            cadhab.ui.FormPrincipal.jlblTarefa.setText("Pronto.");
+            cadhab.ui.FormPrincipal.notificacao.setMessageType((short) 0);
+            cadhab.ui.FormPrincipal.notificacao.setMessage("Não foi possível enviar a foto do usuário para o servidor!");
+            FormPrincipal.uploadDisponivel = true;
+            notifyAll();
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
             
         }
         
     }
+    
+    public java.awt.Image rescaleByWidth(java.awt.Image img, int newWidth) {  
+        //Calcula a proporção para descobrir a nova altura  
+        double proportion = newWidth / (double) img.getWidth(null);  
+        int newHeight = (int) (img.getHeight(null) * proportion);  
+
+        //Cria a imagem de destino          
+        java.awt.image.BufferedImage newImage = new java.awt.image.BufferedImage(newWidth, newHeight, java.awt.image.BufferedImage.TYPE_INT_ARGB);          
+
+        //Desenha sobre ela usando filtro Bilinear (o java não possui trinilear ou anisotrópica).  
+        java.awt.Graphics2D g2d = newImage.createGraphics();          
+        g2d.setRenderingHint(java.awt.RenderingHints.KEY_INTERPOLATION, java.awt.RenderingHints.VALUE_INTERPOLATION_BILINEAR);  
+        g2d.drawImage(img, 0, 0, newWidth, newHeight, null);  
+        g2d.dispose();  
+
+        return newImage;
+        
+    } 
     
     private void atalho(java.awt.event.KeyEvent evt) {
         
@@ -1542,6 +1649,7 @@ public class FormGerenciarUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JPasswordField jpwdConfirmeSenha;
     private javax.swing.JPasswordField jpwdSenha;
     private javax.swing.JScrollPane jscpTabelaPesquisa;
+    private javax.swing.JScrollPane jsepPrincipal;
     private javax.swing.JSeparator jsepRodape;
     private javax.swing.JTable jtblPesquisa;
     private javax.swing.JTextField jtxtEmail;

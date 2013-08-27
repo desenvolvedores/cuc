@@ -49,6 +49,33 @@ public class ConnectionManager {
             return mensagem;
         }
         
+        if (objectReceived.contains("\"type\":\"pais\"")) {
+            
+            if (objectReceived.contains("[") && objectReceived.contains("]"))
+                return jsonMgr.parseListaPais(objectReceived);
+            else
+                return jsonMgr.parsePais(objectReceived);
+            
+        }
+        
+        if (objectReceived.contains("\"type\":\"estado\"")) {
+            
+            if (objectReceived.contains("[") && objectReceived.contains("]"))
+                return jsonMgr.parseListaEstado(objectReceived);
+            else
+                return jsonMgr.parseEstado(objectReceived);
+            
+        }
+        
+        if (objectReceived.contains("\"type\":\"municipio\"")) {
+            
+            if (objectReceived.contains("[") && objectReceived.contains("]"))
+                return jsonMgr.parseListaMunicipio(objectReceived);
+            else
+                return jsonMgr.parseMunicipio(objectReceived);
+            
+        }
+        
         if (objectReceived.contains("\"type\":\"usuario\"")) {
             
             if (objectReceived.contains("[") && objectReceived.contains("]"))

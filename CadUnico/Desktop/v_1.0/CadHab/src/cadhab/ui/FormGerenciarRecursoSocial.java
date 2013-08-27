@@ -43,6 +43,7 @@ public class FormGerenciarRecursoSocial extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jsepPrincipal = new javax.swing.JScrollPane();
         jpnlPrincipal = new javax.swing.JPanel();
         jpnlTabelaPesquisa = new javax.swing.JPanel();
         jscpTabelaPesquisa = new javax.swing.JScrollPane();
@@ -58,9 +59,14 @@ public class FormGerenciarRecursoSocial extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
+        setResizable(true);
         setTitle("CadHab - Gerenciamento de Recursos Sociais");
         setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/building.png"))); // NOI18N
+        setMaximumSize(new java.awt.Dimension(700, 408));
+        setMinimumSize(new java.awt.Dimension(0, 0));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
             public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
@@ -75,9 +81,10 @@ public class FormGerenciarRecursoSocial extends javax.swing.JInternalFrame {
             public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
                 formInternalFrameOpened(evt);
             }
-            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
-            }
         });
+
+        jsepPrincipal.setAutoscrolls(true);
+        jsepPrincipal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jpnlPrincipal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jpnlPrincipal.setLayout(null);
@@ -237,15 +244,17 @@ public class FormGerenciarRecursoSocial extends javax.swing.JInternalFrame {
         jpnlPrincipal.add(jbtnExcluir);
         jbtnExcluir.setBounds(550, 330, 120, 30);
 
+        jsepPrincipal.setViewportView(jpnlPrincipal);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnlPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
+            .addComponent(jsepPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnlPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jsepPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
         );
 
         pack();
@@ -788,6 +797,7 @@ public class FormGerenciarRecursoSocial extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jpnlPrincipal;
     private javax.swing.JPanel jpnlTabelaPesquisa;
     private javax.swing.JScrollPane jscpTabelaPesquisa;
+    private javax.swing.JScrollPane jsepPrincipal;
     private javax.swing.JSeparator jsepRodape;
     private javax.swing.JTable jtblPesquisa;
     private javax.swing.JTextField jtxtNomeRecurso;

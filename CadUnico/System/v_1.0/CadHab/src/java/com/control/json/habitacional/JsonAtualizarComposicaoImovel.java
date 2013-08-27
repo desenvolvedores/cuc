@@ -40,7 +40,7 @@ public class JsonAtualizarComposicaoImovel extends javax.servlet.http.HttpServle
                 com.sys.habitacional.ComposicaoImovel composicao = jsonMgr.parseComposicaoImovel(json);
 
                 if (! composicao.getMaterialParede().isEmpty() && ! composicao.getMaterialPiso().isEmpty() && ! composicao.getMaterialCobertura().isEmpty() 
-                        && composicao.getImovel().getId() > 0 && composicao.getId() > 0) {
+                        && composicao.getIdImovel() > 0 && composicao.getId() > 0) {
 
                     pgsql.sys.habitacional.ComposicaoImovelDAO composicaoDAO = new pgsql.sys.habitacional.ComposicaoImovelDAO();
 

@@ -841,10 +841,6 @@
         <servlet-class>com.control.json.social.JsonProcurarEmpresaPorFantasia</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>jProcurarImovelPorSituacao</servlet-name>
-        <servlet-class>com.control.json.habitacional.JsonProcurarImovelPorSituacao</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>jProcurarImovelPorDocumento</servlet-name>
         <servlet-class>com.control.json.habitacional.JsonProcurarImovelPorDocumento</servlet-class>
     </servlet>
@@ -1031,6 +1027,58 @@
     <servlet>
         <servlet-name>oAnexarDocumentoJudicial</servlet-name>
         <servlet-class>com.control.object.doc.ObjectAnexarDocumentoJudicial</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jProcurarNucleoPorZona</servlet-name>
+        <servlet-class>com.control.json.urbano.JsonProcurarNucleoPorZona</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jProcurarNucleoPorOrigem</servlet-name>
+        <servlet-class>com.control.json.urbano.JsonProcurarNucleoPorOrigem</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jProcurarNucleoPorOcupacao</servlet-name>
+        <servlet-class>com.control.json.urbano.JsonProcurarNucleoPorOcupacao</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jProcurarNucleoPorPadraoConstrutivo</servlet-name>
+        <servlet-class>com.control.json.urbano.JsonProcurarNucleoPorPadraoConstrutivo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jAtualizarUsuarioFoto</servlet-name>
+        <servlet-class>com.control.json.access.JsonAtualizarUsuarioFoto</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jProcurarEstadoPorPais</servlet-name>
+        <servlet-class>com.control.json.common.JsonProcurarEstadoPorPais</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jProcurarMunicipioPorEstado</servlet-name>
+        <servlet-class>com.control.json.common.JsonProcurarMunicipioPorEstado</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jListarPaises</servlet-name>
+        <servlet-class>com.control.json.common.JsonListarPaises</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jListarEstados</servlet-name>
+        <servlet-class>com.control.json.common.JsonListarEstados</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jListarMunicipios</servlet-name>
+        <servlet-class>com.control.json.common.JsonListarMunicipios</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jSelecionarIDEstadoPorNome</servlet-name>
+        <servlet-class>com.control.json.common.JsonSelecionarIDEstadoPorNome</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jInserirImovelCompleto</servlet-name>
+        <servlet-class>com.control.json.habitacional.JsonInserirImovelCompleto</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jSelecionarIDMunicipioPorNome</servlet-name>
+        <servlet-class>com.control.json.common.JsonSelecionarIDMunicipioPorNome</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>jInserirPermissao</servlet-name>
@@ -1873,10 +1921,6 @@
         <url-pattern>/empresa/fantasia</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>jProcurarImovelPorSituacao</servlet-name>
-        <url-pattern>/imovel/situacao</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>jProcurarImovelPorDocumento</servlet-name>
         <url-pattern>/imovel/documento</url-pattern>
     </servlet-mapping>
@@ -2063,6 +2107,58 @@
     <servlet-mapping>
         <servlet-name>oAnexarDocumentoJudicial</servlet-name>
         <url-pattern>/nucleo/documento/judicial/anexar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jProcurarNucleoPorZona</servlet-name>
+        <url-pattern>/nucleo/zona</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jProcurarNucleoPorOrigem</servlet-name>
+        <url-pattern>/nucleo/origem</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jProcurarNucleoPorOcupacao</servlet-name>
+        <url-pattern>/nucleo/ocupacao</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jProcurarNucleoPorPadraoConstrutivo</servlet-name>
+        <url-pattern>/nucleo/padrao_construtivo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jAtualizarUsuarioFoto</servlet-name>
+        <url-pattern>/usuario/foto/alterar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jProcurarEstadoPorPais</servlet-name>
+        <url-pattern>/estado/pais</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jProcurarMunicipioPorEstado</servlet-name>
+        <url-pattern>/municipio/estado</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jListarPaises</servlet-name>
+        <url-pattern>/paises</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jListarEstados</servlet-name>
+        <url-pattern>/estados</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jListarMunicipios</servlet-name>
+        <url-pattern>/municipios</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jSelecionarIDEstadoPorNome</servlet-name>
+        <url-pattern>/estado_id/nome</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jInserirImovelCompleto</servlet-name>
+        <url-pattern>/imovel/completo/salvar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jSelecionarIDMunicipioPorNome</servlet-name>
+        <url-pattern>/municipio_id/nome</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

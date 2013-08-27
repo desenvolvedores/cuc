@@ -41,7 +41,10 @@ public class JsonInserirServicoImovel extends javax.servlet.http.HttpServlet {
 
                 if (! servico.getExistePavimentacao().isEmpty() && ! servico.getIluminacaoUtilizada().isEmpty() && ! servico.getAbastecimentoAgua().isEmpty() 
                         && ! servico.getTratamentoAgua().isEmpty() && ! servico.getAguaEncanada().isEmpty() && ! servico.getExisteBanheiro().isEmpty() 
-                        && ! servico.getEscoamentoSanitario().isEmpty() && ! servico.getTratamentoLixo().isEmpty() && servico.getImovel().getId() > 0) {
+                        && ! servico.getEscoamentoSanitario().isEmpty() && ! servico.getTratamentoLixo().isEmpty() && ! servico.getCaes().isEmpty() 
+                        && ! servico.getGatos().isEmpty() && ! servico.getAves().isEmpty() && ! servico.getSuinos().isEmpty() 
+                        && ! servico.getInsetos().isEmpty() && ! servico.getRatos().isEmpty() && ! servico.getCobras().isEmpty() 
+                        && servico.getIdImovel() > 0) {
 
                     pgsql.sys.habitacional.ServicoImovelDAO servicoDAO = new pgsql.sys.habitacional.ServicoImovelDAO();
 

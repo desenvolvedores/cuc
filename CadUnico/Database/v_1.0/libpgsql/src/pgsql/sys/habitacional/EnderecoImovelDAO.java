@@ -15,32 +15,31 @@ public class EnderecoImovelDAO {
         
     }
     
-    public int inserirEnderecoImovel(com.common.EnderecoImovel endereco) 
+    public int inserirEnderecoImovel(com.sys.habitacional.EnderecoImovel endereco) 
             throws java.lang.ClassNotFoundException, java.sql.SQLException {
         
         com.data.TextManager txtMgr = new com.data.TextManager();
         
-        java.lang.String sql = "{ ? = CALL fn_inserir_endereco_imovel(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
+        java.lang.String sql = "{ ? = CALL fn_inserir_endereco_imovel(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, endereco.getImovel().getId());
-        stmt.setString(3, txtMgr.addSlashes(endereco.getTipoLogradouro()));
-        stmt.setString(4, txtMgr.addSlashes(endereco.getLogradouro()));
-        stmt.setString(5, txtMgr.addSlashes(endereco.getNumero()));
-        stmt.setString(6, txtMgr.addSlashes(endereco.getComplemento()));
-        stmt.setString(7, txtMgr.addSlashes(endereco.getCEP()));
-        stmt.setString(8, txtMgr.addSlashes(endereco.getBairro()));
-        stmt.setString(9, txtMgr.addSlashes(endereco.getMunicipio()));
-        stmt.setString(10, txtMgr.addSlashes(endereco.getUF()));
-        stmt.setString(11, txtMgr.addSlashes(endereco.getTipoArea()));
-        stmt.setDouble(12, endereco.getLatitude());
-        stmt.setDouble(13, endereco.getLongitude());
+        stmt.setLong(2, endereco.getIdImovel());
+        stmt.setLong(3, endereco.getIdMunicipio());
+        stmt.setString(4, txtMgr.addSlashes(endereco.getTipoLogradouro()));
+        stmt.setString(5, txtMgr.addSlashes(endereco.getLogradouro()));
+        stmt.setString(6, txtMgr.addSlashes(endereco.getNumero()));
+        stmt.setString(7, txtMgr.addSlashes(endereco.getComplemento()));
+        stmt.setString(8, txtMgr.addSlashes(endereco.getCEP()));
+        stmt.setString(9, txtMgr.addSlashes(endereco.getBairro()));
+        stmt.setString(10, txtMgr.addSlashes(endereco.getTipoArea()));
+        stmt.setString(11, endereco.getLatitude());
+        stmt.setString(12, endereco.getLongitude());
         stmt.execute();
         return stmt.getInt(1);
         
     }
     
-    public com.common.EnderecoImovel selecionarEnderecoImovelPorID(long id) 
+    public com.sys.habitacional.EnderecoImovel selecionarEnderecoImovelPorID(long id) 
             throws java.lang.ClassNotFoundException, java.sql.SQLException {
         
         java.lang.String sql = "SELECT * FROM fn_selecionar_endereco_imovel_por_id(?)";
@@ -52,39 +51,38 @@ public class EnderecoImovelDAO {
         
     }
     
-    public com.common.EnderecoImovel selecionarEnderecoImovelPorIDImovel(com.sys.habitacional.Imovel imovel) 
+    public com.sys.habitacional.EnderecoImovel selecionarEnderecoImovelPorIDImovel(long idImovel) 
             throws java.lang.ClassNotFoundException, java.sql.SQLException {
         
         java.lang.String sql = "SELECT * FROM fn_selecionar_endereco_imovel_por_id_imovel(?)";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
-        stmt.setLong(1, imovel.getId());
+        stmt.setLong(1, idImovel);
         java.sql.ResultSet rs = stmt.executeQuery();
         
         return selecionar(rs);
         
     }
     
-    public int alterarEnderecoImovel(com.common.EnderecoImovel endereco) 
+    public int alterarEnderecoImovel(com.sys.habitacional.EnderecoImovel endereco) 
             throws java.lang.ClassNotFoundException, java.sql.SQLException {
         
         com.data.TextManager txtMgr = new com.data.TextManager();
         
-        java.lang.String sql = "{ ? = CALL fn_alterar_endereco_imovel(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
+        java.lang.String sql = "{ ? = CALL fn_alterar_endereco_imovel(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
         java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
         stmt.registerOutParameter(1, java.sql.Types.INTEGER);
-        stmt.setLong(2, endereco.getImovel().getId());
-        stmt.setString(3, txtMgr.addSlashes(endereco.getTipoLogradouro()));
-        stmt.setString(4, txtMgr.addSlashes(endereco.getLogradouro()));
-        stmt.setString(5, txtMgr.addSlashes(endereco.getNumero()));
-        stmt.setString(6, txtMgr.addSlashes(endereco.getComplemento()));
-        stmt.setString(7, txtMgr.addSlashes(endereco.getCEP()));
-        stmt.setString(8, txtMgr.addSlashes(endereco.getBairro()));
-        stmt.setString(9, txtMgr.addSlashes(endereco.getMunicipio()));
-        stmt.setString(10, txtMgr.addSlashes(endereco.getUF()));
-        stmt.setString(11, txtMgr.addSlashes(endereco.getTipoArea()));
-        stmt.setDouble(12, endereco.getLatitude());
-        stmt.setDouble(13, endereco.getLongitude());
-        stmt.setLong(14, endereco.getId());
+        stmt.setLong(2, endereco.getIdImovel());
+        stmt.setLong(3, endereco.getIdMunicipio());
+        stmt.setString(4, txtMgr.addSlashes(endereco.getTipoLogradouro()));
+        stmt.setString(5, txtMgr.addSlashes(endereco.getLogradouro()));
+        stmt.setString(6, txtMgr.addSlashes(endereco.getNumero()));
+        stmt.setString(7, txtMgr.addSlashes(endereco.getComplemento()));
+        stmt.setString(8, txtMgr.addSlashes(endereco.getCEP()));
+        stmt.setString(9, txtMgr.addSlashes(endereco.getBairro()));
+        stmt.setString(10, txtMgr.addSlashes(endereco.getTipoArea()));
+        stmt.setString(11, endereco.getLatitude());
+        stmt.setString(12, endereco.getLongitude());
+        stmt.setLong(13, endereco.getId());
         stmt.execute();
         return stmt.getInt(1);
         
@@ -102,27 +100,26 @@ public class EnderecoImovelDAO {
         
     }
     
-    private com.common.EnderecoImovel selecionar(java.sql.ResultSet rs) 
+    private com.sys.habitacional.EnderecoImovel selecionar(java.sql.ResultSet rs) 
             throws java.sql.SQLException {
         
         if (rs.next()) {
-            com.sys.habitacional.Imovel imovel = new com.sys.habitacional.Imovel();
-            imovel.setId(rs.getLong("id_imovel"));
             
-            com.common.EnderecoImovel endereco = new com.common.EnderecoImovel(imovel);
+            com.sys.habitacional.EnderecoImovel endereco = new com.sys.habitacional.EnderecoImovel();
             endereco.setId(rs.getLong("id"));
+            endereco.setIdImovel(rs.getLong("id_imovel"));
+            endereco.setIdMunicipio(rs.getLong("id_municipio"));
             endereco.setTipoLogradouro(rs.getString("tipo_logradouro"));
             endereco.setLogradouro(rs.getString("logradouro"));
             endereco.setNumero(rs.getString("numero"));
             endereco.setComplemento(rs.getString("complemento"));
             endereco.setCEP(rs.getString("cep"));
             endereco.setBairro(rs.getString("bairro"));
-            endereco.setMunicipio(rs.getString("municipio"));
-            endereco.setUF(rs.getString("uf"));
             endereco.setTipoArea(rs.getString("tipo_area"));
-            endereco.setLatitude(rs.getDouble("latitude"));
-            endereco.setLongitude(rs.getDouble("longitude"));
+            endereco.setLatitude(rs.getString("latitude"));
+            endereco.setLongitude(rs.getString("longitude"));
             return endereco;
+            
         } else {
             return null;
         }

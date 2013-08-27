@@ -13,38 +13,27 @@ package com.sys.habitacional;
  */
 public class DemolicaoImovel {
     
-    private String type;
+    private java.lang.String type;
     private long id;
-    private java.util.Date dataDemolicao;
-    private String horarioDemolicao;
-    private String numeroProcesso;
-    private String motivo;
-    private String executadoPor;
-    private Imovel imovel;
+    private long idImovel;
+    private java.lang.String dataDemolicao;
+    private java.lang.String horarioDemolicao;
+    private java.lang.String numeroProcesso;
+    private java.lang.String motivo;
+    private java.lang.String executadoPor;
     
     public DemolicaoImovel() {
         this.type = "demolicaoimovel";
         this.id = 0l;
-        this.dataDemolicao = null;
+        this.idImovel = 0l;
+        this.dataDemolicao = "";
         this.horarioDemolicao = "";
         this.numeroProcesso = "";
         this.motivo = "";
         this.executadoPor = "";
-        this.imovel = null;
     }
     
-    public DemolicaoImovel(Imovel imovel) {
-        this.type = "demolicaoimovel";
-        this.id = 0l;
-        this.dataDemolicao = null;
-        this.horarioDemolicao = "";
-        this.numeroProcesso = "";
-        this.motivo = "";
-        this.executadoPor = "";
-        this.imovel = imovel;
-    }
-    
-    public String getType() {
+    public java.lang.String getType() {
         return type;
     }
 
@@ -55,53 +44,53 @@ public class DemolicaoImovel {
     public void setId(long id) {
         this.id = id;
     }
+    
+    public long getIdImovel() {
+        return idImovel;
+    }
 
-    public java.util.Date getDataDemolicao() {
+    public void setIdImovel(long idImovel) {
+        this.idImovel = idImovel;
+    }
+
+    public java.lang.String getDataDemolicao() {
         return dataDemolicao;
     }
 
-    public void setDataDemolicao(java.util.Date dataDemolicao) {
+    public void setDataDemolicao(java.lang.String dataDemolicao) {
         this.dataDemolicao = dataDemolicao;
     }
 
-    public String getHorarioDemolicao() {
+    public java.lang.String getHorarioDemolicao() {
         return horarioDemolicao;
     }
 
-    public void setHorarioDemolicao(String horarioDemolicao) {
+    public void setHorarioDemolicao(java.lang.String horarioDemolicao) {
         this.horarioDemolicao = horarioDemolicao;
     }
 
-    public String getNumeroProcesso() {
+    public java.lang.String getNumeroProcesso() {
         return numeroProcesso;
     }
 
-    public void setNumeroProcesso(String numeroProcesso) {
+    public void setNumeroProcesso(java.lang.String numeroProcesso) {
         this.numeroProcesso = numeroProcesso;
     }
 
-    public String getMotivo() {
+    public java.lang.String getMotivo() {
         return motivo;
     }
 
-    public void setMotivo(String motivo) {
+    public void setMotivo(java.lang.String motivo) {
         this.motivo = motivo;
     }
 
-    public String getExecutadoPor() {
+    public java.lang.String getExecutadoPor() {
         return executadoPor;
     }
 
-    public void setExecutadoPor(String executadoPor) {
+    public void setExecutadoPor(java.lang.String executadoPor) {
         this.executadoPor = executadoPor;
-    }
-
-    public Imovel getImovel() {
-        return imovel;
-    }
-
-    public void setImovel(Imovel imovel) {
-        this.imovel = imovel;
     }
     
 }

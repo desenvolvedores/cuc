@@ -37,7 +37,7 @@ public class JsonProcurarImovelPorCep extends javax.servlet.http.HttpServlet {
                 String json = request.getReader().readLine();
 
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
-                com.common.EnderecoImovel endereco = jsonMgr.parseEnderecoImovel(json);
+                com.sys.habitacional.EnderecoImovel endereco = jsonMgr.parseEnderecoImovel(json);
                 
                 if (! endereco.getCEP().isEmpty()) {
                     

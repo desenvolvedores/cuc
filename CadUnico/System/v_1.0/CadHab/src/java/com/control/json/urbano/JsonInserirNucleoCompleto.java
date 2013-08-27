@@ -38,7 +38,6 @@ public class JsonInserirNucleoCompleto extends javax.servlet.http.HttpServlet {
                 String json = request.getReader().readLine();
 
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
-                System.out.println(json);
                 com.sys.urbano.Nucleo nucleo = jsonMgr.parseNucleo(json);
                 
                 if (! nucleo.getNome().isEmpty() 

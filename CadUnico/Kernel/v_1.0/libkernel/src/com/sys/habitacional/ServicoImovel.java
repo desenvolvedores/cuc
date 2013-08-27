@@ -13,24 +13,31 @@ package com.sys.habitacional;
  */
 public class ServicoImovel {
     
-    private String type;
+    private java.lang.String type;
     private long id;
-    private String existePavimentacao;
-    private String qualPavimentacao;
-    private String iluminacaoUtilizada;
-    private String especifiqueIluminacao;
-    private String abastecimentoAgua;
-    private String tratamentoAgua;
-    private String aguaEncanada;
-    private String existeBanheiro;
-    private String escoamentoSanitario;
-    private String tratamentoLixo;
-    private String presencaAnimais;
-    private Imovel imovel;
+    private long idImovel;
+    private java.lang.String existePavimentacao;
+    private java.lang.String qualPavimentacao;
+    private java.lang.String iluminacaoUtilizada;
+    private java.lang.String especifiqueIluminacao;
+    private java.lang.String abastecimentoAgua;
+    private java.lang.String tratamentoAgua;
+    private java.lang.String aguaEncanada;
+    private java.lang.String existeBanheiro;
+    private java.lang.String escoamentoSanitario;
+    private java.lang.String tratamentoLixo;
+    private java.lang.String caes;
+    private java.lang.String gatos;
+    private java.lang.String aves;
+    private java.lang.String suinos;
+    private java.lang.String insetos;
+    private java.lang.String ratos;
+    private java.lang.String cobras;
     
     public ServicoImovel() {
         this.type = "servicoimovel";
         this.id = 0l;
+        this.idImovel = 0l;
         this.existePavimentacao = "";
         this.qualPavimentacao = "";
         this.iluminacaoUtilizada = "";
@@ -41,28 +48,16 @@ public class ServicoImovel {
         this.existeBanheiro = "";
         this.escoamentoSanitario = "";
         this.tratamentoLixo = "";
-        this.presencaAnimais = "";
-        this.imovel = null;
+        this.caes = "";
+        this.gatos = "";
+        this.aves = "";
+        this.suinos = "";
+        this.insetos = "";
+        this.ratos = "";
+        this.cobras = "";
     }
     
-    public ServicoImovel(Imovel imovel) {
-        this.type = "servicoimovel";
-        this.id = 0l;
-        this.existePavimentacao = "";
-        this.qualPavimentacao = "";
-        this.iluminacaoUtilizada = "";
-        this.especifiqueIluminacao = "";
-        this.abastecimentoAgua = "";
-        this.tratamentoAgua = "";
-        this.aguaEncanada = "";
-        this.existeBanheiro = "";
-        this.escoamentoSanitario = "";
-        this.tratamentoLixo = "";
-        this.presencaAnimais = "";
-        this.imovel = imovel;
-    }
-    
-    public String getType() {
+    public java.lang.String getType() {
         return type;
     }
 
@@ -73,101 +68,149 @@ public class ServicoImovel {
     public void setId(long id) {
         this.id = id;
     }
+    
+    public long getIdImovel() {
+        return idImovel;
+    }
 
-    public String getExistePavimentacao() {
+    public void setIdImovel(long idImovel) {
+        this.idImovel = idImovel;
+    }
+
+    public java.lang.String getExistePavimentacao() {
         return existePavimentacao;
     }
 
-    public void setExistePavimentacao(String existePavimentacao) {
+    public void setExistePavimentacao(java.lang.String existePavimentacao) {
         this.existePavimentacao = existePavimentacao;
     }
     
-    public String getQualPavimentacao() {
+    public java.lang.String getQualPavimentacao() {
         return qualPavimentacao;
     }
 
-    public void setQualPavimentacao(String qualPavimentacao) {
+    public void setQualPavimentacao(java.lang.String qualPavimentacao) {
         this.qualPavimentacao = qualPavimentacao;
     }
 
-    public String getIluminacaoUtilizada() {
+    public java.lang.String getIluminacaoUtilizada() {
         return iluminacaoUtilizada;
     }
 
-    public void setIluminacaoUtilizada(String iluminacaoUtilizada) {
+    public void setIluminacaoUtilizada(java.lang.String iluminacaoUtilizada) {
         this.iluminacaoUtilizada = iluminacaoUtilizada;
     }
     
-    public String getEspecifiqueIluminacao() {
+    public java.lang.String getEspecifiqueIluminacao() {
         return especifiqueIluminacao;
     }
 
-    public void setEspecifiqueIluminacao(String especifiqueIluminacao) {
+    public void setEspecifiqueIluminacao(java.lang.String especifiqueIluminacao) {
         this.especifiqueIluminacao = especifiqueIluminacao;
     }
 
-    public String getAbastecimentoAgua() {
+    public java.lang.String getAbastecimentoAgua() {
         return abastecimentoAgua;
     }
 
-    public void setAbastecimentoAgua(String abastecimentoAgua) {
+    public void setAbastecimentoAgua(java.lang.String abastecimentoAgua) {
         this.abastecimentoAgua = abastecimentoAgua;
     }
 
-    public String getTratamentoAgua() {
+    public java.lang.String getTratamentoAgua() {
         return tratamentoAgua;
     }
 
-    public void setTratamentoAgua(String tratamentoAgua) {
+    public void setTratamentoAgua(java.lang.String tratamentoAgua) {
         this.tratamentoAgua = tratamentoAgua;
     }
 
-    public String getAguaEncanada() {
+    public java.lang.String getAguaEncanada() {
         return aguaEncanada;
     }
 
-    public void setAguaEncanada(String aguaEncanada) {
+    public void setAguaEncanada(java.lang.String aguaEncanada) {
         this.aguaEncanada = aguaEncanada;
     }
 
-    public String getExisteBanheiro() {
+    public java.lang.String getExisteBanheiro() {
         return existeBanheiro;
     }
 
-    public void setExisteBanheiro(String existeBanheiro) {
+    public void setExisteBanheiro(java.lang.String existeBanheiro) {
         this.existeBanheiro = existeBanheiro;
     }
 
-    public String getEscoamentoSanitario() {
+    public java.lang.String getEscoamentoSanitario() {
         return escoamentoSanitario;
     }
 
-    public void setEscoamentoSanitario(String escoamentoSanitario) {
+    public void setEscoamentoSanitario(java.lang.String escoamentoSanitario) {
         this.escoamentoSanitario = escoamentoSanitario;
     }
 
-    public String getTratamentoLixo() {
+    public java.lang.String getTratamentoLixo() {
         return tratamentoLixo;
     }
 
-    public void setTratamentoLixo(String tratamentoLixo) {
+    public void setTratamentoLixo(java.lang.String tratamentoLixo) {
         this.tratamentoLixo = tratamentoLixo;
     }
 
-    public String getPresencaAnimais() {
-        return presencaAnimais;
+    public java.lang.String getCaes() {
+        return caes;
     }
 
-    public void setPresencaAnimais(String presencaAnimais) {
-        this.presencaAnimais = presencaAnimais;
+    public void setCaes(java.lang.String caes) {
+        this.caes = caes;
     }
 
-    public Imovel getImovel() {
-        return imovel;
+    public java.lang.String getGatos() {
+        return gatos;
     }
 
-    public void setImovel(Imovel imovel) {
-        this.imovel = imovel;
+    public void setGatos(java.lang.String gatos) {
+        this.gatos = gatos;
+    }
+
+    public java.lang.String getAves() {
+        return aves;
+    }
+
+    public void setAves(java.lang.String aves) {
+        this.aves = aves;
+    }
+
+    public java.lang.String getSuinos() {
+        return suinos;
+    }
+
+    public void setSuinos(java.lang.String suinos) {
+        this.suinos = suinos;
+    }
+
+    public java.lang.String getInsetos() {
+        return insetos;
+    }
+
+    public void setInsetos(java.lang.String insetos) {
+        this.insetos = insetos;
+    }
+
+    public java.lang.String getRatos() {
+        return ratos;
+    }
+
+    public void setRatos(java.lang.String ratos) {
+        this.ratos = ratos;
+    }
+
+    public java.lang.String getCobras() {
+        return cobras;
+    }
+
+    public void setCobras(java.lang.String cobras) {
+        this.cobras = cobras;
     }
     
 }

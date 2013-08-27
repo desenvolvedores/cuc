@@ -167,102 +167,94 @@ public class NumberManager {
         try {
             
             String formatted = "0,000";
-            String text = String.valueOf(value);
-            text = text.replace(".", "");
-            text = text.replaceAll(",", "");
+            String temp = String.valueOf(value);
             
-            if (text.startsWith("0000")) {
-                text = text.substring(4, text.length());
-            } else if (text.startsWith("000")) {
-                text = text.substring(3, text.length());
-            } else if (text.startsWith("00")) {
-                text = text.substring(2, text.length());
-            } else if (text.startsWith("0")) {
-                text = text.substring(1, text.length());
-            }
+            String[] contents = temp.split("\\.");
+            String text1 = contents[0];
+            String text2 = contents[1];
             
-            for (short i = 0; i < text.length(); i++) {
-                Long.parseLong(String.valueOf(text.charAt(i)));
-            }
-            
-            int length = text.length();
-            if (length >= 0 && length <= 34) {
+            int length = text1.length();
+            if (length >= 0 && length <= 31) {
                 
                 switch (length) {
                     
-                    case 0: formatted = "0,000";
+                    case 0: formatted = "0";
                         break;
-                    case 1: formatted = "0,00" + text;
+                    case 1: formatted = text1.substring(0, 1);
                         break;
-                    case 2: formatted = "0,0" + text;
+                    case 2: formatted = text1.substring(0, 2);
                         break;
-                    case 3: formatted = "0," + text;
+                    case 3: formatted = text1.substring(0, 3);
                         break;
-                    case 4: formatted = text.substring(0, 1) + "," + text.substring(1, 4);
+                    case 4: formatted = text1.substring(0, 1) + "." + text1.substring(1, 4);
                         break;
-                    case 5: formatted = text.substring(0, 2) + "," + text.substring(2, 5);
+                    case 5: formatted = text1.substring(0, 2) + "." + text1.substring(2, 5);
                         break;
-                    case 6: formatted = text.substring(0, 3) + "," + text.substring(3, 6);
+                    case 6: formatted = text1.substring(0, 3) + "." + text1.substring(3, 6);
                         break;
-                    case 7: formatted = text.substring(0, 1) + "." + text.substring(1, 4) + "," + text.substring(4, 7);
+                    case 7: formatted = text1.substring(0, 1) + "." + text1.substring(1, 4) + "." + text1.substring(4, 7);
                         break;
-                    case 8: formatted = text.substring(0, 2) + "." + text.substring(2, 5) + "," + text.substring(5, 8);
+                    case 8: formatted = text1.substring(0, 2) + "." + text1.substring(2, 5) + "." + text1.substring(5, 8);
                         break;
-                    case 9: formatted = text.substring(0, 3) + "." + text.substring(3, 6) + "," + text.substring(6, 9);
+                    case 9: formatted = text1.substring(0, 3) + "." + text1.substring(3, 6) + "." + text1.substring(6, 9);
                         break;
-                    case 10: formatted = text.substring(0, 1) + "." + text.substring(1, 4) + "." + text.substring(4, 7) + "," + text.substring(7, 10);
+                    case 10: formatted = text1.substring(0, 1) + "." + text1.substring(1, 4) + "." + text1.substring(4, 7) + "." + text1.substring(7, 10);
                         break;
-                    case 11: formatted = text.substring(0, 2) + "." + text.substring(2, 5) + "." + text.substring(5, 8) + "," + text.substring(8, 11);
+                    case 11: formatted = text1.substring(0, 2) + "." + text1.substring(2, 5) + "." + text1.substring(5, 8) + "." + text1.substring(8, 11);
                         break;
-                    case 12: formatted = text.substring(0, 3) + "." + text.substring(3, 6) + "." + text.substring(6, 9) + "," + text.substring(9, 12);
+                    case 12: formatted = text1.substring(0, 3) + "." + text1.substring(3, 6) + "." + text1.substring(6, 9) + "." + text1.substring(9, 12);
                         break;
-                    case 13: formatted = text.substring(0, 1) + "." + text.substring(1, 4) + "." + text.substring(4, 7) + "." + text.substring(7, 10) + "," + text.substring(10, 13);
+                    case 13: formatted = text1.substring(0, 1) + "." + text1.substring(1, 4) + "." + text1.substring(4, 7) + "." + text1.substring(7, 10) + "." + text1.substring(10, 13);
                         break;
-                    case 14: formatted = text.substring(0, 2) + "." + text.substring(2, 5) + "." + text.substring(5, 8) + "." + text.substring(8, 11) + "," + text.substring(11, 14);
+                    case 14: formatted = text1.substring(0, 2) + "." + text1.substring(2, 5) + "." + text1.substring(5, 8) + "." + text1.substring(8, 11) + "." + text1.substring(11, 14);
                         break;
-                    case 15: formatted = text.substring(0, 3) + "." + text.substring(3, 6) + "." + text.substring(6, 9) + "." + text.substring(9, 12) + "," + text.substring(12, 15);
+                    case 15: formatted = text1.substring(0, 3) + "." + text1.substring(3, 6) + "." + text1.substring(6, 9) + "." + text1.substring(9, 12) + "." + text1.substring(12, 15);
                         break;
-                    case 16: formatted = text.substring(0, 1) + "." + text.substring(1, 4) + "." + text.substring(4, 7) + "." + text.substring(7, 10) + "." + text.substring(10, 13) + "," + text.substring(13, 16);
+                    case 16: formatted = text1.substring(0, 1) + "." + text1.substring(1, 4) + "." + text1.substring(4, 7) + "." + text1.substring(7, 10) + "." + text1.substring(10, 13) + "." + text1.substring(13, 16);
                         break;
-                    case 17: formatted = text.substring(0, 2) + "." + text.substring(2, 5) + "." + text.substring(5, 8) + "." + text.substring(8, 11) + "." + text.substring(11, 14) + "," + text.substring(14, 17);
+                    case 17: formatted = text1.substring(0, 2) + "." + text1.substring(2, 5) + "." + text1.substring(5, 8) + "." + text1.substring(8, 11) + "." + text1.substring(11, 14) + "." + text1.substring(14, 17);
                         break;
-                    case 18: formatted = text.substring(0, 3) + "." + text.substring(3, 6) + "." + text.substring(6, 9) + "." + text.substring(9, 12) + "." + text.substring(12, 15) + "," + text.substring(15, 18);
+                    case 18: formatted = text1.substring(0, 3) + "." + text1.substring(3, 6) + "." + text1.substring(6, 9) + "." + text1.substring(9, 12) + "." + text1.substring(12, 15) + "." + text1.substring(15, 18);
                         break;
-                    case 19: formatted = text.substring(0, 1) + "." + text.substring(1, 4) + "." + text.substring(4, 7) + "." + text.substring(7, 10) + "." + text.substring(10, 13) + "." + text.substring(13, 16) + "," + text.substring(16, 19);
+                    case 19: formatted = text1.substring(0, 1) + "." + text1.substring(1, 4) + "." + text1.substring(4, 7) + "." + text1.substring(7, 10) + "." + text1.substring(10, 13) + "." + text1.substring(13, 16) + "." + text1.substring(16, 19);
                         break;
-                    case 20: formatted = text.substring(0, 2) + "." + text.substring(2, 5) + "." + text.substring(5, 8) + "." + text.substring(8, 11) + "." + text.substring(11, 14) + "." + text.substring(14, 17) + "," + text.substring(17, 20);
+                    case 20: formatted = text1.substring(0, 2) + "." + text1.substring(2, 5) + "." + text1.substring(5, 8) + "." + text1.substring(8, 11) + "." + text1.substring(11, 14) + "." + text1.substring(14, 17) + "." + text1.substring(17, 20);
                         break;
-                    case 21: formatted = text.substring(0, 3) + "." + text.substring(3, 6) + "." + text.substring(6, 9) + "." + text.substring(9, 12) + "." + text.substring(12, 15) + "." + text.substring(15, 18) + "," + text.substring(18, 21);
+                    case 21: formatted = text1.substring(0, 3) + "." + text1.substring(3, 6) + "." + text1.substring(6, 9) + "." + text1.substring(9, 12) + "." + text1.substring(12, 15) + "." + text1.substring(15, 18) + "." + text1.substring(18, 21);
                         break;
-                    case 22: formatted = text.substring(0, 1) + "." + text.substring(1, 4) + "." + text.substring(4, 7) + "." + text.substring(7, 10) + "." + text.substring(10, 13) + "." + text.substring(13, 16) + "." + text.substring(16, 19) + "," + text.substring(19, 22);
+                    case 22: formatted = text1.substring(0, 1) + "." + text1.substring(1, 4) + "." + text1.substring(4, 7) + "." + text1.substring(7, 10) + "." + text1.substring(10, 13) + "." + text1.substring(13, 16) + "." + text1.substring(16, 19) + "." + text1.substring(19, 22);
                         break;
-                    case 23: formatted = text.substring(0, 2) + "." + text.substring(2, 5) + "." + text.substring(5, 8) + "." + text.substring(8, 11) + "." + text.substring(11, 14) + "." + text.substring(14, 17) + "." + text.substring(17, 20) + "," + text.substring(20, 23);
+                    case 23: formatted = text1.substring(0, 2) + "." + text1.substring(2, 5) + "." + text1.substring(5, 8) + "." + text1.substring(8, 11) + "." + text1.substring(11, 14) + "." + text1.substring(14, 17) + "." + text1.substring(17, 20) + "." + text1.substring(20, 23);
                         break;
-                    case 24: formatted = text.substring(0, 3) + "." + text.substring(3, 6) + "." + text.substring(6, 9) + "." + text.substring(9, 12) + "." + text.substring(12, 15) + "." + text.substring(15, 18) + "." + text.substring(18, 21) + "," + text.substring(21, 24);
+                    case 24: formatted = text1.substring(0, 3) + "." + text1.substring(3, 6) + "." + text1.substring(6, 9) + "." + text1.substring(9, 12) + "." + text1.substring(12, 15) + "." + text1.substring(15, 18) + "." + text1.substring(18, 21) + "." + text1.substring(21, 24);
                         break;
-                    case 25: formatted = text.substring(0, 1) + "." + text.substring(1, 4) + "." + text.substring(4, 7) + "." + text.substring(7, 10) + "." + text.substring(10, 13) + "." + text.substring(13, 16) + "." + text.substring(16, 19) + "." + text.substring(19, 22) + "," + text.substring(22, 25);
+                    case 25: formatted = text1.substring(0, 1) + "." + text1.substring(1, 4) + "." + text1.substring(4, 7) + "." + text1.substring(7, 10) + "." + text1.substring(10, 13) + "." + text1.substring(13, 16) + "." + text1.substring(16, 19) + "." + text1.substring(19, 22) + "." + text1.substring(22, 25);
                         break;
-                    case 26: formatted = text.substring(0, 2) + "." + text.substring(2, 5) + "." + text.substring(5, 8) + "." + text.substring(8, 11) + "." + text.substring(11, 14) + "." + text.substring(14, 17) + "." + text.substring(17, 20) + "." + text.substring(20, 23) + "," + text.substring(23, 26);
+                    case 26: formatted = text1.substring(0, 2) + "." + text1.substring(2, 5) + "." + text1.substring(5, 8) + "." + text1.substring(8, 11) + "." + text1.substring(11, 14) + "." + text1.substring(14, 17) + "." + text1.substring(17, 20) + "." + text1.substring(20, 23) + "." + text1.substring(23, 26);
                         break;
-                    case 27: formatted = text.substring(0, 3) + "." + text.substring(3, 6) + "." + text.substring(6, 9) + "." + text.substring(9, 12) + "." + text.substring(12, 15) + "." + text.substring(15, 18) + "." + text.substring(18, 21) + "." + text.substring(21, 24) + "," + text.substring(24, 27);
+                    case 27: formatted = text1.substring(0, 3) + "." + text1.substring(3, 6) + "." + text1.substring(6, 9) + "." + text1.substring(9, 12) + "." + text1.substring(12, 15) + "." + text1.substring(15, 18) + "." + text1.substring(18, 21) + "." + text1.substring(21, 24) + "." + text1.substring(24, 27);
                         break;
-                    case 28: formatted = text.substring(0, 1) + "." + text.substring(1, 4) + "." + text.substring(4, 7) + "." + text.substring(7, 10) + "." + text.substring(10, 13) + "." + text.substring(13, 16) + "." + text.substring(16, 19) + "." + text.substring(19, 22) + "." + text.substring(22, 25) + "," + text.substring(25, 28);
+                    case 28: formatted = text1.substring(0, 1) + "." + text1.substring(1, 4) + "." + text1.substring(4, 7) + "." + text1.substring(7, 10) + "." + text1.substring(10, 13) + "." + text1.substring(13, 16) + "." + text1.substring(16, 19) + "." + text1.substring(19, 22) + "." + text1.substring(22, 25) + "." + text1.substring(25, 28);
                         break;
-                    case 29: formatted = text.substring(0, 2) + "." + text.substring(2, 5) + "." + text.substring(5, 8) + "." + text.substring(8, 11) + "." + text.substring(11, 14) + "." + text.substring(14, 17) + "." + text.substring(17, 20) + "." + text.substring(20, 23) + "." + text.substring(23, 26) + "," + text.substring(26, 29);
+                    case 29: formatted = text1.substring(0, 2) + "." + text1.substring(2, 5) + "." + text1.substring(5, 8) + "." + text1.substring(8, 11) + "." + text1.substring(11, 14) + "." + text1.substring(14, 17) + "." + text1.substring(17, 20) + "." + text1.substring(20, 23) + "." + text1.substring(23, 26) + "." + text1.substring(26, 29);
                         break;
-                    case 30: formatted = text.substring(0, 3) + "." + text.substring(3, 6) + "." + text.substring(6, 9) + "." + text.substring(9, 12) + "." + text.substring(12, 15) + "." + text.substring(15, 18) + "." + text.substring(18, 21) + "." + text.substring(21, 24) + "." + text.substring(24, 27) + "," + text.substring(27, 30);
+                    case 30: formatted = text1.substring(0, 3) + "." + text1.substring(3, 6) + "." + text1.substring(6, 9) + "." + text1.substring(9, 12) + "." + text1.substring(12, 15) + "." + text1.substring(15, 18) + "." + text1.substring(18, 21) + "." + text1.substring(21, 24) + "." + text1.substring(24, 27) + "." + text1.substring(27, 30);
                         break;
-                    case 31: formatted = text.substring(0, 1) + "." + text.substring(1, 4) + "." + text.substring(4, 7) + "." + text.substring(7, 10) + "." + text.substring(10, 13) + "." + text.substring(13, 16) + "." + text.substring(16, 19) + "." + text.substring(19, 22) + "." + text.substring(22, 25) + "." + text.substring(25, 28) + "," + text.substring(28, 31);
-                        break;
-                    case 32: formatted = text.substring(0, 2) + "." + text.substring(2, 5) + "." + text.substring(5, 8) + "." + text.substring(8, 11) + "." + text.substring(11, 14) + "." + text.substring(14, 17) + "." + text.substring(17, 20) + "." + text.substring(20, 23) + "." + text.substring(23, 26) + "." + text.substring(26, 29) + "," + text.substring(29, 32);
-                        break;
-                    case 33: formatted = text.substring(0, 3) + "." + text.substring(3, 6) + "." + text.substring(6, 9) + "." + text.substring(9, 12) + "." + text.substring(12, 15) + "." + text.substring(15, 18) + "." + text.substring(18, 21) + "." + text.substring(21, 24) + "." + text.substring(24, 27) + "." + text.substring(27, 30) + "," + text.substring(30, 33);
-                        break;
-                    case 34: formatted = text.substring(0, 1) + "." + text.substring(1, 4) + "." + text.substring(4, 7) + "." + text.substring(7, 10) + "." + text.substring(10, 13) + "." + text.substring(13, 16) + "." + text.substring(16, 19) + "." + text.substring(19, 22) + "." + text.substring(22, 25) + "." + text.substring(25, 28) + "." + text.substring(28, 31) + "," + text.substring(31, 34);
+                    case 31: formatted = text1.substring(0, 1) + "." + text1.substring(1, 4) + "." + text1.substring(4, 7) + "." + text1.substring(7, 10) + "." + text1.substring(10, 13) + "." + text1.substring(13, 16) + "." + text1.substring(16, 19) + "." + text1.substring(19, 22) + "." + text1.substring(22, 25) + "." + text1.substring(25, 28) + "." + text1.substring(28, 31);
                         break;
                         
                 }
                 
+            }
+            
+            if (text2.length() == 0) {
+                formatted = formatted + "," + "000";
+            } else if (text2.length() == 1) {
+                formatted = formatted + "," + text2 + "00";
+            } else if (text2.length() == 2) {
+                formatted = formatted + "," + text2 + "0";
+            } else if (text2.length() == 3) {
+                formatted = formatted + "," + text2;
             }
             
             return formatted;

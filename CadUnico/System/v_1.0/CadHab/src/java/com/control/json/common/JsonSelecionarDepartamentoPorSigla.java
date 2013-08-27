@@ -24,6 +24,7 @@ public class JsonSelecionarDepartamentoPorSigla extends javax.servlet.http.HttpS
     protected void processRequest(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response)
             throws javax.servlet.ServletException, java.io.IOException {
         
+        request.setCharacterEncoding("UTF-8");
         java.io.PrintWriter out = response.getWriter();
         
         try {

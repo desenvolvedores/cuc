@@ -17,6 +17,36 @@ public class JsonManager {
         
     }
     
+    public String parseJson(com.common.Pais pais) 
+            throws com.fasterxml.jackson.core.JsonGenerationException, 
+            com.fasterxml.jackson.databind.JsonMappingException, 
+            java.io.IOException {
+        
+        com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+        return mapper.writeValueAsString(pais);
+        
+    }
+    
+    public String parseJson(com.common.Estado estado) 
+            throws com.fasterxml.jackson.core.JsonGenerationException, 
+            com.fasterxml.jackson.databind.JsonMappingException, 
+            java.io.IOException {
+        
+        com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+        return mapper.writeValueAsString(estado);
+        
+    }
+    
+    public String parseJson(com.common.Municipio municipio) 
+            throws com.fasterxml.jackson.core.JsonGenerationException, 
+            com.fasterxml.jackson.databind.JsonMappingException, 
+            java.io.IOException {
+        
+        com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+        return mapper.writeValueAsString(municipio);
+        
+    }
+    
     public String parseJson(com.common.Endereco endereco) 
             throws com.fasterxml.jackson.core.JsonGenerationException, 
             com.fasterxml.jackson.databind.JsonMappingException, 
@@ -27,7 +57,7 @@ public class JsonManager {
         
     }
     
-    public String parseJson(com.common.EnderecoImovel endereco) 
+    public String parseJson(com.sys.habitacional.EnderecoImovel endereco) 
             throws com.fasterxml.jackson.core.JsonGenerationException, 
             com.fasterxml.jackson.databind.JsonMappingException, 
             java.io.IOException {
@@ -47,7 +77,7 @@ public class JsonManager {
         
     }
     
-    public String parseJson(com.common.TelefoneEmpresa telefone) 
+    public String parseJson(com.sys.social.TelefoneEmpresa telefone) 
             throws com.fasterxml.jackson.core.JsonGenerationException, 
             com.fasterxml.jackson.databind.JsonMappingException, 
             java.io.IOException {
@@ -57,7 +87,7 @@ public class JsonManager {
         
     }
     
-    public String parseJson(com.common.TelefoneIndividuo telefone) 
+    public String parseJson(com.sys.social.TelefoneIndividuo telefone) 
             throws com.fasterxml.jackson.core.JsonGenerationException, 
             com.fasterxml.jackson.databind.JsonMappingException, 
             java.io.IOException {
@@ -417,6 +447,36 @@ public class JsonManager {
         
     }
     
+    public String parseJsonListaPais(java.util.List<com.common.Pais> paises) 
+            throws com.fasterxml.jackson.core.JsonGenerationException, 
+            com.fasterxml.jackson.databind.JsonMappingException, 
+            java.io.IOException {
+        
+        com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+        return mapper.writeValueAsString(paises);
+        
+    }
+    
+    public String parseJsonListaEstado(java.util.List<com.common.Estado> estados) 
+            throws com.fasterxml.jackson.core.JsonGenerationException, 
+            com.fasterxml.jackson.databind.JsonMappingException, 
+            java.io.IOException {
+        
+        com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+        return mapper.writeValueAsString(estados);
+        
+    }
+    
+    public String parseJsonListaMunicipio(java.util.List<com.common.Municipio> municipios) 
+            throws com.fasterxml.jackson.core.JsonGenerationException, 
+            com.fasterxml.jackson.databind.JsonMappingException, 
+            java.io.IOException {
+        
+        com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+        return mapper.writeValueAsString(municipios);
+        
+    }
+    
     public String parseJsonListaEndereco(java.util.List<com.common.Endereco> enderecos) 
             throws com.fasterxml.jackson.core.JsonGenerationException, 
             com.fasterxml.jackson.databind.JsonMappingException, 
@@ -427,7 +487,7 @@ public class JsonManager {
         
     }
     
-    public String parseJsonListaEnderecoImovel(java.util.List<com.common.EnderecoImovel> enderecos) 
+    public String parseJsonListaEnderecoImovel(java.util.List<com.sys.habitacional.EnderecoImovel> enderecos) 
             throws com.fasterxml.jackson.core.JsonGenerationException, 
             com.fasterxml.jackson.databind.JsonMappingException, 
             java.io.IOException {
@@ -447,7 +507,7 @@ public class JsonManager {
         
     }
     
-    public String parseJsonListaTelefoneEmpresa(java.util.List<com.common.TelefoneEmpresa> telefones) 
+    public String parseJsonListaTelefoneEmpresa(java.util.List<com.sys.social.TelefoneEmpresa> telefones) 
             throws com.fasterxml.jackson.core.JsonGenerationException, 
             com.fasterxml.jackson.databind.JsonMappingException, 
             java.io.IOException {
@@ -457,7 +517,7 @@ public class JsonManager {
         
     }
     
-    public String parseJsonListaTelefoneIndividuo(java.util.List<com.common.TelefoneIndividuo> telefones) 
+    public String parseJsonListaTelefoneIndividuo(java.util.List<com.sys.social.TelefoneIndividuo> telefones) 
             throws com.fasterxml.jackson.core.JsonGenerationException, 
             com.fasterxml.jackson.databind.JsonMappingException, 
             java.io.IOException {
@@ -817,6 +877,39 @@ public class JsonManager {
         
     }
     
+    public com.common.Pais parsePais(String json) 
+            throws com.fasterxml.jackson.core.JsonGenerationException, 
+            com.fasterxml.jackson.databind.JsonMappingException, 
+            java.io.IOException {
+        
+        com.data.TextManager txtMgr = new com.data.TextManager();
+        com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+        return mapper.readValue(txtMgr.removeSpecialCharacters(json), com.common.Pais.class);
+        
+    }
+    
+    public com.common.Estado parseEstado(String json) 
+            throws com.fasterxml.jackson.core.JsonGenerationException, 
+            com.fasterxml.jackson.databind.JsonMappingException, 
+            java.io.IOException {
+        
+        com.data.TextManager txtMgr = new com.data.TextManager();
+        com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+        return mapper.readValue(txtMgr.removeSpecialCharacters(json), com.common.Estado.class);
+        
+    }
+    
+    public com.common.Municipio parseMunicipio(String json) 
+            throws com.fasterxml.jackson.core.JsonGenerationException, 
+            com.fasterxml.jackson.databind.JsonMappingException, 
+            java.io.IOException {
+        
+        com.data.TextManager txtMgr = new com.data.TextManager();
+        com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+        return mapper.readValue(txtMgr.removeSpecialCharacters(json), com.common.Municipio.class);
+        
+    }
+    
     public com.common.Endereco parseEndereco(String json) 
             throws com.fasterxml.jackson.core.JsonGenerationException, 
             com.fasterxml.jackson.databind.JsonMappingException, 
@@ -828,14 +921,14 @@ public class JsonManager {
         
     }
     
-    public com.common.EnderecoImovel parseEnderecoImovel(String json) 
+    public com.sys.habitacional.EnderecoImovel parseEnderecoImovel(String json) 
             throws com.fasterxml.jackson.core.JsonGenerationException, 
             com.fasterxml.jackson.databind.JsonMappingException, 
             java.io.IOException {
         
         com.data.TextManager txtMgr = new com.data.TextManager();
         com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
-        return mapper.readValue(txtMgr.removeSpecialCharacters(json), com.common.EnderecoImovel.class);
+        return mapper.readValue(txtMgr.removeSpecialCharacters(json), com.sys.habitacional.EnderecoImovel.class);
         
     }
     
@@ -850,25 +943,25 @@ public class JsonManager {
         
     }
     
-    public com.common.TelefoneEmpresa parseTelefoneEmpresa(String json) 
+    public com.sys.social.TelefoneEmpresa parseTelefoneEmpresa(String json) 
             throws com.fasterxml.jackson.core.JsonGenerationException, 
             com.fasterxml.jackson.databind.JsonMappingException, 
             java.io.IOException {
         
         com.data.TextManager txtMgr = new com.data.TextManager();
         com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
-        return mapper.readValue(txtMgr.removeSpecialCharacters(json), com.common.TelefoneEmpresa.class);
+        return mapper.readValue(txtMgr.removeSpecialCharacters(json), com.sys.social.TelefoneEmpresa.class);
         
     }
     
-    public com.common.TelefoneIndividuo parseTelefoneIndividuo(String json) 
+    public com.sys.social.TelefoneIndividuo parseTelefoneIndividuo(String json) 
             throws com.fasterxml.jackson.core.JsonGenerationException, 
             com.fasterxml.jackson.databind.JsonMappingException, 
             java.io.IOException {
         
         com.data.TextManager txtMgr = new com.data.TextManager();
         com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
-        return mapper.readValue(txtMgr.removeSpecialCharacters(json), com.common.TelefoneIndividuo.class);
+        return mapper.readValue(txtMgr.removeSpecialCharacters(json), com.sys.social.TelefoneIndividuo.class);
         
     }
     
@@ -1257,6 +1350,48 @@ public class JsonManager {
         
     }
     
+    public java.util.List<com.common.Pais> parseListaPais(String json) 
+            throws com.fasterxml.jackson.core.JsonGenerationException, 
+            com.fasterxml.jackson.databind.JsonMappingException, 
+            java.io.IOException {
+        
+        com.data.TextManager txtMgr = new com.data.TextManager();
+        json = txtMgr.removeSpecialCharacters(json);
+        json = "[" + json + "]";
+        
+        com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+        return mapper.readValue(json, new com.fasterxml.jackson.core.type.TypeReference<java.util.List<com.common.Pais>>() {});
+        
+    }
+    
+    public java.util.List<com.common.Estado> parseListaEstado(String json) 
+            throws com.fasterxml.jackson.core.JsonGenerationException, 
+            com.fasterxml.jackson.databind.JsonMappingException, 
+            java.io.IOException {
+        
+        com.data.TextManager txtMgr = new com.data.TextManager();
+        json = txtMgr.removeSpecialCharacters(json);
+        json = "[" + json + "]";
+        
+        com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+        return mapper.readValue(json, new com.fasterxml.jackson.core.type.TypeReference<java.util.List<com.common.Estado>>() {});
+        
+    }
+    
+    public java.util.List<com.common.Municipio> parseListaMunicipio(String json) 
+            throws com.fasterxml.jackson.core.JsonGenerationException, 
+            com.fasterxml.jackson.databind.JsonMappingException, 
+            java.io.IOException {
+        
+        com.data.TextManager txtMgr = new com.data.TextManager();
+        json = txtMgr.removeSpecialCharacters(json);
+        json = "[" + json + "]";
+        
+        com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+        return mapper.readValue(json, new com.fasterxml.jackson.core.type.TypeReference<java.util.List<com.common.Municipio>>() {});
+        
+    }
+    
     public java.util.List<com.common.Endereco> parseListaEndereco(String json) 
             throws com.fasterxml.jackson.core.JsonGenerationException, 
             com.fasterxml.jackson.databind.JsonMappingException, 
@@ -1271,7 +1406,7 @@ public class JsonManager {
         
     }
     
-    public java.util.List<com.common.EnderecoImovel> parseListaEnderecoImovel(String json) 
+    public java.util.List<com.sys.habitacional.EnderecoImovel> parseListaEnderecoImovel(String json) 
             throws com.fasterxml.jackson.core.JsonGenerationException, 
             com.fasterxml.jackson.databind.JsonMappingException, 
             java.io.IOException {
@@ -1281,7 +1416,7 @@ public class JsonManager {
         json = "[" + json + "]";
         
         com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
-        return mapper.readValue(json, new com.fasterxml.jackson.core.type.TypeReference<java.util.List<com.common.EnderecoImovel>>() {});
+        return mapper.readValue(json, new com.fasterxml.jackson.core.type.TypeReference<java.util.List<com.sys.habitacional.EnderecoImovel>>() {});
         
     }
     
@@ -1299,7 +1434,7 @@ public class JsonManager {
         
     }
     
-    public java.util.List<com.common.TelefoneEmpresa> parseListaTelefoneEmpresa(String json) 
+    public java.util.List<com.sys.social.TelefoneEmpresa> parseListaTelefoneEmpresa(String json) 
             throws com.fasterxml.jackson.core.JsonGenerationException, 
             com.fasterxml.jackson.databind.JsonMappingException, 
             java.io.IOException {
@@ -1309,11 +1444,11 @@ public class JsonManager {
         json = "[" + json + "]";
         
         com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
-        return mapper.readValue(json, new com.fasterxml.jackson.core.type.TypeReference<java.util.List<com.common.TelefoneEmpresa>>() {});
+        return mapper.readValue(json, new com.fasterxml.jackson.core.type.TypeReference<java.util.List<com.sys.social.TelefoneEmpresa>>() {});
         
     }
     
-    public java.util.List<com.common.TelefoneIndividuo> parseListaTelefoneIndividuo(String json) 
+    public java.util.List<com.sys.social.TelefoneIndividuo> parseListaTelefoneIndividuo(String json) 
             throws com.fasterxml.jackson.core.JsonGenerationException, 
             com.fasterxml.jackson.databind.JsonMappingException, 
             java.io.IOException {
@@ -1323,7 +1458,7 @@ public class JsonManager {
         json = "[" + json + "]";
         
         com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
-        return mapper.readValue(json, new com.fasterxml.jackson.core.type.TypeReference<java.util.List<com.common.TelefoneIndividuo>>() {});
+        return mapper.readValue(json, new com.fasterxml.jackson.core.type.TypeReference<java.util.List<com.sys.social.TelefoneIndividuo>>() {});
         
     }
     

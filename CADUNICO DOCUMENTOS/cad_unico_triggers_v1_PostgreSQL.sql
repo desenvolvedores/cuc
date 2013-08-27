@@ -83,4 +83,120 @@ $$ LANGUAGE PLPGSQL;
 CREATE TRIGGER tg_inserir_grupo_permissao AFTER INSERT 
 ON public.grupos FOR EACH ROW
 	EXECUTE PROCEDURE public.fn_inserir_grupo_permissao();
+	
+	
+-------------------------------------- NÚCLEO -------------------------------------
 
+
+CREATE OR REPLACE FUNCTION fn_ativar_desativar_registros_nucleo()
+RETURNS TRIGGER AS $$
+	BEGIN
+		UPDATE infraestrutura_urbana SET ativo = NEW.ativo WHERE id_nucleo = NEW.id;
+		UPDATE situacao_fundiaria SET ativo = NEW.ativo WHERE id_nucleo = NEW.id;
+		UPDATE aspectos_ambientais SET ativo = NEW.ativo WHERE id_nucleo = NEW.id;
+		UPDATE acoes_nucleo SET ativo = NEW.ativo WHERE id_nucleo = NEW.id;
+		UPDATE programas_habitacionais SET ativo = NEW.ativo WHERE id_nucleo = NEW.id;
+		UPDATE anexo_transporte SET ativo = NEW.ativo WHERE id_nucleo = NEW.id;
+		RETURN NEW;
+	END;
+$$ LANGUAGE PLPGSQL;
+
+
+CREATE TRIGGER tg_ativar_desativar_registros_nucleo AFTER UPDATE 
+ON public.nucleo FOR EACH ROW
+	EXECUTE PROCEDURE public.fn_ativar_desativar_registros_nucleo();
+	
+	
+-------------------------------------- SITUAÇÃO FUNDIÁRIA -------------------------------------
+
+
+CREATE OR REPLACE FUNCTION fn_ativar_desativar_registros_situacao_fundiaria()
+RETURNS TRIGGER AS $$
+	BEGIN
+		UPDATE anexo_judicial SET ativo = NEW.ativo WHERE id_fundiaria = NEW.id;
+		UPDATE anexo_zoneamento SET ativo = NEW.ativo WHERE id_fundiaria = NEW.id;
+		RETURN NEW;
+	END;
+$$ LANGUAGE PLPGSQL;
+
+
+CREATE TRIGGER tg_ativar_desativar_registros_situacao_fundiaria AFTER UPDATE 
+ON public.situacao_fundiaria FOR EACH ROW
+	EXECUTE PROCEDURE public.fn_ativar_desativar_registros_situacao_fundiaria();
+	
+	
+-------------------------------------- AÇÃO NÚCLEO -------------------------------------
+
+
+CREATE OR REPLACE FUNCTION fn_ativar_desativar_registros_acoes_nucleo()
+RETURNS TRIGGER AS $$
+	BEGIN
+		UPDATE remanejamentos SET ativo = NEW.ativo WHERE id_acao = NEW.id;
+		UPDATE reassentamentos SET ativo = NEW.ativo WHERE id_acao = NEW.id;
+		UPDATE desconstrucoes SET ativo = NEW.ativo WHERE id_acao = NEW.id;
+		RETURN NEW;
+	END;
+$$ LANGUAGE PLPGSQL;
+
+
+CREATE TRIGGER tg_ativar_desativar_registros_acoes_nucleo AFTER UPDATE 
+ON public.acoes_nucleo FOR EACH ROW
+	EXECUTE PROCEDURE public.fn_ativar_desativar_registros_acoes_nucleo();
+	
+	
+-------------------------------------- ASPECTOS AMBIENTAIS -------------------------------------
+
+
+CREATE OR REPLACE FUNCTION fn_ativar_desativar_registros_aspectos_ambientais()
+RETURNS TRIGGER AS $$
+	BEGIN
+		UPDATE ambiental_area_risco SET ativo = NEW.ativo WHERE id_ambiental = NEW.id;
+		UPDATE apps SET ativo = NEW.ativo WHERE id_ambiental = NEW.id;
+		RETURN NEW;
+	END;
+$$ LANGUAGE PLPGSQL;
+
+
+CREATE TRIGGER tg_ativar_desativar_registros_aspectos_ambientais AFTER UPDATE 
+ON public.aspectos_ambientais FOR EACH ROW
+	EXECUTE PROCEDURE public.fn_ativar_desativar_registros_aspectos_ambientais();
+	
+	
+-------------------------------------- IMÓVEL ---------------------------------------------------
+
+
+CREATE OR REPLACE FUNCTION fn_ativar_desativar_registros_imovel()
+RETURNS TRIGGER AS $$
+	BEGIN
+		UPDATE composicao_imovel SET ativo = NEW.ativo WHERE id_imovel = NEW.id;
+		UPDATE endereco_imovel SET ativo = NEW.ativo WHERE id_imovel = NEW.id;
+		UPDATE servicos_imovel SET ativo = NEW.ativo WHERE id_imovel = NEW.id;
+		UPDATE demolicao_imovel SET ativo = NEW.ativo WHERE id_imovel = NEW.id;
+		UPDATE anexo_imovel SET ativo = NEW.ativo WHERE id_imovel = NEW.id;
+		RETURN NEW;
+	END;
+$$ LANGUAGE PLPGSQL;
+
+
+CREATE TRIGGER tg_ativar_desativar_registros_imovel AFTER UPDATE 
+ON public.imovel FOR EACH ROW
+	EXECUTE PROCEDURE public.fn_ativar_desativar_registros_imovel();
+	
+	
+-------------------------------------- DEMOLIÇÃO IMÓVEL --------------------------------------
+
+
+CREATE OR REPLACE FUNCTION fn_ativar_desativar_registros_demolicao_imovel()
+RETURNS TRIGGER AS $$
+	BEGIN
+		UPDATE anexo_demolicao SET ativo = NEW.ativo WHERE id_demolicao = NEW.id;
+		RETURN NEW;
+	END;
+$$ LANGUAGE PLPGSQL;
+
+
+CREATE TRIGGER tg_ativar_desativar_registros_demolicao_imovel AFTER UPDATE 
+ON public.demolicao_imovel FOR EACH ROW
+	EXECUTE PROCEDURE public.fn_ativar_desativar_registros_demolicao_imovel();
+	
+	

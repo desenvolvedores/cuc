@@ -39,10 +39,10 @@ public class JsonSelecionarDemolicaoImovelPorImovel extends javax.servlet.http.H
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
                 com.sys.habitacional.DemolicaoImovel demolicao = jsonMgr.parseDemolicaoImovel(json);
                 
-                if (demolicao.getId() > 0) {
+                if (demolicao.getIdImovel() > 0) {
                     
                     pgsql.sys.habitacional.DemolicaoImovelDAO demolicaoDAO = new pgsql.sys.habitacional.DemolicaoImovelDAO();
-                    demolicao = demolicaoDAO.selecionarDemolicaoImovelPorIDImovel(demolicao.getImovel());
+                    demolicao = demolicaoDAO.selecionarDemolicaoImovelPorIDImovel(demolicao.getIdImovel());
                     out.print(jsonMgr.parseJson(demolicao));
                     
                 } else {

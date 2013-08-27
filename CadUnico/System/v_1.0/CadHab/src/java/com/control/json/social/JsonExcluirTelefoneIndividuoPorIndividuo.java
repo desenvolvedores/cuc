@@ -37,11 +37,11 @@ public class JsonExcluirTelefoneIndividuoPorIndividuo extends javax.servlet.http
                 String json = request.getReader().readLine();
 
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
-                com.common.TelefoneIndividuo telefone = jsonMgr.parseTelefoneIndividuo(json);
+                com.sys.social.TelefoneIndividuo telefone = jsonMgr.parseTelefoneIndividuo(json);
 
                 if (telefone.getId() > 0) {
 
-                    pgsql.common.TelefoneIndividuoDAO telefoneDAO = new pgsql.common.TelefoneIndividuoDAO();
+                    pgsql.sys.social.TelefoneIndividuoDAO telefoneDAO = new pgsql.sys.social.TelefoneIndividuoDAO();
 
                     if (telefoneDAO.excluirTelefonesPorIDIndividuo(telefone.getIdIndividuo()) > 0) {
 
