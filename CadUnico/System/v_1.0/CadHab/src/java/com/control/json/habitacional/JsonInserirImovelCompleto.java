@@ -41,29 +41,29 @@ public class JsonInserirImovelCompleto extends javax.servlet.http.HttpServlet {
                 com.sys.habitacional.Imovel imovel = jsonMgr.parseImovel(json);
                 
                 if (imovel.getIdNucleo() > 0 
-                        & ! imovel.getTipo().isEmpty() 
-                        & ! imovel.getTipoPropriedade().isEmpty() 
-                        & ! imovel.getDocPropriedade().isEmpty() 
-                        & ! imovel.getPagaIPTU().isEmpty() 
-                        & ! imovel.getComposicao().getConstrucao().isEmpty() 
-                        & ! imovel.getComposicao().getMaterialParede().isEmpty() 
-                        & ! imovel.getComposicao().getMaterialPiso().isEmpty() 
-                        & ! imovel.getComposicao().getMaterialCobertura().isEmpty() 
-                        & ! imovel.getEndereco().getLogradouro().isEmpty() 
-                        & ! imovel.getEndereco().getNumero().isEmpty() 
-                        & ! imovel.getEndereco().getBairro().isEmpty() 
-                        & ! imovel.getEndereco().getTipoLogradouro().isEmpty() 
-                        & ! imovel.getEndereco().getTipoArea().isEmpty() 
-                        & imovel.getEndereco().getIdMunicipio() > 0 
-                        & ! imovel.getServico().getExistePavimentacao().isEmpty() 
-                        & ! imovel.getServico().getQualPavimentacao().isEmpty() 
-                        & ! imovel.getServico().getIluminacaoUtilizada().isEmpty() 
-                        & ! imovel.getServico().getAbastecimentoAgua().isEmpty() 
-                        & ! imovel.getServico().getTratamentoAgua().isEmpty() 
-                        & ! imovel.getServico().getAguaEncanada().isEmpty() 
-                        & ! imovel.getServico().getExisteBanheiro().isEmpty() 
-                        & ! imovel.getServico().getEscoamentoSanitario().isEmpty() 
-                        & ! imovel.getServico().getTratamentoLixo().isEmpty()) {
+                        && ! imovel.getTipo().isEmpty() 
+                        && ! imovel.getTipoPropriedade().isEmpty() 
+                        && ! imovel.getDocPropriedade().isEmpty() 
+                        && ! imovel.getPagaIPTU().isEmpty() 
+                        && ! imovel.getComposicao().getConstrucao().isEmpty() 
+                        && ! imovel.getComposicao().getMaterialParede().isEmpty() 
+                        && ! imovel.getComposicao().getMaterialPiso().isEmpty() 
+                        && ! imovel.getComposicao().getMaterialCobertura().isEmpty() 
+                        && ! imovel.getEndereco().getLogradouro().isEmpty() 
+                        && ! imovel.getEndereco().getNumero().isEmpty() 
+                        && ! imovel.getEndereco().getBairro().isEmpty() 
+                        && ! imovel.getEndereco().getTipoLogradouro().isEmpty() 
+                        && ! imovel.getEndereco().getTipoArea().isEmpty() 
+                        && imovel.getEndereco().getIdMunicipio() > 0 
+                        && ! imovel.getServico().getExistePavimentacao().isEmpty() 
+                        && ! imovel.getServico().getQualPavimentacao().isEmpty() 
+                        && ! imovel.getServico().getIluminacaoUtilizada().isEmpty() 
+                        && ! imovel.getServico().getAbastecimentoAgua().isEmpty() 
+                        && ! imovel.getServico().getTratamentoAgua().isEmpty() 
+                        && ! imovel.getServico().getAguaEncanada().isEmpty() 
+                        && ! imovel.getServico().getExisteBanheiro().isEmpty() 
+                        && ! imovel.getServico().getEscoamentoSanitario().isEmpty() 
+                        && ! imovel.getServico().getTratamentoLixo().isEmpty()) {
                     
                     pgsql.sys.habitacional.ImovelDAO imovelDAO = new pgsql.sys.habitacional.ImovelDAO();
 
@@ -89,18 +89,26 @@ public class JsonInserirImovelCompleto extends javax.servlet.http.HttpServlet {
                                 
                                 if (servicoDAO.inserirServicoImovel(imovel.getServico()) > 0) {
                                     
-                                    pgsql.sys.habitacional.DemolicaoImovelDAO demolicaoDAO = new pgsql.sys.habitacional.DemolicaoImovelDAO();
+                                    if (! imovel.getDemolicao().getDataDemolicao().equals("__/__/____") 
+                                            && ! imovel.getDemolicao().getHorarioDemolicao().equals("__:__:__") 
+                                            && ! imovel.getDemolicao().getNumeroProcesso().isEmpty() 
+                                            && ! imovel.getDemolicao().getMotivo().isEmpty() 
+                                            && !imovel.getDemolicao().getExecutadoPor().isEmpty()) {
                                     
-                                    if (demolicaoDAO.inserirDemolicaoImovel(imovel.getDemolicao()) <= 0) {
-                                        
-                                        com.db.DBConnection.getInstance().getConnection().rollback();
-                                        com.sys.Message message = new com.sys.Message();
-                                        message.setCode(0);
-                                        message.setMessage("Não foi possível cadastrar os dados da demolição do imóvel!");
-                                        com.data.MessageManager messMgr = new com.data.MessageManager();
-                                        out.print(messMgr.parseJson(message));
-                                        return;
-                                        
+                                        pgsql.sys.habitacional.DemolicaoImovelDAO demolicaoDAO = new pgsql.sys.habitacional.DemolicaoImovelDAO();
+
+                                        if (demolicaoDAO.inserirDemolicaoImovel(imovel.getDemolicao()) <= 0) {
+
+                                            com.db.DBConnection.getInstance().getConnection().rollback();
+                                            com.sys.Message message = new com.sys.Message();
+                                            message.setCode(0);
+                                            message.setMessage("Não foi possível cadastrar os dados da demolição do imóvel!");
+                                            com.data.MessageManager messMgr = new com.data.MessageManager();
+                                            out.print(messMgr.parseJson(message));
+                                            return;
+
+                                        }
+                                    
                                     }
                                     
                                     com.db.DBConnection.getInstance().getConnection().commit();

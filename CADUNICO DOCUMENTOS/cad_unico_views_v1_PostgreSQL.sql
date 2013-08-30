@@ -65,15 +65,18 @@ CREATE OR REPLACE VIEW vw_imoveis AS
 	FROM imovel;
 	
 	
-CREATE OR REPLACE VIEW vw_imoveis_completos AS 
-	SELECT i.id AS id, i.id_nucleo AS id_nucleo, i.tipo_imovel AS tipo_imovel, i.tipo_propriedade AS tipo_propriedade, i.doc_propriedade AS doc_propriedade, 
-	i.num_doc_propriedade AS num_doc_propriedade, e.tipo_area AS tipo_area, e.tipo_logradouro AS tipo_logradouro, e.logradouro AS logradouro, e.numero AS numero, 
-	e.complemento AS complemento, e.cep AS cep, e.bairro AS bairro, e.id_municipio AS id_municipio, m.id_estado AS id_estado  
+CREATE OR REPLACE VIEW vw_imoveis_enderecos AS 
+	SELECT i.id AS i_id, i.id_nucleo AS id_nucleo, i.tipo_imovel AS tipo_imovel, i.valor_aluguel AS valor_aluguel, i.tipo_propriedade AS tipo_propriedade, 
+	i.doc_propriedade AS doc_propriedade, i.num_doc_propriedade AS num_doc_propriedade, i.localidade AS localidade, i.paga_iptu AS paga_iptu, i.ic AS ic, 
+	i.selagem AS selagem, i.atendente AS atendente, i.atendente_atualizacao AS atendente_atualizacao, i.dt_atualizacao AS dt_atualizacao, e.id AS e_id, 
+	e.id_municipio AS id_municipio, e.tipo_logradouro AS tipo_logradouro, e.logradouro AS logradouro,  e.numero AS numero, e.complemento AS complemento, 
+	e.cep AS cep, e.bairro AS bairro, e.tipo_area AS tipo_area, e.latitude AS latitude, e.longitude AS longitude 
 	FROM imovel AS i
 	INNER JOIN nucleo AS n ON i.id_nucleo = n.id 
 	INNER JOIN endereco_imovel AS e ON i.id = e.id_imovel 
 	INNER JOIN municipios AS m ON e.id_municipio = m.id 
 	INNER JOIN estados AS es ON m.id_estado = es.id 
+	WHERE i.ativo = 'Y' 
 	ORDER BY n.nome, e.tipo_logradouro, e.logradouro, e.numero, e.bairro, m.nome, es.nome;
 	
 	

@@ -1080,6 +1080,26 @@
         <servlet-name>jSelecionarIDMunicipioPorNome</servlet-name>
         <servlet-class>com.control.json.common.JsonSelecionarIDMunicipioPorNome</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>jListarImoveisEnderecos</servlet-name>
+        <servlet-class>com.control.json.habitacional.JsonListarImoveisEnderecos</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jSelecionarEstado</servlet-name>
+        <servlet-class>com.control.json.common.JsonSelecionarEstado</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jSelecionarMunicipio</servlet-name>
+        <servlet-class>com.control.json.common.JsonSelecionarMunicipio</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jAtualizarImovelCompleto</servlet-name>
+        <servlet-class>com.control.json.habitacional.JsonAtualizarImovelCompleto</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jProcurarImovelExistentePorEnderecoCompleto</servlet-name>
+        <servlet-class>com.control.json.habitacional.JsonProcurarImovelExistentePorEnderecoCompleto</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>jInserirPermissao</servlet-name>
         <url-pattern>/permissao/salvar</url-pattern>
@@ -2159,6 +2179,26 @@
     <servlet-mapping>
         <servlet-name>jSelecionarIDMunicipioPorNome</servlet-name>
         <url-pattern>/municipio_id/nome</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jListarImoveisEnderecos</servlet-name>
+        <url-pattern>/imoveis/enderecos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jSelecionarEstado</servlet-name>
+        <url-pattern>/estado/id</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jSelecionarMunicipio</servlet-name>
+        <url-pattern>/municipio/id</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jAtualizarImovelCompleto</servlet-name>
+        <url-pattern>/imovel/completo/atualizar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jProcurarImovelExistentePorEnderecoCompleto</servlet-name>
+        <url-pattern>/imovel/existente/endereco</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

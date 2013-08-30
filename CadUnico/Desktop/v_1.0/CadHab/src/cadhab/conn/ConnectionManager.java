@@ -229,6 +229,51 @@ public class ConnectionManager {
             
         }
         
+        if (objectReceived.contains("\"type\":\"imovel\"")) {
+            
+            if (objectReceived.contains("[") && objectReceived.contains("]"))
+                return jsonMgr.parseListaImovel(objectReceived);
+            else
+                return jsonMgr.parseImovel(objectReceived);
+            
+        }
+        
+        if (objectReceived.contains("\"type\":\"composicaoimovel\"")) {
+            
+            if (objectReceived.contains("[") && objectReceived.contains("]"))
+                return jsonMgr.parseListaComposicaoImovel(objectReceived);
+            else
+                return jsonMgr.parseComposicaoImovel(objectReceived);
+            
+        }
+        
+        if (objectReceived.contains("\"type\":\"enderecoimovel\"")) {
+            
+            if (objectReceived.contains("[") && objectReceived.contains("]"))
+                return jsonMgr.parseListaEnderecoImovel(objectReceived);
+            else
+                return jsonMgr.parseEnderecoImovel(objectReceived);
+            
+        }
+        
+        if (objectReceived.contains("\"type\":\"servicoimovel\"")) {
+            
+            if (objectReceived.contains("[") && objectReceived.contains("]"))
+                return jsonMgr.parseListaServicoImovel(objectReceived);
+            else
+                return jsonMgr.parseServicoImovel(objectReceived);
+            
+        }
+        
+        if (objectReceived.contains("\"type\":\"demolicaoimovel\"")) {
+            
+            if (objectReceived.contains("[") && objectReceived.contains("]"))
+                return jsonMgr.parseListaDemolicaoImovel(objectReceived);
+            else
+                return jsonMgr.parseDemolicaoImovel(objectReceived);
+            
+        }
+        
         return null;
         
     }

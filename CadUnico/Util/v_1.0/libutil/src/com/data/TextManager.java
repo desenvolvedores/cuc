@@ -37,4 +37,22 @@ public class TextManager {
         
     }
     
+    public static boolean parseTextBoolean(String text) {
+        
+        if (text.equals("Sim"))
+            return true;
+        else 
+            return false;
+        
+    }
+    
+    public static java.lang.String parseBooleanText(boolean value) {
+        
+        if (value)
+            return "Sim";
+        else
+            return "Não";
+        
+    }
+    
 }

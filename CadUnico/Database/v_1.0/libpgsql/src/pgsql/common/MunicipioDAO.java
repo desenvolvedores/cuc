@@ -15,6 +15,18 @@ public class MunicipioDAO {
         
     }
     
+    public com.common.Municipio selecionarMunicipioPorID(long id) 
+            throws java.lang.ClassNotFoundException, java.sql.SQLException {
+        
+        java.lang.String sql = "SELECT * FROM fn_selecionar_municipio_por_id(?)";
+        java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
+        stmt.setLong(1, id);
+        java.sql.ResultSet rs = stmt.executeQuery();
+        
+        return selecionar(rs);
+        
+    }
+    
     public com.common.Municipio selecionarIDMunicipio(String nome, long isEstado) 
             throws java.lang.ClassNotFoundException, java.sql.SQLException {
         
@@ -57,6 +69,24 @@ public class MunicipioDAO {
         com.db.DBConnection.getInstance().getConnection().commit();
         
         return listar(rs);
+        
+    }
+    
+    private com.common.Municipio selecionar(java.sql.ResultSet rs) 
+            throws java.sql.SQLException {
+        
+        if (rs.next()) {
+            
+            com.common.Municipio municipio = new com.common.Municipio();
+            municipio.setId(rs.getLong("id"));
+            municipio.setIdEstado(rs.getLong("id_estado"));
+            municipio.setNome(rs.getString("nome"));
+            
+            return municipio;
+            
+        }
+        
+        return null;
         
     }
     

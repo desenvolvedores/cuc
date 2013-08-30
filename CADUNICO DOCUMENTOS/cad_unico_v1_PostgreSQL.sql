@@ -646,11 +646,11 @@ CREATE INDEX IFK_imovel_presenca_animais ON presenca_animais (id_imovel);
 CREATE TABLE demolicao_imovel (
 	id BIGSERIAL   NOT NULL ,
 	id_imovel BIGINT   NOT NULL ,
-	dt_demolicao DATE    ,
-	horario_demolicao TIME    DEFAULT '00:00:00' ,
+	dt_demolicao DATE   NOT NULL DEFAULT '0001-01-01' ,
+	horario_demolicao TIME   NOT NULL DEFAULT '00:00:00' ,
 	num_processo VARCHAR(20)    DEFAULT '' ,
-	motivo TEXT    ,
-	executada_por VARCHAR(255)      DEFAULT '' ,
+	motivo TEXT    NOT NULL DEFAULT '' ,
+	executada_por VARCHAR(255)     NOT NULL DEFAULT '' ,
 	ativo CHAR(1) NOT NULL DEFAULT 'Y',
 PRIMARY KEY(id)  ,
 	FOREIGN KEY(id_imovel)

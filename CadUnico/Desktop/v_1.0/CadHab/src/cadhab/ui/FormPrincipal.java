@@ -110,7 +110,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         jmenGerenciamentoRecurso = new javax.swing.JMenu();
         jmitRecursoMobilidade = new javax.swing.JMenuItem();
         jmitRecursoSocial = new javax.swing.JMenuItem();
-        jmitRecursoSecretaria = new javax.swing.JMenuItem();
+        jmitRecursoDepartamento = new javax.swing.JMenuItem();
         jmenRelatorio = new javax.swing.JMenu();
         jmenFerramenta = new javax.swing.JMenu();
         jmitFerramentaConfigurarServidor = new javax.swing.JMenuItem();
@@ -125,8 +125,23 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("CadHab - Cadastro Habitacional");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         jdktDesktop.setBackground(new java.awt.Color(240, 240, 240));
+        jdktDesktop.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jdktDesktopKeyPressed(evt);
+            }
+        });
 
         jpnlBarraStatus.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jpnlBarraStatus.addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -134,50 +149,105 @@ public class FormPrincipal extends javax.swing.JFrame {
                 jpnlBarraStatusComponentResized(evt);
             }
         });
+        jpnlBarraStatus.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jpnlBarraStatusKeyPressed(evt);
+            }
+        });
         jpnlBarraStatus.setLayout(null);
 
+        jpnlBarraStatusWrapper.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jpnlBarraStatusWrapperKeyPressed(evt);
+            }
+        });
         jpnlBarraStatusWrapper.setLayout(null);
 
         jsepStatusServidor.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jsepStatusServidor.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jsepStatusServidor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jsepStatusServidorKeyPressed(evt);
+            }
+        });
         jpnlBarraStatusWrapper.add(jsepStatusServidor);
         jsepStatusServidor.setBounds(3, 0, 25, 25);
 
         jlblStatusServidor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/server.png"))); // NOI18N
+        jlblStatusServidor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jlblStatusServidorKeyPressed(evt);
+            }
+        });
         jpnlBarraStatusWrapper.add(jlblStatusServidor);
         jlblStatusServidor.setBounds(5, 2, 20, 20);
 
         jsepUsuario.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jsepUsuario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jsepUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jsepUsuarioKeyPressed(evt);
+            }
+        });
         jpnlBarraStatusWrapper.add(jsepUsuario);
         jsepUsuario.setBounds(29, 0, 400, 25);
 
         jlblUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblUsuario.setText("Usuário");
+        jlblUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jlblUsuarioKeyPressed(evt);
+            }
+        });
         jpnlBarraStatusWrapper.add(jlblUsuario);
         jlblUsuario.setBounds(33, 0, 390, 25);
 
         jsepTarefa.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jsepTarefa.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jsepTarefa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jsepTarefaKeyPressed(evt);
+            }
+        });
         jpnlBarraStatusWrapper.add(jsepTarefa);
         jsepTarefa.setBounds(430, 0, 332, 25);
 
         jlblTarefa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblTarefa.setText("Pronto.");
+        jlblTarefa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jlblTarefaKeyPressed(evt);
+            }
+        });
         jpnlBarraStatusWrapper.add(jlblTarefa);
         jlblTarefa.setBounds(434, 0, 323, 25);
 
         jsepBarraProgresso.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jsepBarraProgresso.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jsepBarraProgresso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jsepBarraProgressoKeyPressed(evt);
+            }
+        });
         jpnlBarraStatusWrapper.add(jsepBarraProgresso);
         jsepBarraProgresso.setBounds(763, 0, 150, 25);
 
         jpgbProgresso.setFocusable(false);
+        jpgbProgresso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jpgbProgressoKeyPressed(evt);
+            }
+        });
         jpnlBarraStatusWrapper.add(jpgbProgresso);
         jpgbProgresso.setBounds(768, 5, 140, 15);
 
         jsepNUM.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jsepNUM.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jsepNUM.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jsepNUMKeyPressed(evt);
+            }
+        });
         jpnlBarraStatusWrapper.add(jsepNUM);
         jsepNUM.setBounds(914, 0, 35, 25);
 
@@ -185,11 +255,21 @@ public class FormPrincipal extends javax.swing.JFrame {
         jlblNUM.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlblNUM.setText("NUM");
         jlblNUM.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jlblNUM.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jlblNUMKeyPressed(evt);
+            }
+        });
         jpnlBarraStatusWrapper.add(jlblNUM);
         jlblNUM.setBounds(919, 0, 25, 25);
 
         jsepCAP.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jsepCAP.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jsepCAP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jsepCAPKeyPressed(evt);
+            }
+        });
         jpnlBarraStatusWrapper.add(jsepCAP);
         jsepCAP.setBounds(950, 0, 35, 25);
 
@@ -197,11 +277,21 @@ public class FormPrincipal extends javax.swing.JFrame {
         jlblCAP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlblCAP.setText("CAP");
         jlblCAP.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jlblCAP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jlblCAPKeyPressed(evt);
+            }
+        });
         jpnlBarraStatusWrapper.add(jlblCAP);
         jlblCAP.setBounds(955, 0, 25, 25);
 
         jsepINS.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jsepINS.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jsepINS.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jsepINSKeyPressed(evt);
+            }
+        });
         jpnlBarraStatusWrapper.add(jsepINS);
         jsepINS.setBounds(986, 0, 35, 25);
 
@@ -209,6 +299,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         jlblINS.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlblINS.setText("INS");
         jlblINS.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jlblINS.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jlblINSKeyPressed(evt);
+            }
+        });
         jpnlBarraStatusWrapper.add(jlblINS);
         jlblINS.setBounds(990, 0, 25, 25);
 
@@ -216,14 +311,35 @@ public class FormPrincipal extends javax.swing.JFrame {
         jpnlBarraStatusWrapper.setBounds(0, 0, 1021, 25);
 
         jmbarSuperior.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jmbarSuperior.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmbarSuperiorKeyPressed(evt);
+            }
+        });
 
         jmenPrincipal.setText("Principal");
         jmenPrincipal.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jmenPrincipal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmenPrincipalKeyPressed(evt);
+            }
+        });
 
         jmitPrincipalTrocarSenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jmitPrincipalTrocarSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/password.png"))); // NOI18N
         jmitPrincipalTrocarSenha.setText("Mudar Minha Senha");
+        jmitPrincipalTrocarSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmitPrincipalTrocarSenhaKeyPressed(evt);
+            }
+        });
         jmenPrincipal.add(jmitPrincipalTrocarSenha);
+
+        jsepPrincipal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jsepPrincipalKeyPressed(evt);
+            }
+        });
         jmenPrincipal.add(jsepPrincipal);
 
         jmitPrincipalLogoff.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
@@ -233,6 +349,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         jmitPrincipalLogoff.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmitPrincipalLogoffActionPerformed(evt);
+            }
+        });
+        jmitPrincipalLogoff.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmitPrincipalLogoffKeyPressed(evt);
             }
         });
         jmenPrincipal.add(jmitPrincipalLogoff);
@@ -246,16 +367,31 @@ public class FormPrincipal extends javax.swing.JFrame {
                 jmitPrincipalSairActionPerformed(evt);
             }
         });
+        jmitPrincipalSair.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmitPrincipalSairKeyPressed(evt);
+            }
+        });
         jmenPrincipal.add(jmitPrincipalSair);
 
         jmbarSuperior.add(jmenPrincipal);
 
         jmenGerenciamento.setText("Gerenciamento");
         jmenGerenciamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jmenGerenciamento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmenGerenciamentoKeyPressed(evt);
+            }
+        });
 
         jmenGerenciamentoAcesso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/door.png"))); // NOI18N
         jmenGerenciamentoAcesso.setText("Acesso");
         jmenGerenciamentoAcesso.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jmenGerenciamentoAcesso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmenGerenciamentoAcessoKeyPressed(evt);
+            }
+        });
 
         jmitAcessoGrupo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
         jmitAcessoGrupo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -264,6 +400,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         jmitAcessoGrupo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmitAcessoGrupoActionPerformed(evt);
+            }
+        });
+        jmitAcessoGrupo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmitAcessoGrupoKeyPressed(evt);
             }
         });
         jmenGerenciamentoAcesso.add(jmitAcessoGrupo);
@@ -277,6 +418,11 @@ public class FormPrincipal extends javax.swing.JFrame {
                 jmitAcessoUsuarioActionPerformed(evt);
             }
         });
+        jmitAcessoUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmitAcessoUsuarioKeyPressed(evt);
+            }
+        });
         jmenGerenciamentoAcesso.add(jmitAcessoUsuario);
 
         jmenGerenciamento.add(jmenGerenciamentoAcesso);
@@ -284,6 +430,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         jmenGerenciamentoCadHab.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/cadhab.png"))); // NOI18N
         jmenGerenciamentoCadHab.setText("CadHab");
         jmenGerenciamentoCadHab.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jmenGerenciamentoCadHab.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmenGerenciamentoCadHabKeyPressed(evt);
+            }
+        });
 
         jmitCadHabEmpresa.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         jmitCadHabEmpresa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -292,6 +443,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         jmitCadHabEmpresa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmitCadHabEmpresaActionPerformed(evt);
+            }
+        });
+        jmitCadHabEmpresa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmitCadHabEmpresaKeyPressed(evt);
             }
         });
         jmenGerenciamentoCadHab.add(jmitCadHabEmpresa);
@@ -305,6 +461,11 @@ public class FormPrincipal extends javax.swing.JFrame {
                 jmitCadHabFamiliaActionPerformed(evt);
             }
         });
+        jmitCadHabFamilia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmitCadHabFamiliaKeyPressed(evt);
+            }
+        });
         jmenGerenciamentoCadHab.add(jmitCadHabFamilia);
 
         jmitCadHabIndividuo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
@@ -314,6 +475,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         jmitCadHabIndividuo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmitCadHabIndividuoActionPerformed(evt);
+            }
+        });
+        jmitCadHabIndividuo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmitCadHabIndividuoKeyPressed(evt);
             }
         });
         jmenGerenciamentoCadHab.add(jmitCadHabIndividuo);
@@ -327,6 +493,11 @@ public class FormPrincipal extends javax.swing.JFrame {
                 jmitCadHabImovelActionPerformed(evt);
             }
         });
+        jmitCadHabImovel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmitCadHabImovelKeyPressed(evt);
+            }
+        });
         jmenGerenciamentoCadHab.add(jmitCadHabImovel);
 
         jmitCadHabNucleo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
@@ -338,6 +509,11 @@ public class FormPrincipal extends javax.swing.JFrame {
                 jmitCadHabNucleoActionPerformed(evt);
             }
         });
+        jmitCadHabNucleo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmitCadHabNucleoKeyPressed(evt);
+            }
+        });
         jmenGerenciamentoCadHab.add(jmitCadHabNucleo);
 
         jmenGerenciamento.add(jmenGerenciamentoCadHab);
@@ -345,6 +521,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         jmenGerenciamentoRecurso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/brick.png"))); // NOI18N
         jmenGerenciamentoRecurso.setText("Recursos");
         jmenGerenciamentoRecurso.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jmenGerenciamentoRecurso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmenGerenciamentoRecursoKeyPressed(evt);
+            }
+        });
 
         jmitRecursoMobilidade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jmitRecursoMobilidade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/ways.png"))); // NOI18N
@@ -352,6 +533,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         jmitRecursoMobilidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmitRecursoMobilidadeActionPerformed(evt);
+            }
+        });
+        jmitRecursoMobilidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmitRecursoMobilidadeKeyPressed(evt);
             }
         });
         jmenGerenciamentoRecurso.add(jmitRecursoMobilidade);
@@ -364,17 +550,27 @@ public class FormPrincipal extends javax.swing.JFrame {
                 jmitRecursoSocialActionPerformed(evt);
             }
         });
-        jmenGerenciamentoRecurso.add(jmitRecursoSocial);
-
-        jmitRecursoSecretaria.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jmitRecursoSecretaria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/secretary.png"))); // NOI18N
-        jmitRecursoSecretaria.setText("Secretaria");
-        jmitRecursoSecretaria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmitRecursoSecretariaActionPerformed(evt);
+        jmitRecursoSocial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmitRecursoSocialKeyPressed(evt);
             }
         });
-        jmenGerenciamentoRecurso.add(jmitRecursoSecretaria);
+        jmenGerenciamentoRecurso.add(jmitRecursoSocial);
+
+        jmitRecursoDepartamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jmitRecursoDepartamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/secretary.png"))); // NOI18N
+        jmitRecursoDepartamento.setText("Secretaria");
+        jmitRecursoDepartamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmitRecursoDepartamentoActionPerformed(evt);
+            }
+        });
+        jmitRecursoDepartamento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmitRecursoDepartamentoKeyPressed(evt);
+            }
+        });
+        jmenGerenciamentoRecurso.add(jmitRecursoDepartamento);
 
         jmenGerenciamento.add(jmenGerenciamentoRecurso);
 
@@ -382,10 +578,20 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         jmenRelatorio.setText("Relatórios");
         jmenRelatorio.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jmenRelatorio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmenRelatorioKeyPressed(evt);
+            }
+        });
         jmbarSuperior.add(jmenRelatorio);
 
         jmenFerramenta.setText("Ferramentas");
         jmenFerramenta.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jmenFerramenta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmenFerramentaKeyPressed(evt);
+            }
+        });
 
         jmitFerramentaConfigurarServidor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jmitFerramentaConfigurarServidor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/server.png"))); // NOI18N
@@ -395,12 +601,22 @@ public class FormPrincipal extends javax.swing.JFrame {
                 jmitFerramentaConfigurarServidorActionPerformed(evt);
             }
         });
+        jmitFerramentaConfigurarServidor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmitFerramentaConfigurarServidorKeyPressed(evt);
+            }
+        });
         jmenFerramenta.add(jmitFerramentaConfigurarServidor);
 
         jmbarSuperior.add(jmenFerramenta);
 
         jmenJanela.setText("Janelas");
         jmenJanela.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jmenJanela.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmenJanelaKeyPressed(evt);
+            }
+        });
 
         jmitJanelaHorizontalmente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jmitJanelaHorizontalmente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadhab/ui/icon/windowhorizontal.png"))); // NOI18N
@@ -408,6 +624,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         jmitJanelaHorizontalmente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmitJanelaHorizontalmenteActionPerformed(evt);
+            }
+        });
+        jmitJanelaHorizontalmente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmitJanelaHorizontalmenteKeyPressed(evt);
             }
         });
         jmenJanela.add(jmitJanelaHorizontalmente);
@@ -420,6 +641,11 @@ public class FormPrincipal extends javax.swing.JFrame {
                 jmitJanelaVerticalmenteActionPerformed(evt);
             }
         });
+        jmitJanelaVerticalmente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmitJanelaVerticalmenteKeyPressed(evt);
+            }
+        });
         jmenJanela.add(jmitJanelaVerticalmente);
 
         jmitJanelaCascata.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -430,7 +656,18 @@ public class FormPrincipal extends javax.swing.JFrame {
                 jmitJanelaCascataActionPerformed(evt);
             }
         });
+        jmitJanelaCascata.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmitJanelaCascataKeyPressed(evt);
+            }
+        });
         jmenJanela.add(jmitJanelaCascata);
+
+        jsepJanelas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jsepJanelasKeyPressed(evt);
+            }
+        });
         jmenJanela.add(jsepJanelas);
 
         jmitJanelaFecharTodas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -441,16 +678,31 @@ public class FormPrincipal extends javax.swing.JFrame {
                 jmitJanelaFecharTodasActionPerformed(evt);
             }
         });
+        jmitJanelaFecharTodas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmitJanelaFecharTodasKeyPressed(evt);
+            }
+        });
         jmenJanela.add(jmitJanelaFecharTodas);
 
         jmbarSuperior.add(jmenJanela);
 
         jmenSobre.setText("Sobre");
         jmenSobre.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jmenSobre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmenSobreKeyPressed(evt);
+            }
+        });
         jmbarSuperior.add(jmenSobre);
 
         jmenAjuda.setText("Ajuda");
         jmenAjuda.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jmenAjuda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jmenAjudaKeyPressed(evt);
+            }
+        });
         jmbarSuperior.add(jmenAjuda);
 
         setJMenuBar(jmbarSuperior);
@@ -601,7 +853,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jmitAcessoUsuarioActionPerformed
 
-    private void jmitRecursoSecretariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmitRecursoSecretariaActionPerformed
+    private void jmitRecursoDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmitRecursoDepartamentoActionPerformed
         
         if (fGerenciarSecretaria.getDesktopPane() == null) {
             
@@ -610,7 +862,7 @@ public class FormPrincipal extends javax.swing.JFrame {
             
         }
         
-    }//GEN-LAST:event_jmitRecursoSecretariaActionPerformed
+    }//GEN-LAST:event_jmitRecursoDepartamentoActionPerformed
 
     private void jmitFerramentaConfigurarServidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmitFerramentaConfigurarServidorActionPerformed
         
@@ -738,11 +990,330 @@ public class FormPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jmitJanelaVerticalmenteActionPerformed
 
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_formKeyPressed
+
+    private void jdktDesktopKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jdktDesktopKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jdktDesktopKeyPressed
+
+    private void jpnlBarraStatusKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jpnlBarraStatusKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jpnlBarraStatusKeyPressed
+
+    private void jpnlBarraStatusWrapperKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jpnlBarraStatusWrapperKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jpnlBarraStatusWrapperKeyPressed
+
+    private void jsepStatusServidorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jsepStatusServidorKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jsepStatusServidorKeyPressed
+
+    private void jlblStatusServidorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jlblStatusServidorKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jlblStatusServidorKeyPressed
+
+    private void jsepUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jsepUsuarioKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jsepUsuarioKeyPressed
+
+    private void jlblUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jlblUsuarioKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jlblUsuarioKeyPressed
+
+    private void jsepTarefaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jsepTarefaKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jsepTarefaKeyPressed
+
+    private void jlblTarefaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jlblTarefaKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jlblTarefaKeyPressed
+
+    private void jsepBarraProgressoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jsepBarraProgressoKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jsepBarraProgressoKeyPressed
+
+    private void jpgbProgressoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jpgbProgressoKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jpgbProgressoKeyPressed
+
+    private void jsepNUMKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jsepNUMKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jsepNUMKeyPressed
+
+    private void jlblNUMKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jlblNUMKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jlblNUMKeyPressed
+
+    private void jsepCAPKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jsepCAPKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jsepCAPKeyPressed
+
+    private void jlblCAPKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jlblCAPKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jlblCAPKeyPressed
+
+    private void jsepINSKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jsepINSKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jsepINSKeyPressed
+
+    private void jlblINSKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jlblINSKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jlblINSKeyPressed
+
+    private void jmbarSuperiorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmbarSuperiorKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmbarSuperiorKeyPressed
+
+    private void jmenPrincipalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmenPrincipalKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmenPrincipalKeyPressed
+
+    private void jmitPrincipalTrocarSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmitPrincipalTrocarSenhaKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmitPrincipalTrocarSenhaKeyPressed
+
+    private void jsepPrincipalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jsepPrincipalKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jsepPrincipalKeyPressed
+
+    private void jmitPrincipalLogoffKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmitPrincipalLogoffKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmitPrincipalLogoffKeyPressed
+
+    private void jmitPrincipalSairKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmitPrincipalSairKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmitPrincipalSairKeyPressed
+
+    private void jmenGerenciamentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmenGerenciamentoKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmenGerenciamentoKeyPressed
+
+    private void jmenGerenciamentoAcessoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmenGerenciamentoAcessoKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmenGerenciamentoAcessoKeyPressed
+
+    private void jmitAcessoGrupoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmitAcessoGrupoKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmitAcessoGrupoKeyPressed
+
+    private void jmitAcessoUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmitAcessoUsuarioKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmitAcessoUsuarioKeyPressed
+
+    private void jmenGerenciamentoCadHabKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmenGerenciamentoCadHabKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmenGerenciamentoCadHabKeyPressed
+
+    private void jmitCadHabEmpresaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmitCadHabEmpresaKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmitCadHabEmpresaKeyPressed
+
+    private void jmitCadHabFamiliaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmitCadHabFamiliaKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmitCadHabFamiliaKeyPressed
+
+    private void jmitCadHabIndividuoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmitCadHabIndividuoKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmitCadHabIndividuoKeyPressed
+
+    private void jmitCadHabImovelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmitCadHabImovelKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmitCadHabImovelKeyPressed
+
+    private void jmitCadHabNucleoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmitCadHabNucleoKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmitCadHabNucleoKeyPressed
+
+    private void jmenGerenciamentoRecursoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmenGerenciamentoRecursoKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmenGerenciamentoRecursoKeyPressed
+
+    private void jmitRecursoMobilidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmitRecursoMobilidadeKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmitRecursoMobilidadeKeyPressed
+
+    private void jmitRecursoSocialKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmitRecursoSocialKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmitRecursoSocialKeyPressed
+
+    private void jmitRecursoDepartamentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmitRecursoDepartamentoKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmitRecursoDepartamentoKeyPressed
+
+    private void jmenRelatorioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmenRelatorioKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmenRelatorioKeyPressed
+
+    private void jmenFerramentaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmenFerramentaKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmenFerramentaKeyPressed
+
+    private void jmitFerramentaConfigurarServidorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmitFerramentaConfigurarServidorKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmitFerramentaConfigurarServidorKeyPressed
+
+    private void jmenJanelaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmenJanelaKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmenJanelaKeyPressed
+
+    private void jmitJanelaHorizontalmenteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmitJanelaHorizontalmenteKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmitJanelaHorizontalmenteKeyPressed
+
+    private void jmitJanelaVerticalmenteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmitJanelaVerticalmenteKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmitJanelaVerticalmenteKeyPressed
+
+    private void jmitJanelaCascataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmitJanelaCascataKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmitJanelaCascataKeyPressed
+
+    private void jsepJanelasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jsepJanelasKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jsepJanelasKeyPressed
+
+    private void jmitJanelaFecharTodasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmitJanelaFecharTodasKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmitJanelaFecharTodasKeyPressed
+
+    private void jmenSobreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmenSobreKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmenSobreKeyPressed
+
+    private void jmenAjudaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jmenAjudaKeyPressed
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_jmenAjudaKeyPressed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        
+        toogleKeys();
+        
+    }//GEN-LAST:event_formWindowActivated
+
+    public static void toogleKeys() {
+        
+        if (java.awt.Toolkit.getDefaultToolkit().getLockingKeyState(java.awt.event.KeyEvent.VK_NUM_LOCK))
+            jlblNUM.setText("NUM");
+        else 
+            jlblNUM.setText("");
+        
+        if (java.awt.Toolkit.getDefaultToolkit().getLockingKeyState(java.awt.event.KeyEvent.VK_CAPS_LOCK))
+            jlblCAP.setText("CAP");
+        else 
+            jlblCAP.setText("");
+        
+//        if (java.awt.Toolkit.getDefaultToolkit().getLockingKeyState(java.awt.event.KeyEvent.VK_INSERT))
+//            jlblINS.setText("INS");
+//        else 
+//            jlblINS.setText("");
+        
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jdktDesktop;
-    private javax.swing.JLabel jlblCAP;
-    private javax.swing.JLabel jlblINS;
-    private javax.swing.JLabel jlblNUM;
+    private static javax.swing.JLabel jlblCAP;
+    private static javax.swing.JLabel jlblINS;
+    private static javax.swing.JLabel jlblNUM;
     private javax.swing.JLabel jlblStatusServidor;
     public static javax.swing.JLabel jlblTarefa;
     private javax.swing.JLabel jlblUsuario;
@@ -772,8 +1343,8 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmitPrincipalLogoff;
     private javax.swing.JMenuItem jmitPrincipalSair;
     private javax.swing.JMenuItem jmitPrincipalTrocarSenha;
+    private javax.swing.JMenuItem jmitRecursoDepartamento;
     private javax.swing.JMenuItem jmitRecursoMobilidade;
-    private javax.swing.JMenuItem jmitRecursoSecretaria;
     private javax.swing.JMenuItem jmitRecursoSocial;
     public static javax.swing.JProgressBar jpgbProgresso;
     private javax.swing.JPanel jpnlBarraStatus;

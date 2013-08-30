@@ -1069,14 +1069,38 @@ END;
 $$ LANGUAGE PLPGSQL;
 
 
+CREATE OR REPLACE FUNCTION fn_procurar_imovel_existente_por_endereco_completo(CHARACTER VARYING, CHARACTER VARYING, 
+CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, BIGINT, BIGINT)
+RETURNS SETOF tp_imovel AS $$
+DECLARE
+    linha tp_imovel;
+BEGIN
+    FOR linha IN SELECT i.id, i.id_nucleo, i.tipo_imovel, i.valor_aluguel, i.tipo_propriedade, i.doc_propriedade, i.num_doc_propriedade, 
+	i.localidade, i.paga_iptu, i.ic, i.selagem, i.atendente, i.atendente_atualizacao, i.dt_atualizacao FROM imovel AS i 
+	INNER JOIN endereco_imovel AS ei ON i.id = ei.id_imovel 
+	WHERE UPPER(ei.tipo_logradouro) LIKE UPPER($1) 
+	AND UPPER(ei.logradouro) LIKE UPPER($2) 
+	AND UPPER(ei.numero) LIKE UPPER($3) 
+	AND UPPER(ei.complemento) LIKE UPPER($4) 
+	AND UPPER(ei.cep) LIKE UPPER($5) 
+	AND UPPER(ei.bairro) LIKE UPPER($6) 
+	AND ei.id_municipio = $7 
+	AND ei.id != $8 LOOP
+        RETURN NEXT linha;
+    END LOOP;
+    RETURN;
+END;
+$$ LANGUAGE PLPGSQL;
+
+
 CREATE OR REPLACE FUNCTION fn_alterar_imovel
-(BIGINT, CHARACTER VARYING, DECIMAL(10,2), CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, 
+(BIGINT, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, 
 CHAR(3), CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, CHARACTER VARYING, BIGINT)
 RETURNS INTEGER AS $$
 	DECLARE 
 		affected_rows INTEGER DEFAULT 0;
 	BEGIN
-		UPDATE imovel SET id_nucleo = $1, tipo_imovel = $2, valor_aluguel = $3, tipo_propriedade = $4, 
+		UPDATE imovel SET id_nucleo = $1, tipo_imovel = $2, valor_aluguel = CAST($3 AS DECIMAL(10,2)), tipo_propriedade = $4, 
 		doc_propriedade = $5, num_doc_propriedade = $6, localidade = $7, paga_iptu = $8, ic = $9, selagem = $10, 
 		atendente = $11, atendente_atualizacao = $12, dt_atualizacao = CAST($13 AS DATE) WHERE id = $14;
 		GET DIAGNOSTICS affected_rows := ROW_COUNT;
@@ -1136,7 +1160,7 @@ RETURNS SETOF tp_composicao_imovel AS $$
 DECLARE
     linha tp_composicao_imovel;
 BEGIN
-    FOR linha IN SELECT id, id_imovel, construcao,  material_parede, especifique_parede, material_piso, especifique_piso, material_cobertura, especifique_cobertura, 
+    FOR linha IN SELECT id, id_imovel, construcao, material_parede, especifique_parede, material_piso, especifique_piso, material_cobertura, especifique_cobertura, 
 	num_comodos, num_salas, num_cozinhas, num_quartos, num_banheiros, num_areas_servicos, num_anexos, num_outros_comodos, num_servem_dormitorio 
 	FROM composicao_imovel WHERE id_imovel = $1 LOOP
         RETURN NEXT linha;
@@ -1438,7 +1462,7 @@ RETURNS SETOF tp_demolicao_imovel AS $$
 DECLARE
     linha tp_demolicao_imovel;
 BEGIN
-    FOR linha IN SELECT id, id_imovel, dt_demolicao, horario_demolicao, num_processo, motivo, executada_por FROM anexo_imovel WHERE id = $1 LOOP
+    FOR linha IN SELECT id, id_imovel, dt_demolicao, horario_demolicao, num_processo, motivo, executada_por FROM demolicao_imovel WHERE id = $1 LOOP
         RETURN NEXT linha;
     END LOOP;
     RETURN;
@@ -1451,7 +1475,7 @@ RETURNS SETOF tp_demolicao_imovel AS $$
 DECLARE
     linha tp_demolicao_imovel;
 BEGIN
-    FOR linha IN SELECT id, id_imovel, dt_demolicao, horario_demolicao, num_processo, motivo, executada_por FROM anexo_imovel WHERE id_imovel = $1 LOOP
+    FOR linha IN SELECT id, id_imovel, dt_demolicao, horario_demolicao, num_processo, motivo, executada_por FROM demolicao_imovel WHERE id_imovel = $1 LOOP
         RETURN NEXT linha;
     END LOOP;
     RETURN;
@@ -3635,6 +3659,19 @@ $$ LANGUAGE PLPGSQL;
 -------------------- ESTADOS -----------------
 
 
+CREATE OR REPLACE FUNCTION fn_selecionar_estado_por_id(BIGINT)
+RETURNS SETOF tp_estado AS $$
+	DECLARE
+		linha tp_estado;
+	BEGIN
+		FOR linha IN SELECT id, id_pais, sigla, nome FROM estados WHERE id = $1 LOOP
+			RETURN NEXT linha;
+		END LOOP;
+		RETURN;
+	END;
+$$ LANGUAGE PLPGSQL;
+
+
 CREATE OR REPLACE FUNCTION fn_procurar_estado_por_id_pais(INTEGER)
 RETURNS SETOF tp_estado AS $$
 	DECLARE
@@ -3662,6 +3699,19 @@ $$ LANGUAGE PLPGSQL;
 
 
 -------------------- MUNICÍPIOS -----------------
+
+
+CREATE OR REPLACE FUNCTION fn_selecionar_municipio_por_id(BIGINT)
+RETURNS SETOF tp_municipio AS $$
+	DECLARE
+		linha tp_municipio;
+	BEGIN
+		FOR linha IN SELECT id, id_estado, nome FROM municipios WHERE id = $1 LOOP
+			RETURN NEXT linha;
+		END LOOP;
+		RETURN;
+	END;
+$$ LANGUAGE PLPGSQL;
 
 
 CREATE OR REPLACE FUNCTION fn_procurar_municipio_por_id_estado(BIGINT)

@@ -39,7 +39,7 @@ public class JsonSelecionarEnderecoImovelPorImovel extends javax.servlet.http.Ht
                 com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
                 com.sys.habitacional.EnderecoImovel endereco = jsonMgr.parseEnderecoImovel(json);
                 
-                if (endereco.getId() > 0) {
+                if (endereco.getIdImovel() > 0) {
                     
                     pgsql.sys.habitacional.EnderecoImovelDAO enderecoDAO = new pgsql.sys.habitacional.EnderecoImovelDAO();
                     endereco = enderecoDAO.selecionarEnderecoImovelPorIDImovel(endereco.getIdImovel());

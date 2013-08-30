@@ -33,7 +33,7 @@ public class FieldManager {
     
     public static boolean checkEmptyField(javax.swing.JTextArea field) {
         
-        if (field.getText().isEmpty()) {
+        if (field.getText().isEmpty() || field.getText().equals("__/__/____") || field.getText().equals("__:__:__")) {
             
             field.setBackground(com.sys.SystemSettings.EMPTY_REQUIRED_TEXTBOX);
             return false;

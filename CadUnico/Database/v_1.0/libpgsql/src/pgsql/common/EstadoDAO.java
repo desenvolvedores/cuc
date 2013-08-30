@@ -15,6 +15,18 @@ public class EstadoDAO {
         
     }
     
+    public com.common.Estado selecionarEstadoPorID(long id) 
+            throws java.lang.ClassNotFoundException, java.sql.SQLException {
+        
+        java.lang.String sql = "SELECT * FROM fn_selecionar_estado_por_id(?)";
+        java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
+        stmt.setLong(1, id);
+        java.sql.ResultSet rs = stmt.executeQuery();
+        
+        return selecionar(rs);
+        
+    }
+    
     public com.common.Estado selecionarIDEstado(String nome) 
             throws java.lang.ClassNotFoundException, java.sql.SQLException {
         
@@ -56,6 +68,25 @@ public class EstadoDAO {
         com.db.DBConnection.getInstance().getConnection().commit();
         
         return listar(rs);
+        
+    }
+    
+    private com.common.Estado selecionar(java.sql.ResultSet rs) 
+            throws java.sql.SQLException {
+        
+        if (rs.next()) {
+            
+            com.common.Estado estado = new com.common.Estado();
+            estado.setId(rs.getLong("id"));
+            estado.setIdPais(rs.getLong("id_pais"));
+            estado.setSigla(rs.getString("sigla"));
+            estado.setNome(rs.getString("nome"));
+            
+            return estado;
+            
+        }
+        
+        return null;
         
     }
     

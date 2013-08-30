@@ -126,6 +126,25 @@ public class ImovelDAO {
         
     }
     
+    public java.util.List<com.sys.habitacional.Imovel> procurarImovelExistentePorEnderecoCompleto(com.sys.habitacional.Imovel imovel) 
+            throws java.lang.ClassNotFoundException, java.sql.SQLException {
+        
+        java.lang.String sql = "SELECT * FROM fn_procurar_imovel_existente_por_endereco_completo(?, ?, ?, ?, ?, ?, ?, ?)";
+        java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
+        stmt.setString(1, imovel.getEndereco().getTipoLogradouro());
+        stmt.setString(2, imovel.getEndereco().getLogradouro());
+        stmt.setString(3, imovel.getEndereco().getNumero());
+        stmt.setString(4, imovel.getEndereco().getComplemento());
+        stmt.setString(5, imovel.getEndereco().getCEP());
+        stmt.setString(6, imovel.getEndereco().getBairro());
+        stmt.setLong(7, imovel.getEndereco().getIdMunicipio());
+        stmt.setLong(8, imovel.getEndereco().getId());
+        java.sql.ResultSet rs = stmt.executeQuery();
+        
+        return listar(rs);
+        
+    }
+    
     public java.util.List<com.sys.habitacional.Imovel> listarImoveis() 
             throws java.lang.ClassNotFoundException, java.sql.SQLException {
         
@@ -135,6 +154,18 @@ public class ImovelDAO {
         com.db.DBConnection.getInstance().getConnection().commit();
         
         return listar(rs);
+        
+    }
+    
+    public java.util.List<com.sys.habitacional.Imovel> listarImoveisEnderecos() 
+            throws java.lang.ClassNotFoundException, java.sql.SQLException {
+        
+        java.lang.String sql = "SELECT * FROM vw_imoveis_enderecos";
+        java.sql.CallableStatement stmt = com.db.DBConnection.getInstance().getConnection().prepareCall(sql);
+        java.sql.ResultSet rs = stmt.executeQuery();
+        com.db.DBConnection.getInstance().getConnection().commit();
+        
+        return listarImovelEndereco(rs);
         
     }
     
@@ -231,6 +262,52 @@ public class ImovelDAO {
             imovel.setAtendente(rs.getString("atendente"));
             imovel.setAtendenteAtualizacao(rs.getString("atendente_atualizacao"));
             imovel.setDataAtualizacao(dtMgr.parseDate(rs.getString("dt_atualizacao")));
+            imoveis.add(imovel);
+            
+        }
+        
+        return imoveis;
+        
+    }
+    
+    private java.util.List<com.sys.habitacional.Imovel> listarImovelEndereco(java.sql.ResultSet rs) 
+            throws java.sql.SQLException {
+        
+        com.data.DateManager dtMgr = new com.data.DateManager();
+        java.util.List<com.sys.habitacional.Imovel> imoveis = new java.util.ArrayList<>();
+        
+        while (rs.next()) {
+            
+            com.sys.habitacional.EnderecoImovel endereco = new com.sys.habitacional.EnderecoImovel();
+            endereco.setId(rs.getLong("e_id"));
+            endereco.setIdImovel(rs.getLong("i_id"));
+            endereco.setIdMunicipio(rs.getLong("id_municipio"));
+            endereco.setTipoLogradouro(rs.getString("tipo_logradouro"));
+            endereco.setLogradouro(rs.getString("logradouro"));
+            endereco.setNumero(rs.getString("numero"));
+            endereco.setComplemento(rs.getString("complemento"));
+            endereco.setCEP(rs.getString("cep"));
+            endereco.setBairro(rs.getString("bairro"));
+            endereco.setTipoArea(rs.getString("tipo_area"));
+            endereco.setLatitude(rs.getString("latitude"));
+            endereco.setLongitude(rs.getString("longitude"));
+            
+            com.sys.habitacional.Imovel imovel = new com.sys.habitacional.Imovel();
+            imovel.setId(rs.getLong("i_id"));
+            imovel.setIdNucleo(rs.getLong("id_nucleo"));
+            imovel.setTipo(rs.getString("tipo_imovel"));
+            imovel.setValorAluguel(rs.getDouble("valor_aluguel"));
+            imovel.setTipoPropriedade(rs.getString("tipo_propriedade"));
+            imovel.setDocPropriedade(rs.getString("doc_propriedade"));
+            imovel.setNumDocPropriedade(rs.getString("num_doc_propriedade"));
+            imovel.setLocalidade(rs.getString("localidade"));
+            imovel.setPagaIPTU(rs.getString("paga_iptu"));
+            imovel.setIc(rs.getString("ic"));
+            imovel.setSelagem(rs.getString("selagem"));
+            imovel.setAtendente(rs.getString("atendente"));
+            imovel.setAtendenteAtualizacao(rs.getString("atendente_atualizacao"));
+            imovel.setDataAtualizacao(dtMgr.parseDate(rs.getString("dt_atualizacao")));
+            imovel.setEndereco(endereco);
             imoveis.add(imovel);
             
         }

@@ -13,11 +13,13 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
     
     private char acao = ' ';
     private long idImovelAtual = 0;
+    private long idNucleoAtual = 0;
     private long idComposicaoAtual = 0;
     private long idEnderecoAtual = 0;
     private long idServicoAtual = 0;
     private long idDemolicaoAtual = 0;
     private long idEstadoAtual = 0;
+    private long idMunicipioAtual = 0;
 
     /**
      * Creates new form FormGerenciarImovel
@@ -194,6 +196,8 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         jckbRatos = new javax.swing.JCheckBox();
         jckbCobras = new javax.swing.JCheckBox();
         jpnlDemolicao = new javax.swing.JPanel();
+        jlblDemolicao = new javax.swing.JLabel();
+        jcbbDemolicao = new javax.swing.JComboBox();
         jlblDataDemolicao = new javax.swing.JLabel();
         jtxtDataDemolicao = new javax.swing.JFormattedTextField(com.data.MaskManager.setDateMask());
         jlblHorarioDemolicao = new javax.swing.JLabel();
@@ -288,17 +292,77 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         jtblPesquisa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtblPesquisa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "", "Tipo de Propriedade", "Documento de Propriedade", "Número do Documento", "Paga IPTU?", "I. C.", "Selagem", "Núcleo", "Tipo de Logradouro", "Logradouro", "Número do Imóvel", "Complemento", "CEP", "Bairro", "Município", "Estado", "Tipo de Área", "Latitude", "Longitude", "Primeiro Atendente", "Último Atendente", "Data de Atualização"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtblPesquisa.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jtblPesquisa.setNextFocusableComponent(jpnlFormulario);
+        jtblPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtblPesquisaMouseClicked(evt);
+            }
+        });
         jscpTabelaPesquisa.setViewportView(jtblPesquisa);
+        jtblPesquisa.getColumnModel().getColumn(0).setResizable(false);
+        jtblPesquisa.getColumnModel().getColumn(0).setMinWidth(0);
+        jtblPesquisa.getColumnModel().getColumn(0).setPreferredWidth(0);
+        jtblPesquisa.getColumnModel().getColumn(0).setMaxWidth(0);
+        jtblPesquisa.getColumnModel().getColumn(1).setMinWidth(250);
+        jtblPesquisa.getColumnModel().getColumn(1).setPreferredWidth(250);
+        jtblPesquisa.getColumnModel().getColumn(2).setMinWidth(250);
+        jtblPesquisa.getColumnModel().getColumn(2).setPreferredWidth(250);
+        jtblPesquisa.getColumnModel().getColumn(3).setMinWidth(250);
+        jtblPesquisa.getColumnModel().getColumn(3).setPreferredWidth(250);
+        jtblPesquisa.getColumnModel().getColumn(4).setMinWidth(100);
+        jtblPesquisa.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jtblPesquisa.getColumnModel().getColumn(5).setMinWidth(150);
+        jtblPesquisa.getColumnModel().getColumn(5).setPreferredWidth(150);
+        jtblPesquisa.getColumnModel().getColumn(6).setMinWidth(150);
+        jtblPesquisa.getColumnModel().getColumn(6).setPreferredWidth(150);
+        jtblPesquisa.getColumnModel().getColumn(7).setMinWidth(250);
+        jtblPesquisa.getColumnModel().getColumn(7).setPreferredWidth(250);
+        jtblPesquisa.getColumnModel().getColumn(8).setMinWidth(150);
+        jtblPesquisa.getColumnModel().getColumn(8).setPreferredWidth(150);
+        jtblPesquisa.getColumnModel().getColumn(9).setMinWidth(250);
+        jtblPesquisa.getColumnModel().getColumn(9).setPreferredWidth(250);
+        jtblPesquisa.getColumnModel().getColumn(10).setMinWidth(150);
+        jtblPesquisa.getColumnModel().getColumn(10).setPreferredWidth(150);
+        jtblPesquisa.getColumnModel().getColumn(11).setMinWidth(150);
+        jtblPesquisa.getColumnModel().getColumn(11).setPreferredWidth(150);
+        jtblPesquisa.getColumnModel().getColumn(12).setMinWidth(100);
+        jtblPesquisa.getColumnModel().getColumn(12).setPreferredWidth(100);
+        jtblPesquisa.getColumnModel().getColumn(13).setMinWidth(250);
+        jtblPesquisa.getColumnModel().getColumn(13).setPreferredWidth(250);
+        jtblPesquisa.getColumnModel().getColumn(14).setMinWidth(250);
+        jtblPesquisa.getColumnModel().getColumn(14).setPreferredWidth(250);
+        jtblPesquisa.getColumnModel().getColumn(15).setMinWidth(100);
+        jtblPesquisa.getColumnModel().getColumn(15).setPreferredWidth(100);
+        jtblPesquisa.getColumnModel().getColumn(16).setMinWidth(100);
+        jtblPesquisa.getColumnModel().getColumn(16).setPreferredWidth(100);
+        jtblPesquisa.getColumnModel().getColumn(17).setMinWidth(150);
+        jtblPesquisa.getColumnModel().getColumn(17).setPreferredWidth(150);
+        jtblPesquisa.getColumnModel().getColumn(18).setMinWidth(150);
+        jtblPesquisa.getColumnModel().getColumn(18).setPreferredWidth(150);
+        jtblPesquisa.getColumnModel().getColumn(19).setMinWidth(250);
+        jtblPesquisa.getColumnModel().getColumn(19).setPreferredWidth(250);
+        jtblPesquisa.getColumnModel().getColumn(20).setMinWidth(250);
+        jtblPesquisa.getColumnModel().getColumn(20).setPreferredWidth(250);
+        jtblPesquisa.getColumnModel().getColumn(21).setMinWidth(150);
+        jtblPesquisa.getColumnModel().getColumn(21).setPreferredWidth(150);
 
         javax.swing.GroupLayout jpnlPesquisaLayout = new javax.swing.GroupLayout(jpnlPesquisa);
         jpnlPesquisa.setLayout(jpnlPesquisaLayout);
@@ -317,7 +381,7 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jpnlPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jscpTabelaPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
+                .addComponent(jscpTabelaPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1138,6 +1202,7 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         });
         jpnlServicoDemolicao.setLayout(null);
 
+        jpnlServicoDemolicaoWrapper.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jpnlServicoDemolicaoWrapper.setLayout(null);
 
         jlblPavimentacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -1384,50 +1449,73 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         jpnlDemolicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jpnlDemolicao.setLayout(null);
 
+        jlblDemolicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jlblDemolicao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jlblDemolicao.setText("Demolição:");
+        jlblDemolicao.setToolTipText("O imóvel foi demolido ou está em processo de demolição?");
+        jpnlDemolicao.add(jlblDemolicao);
+        jlblDemolicao.setBounds(10, 20, 100, 25);
+
+        jcbbDemolicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jcbbDemolicao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione uma opção", "Sim", "Não" }));
+        jcbbDemolicao.setNextFocusableComponent(jcbbQualPavimentacao);
+        jcbbDemolicao.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbbDemolicaoItemStateChanged(evt);
+            }
+        });
+        jcbbDemolicao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jcbbDemolicaoFocusLost(evt);
+            }
+        });
+        jpnlDemolicao.add(jcbbDemolicao);
+        jcbbDemolicao.setBounds(120, 20, 360, 25);
+
         jlblDataDemolicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblDataDemolicao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblDataDemolicao.setText("Data:");
         jlblDataDemolicao.setToolTipText("Data da demolição");
         jpnlDemolicao.add(jlblDataDemolicao);
-        jlblDataDemolicao.setBounds(10, 20, 100, 25);
+        jlblDataDemolicao.setBounds(10, 50, 100, 25);
 
         jtxtDataDemolicao.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
         jtxtDataDemolicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtDataDemolicao.setNextFocusableComponent(jtxtHorarioDemolicao);
         jpnlDemolicao.add(jtxtDataDemolicao);
-        jtxtDataDemolicao.setBounds(120, 20, 360, 25);
+        jtxtDataDemolicao.setBounds(120, 50, 360, 25);
 
         jlblHorarioDemolicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblHorarioDemolicao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblHorarioDemolicao.setText("Horário:");
         jlblHorarioDemolicao.setToolTipText("Horário da demolição");
         jpnlDemolicao.add(jlblHorarioDemolicao);
-        jlblHorarioDemolicao.setBounds(10, 50, 100, 25);
+        jlblHorarioDemolicao.setBounds(10, 80, 100, 25);
 
         jtxtHorarioDemolicao.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
         jtxtHorarioDemolicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtHorarioDemolicao.setNextFocusableComponent(jtxtNumeroProcessoDemolicao);
         jpnlDemolicao.add(jtxtHorarioDemolicao);
-        jtxtHorarioDemolicao.setBounds(120, 50, 360, 25);
+        jtxtHorarioDemolicao.setBounds(120, 80, 360, 25);
 
         jlblNumeroProcessoDemolicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblNumeroProcessoDemolicao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblNumeroProcessoDemolicao.setText("Nº Processo:");
         jlblNumeroProcessoDemolicao.setToolTipText("Número do processo vinculado à demolição");
         jpnlDemolicao.add(jlblNumeroProcessoDemolicao);
-        jlblNumeroProcessoDemolicao.setBounds(10, 80, 100, 25);
+        jlblNumeroProcessoDemolicao.setBounds(10, 110, 100, 25);
 
         jtxtNumeroProcessoDemolicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jtxtNumeroProcessoDemolicao.setNextFocusableComponent(jtxtaMotivoDemolicao);
         jpnlDemolicao.add(jtxtNumeroProcessoDemolicao);
-        jtxtNumeroProcessoDemolicao.setBounds(120, 80, 360, 25);
+        jtxtNumeroProcessoDemolicao.setBounds(120, 110, 360, 25);
 
         jlblMotivoDemolicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblMotivoDemolicao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jlblMotivoDemolicao.setText("Motivo:");
         jlblMotivoDemolicao.setToolTipText("Especifique o motivo da demolição do imóvel");
         jpnlDemolicao.add(jlblMotivoDemolicao);
-        jlblMotivoDemolicao.setBounds(10, 110, 100, 25);
+        jlblMotivoDemolicao.setBounds(10, 140, 100, 25);
 
         jtxtaMotivoDemolicao.setColumns(20);
         jtxtaMotivoDemolicao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -1443,11 +1531,11 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         );
         jpnlTextAreaMotivoDemolicaoLayout.setVerticalGroup(
             jpnlTextAreaMotivoDemolicaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jscpTextAreaMotivoDemolicao, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+            .addComponent(jscpTextAreaMotivoDemolicao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
         );
 
         jpnlDemolicao.add(jpnlTextAreaMotivoDemolicao);
-        jpnlTextAreaMotivoDemolicao.setBounds(120, 110, 360, 190);
+        jpnlTextAreaMotivoDemolicao.setBounds(120, 140, 360, 160);
 
         jlblExecutadaPor.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlblExecutadaPor.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -1574,7 +1662,7 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         jpnlFormularioLayout.setVerticalGroup(
             jpnlFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpnlFormularioLayout.createSequentialGroup()
-                .addComponent(jtbpFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
+                .addComponent(jtbpFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpnlRodape, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -1594,10 +1682,7 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 11, Short.MAX_VALUE)
-                .addComponent(jsepPrincipal)
-                .addGap(0, 12, Short.MAX_VALUE))
+            .addComponent(jsepPrincipal)
         );
 
         pack();
@@ -1670,7 +1755,9 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbtnSalvarActionPerformed
 
     private void jbtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEditarActionPerformed
-        // TODO add your handling code here:
+        
+        editar();
+        
     }//GEN-LAST:event_jbtnEditarActionPerformed
 
     private void jbtnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnLimparActionPerformed
@@ -1681,7 +1768,9 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbtnLimparActionPerformed
 
     private void jbtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnExcluirActionPerformed
-        // TODO add your handling code here:
+        
+        excluir();
+        
     }//GEN-LAST:event_jbtnExcluirActionPerformed
 
     private void jbtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPesquisarActionPerformed
@@ -1690,6 +1779,7 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         
+        preencherTabelaPesquisa();
         preencherComboNucleo();
         preencherComboEstado();
         
@@ -2061,6 +2151,40 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jcbbIluminacaoUtilizadaItemStateChanged
 
+    private void jcbbDemolicaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jcbbDemolicaoFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbbDemolicaoFocusLost
+
+    private void jcbbDemolicaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbbDemolicaoItemStateChanged
+        
+        switch (jcbbDemolicao.getSelectedItem().toString()) {
+            
+            case "Sim": {
+                habilitarCamposDemolicao();
+                checarCamposObrigatoriosDemolicao();
+            }
+                break;
+                
+            default: {
+                desabilitarCamposDemolicao();
+                liberarCamposObrigatoriosDemolicao();
+            }
+                break;
+        
+        }
+        
+    }//GEN-LAST:event_jcbbDemolicaoItemStateChanged
+
+    private void jtblPesquisaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblPesquisaMouseClicked
+        
+        if (evt.getClickCount() == 2) {
+            
+            carregarDados();
+            
+        }
+        
+    }//GEN-LAST:event_jtblPesquisaMouseClicked
+
     private void criarNovo() {
         
         com.data.DateManager dateMgr = new com.data.DateManager();
@@ -2068,6 +2192,7 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         limparCampos();
         checarCamposObrigatorios();
         habilitarTodosCampos();
+        desabilitarCamposDemolicao();
         jtxtNumeroDocumento.setEnabled(false);
         jtxtEspecifiqueIluminacao.setEnabled(false);
         jtxtDataAtualizacao.setText(dateMgr.getCurrentDate());
@@ -2085,6 +2210,13 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         try {
             
             if (checarCamposObrigatorios()) {
+                
+                if (jcbbDemolicao.getSelectedIndex() == 1 && ! checarCamposObrigatoriosDemolicao()) {
+                    
+                    javax.swing.JOptionPane.showMessageDialog(this, "Verifique se todos os campos obrigatórios se encontram preenchidos e/ou selecionados!", "CadHab", 2);
+                    return;
+                    
+                }
                 
                 com.sys.habitacional.Imovel imovel = preencherDadosImovel();
                 
@@ -2163,9 +2295,315 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         
     }
     
+    private void editar() {
+        
+        try {
+            
+            if (checarCamposObrigatorios()) {
+                
+                if (jcbbDemolicao.getSelectedIndex() == 1 && ! checarCamposObrigatoriosDemolicao()) {
+                    
+                    javax.swing.JOptionPane.showMessageDialog(this, "Verifique se todos os campos obrigatórios se encontram preenchidos e/ou selecionados!", "CadHab", 2);
+                    return;
+                    
+                }
+                
+                com.sys.habitacional.Imovel imovel = preencherDadosImovel();
+                imovel.setId(idImovelAtual);
+                imovel.getComposicao().setId(idComposicaoAtual);
+                imovel.getComposicao().setIdImovel(idImovelAtual);
+                imovel.getEndereco().setId(idEnderecoAtual);
+                imovel.getEndereco().setIdImovel(idImovelAtual);
+                imovel.getServico().setId(idServicoAtual);
+                imovel.getServico().setIdImovel(idImovelAtual);
+                imovel.getDemolicao().setId(idDemolicaoAtual);
+                imovel.getDemolicao().setIdImovel(idImovelAtual);
+                
+                System.out.println("Composicao => " + idComposicaoAtual);
+                System.out.println("Endereco => " + idEnderecoAtual);
+                System.out.println("Servico => " + idServicoAtual);
+                System.out.println("Demolicao => " + idDemolicaoAtual);
+                System.out.println("Imovel => " + idImovelAtual);
+                
+                com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+                String input = jsonMgr.parseJson(imovel);
+                
+                java.lang.Object output = cadhab.conn.ConnectionManager.connect("/imovel/existente/endereco?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                
+                if (output == null) {
+                    
+                    java.lang.Object[] options = { "Sim", "Não" };
+                    java.lang.Object opcao = javax.swing.JOptionPane.showOptionDialog(this, "Deseja realmente atualizar os dados do imóvel no sistema?", "CadHab",
+                            javax.swing.JOptionPane.DEFAULT_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null,
+                            options, options[1]);
+
+                    if (opcao.toString().equals("0")) {
+                        
+                        output = cadhab.conn.ConnectionManager.connect("/imovel/completo/atualizar?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                        
+                        if (output != null) {
+                            
+                            if (output instanceof com.sys.Message) {
+
+                                com.sys.Message mensagem = (com.sys.Message) output;
+                                javax.swing.JOptionPane.showMessageDialog(this, mensagem.getMessage(), "CadHab", mensagem.getCode());
+                                    
+                                if (mensagem.getCode() == 1) {
+                                        
+                                    limparCampos();
+                                    desabilitarTodosCampos();
+                                    desabilitarBotoes();
+                                    jbtnNovo.setEnabled(true);
+                                    preencherTabelaPesquisa();
+                                    acao = ' ';
+                                    
+                                }
+
+                            }
+                            
+                        } else {
+
+                            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível atualizar os dados do imóvel!", "CadHab", 0);
+
+                        }
+                        
+                    }
+                    
+                } else {
+                    if (output instanceof com.sys.Message) {
+                        com.sys.Message me = (com.sys.Message) output;
+                        javax.swing.JOptionPane.showMessageDialog(this, me.getMessage(), "CadHab", me.getCode());
+                    }
+                    javax.swing.JOptionPane.showMessageDialog(this, "Já existe um outro imóvel com este endereço cadastrado no sistema!", "CadHab", 2);
+                    
+                }
+                
+            } else {
+                
+                javax.swing.JOptionPane.showMessageDialog(this, "Verifique se todos os campos obrigatórios se encontram preenchidos e/ou selecionados!", "CadHab", 2);
+                
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+         
+        } catch (java.lang.NumberFormatException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Algum(ns) campo(s) numérico(s) possui(em) valor(es) inválido(s)!", "CadHab", 0);
+            
+        } catch (java.lang.Exception ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
+        
+    }
+    
+    private void excluir() {
+        
+        try {
+            
+            if (idImovelAtual > 0) {
+                
+                java.lang.Object[] options = { "Sim", "Não" };
+                java.lang.Object opcao = javax.swing.JOptionPane.showOptionDialog(this, "Esta ação é irreversível após ter sido executada!\nDeseja realmente excluir os dados do imóvel no sistema?", "CadHab",
+                        javax.swing.JOptionPane.DEFAULT_OPTION, javax.swing.JOptionPane.QUESTION_MESSAGE, null,
+                        options, options[1]);
+
+                if (opcao.toString().equals("0")) {
+                    
+                    com.sys.habitacional.Imovel imovel = new com.sys.habitacional.Imovel();
+                    imovel.setId(idImovelAtual);
+
+                    com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+                    String input = jsonMgr.parseJson(imovel);
+
+                    java.lang.Object output = cadhab.conn.ConnectionManager.connect("/imovel/excluir?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                    
+                    if (output != null) {
+                        
+                        if (output instanceof com.sys.Message) {
+
+                            com.sys.Message mensagem = (com.sys.Message) output;
+                            javax.swing.JOptionPane.showMessageDialog(this, mensagem.getMessage(), "CadHab", mensagem.getCode());
+                                    
+                            if (mensagem.getCode() == 1) {
+                                        
+                                limparCampos();
+                                desabilitarTodosCampos();
+                                desabilitarBotoes();
+                                jbtnNovo.setEnabled(true);
+                                preencherTabelaPesquisa();
+                                acao = ' ';
+                                    
+                            }
+
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+         
+        } catch (java.lang.Exception ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
+        
+    }
+    
     private void preencherTabelaPesquisa() {
         
-        
+        try {
+            
+            javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jtblPesquisa.getModel();
+            modelo.setNumRows(0);
+            
+            java.lang.Object output = cadhab.conn.ConnectionManager.connect("/imoveis/enderecos?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), "");
+            
+            if (output != null) {
+                
+                if (output instanceof java.util.List) {
+                    
+                    java.util.List<com.sys.habitacional.Imovel> imoveis = (java.util.List<com.sys.habitacional.Imovel>) output;
+                    com.sys.urbano.Nucleo nucleo = new com.sys.urbano.Nucleo();
+                    com.common.Municipio municipio = new com.common.Municipio();
+                    com.common.Estado estado = new com.common.Estado();
+                    com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+                    String input = "";
+                    
+                    for (com.sys.habitacional.Imovel imovel : imoveis) {
+                        
+                        nucleo.setId(imovel.getIdNucleo());
+                        input = jsonMgr.parseJson(nucleo);
+                        
+                        output = cadhab.conn.ConnectionManager.connect("/nucleo/id?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                        
+                        if (output != null) {
+                            
+                            if (output instanceof com.sys.urbano.Nucleo) {
+                                
+                                nucleo = (com.sys.urbano.Nucleo) output;
+                                
+                                municipio.setId(imovel.getEndereco().getIdMunicipio());
+                                input = jsonMgr.parseJson(municipio);
+                        
+                                output = cadhab.conn.ConnectionManager.connect("/municipio/id?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                                
+                                if (output != null) {
+                                    
+                                    if (output instanceof com.common.Municipio) {
+                                        
+                                        municipio = (com.common.Municipio) output;
+                                        
+                                        estado.setId(municipio.getIdEstado());
+                                        input = jsonMgr.parseJson(estado);
+                        
+                                        output = cadhab.conn.ConnectionManager.connect("/estado/id?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+                                        
+                                        if (output != null) {
+                                            
+                                            if (output instanceof com.common.Estado) {
+                                                
+                                                estado = (com.common.Estado) output;
+                                                
+                                                modelo.addRow(new java.lang.Object[] { 
+                                    
+                                                    imovel.getId(), 
+                                                    imovel.getTipoPropriedade(), 
+                                                    imovel.getDocPropriedade(), 
+                                                    imovel.getNumDocPropriedade(), 
+                                                    imovel.getPagaIPTU(), 
+                                                    imovel.getIc(), 
+                                                    imovel.getSelagem(), 
+                                                    nucleo.getNome(), 
+                                                    imovel.getEndereco().getTipoLogradouro(), 
+                                                    imovel.getEndereco().getLogradouro(), 
+                                                    imovel.getEndereco().getNumero(), 
+                                                    imovel.getEndereco().getComplemento(), 
+                                                    imovel.getEndereco().getCEP(), 
+                                                    imovel.getEndereco().getBairro(), 
+                                                    municipio.getNome(), 
+                                                    estado.getNome(), 
+                                                    imovel.getEndereco().getTipoArea(), 
+                                                    imovel.getEndereco().getLatitude(), 
+                                                    imovel.getEndereco().getLongitude(), 
+                                                    imovel.getAtendente(), 
+                                                    imovel.getAtendenteAtualizacao(), 
+                                                    imovel.getDataAtualizacao()
+
+                                                });
+                                                
+                                            }
+                                            
+                                        }
+                                        
+                                    }
+                                    
+                                }
+                        
+                            }
+                        
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações ao/do servidor!", "CadHab", 0);
+            
+        } catch (java.lang.Exception ex) {
+            
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
         
     }
     
@@ -2436,6 +2874,315 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         
     }
     
+    private void carregarDados() {
+        
+        try {
+            
+            if (jtblPesquisa.getSelectedRow() >= 0) {
+                
+                habilitarTodosCampos();
+                
+                carregarDadosImovel();
+                carregarDadosNucleo();
+                carregarDadosComposicao();
+                carregarDadosEndereco();
+                carregarDadosEnderecoAdicional();
+                carregarDadosServicos();
+                carregarDadosDemolicao();
+                
+                habilitarBotoes();
+                jbtnSalvar.setEnabled(false);
+                
+                jtbpFormulario.setSelectedIndex(0);
+                jtbpPrincipal.setSelectedIndex(1);
+                acao = 'U';
+                
+            }
+            
+        } catch (java.net.MalformedURLException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível encontrar um caminho até o servidor!Verifique se as configurações do servidor estão corretas.", "CadHab", 0);
+            
+        } catch (java.net.ConnectException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "O servidor do CadHab está temporariamente fora do ar!\nTente novamente mais tarde.", "CadHab", 0);
+            
+        } catch (java.io.IOException ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Não foi possível enviar/obter as informações para/do servidor!", "CadHab", 0);
+         
+        } catch (java.lang.Exception ex) {
+            
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage(), "CadHab", 0);
+            
+        }
+        
+    }
+    
+    private void carregarDadosImovel() 
+            throws java.net.MalformedURLException, java.net.ConnectException, java.io.IOException {
+        
+        com.sys.habitacional.Imovel imovel = new com.sys.habitacional.Imovel();
+        imovel.setId(Long.parseLong(jtblPesquisa.getModel().getValueAt(jtblPesquisa.getSelectedRow(), 0).toString()));
+                
+        com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+        String input = jsonMgr.parseJson(imovel);
+        
+        java.lang.Object output = cadhab.conn.ConnectionManager.connect("/imovel/id?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+        
+        if (output != null) {
+            
+            if (output instanceof com.sys.habitacional.Imovel) {
+                
+                imovel = (com.sys.habitacional.Imovel) output;
+
+                idImovelAtual = imovel.getId();
+                idNucleoAtual = imovel.getIdNucleo();
+                jtxtNumeroDocumento.setText(imovel.getNumDocPropriedade());
+                jtxtValorAluguel.setText(com.data.NumberManager.formatMoneyPtbr(imovel.getValorAluguel()));
+                jtxtLocalidade.setText(imovel.getLocalidade());
+                jtxtIc.setText(imovel.getIc());
+                jtxtSelagem.setText(imovel.getSelagem());
+                jtxtAtendidoPor.setText(imovel.getAtendente());
+                jtxtAtualizadoPor.setText(imovel.getAtendenteAtualizacao());
+                jtxtDataAtualizacao.setText(imovel.getDataAtualizacao());
+                jcbbTipoImovel.setSelectedItem(imovel.getTipo());
+                jcbbTipoPropriedade.setSelectedItem(imovel.getTipoPropriedade());
+                jcbbDocumentoPropriedade.setSelectedItem(imovel.getDocPropriedade());
+                jcbbPagaIptu.setSelectedItem(imovel.getPagaIPTU());
+                
+            }
+            
+        }
+        
+    }
+    
+    private void carregarDadosNucleo() 
+            throws java.net.MalformedURLException, java.net.ConnectException, java.io.IOException {
+        
+        com.sys.urbano.Nucleo nucleo = new com.sys.urbano.Nucleo();
+        nucleo.setId(idNucleoAtual);
+                
+        com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+        String input = jsonMgr.parseJson(nucleo);
+        
+        java.lang.Object output = cadhab.conn.ConnectionManager.connect("/nucleo/id?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+        
+        if (output != null) {
+            
+            if (output instanceof com.sys.urbano.Nucleo) {
+                
+                nucleo = (com.sys.urbano.Nucleo) output;
+
+                jcbbNucleo.setSelectedItem(nucleo.getNome());
+                
+            }
+            
+        }
+        
+    }
+    
+    private void carregarDadosComposicao() 
+            throws java.net.MalformedURLException, java.net.ConnectException, java.io.IOException {
+        
+        com.sys.habitacional.ComposicaoImovel composicao = new com.sys.habitacional.ComposicaoImovel();
+        composicao.setIdImovel(idImovelAtual);
+        
+        com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+        String input = jsonMgr.parseJson(composicao);
+        
+        java.lang.Object output = cadhab.conn.ConnectionManager.connect("/composicao_imovel/imovel?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+        
+        if (output != null) {
+            
+            if (output instanceof com.sys.habitacional.ComposicaoImovel) {
+            
+                composicao = (com.sys.habitacional.ComposicaoImovel) output;
+
+                idComposicaoAtual = composicao.getId();
+                jtxtNumeroComodos.setText(com.data.NumberManager.formatIntegerPtbr(composicao.getNumeroComodos()));
+                jtxtNumeroSalas.setText(com.data.NumberManager.formatIntegerPtbr(composicao.getNumeroSalas()));
+                jtxtNumeroCozinhas.setText(com.data.NumberManager.formatIntegerPtbr(composicao.getNumeroCozinhas()));
+                jtxtNumeroQuartos.setText(com.data.NumberManager.formatIntegerPtbr(composicao.getNumeroQuartos()));
+                jtxtNumeroBanheiros.setText(com.data.NumberManager.formatIntegerPtbr(composicao.getNumeroBanheiros()));
+                jtxtNumeroAreasServicos.setText(com.data.NumberManager.formatIntegerPtbr(composicao.getNumeroAreasServicos()));
+                jtxtNumeroAnexos.setText(com.data.NumberManager.formatIntegerPtbr(composicao.getNumeroAnexos()));
+                jtxtNumeroOutros.setText(com.data.NumberManager.formatIntegerPtbr(composicao.getNumeroOutrosComodos()));
+                jtxtNumeroServemDormitorio.setText(com.data.NumberManager.formatIntegerPtbr(composicao.getNumeroServemDormitorio()));
+                jtxtaEspecifiqueParede.setText(composicao.getEspecifiqueParede());
+                jtxtaEspecifiquePiso.setText(composicao.getEspecifiquePiso());
+                jtxtaEspecifiqueCobertura.setText(composicao.getEspecifiqueCobertura());
+                jcbbMaterialParede.setSelectedItem(composicao.getMaterialParede());
+                jcbbMaterialPiso.setSelectedItem(composicao.getMaterialPiso());
+                jcbbMaterialCobertura.setSelectedItem(composicao.getMaterialCobertura());
+                jcbbConstrucao.setSelectedItem(composicao.getConstrucao());
+            
+            }
+            
+        }
+        
+    }
+    
+    private void carregarDadosEndereco() 
+            throws java.net.MalformedURLException, java.net.ConnectException, java.io.IOException {
+        
+        com.sys.habitacional.EnderecoImovel endereco = new com.sys.habitacional.EnderecoImovel();
+        endereco.setIdImovel(idImovelAtual);
+        
+        com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+        String input = jsonMgr.parseJson(endereco);
+        
+        java.lang.Object output = cadhab.conn.ConnectionManager.connect("/endereco_imovel/imovel?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+        
+        if (output != null) {
+            
+            if (output instanceof com.sys.habitacional.EnderecoImovel) {
+                
+                endereco = (com.sys.habitacional.EnderecoImovel) output;
+                
+                idEnderecoAtual = endereco.getId();
+                idMunicipioAtual = endereco.getIdMunicipio();
+                jtxtLogradouro.setText(endereco.getLogradouro());
+                jtxtNumero.setText(endereco.getNumero());
+                jtxtComplemento.setText(endereco.getComplemento());
+                jtxtBairro.setText(endereco.getBairro());
+                jtxtLatitude.setText(endereco.getLatitude());
+                jtxtLongitude.setText(endereco.getLongitude());
+                jcbbTipoLogradouro.setSelectedItem(endereco.getTipoLogradouro());
+                jcbbTipoArea.setSelectedItem(endereco.getTipoArea());
+                
+            }
+            
+        }
+        
+    }
+    
+    private void carregarDadosEnderecoAdicional() 
+            throws java.net.MalformedURLException, java.net.ConnectException, java.io.IOException {
+        
+        com.common.Municipio municipio = new com.common.Municipio();
+        municipio.setId(idMunicipioAtual);
+        
+        com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+        String input = jsonMgr.parseJson(municipio);
+        
+        java.lang.Object output = cadhab.conn.ConnectionManager.connect("/municipio/id?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+        
+        if (output != null) {
+            
+            if (output instanceof com.common.Municipio) {
+                
+                municipio = (com.common.Municipio) output;
+                
+                com.common.Estado estado = new com.common.Estado();
+                estado.setId(municipio.getIdEstado());
+
+                input = jsonMgr.parseJson(estado);
+
+                output = cadhab.conn.ConnectionManager.connect("/estado/id?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+
+                if (output != null) {
+
+                    if (output instanceof com.common.Estado) {
+                        
+                        estado = (com.common.Estado) output;
+                        jcbbUf.setSelectedItem(estado.getNome());
+                        
+                        preencherComboMunicipioPorIDEstado(estado.getId());
+                        jcbbMunicipio.setSelectedItem(municipio.getNome());
+                        
+                    }
+
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    private void carregarDadosServicos() 
+            throws java.net.MalformedURLException, java.net.ConnectException, java.io.IOException {
+        
+        com.sys.habitacional.ServicoImovel servico = new com.sys.habitacional.ServicoImovel();
+        servico.setIdImovel(idImovelAtual);
+        
+        com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+        String input = jsonMgr.parseJson(servico);
+        
+        java.lang.Object output = cadhab.conn.ConnectionManager.connect("/servico_imovel/imovel?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+        
+        if (output != null) {
+            
+            if (output instanceof com.sys.habitacional.ServicoImovel) {
+                
+                servico = (com.sys.habitacional.ServicoImovel) output;
+
+                idServicoAtual = servico.getId();
+                jtxtEspecifiqueIluminacao.setText(servico.getEspecifiqueIluminacao());
+                jcbbPavimentacao.setSelectedItem(servico.getExistePavimentacao());
+                jcbbQualPavimentacao.setSelectedItem(servico.getQualPavimentacao());
+                jcbbIluminacaoUtilizada.setSelectedItem(servico.getIluminacaoUtilizada());
+                jcbbAbastecimentoAgua.setSelectedItem(servico.getAbastecimentoAgua());
+                jcbbTratamentoAgua.setSelectedItem(servico.getTratamentoAgua());
+                jcbbAguaEncanada.setSelectedItem(servico.getAguaEncanada());
+                jcbbExisteBanheiro.setSelectedItem(servico.getExisteBanheiro());
+                jcbbEscoamentoSanitario.setSelectedItem(servico.getEscoamentoSanitario());
+                jcbbTratamentoLixo.setSelectedItem(servico.getTratamentoLixo());
+                jckbCachorros.setSelected(com.data.TextManager.parseTextBoolean(servico.getCaes()));
+                jckbGatos.setSelected(com.data.TextManager.parseTextBoolean(servico.getGatos()));
+                jckbAves.setSelected(com.data.TextManager.parseTextBoolean(servico.getAves()));
+                jckbSuinos.setSelected(com.data.TextManager.parseTextBoolean(servico.getSuinos()));
+                jckbInsetos.setSelected(com.data.TextManager.parseTextBoolean(servico.getInsetos()));
+                jckbRatos.setSelected(com.data.TextManager.parseTextBoolean(servico.getRatos()));
+                jckbCobras.setSelected(com.data.TextManager.parseTextBoolean(servico.getCobras()));
+                
+            }
+            
+        }
+        
+    }
+    
+    private void carregarDadosDemolicao() 
+            throws java.net.MalformedURLException, java.net.ConnectException, java.io.IOException {
+        
+        com.sys.habitacional.DemolicaoImovel demolicao = new com.sys.habitacional.DemolicaoImovel();
+        demolicao.setIdImovel(idImovelAtual);
+        
+        com.utils.JsonManager jsonMgr = new com.utils.JsonManager();
+        String input = jsonMgr.parseJson(demolicao);
+        
+        java.lang.Object output = cadhab.conn.ConnectionManager.connect("/demolicao_imovel/imovel?auth_token=" + cadhab.CadHab.usuario.getToken() + "&auth_key=" + cadhab.CadHab.usuario.getUserKey(), input);
+        
+        if (output != null) {
+            
+            if (output instanceof com.sys.habitacional.DemolicaoImovel) {
+                
+                demolicao = (com.sys.habitacional.DemolicaoImovel) output;
+                
+                if (demolicao.getId() > 0) {
+                    
+                    idDemolicaoAtual = demolicao.getId();
+                    jcbbDemolicao.setSelectedItem("Sim");
+                    jtxtDataDemolicao.setText(demolicao.getDataDemolicao());
+                    jtxtHorarioDemolicao.setText(demolicao.getHorarioDemolicao());
+                    jtxtNumeroProcessoDemolicao.setText(demolicao.getNumeroProcesso());
+                    jtxtaMotivoDemolicao.setText(demolicao.getMotivo());
+                    jtxtExecutadaPor.setText(demolicao.getExecutadoPor());
+                    
+                } else
+                    jcbbDemolicao.setSelectedItem("Não");
+                
+            }
+            
+        }
+        
+    }
+    
     private com.sys.habitacional.Imovel preencherDadosImovel() 
             throws java.lang.NumberFormatException {
         
@@ -2457,41 +3204,13 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
         servico.setExisteBanheiro(jcbbExisteBanheiro.getSelectedIndex() > 0 ? jcbbExisteBanheiro.getSelectedItem().toString() : "");
         servico.setEscoamentoSanitario(jcbbEscoamentoSanitario.getSelectedIndex() > 0 ? jcbbEscoamentoSanitario.getSelectedItem().toString() : "");
         servico.setTratamentoLixo(jcbbTratamentoLixo.getSelectedIndex() > 0 ? jcbbTratamentoLixo.getSelectedItem().toString() : "");
-        
-        if (jckbCachorros.isSelected())
-            servico.setCaes("Sim");
-        else
-            servico.setCaes("Não");
-        
-        if (jckbGatos.isSelected())
-            servico.setGatos("Sim");
-        else
-            servico.setGatos("Não");
-        
-        if (jckbAves.isSelected())
-            servico.setAves("Sim");
-        else
-            servico.setAves("Não");
-        
-        if (jckbSuinos.isSelected())
-            servico.setSuinos("Sim");
-        else
-            servico.setSuinos("Não");
-        
-        if (jckbInsetos.isSelected())
-            servico.setInsetos("Sim");
-        else
-            servico.setInsetos("Não");
-        
-        if (jckbRatos.isSelected())
-            servico.setRatos("Sim");
-        else
-            servico.setRatos("Não");
-        
-        if (jckbCobras.isSelected())
-            servico.setCobras("Sim");
-        else
-            servico.setCobras("Não");
+        servico.setCaes(com.data.TextManager.parseBooleanText(jckbCachorros.isSelected()));
+        servico.setGatos(com.data.TextManager.parseBooleanText(jckbGatos.isSelected()));
+        servico.setAves(com.data.TextManager.parseBooleanText(jckbAves.isSelected()));
+        servico.setSuinos(com.data.TextManager.parseBooleanText(jckbSuinos.isSelected()));
+        servico.setInsetos(com.data.TextManager.parseBooleanText(jckbInsetos.isSelected()));
+        servico.setRatos(com.data.TextManager.parseBooleanText(jckbRatos.isSelected()));
+        servico.setCobras(com.data.TextManager.parseBooleanText(jckbCobras.isSelected()));
         
         com.sys.habitacional.EnderecoImovel endereco = new com.sys.habitacional.EnderecoImovel();
         endereco.setTipoLogradouro(jcbbTipoLogradouro.getSelectedIndex() > 0 ? jcbbTipoLogradouro.getSelectedItem().toString() : "");
@@ -2621,6 +3340,96 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
             return false;
             
         }
+        
+    }
+    
+    private boolean checarCamposObrigatoriosDemolicao() {
+        
+        if (com.data.FieldManager.checkEmptyField(jtxtDataDemolicao) & com.data.FieldManager.checkEmptyField(jtxtHorarioDemolicao) 
+                & com.data.FieldManager.checkEmptyField(jtxtNumeroProcessoDemolicao) & com.data.FieldManager.checkEmptyField(jtxtaMotivoDemolicao) 
+                & com.data.FieldManager.checkEmptyField(jtxtExecutadaPor)) {
+            
+            return true;
+            
+        } else {
+         
+            return false;
+            
+        }
+        
+    }
+    
+    private void liberarTodosCamposObrigatorios() {
+        
+        liberarCamposObrigatoriosImovel();
+        liberarCamposObrigatoriosComposicao();
+        liberarCamposObrigatoriosEndereco();
+        liberarCamposObrigatoriosServicos();
+        liberarCamposObrigatoriosDemolicao();
+        
+    }
+    
+    private void liberarCamposObrigatoriosImovel() {
+        
+        com.data.FieldManager.releaseField(jlblNucleo);
+        com.data.FieldManager.releaseField(jlblTipoImovel);
+        com.data.FieldManager.releaseField(jlblTipoPropriedade);
+        com.data.FieldManager.releaseField(jlblDocumentoPropriedade);
+        com.data.FieldManager.releaseField(jlblPagaIptu);
+        
+    }
+    
+    private void liberarCamposObrigatoriosComposicao() {
+        
+        com.data.FieldManager.releaseField(jtxtNumeroComodos);
+        com.data.FieldManager.releaseField(jtxtNumeroSalas);
+        com.data.FieldManager.releaseField(jtxtNumeroCozinhas);
+        com.data.FieldManager.releaseField(jtxtNumeroQuartos);
+        com.data.FieldManager.releaseField(jtxtNumeroBanheiros);
+        com.data.FieldManager.releaseField(jtxtNumeroAreasServicos);
+        com.data.FieldManager.releaseField(jtxtNumeroAnexos);
+        com.data.FieldManager.releaseField(jtxtNumeroOutros);
+        com.data.FieldManager.releaseField(jtxtNumeroServemDormitorio);
+        com.data.FieldManager.releaseField(jlblMaterialParede);
+        com.data.FieldManager.releaseField(jlblMaterialPiso);
+        com.data.FieldManager.releaseField(jlblMaterialCobertura);
+        com.data.FieldManager.releaseField(jlblConstrucao);
+        
+    }
+    
+    private void liberarCamposObrigatoriosEndereco() {
+        
+        com.data.FieldManager.releaseField(jtxtLogradouro);
+        com.data.FieldManager.releaseField(jtxtNumero);
+        com.data.FieldManager.releaseField(jtxtBairro);
+        com.data.FieldManager.releaseField(jlblTipoLogradouro);
+        com.data.FieldManager.releaseField(jlblMunicipio);
+        com.data.FieldManager.releaseField(jlblUf);
+        com.data.FieldManager.releaseField(jlblTipoArea);
+        
+    }
+    
+    private void liberarCamposObrigatoriosServicos() {
+        
+        com.data.FieldManager.releaseField(jlblPavimentacao);
+        com.data.FieldManager.releaseField(jlblQualPavimentacao);
+        com.data.FieldManager.releaseField(jlblIluminacaoUtilizada);
+        com.data.FieldManager.releaseField(jlblAbastecimentoAgua);
+        com.data.FieldManager.releaseField(jlblTratamentoAgua);
+        com.data.FieldManager.releaseField(jlblAguaEncanada);
+        com.data.FieldManager.releaseField(jlblExisteBanheiro);
+        com.data.FieldManager.releaseField(jlblEscoamentoSanitario);
+        com.data.FieldManager.releaseField(jlblTratamentoLixo);
+        
+    }
+    
+    private void liberarCamposObrigatoriosDemolicao() {
+        
+        com.data.FieldManager.releaseField(jtxtDataDemolicao);
+        com.data.FieldManager.releaseField(jtxtHorarioDemolicao);
+        com.data.FieldManager.releaseField(jtxtNumeroProcessoDemolicao);
+        com.data.FieldManager.releaseField(jtxtaMotivoDemolicao);
+        com.data.FieldManager.releaseField(jtxtExecutadaPor);
         
     }
     
@@ -3092,6 +3901,7 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox jcbbAbastecimentoAgua;
     private javax.swing.JComboBox jcbbAguaEncanada;
     private javax.swing.JComboBox jcbbConstrucao;
+    private javax.swing.JComboBox jcbbDemolicao;
     private javax.swing.JComboBox jcbbDocumentoPropriedade;
     private javax.swing.JComboBox jcbbEscoamentoSanitario;
     private javax.swing.JComboBox jcbbExisteBanheiro;
@@ -3131,6 +3941,7 @@ public class FormGerenciarImovel extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jlblConstrucao;
     private javax.swing.JLabel jlblDataAtualizacao;
     private javax.swing.JLabel jlblDataDemolicao;
+    private javax.swing.JLabel jlblDemolicao;
     private javax.swing.JLabel jlblDocumentoPropriedade;
     private javax.swing.JLabel jlblEscoamentoSanitario;
     private javax.swing.JLabel jlblEspecifiqueCobertura;
